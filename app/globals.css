@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --blue: #124AF0;
+  --mint: #21F0B0;
+  --black: #292929;
+  --white: #FFFFFF;
+  --coral: #FA5C5C;
+  --bg-alt: #F4F7FF;
+  --border: #E8EDFF;
+  --text-secondary: #555555;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  direction: rtl;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Assistant', Arial, sans-serif;
+  background-color: var(--white);
+  color: var(--black);
+  line-height: 1.6;
+  margin: 0;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+}
+
+p { margin: 0; }
+
+a { text-decoration: none; color: inherit; }
