@@ -46,7 +46,7 @@ export default function Navigation() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          height: 140,
+          height: 270,
         }}
       >
         {/* Logo */}
@@ -55,7 +55,7 @@ export default function Navigation() {
             src="/logo.png"
             alt="מצב צבירה"
             style={{
-              height: 128,
+              height: 256,
               width: "auto",
               objectFit: "contain",
             }}

@@ -15,7 +15,7 @@ export default function ArticlesPage() {
   return (
     <>
       <Navigation />
-      <main style={{ paddingTop: 140 }}>
+      <main style={{ paddingTop: 270 }}>
         {/* Header */}
         <section style={{ background: "linear-gradient(135deg, #124AF0, #0a38c4)", padding: "72px 1.5rem 60px", textAlign: "center", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", top: -40, right: -40, width: 200, height: 200, borderRadius: "50%", background: "rgba(33,240,176,0.1)", filter: "blur(40px)", pointerEvents: "none" }} />
