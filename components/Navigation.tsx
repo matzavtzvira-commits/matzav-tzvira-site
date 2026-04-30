@@ -52,23 +52,18 @@ export default function Navigation() {
         }}
       >
         {/* Logo */}
-        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div
+        <Link href="/" style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src="/logo.png"
+            alt="מצב צבירה"
             style={{
-              width: 44, height: 24,
-              background: "#124AF0",
-              borderRadius: 12,
-              position: "relative",
-              display: "flex",
-              alignItems: "center",
-              padding: "0 3px",
+              height: 54,
+              width: "auto",
+              objectFit: "contain",
+              filter: !scrolled && isHome ? "brightness(0) invert(1)" : "none",
+              transition: "filter 0.3s",
             }}
-          >
-            <div style={{ width: 18, height: 18, borderRadius: "50%", background: "#21F0B0", marginRight: "auto" }} />
-          </div>
-          <span style={{ fontWeight: 700, fontSize: "1.15rem", color: scrolled || !isHome ? "#124AF0" : "white", letterSpacing: "-0.3px", transition: "color 0.3s" }}>
-            מצב צבירה
-          </span>
+          />
         </Link>
 
         {/* Desktop nav links */}
