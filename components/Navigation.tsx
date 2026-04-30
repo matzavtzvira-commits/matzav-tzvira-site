@@ -23,10 +23,8 @@ export default function Navigation() {
   }, []);
 
   const isHome = pathname === "/";
-  const navBg = scrolled || !isHome
-    ? "rgba(255,255,255,0.97)"
-    : "transparent";
-  const linkColor = scrolled || !isHome ? "#292929" : "white";
+  const navBg = "rgba(255,255,255,0.97)";
+  const linkColor = "#292929";
 
   return (
     <nav
@@ -35,8 +33,8 @@ export default function Navigation() {
         top: 0, right: 0, left: 0,
         zIndex: 100,
         background: navBg,
-        backdropFilter: scrolled || !isHome ? "blur(8px)" : "none",
-        boxShadow: scrolled || !isHome ? "0 2px 20px rgba(18,74,240,0.08)" : "none",
+        backdropFilter: "blur(8px)",
+        boxShadow: scrolled ? "0 2px 20px rgba(18,74,240,0.1)" : "0 1px 0 rgba(18,74,240,0.08)",
         transition: "all 0.3s",
         padding: "0 1.5rem",
       }}
@@ -48,7 +46,7 @@ export default function Navigation() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          height: 110,
+          height: 140,
         }}
       >
         {/* Logo */}
@@ -57,11 +55,9 @@ export default function Navigation() {
             src="/logo.png"
             alt="מצב צבירה"
             style={{
-              height: 100,
+              height: 128,
               width: "auto",
               objectFit: "contain",
-              filter: !scrolled && isHome ? "brightness(0) invert(1)" : "none",
-              transition: "filter 0.3s",
             }}
           />
         </Link>

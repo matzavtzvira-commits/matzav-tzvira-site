@@ -73,7 +73,7 @@ export default function VipPage() {
   return (
     <>
       <Navigation />
-      <main style={{ paddingTop: 110 }}>
+      <main style={{ paddingTop: 140 }}>
         {/* Hero */}
         <section style={{ background: "linear-gradient(135deg, #0a1a6e, #124AF0)", padding: "80px 1.5rem 64px", textAlign: "center", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", top: -60, right: -60, width: 300, height: 300, borderRadius: "50%", background: "rgba(33,240,176,0.08)", filter: "blur(70px)", pointerEvents: "none" }} />
