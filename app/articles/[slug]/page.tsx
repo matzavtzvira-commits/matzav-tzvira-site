@@ -150,7 +150,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   return (
     <>
       <Navigation />
-      <main style={{ paddingTop: 90 }}>
+      <main style={{ paddingTop: 110 }}>
         {/* Hero */}
         <section style={{ background: "linear-gradient(135deg, #124AF0, #0a38c4)", padding: "72px 1.5rem 60px", textAlign: "center" }}>
           <div style={{ fontSize: "3.5rem", marginBottom: 20 }}>{article.emoji}</div>
