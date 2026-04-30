@@ -259,7 +259,7 @@ export default function CalculatorsPage() {
   return (
     <>
       <Navigation />
-      <main style={{ paddingTop: 70 }}>
+      <main style={{ paddingTop: 90 }}>
         {/* Header */}
         <section style={{ background: "linear-gradient(135deg, #124AF0, #0a38c4)", padding: "72px 1.5rem 60px", textAlign: "center", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", top: -40, left: -40, width: 220, height: 220, borderRadius: "50%", background: "rgba(33,240,176,0.1)", filter: "blur(50px)", pointerEvents: "none" }} />
