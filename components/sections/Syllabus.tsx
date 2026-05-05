@@ -69,7 +69,7 @@ const chapters = [
 ];
 
 export default function Syllabus() {
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
     <section style={{ background: "white", padding: "48px 1.5rem" }}>
