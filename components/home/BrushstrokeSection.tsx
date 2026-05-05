@@ -9,7 +9,7 @@ function AnimatedIcon({ index }: { index: number }) {
   const p = (delay: number) => ({
     initial: { pathLength: 0, opacity: 0 },
     animate: isInView ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 },
-    transition: { duration: 0.7, delay, ease: "easeInOut" },
+    transition: { duration: 0.7, delay, ease: "easeInOut" as const },
   });
   const stroke = "#21F0B0";
   const base = { fill: "none" as const, stroke, strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
