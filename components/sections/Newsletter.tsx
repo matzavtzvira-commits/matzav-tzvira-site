@@ -5,9 +5,18 @@ export default function Newsletter() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
+    setLoading(true);
+    await fetch("/api/newsletter", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    setLoading(false);
     setSubmitted(true);
   };
 
@@ -67,7 +76,7 @@ export default function Newsletter() {
                 marginBottom: 20,
               }}
             >
-              🎁 מדריך חינמי
+              מדריך חינמי
             </div>
 
             <h2
@@ -107,7 +116,7 @@ export default function Newsletter() {
                   fontSize: "1.05rem",
                 }}
               >
-                ✓ תודה! המדריך בדרך לתיבת הדואר שלך
+                תודה! המדריך בדרך לתיבת הדואר שלך
               </div>
             ) : (
               <form
@@ -157,13 +166,13 @@ export default function Newsletter() {
                   onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
                   onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
                 >
-                  שלחי לי את המדריך ←
+                  {loading ? "שולחת..." : "שלחי לי את המדריך ←"}
                 </button>
               </form>
             )}
 
             <p style={{ opacity: 0.6, fontSize: "0.82rem", marginTop: 16 }}>
-              🔒 ללא ספאם. אפשר להסיר בכל עת.
+              ללא ספאם. אפשר להסיר בכל עת.
             </p>
           </div>
         </div>

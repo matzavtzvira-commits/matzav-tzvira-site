@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@700;800;900&family=Rubik:wght@300;400;500;600;700&display=swap');
 
 @import "tailwindcss";
 
@@ -11,6 +11,10 @@
   --bg-alt: #F4F7FF;
   --border: #E8EDFF;
   --text-secondary: #555555;
+
+  --font-heading: 'Heebo', Arial, sans-serif;
+  --font-body: 'Rubik', Arial, sans-serif;
+  --font-accent: 'Rubik', Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -21,7 +25,7 @@ html {
 }
 
 body {
-  font-family: 'Assistant', Arial, sans-serif;
+  font-family: var(--font-body);
   background-color: var(--white);
   color: var(--black);
   line-height: 1.6;
@@ -29,6 +33,7 @@ body {
 }
 
 h1, h2, h3, h4 {
+  font-family: var(--font-heading);
   font-weight: 700;
   line-height: 1.3;
   margin: 0;
@@ -36,6 +41,21 @@ h1, h2, h3, h4 {
 
 p { margin: 0; }
 a { text-decoration: none; color: inherit; }
+
+.font-heading { font-family: var(--font-heading); }
+.font-accent  { font-family: var(--font-accent); }
+
+/* Rubik — testimonial quotes, pull quotes, emphasis blocks */
+.quote-text {
+  font-family: var(--font-accent);
+  font-weight: 500;
+}
+
+/* Heebo on stat numbers in SocialProof / hero */
+.stat-number {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
 
 /* ── Animations ── */
 @keyframes fadeInUp {
@@ -91,4 +111,60 @@ a { text-decoration: none; color: inherit; }
 @keyframes slideInRight {
   from { opacity: 0; transform: translateX(40px); }
   to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes arrowMove {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(-6px); }
+}
+
+/* ── Accessibility ── */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  right: 0;
+  background: #124AF0;
+  color: #FFFFFF;
+  padding: 10px 24px;
+  font-weight: 700;
+  font-size: 1rem;
+  z-index: 9999;
+  border-radius: 0 0 10px 10px;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 0; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible {
+  outline: 3px solid #124AF0;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.prefooter-input::placeholder { color: rgba(255,255,255,0.6); }
+
+.arrow-anim {
+  display: inline-block;
+  animation: arrowMove 1s ease-in-out infinite;
 }

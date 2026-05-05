@@ -1,103 +1,123 @@
-"use client";
+﻿"use client";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function HomeAbout() {
   return (
-    <section id="about" style={{ background: "#F4F7FF", padding: "88px 1.5rem", position: "relative", overflow: "hidden" }}>
-      {/* orb */}
-      <div style={{ position: "absolute", top: -60, left: -60, width: 300, height: 300, borderRadius: "50%", background: "rgba(33,240,176,0.07)", filter: "blur(60px)", animation: "float 14s ease-in-out infinite", pointerEvents: "none" }} />
+    <section
+      id="about"
+      style={{
+        position: "relative",
+        padding: "56px 1.5rem 48px",
+        overflow: "hidden",
+        background: "#FFFFFF",
+      }}
+    >
 
-      <div style={{ maxWidth: 900, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 56, alignItems: "center" }}>
-        {/* Photo placeholder */}
-        <div
-          style={{
-            background: "linear-gradient(135deg, #124AF0, #0a38c4)",
-            borderRadius: 24,
-            aspectRatio: "3/4",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          <div style={{ position: "absolute", bottom: -30, right: -30, width: 160, height: 160, borderRadius: "50%", background: "rgba(33,240,176,0.15)", animation: "pulse 4s ease-in-out infinite" }} />
-          <div style={{ fontSize: "4rem", marginBottom: 16, position: "relative", zIndex: 1 }}>👩</div>
-          <p style={{ color: "white", fontWeight: 700, fontSize: "1rem", position: "relative", zIndex: 1 }}>רבקי וייס</p>
-          <p style={{ color: "#21F0B0", fontSize: "0.85rem", position: "relative", zIndex: 1 }}>מתכננת פיננסית</p>
-        </div>
+      <div style={{ maxWidth: 820, margin: "0 auto", position: "relative", zIndex: 1 }}>
 
-        {/* Text */}
-        <div>
-          <p style={{ color: "#21F0B0", fontWeight: 700, fontSize: "0.88rem", letterSpacing: 1, marginBottom: 8, background: "#124AF0", display: "inline-block", padding: "4px 16px", borderRadius: 50 }}>
-            נעים להכיר
-          </p>
-
-          <h2 style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.2rem)", color: "#124AF0", marginTop: 14, marginBottom: 24, lineHeight: 1.25 }}>
-            רבקי וייס
-            <br />
-            <span style={{ fontSize: "1rem", fontWeight: 400, color: "#555" }}>מתכננת פיננסית | מייסדת מצב צבירה</span>
+        {/* title */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          style={{ marginBottom: 40, display: "inline-block" }}>
+          <h2 style={{ color: "#070C24", fontSize: "clamp(1.9rem, 4vw, 2.8rem)", fontWeight: 800, margin: 0 }}>
+            השליחות שלי
           </h2>
+          <svg
+            viewBox="0 0 300 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{ width: "100%", display: "block", marginTop: -10 }}
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <filter id="sketch-about">
+                <feTurbulence type="fractalNoise" baseFrequency="0.04 0.08" numOctaves="3" seed="5" result="noise" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" />
+              </filter>
+            </defs>
+            <motion.path d="M4 5 Q75 3 150 6 Q225 9 296 5" stroke="#FA5C5C" strokeWidth="2.5" strokeLinecap="round" fill="none" filter="url(#sketch-about)" opacity="0.95"
+              initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }} />
+            <motion.path d="M8 8 Q80 6 155 9 Q230 11 292 7" stroke="#FA5C5C" strokeWidth="1.4" strokeLinecap="round" fill="none" filter="url(#sketch-about)" opacity="0.6"
+              initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.45, ease: "easeOut" }} />
+          </svg>
+        </motion.div>
 
-          <p style={{ color: "#292929", lineHeight: 1.9, fontSize: "1.02rem", marginBottom: 20 }}>
-            עד לפני שש שנים, סביר להניח שהיינו נפגשות כשאני עם מברשת ופן ביד. הייתי פאנית מצליחה, עובדת שעות על הרגליים — במירוץ שמעולם לא נגמר.
+        {/* mission text */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.65, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+
+          <p style={{ fontSize: "1.08rem", color: "#292929", lineHeight: 2, margin: 0, fontWeight: 500 }}>
+            אני מאמינה שההשתדלות הנכונה היא לא רק שעת עבודה
+            <br />
+            לא קידום מול הבוס
+            <br />
+            ולא הגדלת הכנסות וכמובן לא צמצום הוצאות
+            <br />
+            <span style={{ fontWeight: 800, color: "#124AF0" }}>כן, למנף בחכמה את הכסף שכבר יש לנו</span>
           </p>
 
-          {/* Pull quote */}
-          <div
-            style={{
-              borderRight: "4px solid #21F0B0",
-              paddingRight: 20,
-              marginBottom: 20,
-            }}
-          >
-            <p style={{ fontSize: "1.1rem", fontWeight: 700, color: "#124AF0", lineHeight: 1.5, fontStyle: "italic" }}>
-              "הבנתי שביום שהידיים שלי לא בפעולה — אין הכנסה."
+          <div style={{ borderRight: "4px solid #21F0B0", paddingRight: 20 }}>
+            <p style={{ fontSize: "1.13rem", fontWeight: 800, color: "#070C24", lineHeight: 2, margin: 0 }}>
+              פעם ידע = כוח
+              <br />
+              היום ידע = כסף
+              <br />
+              ואת הידע הזה?
+              <br />
+              אף אחד לא נתן לנו
             </p>
           </div>
 
-          <p style={{ color: "#555", lineHeight: 1.9, fontSize: "0.97rem", marginBottom: 28 }}>
-            היום אני מלווה 168 משפחות להשקעות ארוכות טווח ומעבירה סדנאות ברחבי הארץ — כי ידע פיננסי הוא לא מותרות, הוא זכות.
+          <p style={{ fontSize: "1.08rem", color: "#292929", lineHeight: 1.9, margin: 0, fontWeight: 500 }}>
+            השליחות שלי היא לשנות את זה. לתת לכל אישה שסוחבת כל כך הרבה על הכתפיים
+            <br />
+            <span style={{ fontSize: "0.75em" }}>—</span> את הכלים שיאפשרו לה להוריד את הרגל מהגז. לנשום. ולחזור לאמהות שלה.
           </p>
 
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <Link
-              href="/course"
-              style={{
-                background: "#124AF0",
-                color: "white",
-                padding: "13px 28px",
-                borderRadius: 50,
-                fontWeight: 700,
-                fontSize: "0.97rem",
-                display: "inline-block",
-                transition: "background 0.2s",
-              }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#21F0B0"; (e.currentTarget as HTMLElement).style.color = "#124AF0"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "#124AF0"; (e.currentTarget as HTMLElement).style.color = "white"; }}
-            >
-              לתוכנית המלאה ←
-            </Link>
-            <Link
-              href="/workshop"
-              style={{
-                border: "2px solid #124AF0",
-                color: "#124AF0",
-                padding: "11px 24px",
-                borderRadius: 50,
-                fontWeight: 600,
-                fontSize: "0.95rem",
-                display: "inline-block",
-                transition: "all 0.2s",
-              }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#124AF0"; (e.currentTarget as HTMLElement).style.color = "white"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = "#124AF0"; }}
-            >
-              סדנאות והרצאות
-            </Link>
+          <p style={{ fontSize: "1.08rem", color: "#292929", lineHeight: 1.9, margin: 0, fontWeight: 500 }}>
+            שורף אותי
+            <br />
+            לראות נשים מיוחדות שעבדו עשרות שנים והגיעו לצמתים החשובים בחיים
+            <br />
+            <span style={{ fontSize: "0.75em" }}>—</span> בלי שקל. רק כי הן לא ידעו.
+          </p>
+
+          <p style={{ fontSize: "1.2rem", fontWeight: 800, color: "#124AF0", lineHeight: 1.6, margin: 0 }}>
+            אני פה לצעוק שכולן ידעו.
+          </p>
+        </motion.div>
+
+        {/* name + button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          style={{ marginTop: 48, display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 24 }}>
+
+          <div>
+            <p style={{ fontSize: "clamp(2rem, 4vw, 2.8rem)", fontWeight: 800, color: "#070C24", margin: 0, lineHeight: 1.1 }}>
+              רבקי וייס
+            </p>
+            <div style={{ marginTop: 8, height: 4, width: "100%", borderRadius: 4, background: "linear-gradient(to left, #21F0B0, #124AF0)" }} />
+            <p style={{ marginTop: 8, fontSize: "0.88rem", color: "#666", fontWeight: 600 }}>
+              מתכננת פיננסית <span style={{ fontSize: "0.75em" }}>—</span> מייסדת מצב צבירה
+            </p>
           </div>
-        </div>
+
+          <Link href="/about" style={{ position: "relative", display: "inline-block", textDecoration: "none" }}>
+            <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "url('/btn-blue-new.svg?v=2')", backgroundRepeat: "no-repeat", backgroundSize: "110% 560%", backgroundPosition: "center 41%" }} />
+            <span style={{ position: "relative", zIndex: 1, color: "#FFFFFF", padding: "20px 64px", fontWeight: 800, fontSize: "1.05rem", display: "block", whiteSpace: "nowrap", textShadow: "0 0 12px rgba(255,255,255,0.8)" }}>
+              לסיפור המלא <span className="arrow-anim">←</span>
+            </span>
+          </Link>
+
+        </motion.div>
+
       </div>
     </section>
   );

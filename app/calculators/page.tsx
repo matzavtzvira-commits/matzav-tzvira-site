@@ -259,7 +259,7 @@ export default function CalculatorsPage() {
   return (
     <>
       <Navigation />
-      <main style={{ paddingTop: 270 }}>
+      <main style={{ paddingTop: 160 }}>
         {/* Header */}
         <section style={{ background: "linear-gradient(135deg, #124AF0, #0a38c4)", padding: "72px 1.5rem 60px", textAlign: "center", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", top: -40, left: -40, width: 220, height: 220, borderRadius: "50%", background: "rgba(33,240,176,0.1)", filter: "blur(50px)", pointerEvents: "none" }} />
@@ -270,29 +270,82 @@ export default function CalculatorsPage() {
           </p>
         </section>
 
-        {/* Jump links */}
-        <section style={{ background: "white", padding: "28px 1.5rem", borderBottom: "1px solid #E8EDFF" }}>
-          <div style={{ maxWidth: 800, margin: "0 auto", display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-            {[
-              { href: "#kids", label: "🌱 חיסכון לכל ילד" },
-              { href: "#fees", label: "📉 דמי ניהול" },
-              { href: "#compound", label: "📈 ריבית דריבית" },
-            ].map((l) => (
-              <a key={l.href} href={l.href} style={{ background: "#F4F7FF", color: "#124AF0", borderRadius: 50, padding: "10px 22px", fontWeight: 600, fontSize: "0.9rem", border: "2px solid #E8EDFF", transition: "all 0.2s", display: "inline-block" }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#124AF0"; (e.currentTarget as HTMLElement).style.color = "white"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "#F4F7FF"; (e.currentTarget as HTMLElement).style.color = "#124AF0"; }}>
-                {l.label}
-              </a>
-            ))}
-          </div>
-        </section>
+        {/* Calculator cards hub */}
+        <section style={{ background: "#F4F7FF", padding: "56px 1.5rem 72px" }}>
+          <div style={{ maxWidth: 900, margin: "0 auto" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24, marginBottom: 56 }}>
+              {[
+                {
+                  href: "/calculators/compound-interest",
+                  title: "ריבית דריבית",
+                  desc: "הפלא השמיני בתבל — תראי איך 500 ₪ בחודש הופכים לסכום שתתפלאי עליו. כולל דמי ניהול ודמי צבירה.",
+                  color: "#124AF0",
+                  badge: "חידה + אינפוגרפיקה",
+                },
+                {
+                  href: "#kids",
+                  title: "חיסכון לכל ילד",
+                  desc: "כמה יהיה לילד שלך בגיל 18 לפי המסלול שתבחרי — מנייתי מול ברירת מחדל.",
+                  color: "#21F0B0",
+                  badge: "בקרוב",
+                },
+                {
+                  href: "#fees",
+                  title: "מחשבון דמי ניהול",
+                  desc: "כמה כסף תחסכי אם תורידי 0.5% דמי ניהול בפנסיה? התשובה תפתיע אותך.",
+                  color: "#FA5C5C",
+                  badge: "בקרוב",
+                },
+              ].map((c, i) => (
+                <a
+                  key={i}
+                  href={c.href}
+                  style={{
+                    background: "white",
+                    borderRadius: 22,
+                    padding: "32px 28px",
+                    border: "2px solid #E8EDFF",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 12,
+                    textDecoration: "none",
+                    transition: "border-color 0.2s, transform 0.2s, box-shadow 0.2s",
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = c.color;
+                    (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = `0 12px 36px ${c.color}22`;
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "#E8EDFF";
+                    (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                    <div style={{ width: 44, height: 44, borderRadius: "50%", background: c.color, flexShrink: 0 }} />
+                    <span style={{ background: "#F4F7FF", color: "#888", fontSize: "0.72rem", fontWeight: 600, padding: "4px 12px", borderRadius: 50, border: "1px solid #E8EDFF" }}>
+                      {c.badge}
+                    </span>
+                  </div>
+                  <h3 style={{ fontWeight: 700, color: "#070C24", fontSize: "1.1rem" }}>{c.title}</h3>
+                  <p style={{ fontSize: "0.88rem", color: "#666", lineHeight: 1.75 }}>{c.desc}</p>
+                  <span style={{ color: c.color, fontWeight: 700, fontSize: "0.88rem", marginTop: 4 }}>
+                    לכלי ←
+                  </span>
+                </a>
+              ))}
+            </div>
 
-        {/* Calculators */}
-        <section style={{ background: "#F4F7FF", padding: "56px 1.5rem" }}>
-          <div style={{ maxWidth: 800, margin: "0 auto", display: "flex", flexDirection: "column", gap: 32 }}>
-            <KidsCalc />
-            <FeesCalc />
-            <CompoundCalc />
+            {/* Legacy calculators below */}
+            <p style={{ color: "#aaa", fontSize: "0.82rem", textAlign: "center", marginBottom: 32, fontStyle: "italic" }}>
+              מחשבונים נוספים — גרסה מהירה
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
+              <KidsCalc />
+              <FeesCalc />
+              <CompoundCalc />
+            </div>
           </div>
         </section>
 

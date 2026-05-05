@@ -1,163 +1,185 @@
 "use client";
+import { motion } from "framer-motion";
 
 export default function HomeHero() {
   return (
-    <section style={{ position: "relative", height: "100vh", minHeight: 600, overflow: "hidden" }}>
-      {/* Video background */}
-      <video
-        autoPlay loop muted playsInline
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }}
-        poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3C/svg%3E"
+    <section
+      style={{
+        position: "relative",
+        minHeight: "100vh",
+        background: "#070C24",
+        overflow: "hidden",
+        paddingTop: 80,
+      }}
+    >
+      {/* Video - left side */}
+      <div
+        style={{
+          position: "absolute",
+          top: 80,
+          left: 0,
+          bottom: 0,
+          width: "48%",
+        }}
       >
-        <source src="https://videos.pexels.com/video-files/3948498/3948498-hd_1920_1080_30fps.mp4" type="video/mp4" />
-      </video>
+        <video
+          autoPlay loop muted playsInline
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        >
+          <source src="/hero-video.mp4" type="video/mp4" />
+        </video>
+        {/* Fade to dark toward center */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0, right: 0, bottom: 0,
+            width: "50%",
+            background: "linear-gradient(to right, transparent, #070C24)",
+          }}
+        />
+      </div>
 
-      {/* Dark overlay */}
-      <div style={{ position: "absolute", inset: 0, background: "rgba(5,10,40,0.62)", zIndex: 1 }} />
-
-      {/* Floating orbs */}
-      <div style={{ position: "absolute", top: "10%", left: "5%", width: 420, height: 420, borderRadius: "50%", background: "rgba(18,74,240,0.18)", filter: "blur(80px)", animation: "float 12s ease-in-out infinite", zIndex: 1, pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: "15%", right: "8%", width: 280, height: 280, borderRadius: "50%", background: "rgba(33,240,176,0.12)", filter: "blur(60px)", animation: "floatAlt 9s ease-in-out infinite", zIndex: 1, pointerEvents: "none" }} />
-
-      {/* Glass panel */}
+      {/* Right side — content */}
       <div
         style={{
           position: "relative",
           zIndex: 2,
-          height: "100%",
+          height: "calc(100vh - 80px)",
           display: "flex",
           alignItems: "center",
-          justifyContent: "flex-end",
-          padding: "0 5%",
+          justifyContent: "flex-start",
+          paddingRight: "5%",
+          paddingLeft: "52%",
         }}
       >
-        <div
-          style={{
-            background: "rgba(18,74,240,0.15)",
-            backdropFilter: "blur(14px)",
-            WebkitBackdropFilter: "blur(14px)",
-            border: "1px solid rgba(255,255,255,0.18)",
-            borderRadius: 28,
-            padding: "52px 52px 48px",
-            maxWidth: 560,
-            width: "100%",
-            textAlign: "right",
-          }}
-        >
-          {/* Badge */}
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              background: "#21F0B0",
-              color: "#124AF0",
-              borderRadius: 50,
-              padding: "5px 16px",
-              fontSize: "0.85rem",
-              fontWeight: 700,
-              marginBottom: 24,
-              animation: "fadeInUp 0.6s ease 0.1s both",
-            }}
+        <div style={{ maxWidth: 520 }}>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            style={{ color: "#21F0B0", fontSize: "1rem", fontWeight: 600, marginBottom: 24, letterSpacing: 0.5 }}
           >
-            מומחית שוק ההון לנשים חרדיות
-          </div>
+            הבית הפיננסי שלך
+          </motion.p>
 
-          {/* H1 */}
-          <h1
-            style={{
-              fontSize: "clamp(2rem, 5vw, 3rem)",
-              fontWeight: 700,
-              color: "white",
-              lineHeight: 1.2,
-              marginBottom: 16,
-              animation: "fadeInUp 0.6s ease 0.3s both",
-            }}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            style={{ color: "white", fontSize: "clamp(2.8rem, 5vw, 4.2rem)", fontWeight: 700, lineHeight: 1.2, marginBottom: 36 }}
           >
-            הכסף שלך יכול לעבוד —
-            <br />
-            <span style={{ color: "#21F0B0" }}>גם בלי שתגעי בו</span>
-          </h1>
+            רבקי וייס נותנת לך מטריה פיננסית.
+          </motion.h1>
 
-          {/* Sub */}
-          <p
-            style={{
-              fontSize: "1.15rem",
-              color: "rgba(255,255,255,0.88)",
-              lineHeight: 1.7,
-              marginBottom: 8,
-              animation: "fadeInUp 0.6s ease 0.5s both",
-            }}
-          >
-            הון נצבר מהשקעות — לא מעוד שעות עבודה
-          </p>
-          <p
-            style={{
-              fontSize: "0.97rem",
-              color: "rgba(255,255,255,0.68)",
-              lineHeight: 1.7,
-              marginBottom: 36,
-              animation: "fadeInUp 0.6s ease 0.55s both",
-            }}
-          >
-            ליווי משפחות להשקעות ארוכות טווח. כי כשאת יודעת — את שולטת.
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 32, textShadow: "0 0 12px rgba(255,255,255,0.9), 0 0 30px rgba(255,255,255,0.6)" }}>
+            <p style={{ color: "#FFFFFF", fontSize: "1.25rem", fontWeight: 400, margin: 0, lineHeight: 1.6 }}>
+              בשפה שרק אנחנו מבינות.
+            </p>
+            <p style={{ color: "#FFFFFF", fontSize: "1.25rem", fontWeight: 400, margin: 0, lineHeight: 1.6 }}>
+              כל מה שאת צריכה <span style={{ fontSize: "0.75em", opacity: 0.6 }}>—</span>
+            </p>
+            <p style={{ color: "#FFFFFF", fontSize: "1.25rem", fontWeight: 400, margin: 0, lineHeight: 1.6 }}>
+              תחת מטריה אחת.
+            </p>
+          </motion.div>
 
-          {/* CTAs */}
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", animation: "fadeInUp 0.6s ease 0.8s both" }}>
-            <a
-              href="/course"
-              style={{
-                background: "#124AF0",
-                color: "white",
-                padding: "14px 28px",
-                borderRadius: 50,
-                fontWeight: 700,
-                fontSize: "1rem",
-                display: "inline-block",
-                transition: "background 0.2s, transform 0.15s",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "#21F0B0"; e.currentTarget.style.color = "#124AF0"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = "#124AF0"; e.currentTarget.style.color = "white"; e.currentTarget.style.transform = "translateY(0)"; }}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            style={{ position: "relative", display: "inline-block" }}>
+            <p style={{ color: "#FA5C5C", fontSize: "1.1rem", margin: 0, fontWeight: 600 }}>
+              בלי נוסחאות. בלי חליפות. עם נעלי בית.
+            </p>
+            <svg
+              viewBox="0 0 300 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ width: "100%", display: "block", marginTop: 1 }}
+              preserveAspectRatio="none"
             >
-              לתוכנית הקורס ←
-            </a>
-            <a
-              href="#about"
-              style={{
-                background: "rgba(255,255,255,0.12)",
-                color: "white",
-                padding: "14px 28px",
-                borderRadius: 50,
-                fontWeight: 600,
-                fontSize: "1rem",
-                display: "inline-block",
-                border: "1px solid rgba(255,255,255,0.3)",
-                transition: "background 0.2s",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.22)")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.12)")}
-            >
-              קראי עלי
-            </a>
-          </div>
+              <defs>
+                <filter id="sketch">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.04 0.08" numOctaves="3" seed="5" result="noise" />
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" />
+                </filter>
+              </defs>
+              <motion.path
+                d="M4 5 Q75 3 150 6 Q225 9 296 5"
+                stroke="#FA5C5C"
+                strokeWidth="2"
+                strokeLinecap="round"
+                fill="none"
+                filter="url(#sketch)"
+                opacity="0.95"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 0.9, delay: 1.0, ease: "easeOut" }}
+              />
+              <motion.path
+                d="M8 8 Q80 6 155 9 Q230 11 292 7"
+                stroke="#FA5C5C"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                fill="none"
+                filter="url(#sketch)"
+                opacity="0.6"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 0.9, delay: 1.15, ease: "easeOut" }}
+              />
+            </svg>
+          </motion.div>
+
+
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll arrow */}
       <div
         style={{
           position: "absolute",
-          bottom: 32,
+          bottom: 36,
           left: "50%",
           transform: "translateX(-50%)",
-          zIndex: 2,
-          color: "rgba(255,255,255,0.5)",
-          fontSize: "1.5rem",
-          animation: "float 2.5s ease-in-out infinite",
+          zIndex: 3,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 6,
         }}
       >
-        ↓
+        <style>{`
+          @keyframes arrowBounce {
+            0%   { opacity: 0; transform: translateY(-10px); }
+            50%  { opacity: 1; transform: translateY(0px); }
+            100% { opacity: 0; transform: translateY(10px); }
+          }
+        `}</style>
+        {[0, 1, 2].map((i) => (
+          <svg
+            key={i}
+            width="32"
+            height="18"
+            viewBox="0 0 32 18"
+            fill="none"
+            style={{
+              animation: `arrowBounce 1.5s ease-in-out ${i * 0.3}s infinite`,
+            }}
+          >
+            <polyline
+              points="2,2 16,14 30,2"
+              stroke="white"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        ))}
       </div>
     </section>
   );

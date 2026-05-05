@@ -50,7 +50,7 @@ export default function Magazine() {
               flexShrink: 0,
             }}
           >
-            📰
+            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "#124AF0" }}>עיתון</span>
           </div>
           <div style={{ textAlign: "right" }}>
             <div style={{ fontWeight: 700, color: "#124AF0", fontSize: "1.05rem" }}>

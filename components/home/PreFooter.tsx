@@ -3,7 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 const services = [
-  { label: 'הקורס: "הכסף ישתדל, ואת תנוחי"', href: "/course" },
+  { label: "התוכנית הדיגיטלית MUSTרית", href: "/course" },
   { label: "ליווי VIP אישי", href: "/vip" },
   { label: "סדנאות והרצאות לארגונים", href: "/workshop" },
   { label: "מחשבונים פיננסיים חינמיים", href: "/calculators" },
@@ -14,10 +14,21 @@ export default function PreFooter() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [consent, setConsent] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !name) return;
+    if (!email || !name || !consent) return;
+    setLoading(true);
+    try {
+      await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email }),
+      });
+    } catch {}
+    setLoading(false);
     setSubmitted(true);
   };
 
@@ -80,58 +91,78 @@ export default function PreFooter() {
               חינמי לגמרי
             </div>
             <h3 style={{ fontSize: "clamp(1.3rem, 2.8vw, 1.8rem)", fontWeight: 700, color: "white", lineHeight: 1.3, marginBottom: 12 }}>
-              הצטרפי לקהילת הנשים
+              קהילת צוברות פיננסיות
               <br />
-              <span style={{ color: "#21F0B0" }}>שמדברות שוק ההון</span>
+              <span style={{ color: "#21F0B0" }}>קהילת הנשים שמדברות שוק ההון</span>
             </h3>
-            <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.92rem", lineHeight: 1.9, marginBottom: 8 }}>
+            <p style={{ color: "#FFFFFF", fontSize: "0.92rem", lineHeight: 1.9, marginBottom: 8 }}>
               נשים צוברות. פיננסיות. פעילות.
             </p>
-            <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.88rem", lineHeight: 1.9, marginBottom: 28 }}>
-              כל שבוע: מדריך קצר, עדכון שוק ההון בשפה שלנו, וטיפ שאפשר ליישם היום.
+            <p style={{ color: "#FFFFFF", fontSize: "0.88rem", lineHeight: 1.9, marginBottom: 28 }}>
+              כל שבוע: תוכן פיננסי בשפה שלנו, וטיפ שאפשר ליישם היום.
               <br />
-              <strong style={{ color: "#21F0B0" }}>+ מיני-קורס חינמי</strong> "5 צעדים ראשונים בשוק ההון" ישירות למייל.
+              <strong style={{ color: "#21F0B0" }}>+ סרטון חינמי</strong> &ldquo;5 הטעויות הנפוצות שנשים עושות בשוק ההון&rdquo; ישירות למייל.
+              <br />
+              <span style={{ color: "#FFFFFF", fontSize: "0.82rem" }}>(בלי ספאם. בלי שטויות. רק ידע שווה.)</span>
             </p>
 
             {submitted ? (
               <div style={{ background: "#21F0B0", color: "#124AF0", borderRadius: 16, padding: "20px 24px", fontWeight: 700, fontSize: "1rem" }}>
-                ✓ ברוך הבא לקהילה! המיני-קורס בדרך אלייך
+                נרשמת! המיני-קורס בדרך אלייך
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <label htmlFor="prefooter-name" className="sr-only">שם מלא</label>
                 <input
+                  id="prefooter-name"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="השם שלך"
                   required
-                  style={{ padding: "14px 20px", borderRadius: 50, border: "none", fontSize: "1rem", outline: "none", direction: "rtl", color: "#292929" }}
+                  className="prefooter-input" style={{ padding: "14px 20px", borderRadius: 50, border: "2px solid rgba(255,255,255,0.5)", background: "rgba(255,255,255,0.1)", fontSize: "1rem", direction: "rtl", color: "#FFFFFF" }}
                 />
+                <label htmlFor="prefooter-email" className="sr-only">כתובת אימייל</label>
                 <input
+                  id="prefooter-email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="כתובת האימייל שלך"
                   required
-                  style={{ padding: "14px 20px", borderRadius: 50, border: "none", fontSize: "1rem", outline: "none", direction: "rtl", color: "#292929" }}
+                  className="prefooter-input" style={{ padding: "14px 20px", borderRadius: 50, border: "2px solid rgba(255,255,255,0.5)", background: "rgba(255,255,255,0.1)", fontSize: "1rem", direction: "rtl", color: "#FFFFFF" }}
                 />
+                <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}>
+                  <input
+                    type="checkbox"
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
+                    style={{ width: 18, height: 18, accentColor: "#21F0B0", cursor: "pointer", flexShrink: 0 }}
+                  />
+                  <span style={{ color: "#FFFFFF", fontSize: "0.85rem", lineHeight: 1.5 }}>
+                    אני מאשרת קבלת תכנים ממצב צבירה
+                  </span>
+                </label>
                 <button
                   type="submit"
+                  disabled={!consent}
                   style={{
-                    background: "#21F0B0",
-                    color: "#124AF0",
-                    border: "none",
+                    background: "transparent",
+                    color: "#FFFFFF",
+                    textShadow: "0 0 8px #fff, 0 0 24px rgba(255,255,255,0.9), 0 0 48px rgba(255,255,255,0.6)",
+                    border: "2px solid rgba(255,255,255,0.9)",
+                    boxShadow: "0 0 16px rgba(255,255,255,0.25)",
                     borderRadius: 50,
                     padding: "15px",
                     fontWeight: 700,
                     fontSize: "1rem",
-                    cursor: "pointer",
-                    transition: "transform 0.15s",
+                    cursor: consent ? "pointer" : "not-allowed",
+                    transition: "transform 0.15s, opacity 0.2s",
                   }}
                   onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "translateY(-2px)")}
                   onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "translateY(0)")}
                 >
-                  אני מצטרפת לקהילה ←
+                  {loading ? "שולחת..." : <>אני מצטרפת לקהילה <span className="arrow-anim">←</span></>}
                 </button>
               </form>
             )}
@@ -141,29 +172,6 @@ export default function PreFooter() {
           </div>
         </div>
 
-        {/* Contact bar */}
-        <div
-          style={{
-            borderTop: "1px solid rgba(255,255,255,0.12)",
-            marginTop: 52,
-            paddingTop: 28,
-            display: "flex",
-            justifyContent: "center",
-            gap: 40,
-            flexWrap: "wrap",
-          }}
-        >
-          <a href="tel:0527065653" style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.92rem", display: "flex", alignItems: "center", gap: 8, transition: "color 0.2s", direction: "ltr" }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#21F0B0")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.65)")}>
-            <span>📞</span> 052-706-5653
-          </a>
-          <a href="mailto:matzavtzvira@gmail.com" style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.92rem", display: "flex", alignItems: "center", gap: 8, transition: "color 0.2s" }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#21F0B0")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.65)")}>
-            <span>✉️</span> matzavtzvira@gmail.com
-          </a>
-        </div>
       </div>
     </section>
   );

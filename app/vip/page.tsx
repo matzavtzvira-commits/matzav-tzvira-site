@@ -4,10 +4,10 @@ import Footer from "@/components/Footer";
 import { useState } from "react";
 
 const features = [
-  { icon: "🎯", title: "תוכנית אישית", desc: "לא קורס גנרי — תוכנית שבנויה בשבילך בלבד, לפי המצב הפיננסי שלך" },
-  { icon: "📞", title: "פגישות אחד-על-אחד", desc: "פגישות וידאו אישיות עם רבקי, בזמן שנוח לך" },
-  { icon: "💬", title: "ליווי שוטף", desc: "גישה לרבקי בין הפגישות — שאלות, תקיעויות, החלטות שצריך לקבל" },
-  { icon: "📊", title: "ניתוח תיק אישי", desc: "בדיקה מעמיקה של הפנסיה, הביטוחים והחיסכון שלך" },
+  { icon: "", title: "תוכנית אישית", desc: "לא קורס גנרי — תוכנית שבנויה בשבילך בלבד, לפי המצב הפיננסי שלך" },
+  { icon: "", title: "פגישות אחד-על-אחד", desc: "פגישות וידאו אישיות עם רבקי, בזמן שנוח לך" },
+  { icon: "", title: "ליווי שוטף", desc: "גישה לרבקי בין הפגישות — שאלות, תקיעויות, החלטות שצריך לקבל" },
+  { icon: "", title: "ניתוח תיק אישי", desc: "בדיקה מעמיקה של הפנסיה, הביטוחים והחיסכון שלך" },
 ];
 
 const q1Options = [
@@ -73,7 +73,7 @@ export default function VipPage() {
   return (
     <>
       <Navigation />
-      <main style={{ paddingTop: 270 }}>
+      <main style={{ paddingTop: 160 }}>
         {/* Hero */}
         <section style={{ background: "linear-gradient(135deg, #0a1a6e, #124AF0)", padding: "80px 1.5rem 64px", textAlign: "center", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", top: -60, right: -60, width: 300, height: 300, borderRadius: "50%", background: "rgba(33,240,176,0.08)", filter: "blur(70px)", pointerEvents: "none" }} />
@@ -186,7 +186,7 @@ export default function VipPage() {
             <div style={{ maxWidth: 560, margin: "0 auto" }}>
               <div style={{ background: "#21F0B0", borderRadius: 16, padding: "20px 24px", textAlign: "center", marginBottom: 32 }}>
                 <p style={{ color: "#124AF0", fontWeight: 700, fontSize: "1rem", margin: 0 }}>
-                  ✓ ענית על כל השאלות! רבקי תיצור איתך קשר להתאמה אישית
+                  ענית על כל השאלות! רבקי תיצור איתך קשר להתאמה אישית
                 </p>
               </div>
               <div style={{ background: "white", borderRadius: 24, padding: "48px 40px", border: "1px solid #E8EDFF" }}>

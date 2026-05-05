@@ -16,9 +16,12 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@700;800;900&family=Rubik:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
       </head>
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        <a href="#main-content" className="skip-link">דלג לתוכן הראשי</a>
+        {children}
+      </body>
     </html>
   );
 }

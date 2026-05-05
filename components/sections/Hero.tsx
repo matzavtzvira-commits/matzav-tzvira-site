@@ -1,197 +1,132 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 export default function Hero() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    el.style.opacity = "0";
-    el.style.transform = "translateY(30px)";
-    setTimeout(() => {
-      el.style.transition = "opacity 0.8s ease, transform 0.8s ease";
-      el.style.opacity = "1";
-      el.style.transform = "translateY(0)";
-    }, 100);
-  }, []);
-
   return (
-    <section
-      style={{
-        minHeight: "100vh",
-        background: "linear-gradient(160deg, #F4F7FF 0%, #ffffff 60%)",
-        display: "flex",
-        alignItems: "center",
-        paddingTop: 90,
-        paddingBottom: 60,
-      }}
-    >
-      <div
-        style={{ maxWidth: 1100, margin: "0 auto", padding: "0 1.5rem", width: "100%" }}
-      >
-        <div ref={ref} style={{ maxWidth: 700 }}>
-          {/* Badge */}
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              background: "#E8EDFF",
-              color: "#124AF0",
-              borderRadius: 50,
-              padding: "6px 16px",
-              fontSize: "0.88rem",
-              fontWeight: 600,
-              marginBottom: 24,
-            }}
-          >
-            <span style={{ color: "#21F0B0" }}>●</span>
-            תוכנית ייחודית לנשים חרדיות
-          </div>
+    <section style={{
+      background: "radial-gradient(ellipse at 50% 30%, #1535B5 0%, #060D3C 65%)",
+      paddingTop: 100,
+      paddingBottom: 64,
+      position: "relative",
+      overflow: "hidden",
+    }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 1.5rem", width: "100%" }}>
+        <div className="hero-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 56, alignItems: "center" }}>
 
-          {/* Main headline */}
-          <h1
-            style={{
-              fontSize: "clamp(2.4rem, 6vw, 4rem)",
-              color: "#124AF0",
-              marginBottom: 16,
-              lineHeight: 1.2,
-            }}
-          >
-            הכסף ישתדל,
-            <br />
-            <span
-              style={{
-                position: "relative",
-                display: "inline-block",
-              }}
-            >
-              ואת תנוחי
-              <span
-                style={{
-                  position: "absolute",
-                  bottom: -4,
-                  right: 0,
-                  width: "100%",
-                  height: 5,
-                  background: "#21F0B0",
-                  borderRadius: 3,
-                }}
-              />
-            </span>
-          </h1>
+          {/* RIGHT — text */}
+          <div className="hero-text" style={{ textAlign: "right" }}>
 
-          {/* Subtitle */}
-          <p
-            style={{
-              fontSize: "clamp(1.1rem, 2.5vw, 1.35rem)",
-              color: "#292929",
-              fontWeight: 600,
-              marginBottom: 12,
-            }}
-          >
-            התוכנית הקצרה והבטוחה שלך להפוך למשקיעה בשוק ההון בביטחון מלא.
-          </p>
-
-          <p
-            style={{
-              fontSize: "1.05rem",
-              color: "#555",
-              marginBottom: 40,
-            }}
-          >
-            קצרה, ממוקדת, אישית — ותכל&apos;ס בשפה שרק אנחנו מבינות 💛
-          </p>
-
-          {/* CTAs */}
-          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-            <a
-              href="#pricing"
-              style={{
-                background: "#124AF0",
-                color: "white",
-                padding: "16px 36px",
-                borderRadius: 50,
-                fontWeight: 700,
-                fontSize: "1.1rem",
-                cursor: "pointer",
-                display: "inline-block",
-                transition: "background 0.2s, transform 0.1s",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#21F0B0";
-                e.currentTarget.style.color = "#292929";
-                e.currentTarget.style.transform = "translateY(-2px)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "#124AF0";
-                e.currentTarget.style.color = "white";
-                e.currentTarget.style.transform = "translateY(0)";
-              }}
-            >
-              אני רוצה להצטרף ←
-            </a>
-            <a
-              href="#about"
-              style={{
-                background: "transparent",
-                color: "#124AF0",
-                padding: "16px 36px",
-                borderRadius: 50,
-                fontWeight: 700,
-                fontSize: "1.05rem",
-                border: "2px solid #124AF0",
-                cursor: "pointer",
-                display: "inline-block",
-                transition: "all 0.2s",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#124AF0";
-                e.currentTarget.style.color = "white";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.color = "#124AF0";
-              }}
-            >
-              קראי עלי קודם
-            </a>
-          </div>
-
-          {/* Trust indicators */}
-          <div
-            style={{
-              display: "flex",
-              gap: 32,
-              marginTop: 48,
-              flexWrap: "wrap",
-            }}
-          >
-            {[
-              { num: "1,300+", label: "נשים בתוכנית" },
-              { num: "4", label: "שנות ניסיון" },
-              { num: "14 יום", label: "אחריות מלאה" },
-            ].map((item) => (
-              <div key={item.label} style={{ textAlign: "right" }}>
-                <div
-                  style={{
-                    fontSize: "1.8rem",
-                    fontWeight: 700,
-                    color: "#124AF0",
-                    lineHeight: 1,
-                  }}
-                >
-                  {item.num}
-                </div>
-                <div style={{ fontSize: "0.85rem", color: "#555", marginTop: 4 }}>
-                  {item.label}
-                </div>
+            {/* MUST */}
+            <div style={{ marginBottom: 20 }}>
+              <p style={{ color: "#FFFFFF", fontSize: "0.9rem", fontWeight: 700, marginBottom: 0, letterSpacing: 2 }}>תוכנית</p>
+              <div style={{ display: "flex", justifyContent: "flex-end", lineHeight: 1, direction: "ltr" }}>
+                {[
+                  { letter: "M", color: "#FFFFFF" },
+                  { letter: "U", color: "#21F0B0" },
+                  { letter: "S", color: "#FA5C5C" },
+                  { letter: "T", color: "#FFFFFF" },
+                ].map(({ letter, color }, i) => (
+                  <motion.span
+                    key={i}
+                    initial={{ opacity: 0, y: 36 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 + i * 0.13, ease: [0.22, 1, 0.36, 1] }}
+                    style={{ display: "inline-block", fontSize: "clamp(2.2rem, 4.8vw, 4rem)", fontWeight: 900, color, fontFamily: "'Rubik', sans-serif", letterSpacing: "0.04em" }}
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
               </div>
-            ))}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.65, duration: 0.4 }}
+                style={{ color: "#FFFFFF", fontSize: "0.95rem", fontWeight: 700, marginTop: 2, letterSpacing: 1 }}
+              >
+                לכל אישה
+              </motion.p>
+            </div>
+
+            {/* Headline */}
+            <h1 style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)", fontWeight: 800, lineHeight: 1.35, margin: "0 0 12px", color: "#FFFFFF" }}>
+              הגיע הזמן שגם הכסף שלך
+              <br />
+              יעשה השתדלות <span style={{ fontSize: "0.75em" }}>—</span>
+              <br />
+              <span style={{ color: "#FA5C5C", display: "inline-block" }}>
+                לא רק את.
+                <svg viewBox="0 0 300 12" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: 140, display: "block", marginTop: 1 }} preserveAspectRatio="none">
+                  <defs>
+                    <filter id="heroSketch">
+                      <feTurbulence type="fractalNoise" baseFrequency="0.04 0.08" numOctaves="3" seed="5" result="noise" />
+                      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" />
+                    </filter>
+                  </defs>
+                  <motion.path d="M4 5 Q75 3 150 6 Q225 9 296 5" stroke="#FA5C5C" strokeWidth="2" strokeLinecap="round" fill="none" filter="url(#heroSketch)" opacity="0.95" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.9, delay: 1.0, ease: "easeOut" }} />
+                  <motion.path d="M8 8 Q80 6 155 9 Q230 11 292 7" stroke="#FA5C5C" strokeWidth="1.2" strokeLinecap="round" fill="none" filter="url(#heroSketch)" opacity="0.6" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.9, delay: 1.15, ease: "easeOut" }} />
+                </svg>
+              </span>
+            </h1>
+
+            <p style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.7)", lineHeight: 1.8, marginBottom: 24 }}>
+              הידע הפיננסי שהיה צריך ללמד אותנו בבית הספר.
+              <br />
+              שוק ההון, פנסיה, השקעות, דמי ניהול <span style={{ fontSize: "0.75em" }}>—</span> בשפה שלנו, פעם אחת ולתמיד.
+            </p>
+
+            {/* CTAs */}
+            <div className="hero-cta" style={{ display: "flex", gap: 12, alignItems: "center", justifyContent: "flex-start", marginBottom: 28, transform: "translateX(40px)" }}>
+              <a
+                href="#pricing"
+                style={{ position: "relative", display: "inline-block", textDecoration: "none", transition: "transform 0.2s" }}
+                onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-3px)")}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+              >
+                <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "url('/btn-blue-new.svg?v=2')", backgroundRepeat: "no-repeat", backgroundSize: "110% 560%", backgroundPosition: "center 43%" }} />
+                <span style={{ position: "relative", zIndex: 1, color: "#FFFFFF", padding: "14px 40px", fontWeight: 800, fontSize: "0.95rem", display: "block", whiteSpace: "nowrap" }}>
+                  אני רוצה להפסיק לעבוד לבד ←
+                </span>
+              </a>
+            </div>
+
           </div>
+
+          {/* LEFT — video */}
+          <div className="hero-video" style={{ overflow: "hidden", borderRadius: 16, position: "relative", height: 420, background: "#060D3C" }}>
+            <video
+              autoPlay loop muted playsInline
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", position: "absolute", inset: 0, transform: "scale(1.6)", transformOrigin: "center 50%" }}
+            >
+              <source src="/must-video.mp4" type="video/mp4" />
+            </video>
+          </div>
+
         </div>
       </div>
+
+      {/* Scroll arrow */}
+      <div style={{ position: "absolute", bottom: 28, left: "50%", transform: "translateX(-50%)", zIndex: 3, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+        {[0, 1, 2].map((i) => (
+          <svg key={i} width="32" height="18" viewBox="0 0 32 18" fill="none"
+            style={{ animation: `arrowBounce 1.5s ease-in-out ${i * 0.3}s infinite` }}>
+            <polyline points="2,2 16,14 30,2" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        ))}
+      </div>
+
+      <style>{`
+        @media(max-width:768px){
+          .hero-grid { grid-template-columns: 1fr !important; }
+          .hero-text { order: 1; }
+          .hero-video { order: 2; height: 260px !important; }
+          .hero-cta { transform: none !important; }
+        }
+        @keyframes arrowBounce {
+          0%   { opacity: 0; transform: translateY(-10px); }
+          50%  { opacity: 1; transform: translateY(0px); }
+          100% { opacity: 0; transform: translateY(10px); }
+        }
+      `}</style>
     </section>
   );
 }

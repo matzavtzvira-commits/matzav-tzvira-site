@@ -9,7 +9,7 @@ const articles = [
     date: "ינואר 2025",
     tag: "פנסיה",
     tagColor: "#124AF0",
-    emoji: "📊",
+    emoji: "",
   },
   {
     slug: "har-hakessef",
@@ -18,7 +18,7 @@ const articles = [
     date: "פברואר 2025",
     tag: "חדש",
     tagColor: "#FA5C5C",
-    emoji: "🏔️",
+    emoji: "",
   },
   {
     slug: "savings-for-kids",
@@ -27,7 +27,7 @@ const articles = [
     date: "מרץ 2025",
     tag: "ילדים",
     tagColor: "#21F0B0",
-    emoji: "🌱",
+    emoji: "",
   },
 ];
 

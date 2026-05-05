@@ -18,7 +18,7 @@ const articles: Record<string, {
     date: "ינואר 2025",
     tag: "פנסיה",
     tagColor: "#124AF0",
-    emoji: "📊",
+    emoji: "",
     readTime: "7 דקות קריאה",
     intro: "רוב הנשים לא יודעות כמה הן משלמות בפנסיה — ואחרי שהן מגלות, הן לא מאמינות. דמי ניהול בפנסיה הם אחת הגניבות הכי שקטות שקיימות. לא רואים אותם בשכר, לא מרגישים אותם מדי חודש — אבל הם שם, אוכלים מהחיסכון שלך שנה אחרי שנה.",
     sections: [
@@ -49,7 +49,7 @@ const articles: Record<string, {
     date: "פברואר 2025",
     tag: "חדש",
     tagColor: "#FA5C5C",
-    emoji: "🏔️",
+    emoji: "",
     readTime: "6 דקות קריאה",
     intro: "מיליארדים ממתינים לבעליהם. כל מה שצריך זה לדעת לחפש. 'הר הכסף' הוא מאגר ממשלתי שמכיל כספים שאנשים שכחו — קרנות פנסיה ישנות, ביטוחי חיים, חשבונות בנק לא פעילים, וכסף מגופים פיננסיים שונים.",
     sections: [
@@ -76,7 +76,7 @@ const articles: Record<string, {
     date: "מרץ 2025",
     tag: "ילדים",
     tagColor: "#21F0B0",
-    emoji: "🌱",
+    emoji: "",
     readTime: "5 דקות קריאה",
     intro: "החיסכון שהממשלה פותחת לכל ילד יכול להפוך להון אמיתי — אם בוחרים נכון. מרגע לידתו של כל ילד בישראל, המדינה מפקידה 60 ₪ בחודש בחשבון חיסכון על שמו. עד גיל 18 — זה 12,960 ₪ בלי לעשות כלום. אבל עם בחירה נכונה, זה יכול להגיע ל-70,000 ₪.",
     sections: [
@@ -103,7 +103,7 @@ const articles: Record<string, {
     date: "אפריל 2025",
     tag: "השקעות",
     tagColor: "#124AF0",
-    emoji: "💼",
+    emoji: "",
     readTime: "8 דקות קריאה",
     intro: "פתיחת חשבון מסחר נשמעת מסובכת — אבל זה תהליך של פחות מ-20 דקות. הנה כל מה שצריך לדעת לפני שמתחילים.",
     sections: [
@@ -150,7 +150,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   return (
     <>
       <Navigation />
-      <main style={{ paddingTop: 270 }}>
+      <main style={{ paddingTop: 160 }}>
         {/* Hero */}
         <section style={{ background: "linear-gradient(135deg, #124AF0, #0a38c4)", padding: "72px 1.5rem 60px", textAlign: "center" }}>
           <div style={{ fontSize: "3.5rem", marginBottom: 20 }}>{article.emoji}</div>

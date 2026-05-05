@@ -1,30 +1,19 @@
 "use client";
-import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useState } from "react";
 
-const navLinks = [
-  { label: "בית", href: "/" },
-  { label: "מאמרים", href: "/articles" },
+const links = [
+  { label: "מי אני?", href: "/about" },
+  { label: "מדריכים", href: "/articles" },
   { label: "מחשבונים", href: "/calculators" },
-  { label: "סדנאות", href: "/workshop" },
+  { label: "הרצאות וסדנאות", href: "/workshop" },
+  { label: "הקהילה", href: "/#community" },
+  { label: "MUSTריות", href: "/course" },
   { label: "ליווי VIP", href: "/vip" },
 ];
 
 export default function Navigation() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const pathname = usePathname();
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const isHome = pathname === "/";
-  const navBg = "rgba(255,255,255,0.97)";
-  const linkColor = "#292929";
 
   return (
     <nav
@@ -32,10 +21,8 @@ export default function Navigation() {
         position: "fixed",
         top: 0, right: 0, left: 0,
         zIndex: 100,
-        background: navBg,
-        backdropFilter: "blur(8px)",
-        boxShadow: scrolled ? "0 2px 20px rgba(18,74,240,0.1)" : "0 1px 0 rgba(18,74,240,0.08)",
-        transition: "all 0.3s",
+        background: "#FFFFFF",
+        borderBottom: "3px solid #FA5C5C",
         padding: "0 1.5rem",
       }}
     >
@@ -46,35 +33,66 @@ export default function Navigation() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          height: 270,
+          height: 80,
         }}
       >
         {/* Logo */}
-        <Link href="/" style={{ display: "flex", alignItems: "center" }}>
+        <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
           <img
-            src="/logo.png"
+            src="/logo-new.png"
             alt="מצב צבירה"
-            style={{
-              height: 256,
-              width: "auto",
-              objectFit: "contain",
-            }}
+            style={{ height: 72, width: "auto", objectFit: "contain" }}
           />
         </Link>
 
-        {/* Desktop nav links */}
-        <div style={{ display: "flex", alignItems: "center", gap: 28 }} className="desktop-nav">
-          {navLinks.map((l) => (
+        {/* Desktop links */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 4,
+            flexWrap: "nowrap",
+          }}
+          className="nav-desktop"
+        >
+          {links.map((l) => (
             <Link
-              key={l.href}
+              key={l.label}
               href={l.href}
               style={{
-                fontSize: "0.95rem",
-                fontWeight: pathname === l.href ? 700 : 500,
-                color: pathname === l.href ? "#21F0B0" : linkColor,
-                transition: "color 0.2s",
-                borderBottom: pathname === l.href ? "2px solid #21F0B0" : "2px solid transparent",
-                paddingBottom: 2,
+                color: l.label === "ליווי VIP" ? "#FFFFFF" : "#292929",
+                background: l.label === "ליווי VIP" ? "#124AF0" : "transparent",
+                fontWeight: l.label === "MUSTריות" || l.label === "ליווי VIP" ? 700 : 500,
+                fontSize: "0.9rem",
+                padding: "8px 14px",
+                borderRadius: 50,
+                whiteSpace: "nowrap",
+                transition: "all 0.15s",
+                border: l.label === "MUSTריות" ? "2px solid #124AF0" : "2px solid transparent",
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                if (l.label === "ליווי VIP") {
+                  el.style.background = "#21F0B0";
+                  el.style.color = "#124AF0";
+                } else if (l.label === "MUSTריות") {
+                  el.style.background = "#124AF0";
+                  el.style.color = "#FFFFFF";
+                } else {
+                  el.style.color = "#124AF0";
+                }
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                if (l.label === "ליווי VIP") {
+                  el.style.background = "#124AF0";
+                  el.style.color = "#FFFFFF";
+                } else if (l.label === "MUSTריות") {
+                  el.style.background = "transparent";
+                  el.style.color = "#292929";
+                } else {
+                  el.style.color = "#292929";
+                }
               }}
             >
               {l.label}
@@ -82,77 +100,69 @@ export default function Navigation() {
           ))}
         </div>
 
-        {/* CTA */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <Link
-            href="/course"
-            style={{
-              background: "#124AF0",
-              color: "white",
-              padding: "10px 22px",
-              borderRadius: 50,
-              fontWeight: 700,
-              fontSize: "0.92rem",
-              display: "inline-block",
-              transition: "background 0.2s, color 0.2s",
-              whiteSpace: "nowrap",
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "#21F0B0"; e.currentTarget.style.color = "#124AF0"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "#124AF0"; e.currentTarget.style.color = "white"; }}
-          >
-            לתוכנית ←
-          </Link>
-
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            style={{ background: "none", border: "none", cursor: "pointer", padding: 8, display: "none" }}
-            className="hamburger"
-            aria-label="תפריט"
-          >
-            <div style={{ width: 22, height: 2, background: scrolled || !isHome ? "#292929" : "white", marginBottom: 5, transition: "background 0.3s" }} />
-            <div style={{ width: 22, height: 2, background: scrolled || !isHome ? "#292929" : "white", marginBottom: 5, transition: "background 0.3s" }} />
-            <div style={{ width: 22, height: 2, background: scrolled || !isHome ? "#292929" : "white", transition: "background 0.3s" }} />
-          </button>
-        </div>
+        {/* Mobile hamburger */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="nav-hamburger"
+          style={{
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            display: "none",
+            flexDirection: "column",
+            gap: 5,
+            padding: 8,
+          }}
+          aria-label={menuOpen ? "סגור תפריט" : "פתח תפריט"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+        >
+          <span style={{ width: 24, height: 2, background: "#292929", display: "block", transition: "all 0.2s", transform: menuOpen ? "rotate(45deg) translateY(7px)" : "none" }} />
+          <span style={{ width: 24, height: 2, background: "#292929", display: "block", opacity: menuOpen ? 0 : 1, transition: "all 0.2s" }} />
+          <span style={{ width: 24, height: 2, background: "#292929", display: "block", transition: "all 0.2s", transform: menuOpen ? "rotate(-45deg) translateY(-7px)" : "none" }} />
+        </button>
       </div>
 
       {/* Mobile menu */}
       {menuOpen && (
         <div
+          id="mobile-menu"
+          role="navigation"
+          aria-label="תפריט ניווט נייד"
           style={{
-            background: "white",
-            padding: "16px 24px 24px",
+            background: "#FFFFFF",
             borderTop: "1px solid #E8EDFF",
+            padding: "16px 1.5rem 24px",
             display: "flex",
             flexDirection: "column",
-            gap: 16,
+            gap: 4,
           }}
+          className="nav-mobile"
         >
-          {navLinks.map((l) => (
+          {links.map((l) => (
             <Link
-              key={l.href}
+              key={l.label}
               href={l.href}
               onClick={() => setMenuOpen(false)}
-              style={{ fontSize: "1rem", fontWeight: 600, color: pathname === l.href ? "#124AF0" : "#292929" }}
+              style={{
+                color: l.label === "ליווי VIP" ? "#124AF0" : "#292929",
+                fontWeight: l.label === "MUSTריות" || l.label === "ליווי VIP" ? 700 : 500,
+                fontSize: "1rem",
+                padding: "12px 0",
+                borderBottom: "1px solid #F4F7FF",
+                display: "block",
+              }}
             >
               {l.label}
             </Link>
           ))}
-          <Link
-            href="/course"
-            onClick={() => setMenuOpen(false)}
-            style={{ background: "#124AF0", color: "white", padding: "12px 20px", borderRadius: 50, fontWeight: 700, textAlign: "center" }}
-          >
-            לתוכנית ←
-          </Link>
         </div>
       )}
 
       <style>{`
         @media (max-width: 768px) {
-          .desktop-nav { display: none !important; }
-          .hamburger { display: block !important; }
+          .nav-desktop { display: none !important; }
+          .nav-hamburger { display: flex !important; }
         }
       `}</style>
     </nav>

@@ -39,7 +39,7 @@ export default function FeaturedCourse() {
             <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 32 }}>
               {["שיעורים קלילים בגובה העיניים", "דשבורדים דיגיטליים שעושים את החישוב", "קהילת המאסטריות + ליווי צמוד", "גישה לשנה שלמה"].map((item, i) => (
                 <div key={i} style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                  <span style={{ color: "#21F0B0", fontWeight: 700 }}>✓</span>
+                  <span style={{ color: "#21F0B0", fontWeight: 700, fontSize: "0.8rem" }}>■</span>
                   <span style={{ color: "white", fontSize: "0.95rem" }}>{item}</span>
                 </div>
               ))}
@@ -95,7 +95,7 @@ export default function FeaturedCourse() {
                   marginTop: 10,
                 }}
               >
-                ⭐ הכי פופולרי
+                הכי פופולרי
               </div>
             </div>
           </div>
