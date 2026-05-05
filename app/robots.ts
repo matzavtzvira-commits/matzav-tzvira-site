@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const SITE_URL = "https://www.matzav-tzvira.co.il"; // עדכני לדומיין האמיתי
+const SITE_URL = "https://matzavtzvira.co.il";
 
 export default function robots(): MetadataRoute.Robots {
   return {
