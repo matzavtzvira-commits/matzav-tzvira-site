@@ -32,8 +32,8 @@ export async function POST() {
     console.log("Cardcom response:", data);
 
     if (data.ResponseCode !== 0) {
-      console.error("Cardcom error:", data);
-      return NextResponse.json({ error: data.Description || "שגיאה ביצירת עסקה" }, { status: 500 });
+      console.error("Cardcom error full response:", JSON.stringify(data));
+      return NextResponse.json({ error: data.Description || "שגיאה ביצירת עסקה", details: data }, { status: 500 });
     }
 
     const paymentUrl =
