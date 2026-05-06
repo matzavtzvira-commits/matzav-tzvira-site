@@ -8,6 +8,7 @@ export async function POST() {
     const body = {
       TerminalNumber: Number(process.env.CARDCOM_TERMINAL),
       UserName: process.env.CARDCOM_USERNAME,
+      UserPassword: process.env.CARDCOM_PASSWORD,
       APILevel: 10,
       SumToBill: Number(process.env.CARDCOM_PRICE),
       CoinID: 1,
@@ -21,10 +22,7 @@ export async function POST() {
 
     const res = await fetch(CARDCOM_API, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Basic ${Buffer.from(`${process.env.CARDCOM_USERNAME}:${process.env.CARDCOM_PASSWORD}`).toString("base64")}`,
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
 
