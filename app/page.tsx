@@ -1,4 +1,3 @@
-import IntroSplash from "@/components/IntroSplash";
 import Navigation from "@/components/Navigation";
 import HomeHero from "@/components/home/HomeHero";
 import SocialProof from "@/components/home/SocialProof";
@@ -20,7 +19,6 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
-      <IntroSplash />
       <Navigation />
       {/* Floating CTA */}
       <a
