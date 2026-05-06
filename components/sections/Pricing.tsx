@@ -54,14 +54,13 @@ export default function Pricing() {
 
           <button
             onClick={handleBuy}
-            disabled={loading}
-            style={{ position: "relative", background: "transparent", border: "none", cursor: loading ? "wait" : "pointer", fontFamily: "inherit", display: "inline-block", padding: 0, transition: "transform 0.2s", opacity: loading ? 0.8 : 1 }}
-            onMouseEnter={(e) => { if (!loading) (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)"; }}
+            style={{ position: "relative", background: "transparent", border: "none", cursor: "pointer", fontFamily: "inherit", display: "inline-block", padding: 0, transition: "transform 0.2s" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)"; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
           >
             <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "url('/btn-green.svg?v=2')", backgroundRepeat: "no-repeat", backgroundSize: "110% 560%", backgroundPosition: "center 43%" }} />
             <span style={{ position: "relative", zIndex: 1, color: "#070C24", padding: "18px 56px", fontWeight: 800, fontSize: "1.15rem", display: "block", whiteSpace: "nowrap" }}>
-              {loading ? "מעבירה לתשלום..." : "אני מצטרפת לתוכנית ←"}
+              אני מצטרפת לתוכנית ←
             </span>
           </button>
 
