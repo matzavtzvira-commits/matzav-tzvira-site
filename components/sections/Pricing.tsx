@@ -1,5 +1,4 @@
-﻿"use client";
-import { useState } from "react";
+﻿const PAYMENT_URL = "https://secure.cardcom.solutions/External/LPF.aspx?LowProfileCode=dKoPGzcdZEqxgTyXuRf8lA";
 
 const includes = [
   "32 שיעורים בגובה העיניים",
@@ -14,25 +13,7 @@ const includes = [
 ];
 
 export default function Pricing() {
-  const [loading, setLoading] = useState(false);
-
-  async function handleBuy() {
-    if (loading) return;
-    setLoading(true);
-    try {
-      const res = await fetch("/api/create-payment", { method: "POST" });
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        alert("אירעה שגיאה, נסי שוב או צרי קשר");
-        setLoading(false);
-      }
-    } catch {
-      alert("אירעה שגיאה, נסי שוב או צרי קשר");
-      setLoading(false);
-    }
-  }
+  const handleBuy = () => { window.location.href = PAYMENT_URL; };
 
   return (
     <section id="pricing" style={{ background: "#F4F7FF", padding: "48px 1.5rem" }}>
