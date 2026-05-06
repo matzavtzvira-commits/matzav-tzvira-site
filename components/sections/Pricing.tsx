@@ -1,4 +1,5 @@
-﻿const PAYMENT_URL = "https://secure.cardcom.solutions/External/LPF.aspx?LowProfileCode=dKoPGzcdZEqxgTyXuRf8lA";
+﻿"use client";
+const PAYMENT_URL = "https://secure.cardcom.solutions/External/LPF.aspx?LowProfileCode=dKoPGzcdZEqxgTyXuRf8lA";
 
 const includes = [
   "32 שיעורים בגובה העיניים",
