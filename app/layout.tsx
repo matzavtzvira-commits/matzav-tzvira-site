@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "הכסף ישתדל, ואת תנוחי | מצב צבירה",
-  description: "התוכנית הקצרה והבטוחה שלך להפוך למשקיעה בשוק ההון בביטחון מלא. קצרה, ממוקדת, אישית — בשפה שרק אנחנו מבינות.",
+  title: "מצב צבירה | המטריה הפיננסית שלך",
+  description: "הדרך הפשוטה והיעילה לבנות תיק השקעות שתפור עליך — בשפה שרק אנחנו מבינות.",
 };
 
 export default function RootLayout({
