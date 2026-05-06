@@ -142,16 +142,22 @@ function ScrollPopup() {
   const shown = useRef(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (shown.current) return;
-      const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-      if (scrolled >= 0.5) {
+    let timeReady = false;
+    let scrollReady = false;
+    const tryShow = () => {
+      if (timeReady && scrollReady && !shown.current) {
         shown.current = true;
         setVisible(true);
       }
     };
+    const timer = setTimeout(() => { timeReady = true; tryShow(); }, 60000);
+    const handleScroll = () => {
+      if (shown.current) return;
+      const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+      if (scrolled >= 0.7) { scrollReady = true; tryShow(); }
+    };
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => { clearTimeout(timer); window.removeEventListener("scroll", handleScroll); };
   }, []);
 
   if (!visible || dismissed) return null;
