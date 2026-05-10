@@ -48,6 +48,9 @@ export default function Pricing() {
           <div style={{ marginBottom: 8, marginTop: 8 }}>
             <div style={{ fontSize: "3.8rem", fontWeight: 800, lineHeight: 1 }}>297 ₪</div>
             <div style={{ opacity: 0.8, fontSize: "1rem", marginTop: 8 }}>או 3 תשלומים נוחים של 99 ₪</div>
+            <div style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.5)", marginTop: 10, fontStyle: "italic" }}>
+              פגישה אחת עם יועץ פיננסי עולה 600 ₪.<br />כאן את מקבלת 32 שיעורים ב-297 ₪.
+            </div>
           </div>
 
           <div style={{ width: 60, height: 3, background: "#21F0B0", borderRadius: 2, margin: "24px auto" }} />
@@ -100,7 +103,10 @@ export default function Pricing() {
             </span>
           </button>
 
-          <p style={{ opacity: 0.7, fontSize: "0.88rem", marginTop: 16 }}>
+          <p style={{ fontSize: "0.9rem", color: "#FA5C5C", fontWeight: 700, marginTop: 16, marginBottom: 4 }}>
+            כל חודש שעובר בלי הידע הזה — הזדמנות שאי אפשר להחזיר.
+          </p>
+          <p style={{ opacity: 0.7, fontSize: "0.88rem", marginTop: 8 }}>
             תשלום מאובטח | אחריות 14 יום <span style={{ fontSize: "0.75em" }}>-</span> לא מרוצה? מחזירים הכל בלי שאלות
           </p>
           <p style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.55)", marginTop: 8, fontStyle: "italic" }}>

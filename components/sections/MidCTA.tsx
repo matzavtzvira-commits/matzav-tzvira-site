@@ -5,7 +5,7 @@ export default function MidCTA() {
     <div style={{ background: "#124AF0", padding: "56px 1.5rem", textAlign: "center" }}>
       <div style={{ maxWidth: 520, margin: "0 auto 28px" }}>
         {[
-          "את רוצה שהכסף שלך יעבוד בשבילך?",
+          "את רוצה להגיע לחתונת ילדיך רגועה?",
           "את לא רוצה להיות האישה שגילתה מאוחר מדי?",
           "את מוכנה להשקיע שבוע אחד כדי לשנות את כל השאר?",
         ].map((q, i) => (
