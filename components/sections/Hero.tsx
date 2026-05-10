@@ -73,10 +73,14 @@ export default function Hero() {
               <br />
               שוק ההון, פנסיה, השקעות, דמי ניהול <span style={{ fontSize: "0.75em" }}>-</span> בשפה שלנו, פעם אחת ולתמיד.
             </p>
-            <p style={{ fontSize: "1rem", fontWeight: 700, color: "#21F0B0", lineHeight: 1.7, marginBottom: 24, textShadow: "0 0 12px rgba(33,240,176,0.5)" }}>
+            <p style={{ fontSize: "1rem", fontWeight: 700, color: "#21F0B0", lineHeight: 1.7, marginBottom: 16, textShadow: "0 0 12px rgba(33,240,176,0.5)" }}>
               תיכנסי ללא ידע.
               <br />
               תצאי עם תיק השקעות שבנית בעצמך <span style={{ fontSize: "0.75em" }}>-</span> מותאם לך, מתחיל לעבוד.
+            </p>
+
+            <p style={{ fontSize: "0.95rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.6, marginBottom: 24, fontStyle: "italic" }}>
+              הכל מהספה. בנעלי בית. בקצב שלך.
             </p>
 
             {/* CTAs */}
@@ -103,11 +107,6 @@ export default function Hero() {
               alt="שוק ההון - בנעלי בית"
               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
             />
-            <div style={{ position: "absolute", bottom: 20, right: 20, left: 20, background: "rgba(6,13,60,0.72)", backdropFilter: "blur(8px)", borderRadius: 14, padding: "14px 20px", textAlign: "center" }}>
-              <p style={{ margin: 0, color: "#FFFFFF", fontWeight: 700, fontSize: "1rem", lineHeight: 1.5 }}>
-                הכל מהספה. בנעלי בית. בקצב שלך.
-              </p>
-            </div>
           </div>
 
         </div>
