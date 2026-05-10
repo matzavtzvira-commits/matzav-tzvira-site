@@ -169,7 +169,7 @@ a { text-decoration: none; color: inherit; }
   animation: arrowMove 1s ease-in-out infinite;
 }
 
-/* ── Mobile button fallbacks (SVG brushstroke may not render at small sizes) ── */
+/* ── Mobile button size fixes (keep SVG brushstroke, just fix overflow) ── */
 @media (max-width: 640px) {
   .section-btn,
   .rotating-btn,
@@ -178,19 +178,6 @@ a { text-decoration: none; color: inherit; }
   .toggle-cta,
   .testimonials-cta {
     max-width: 100% !important;
-    border-radius: 50px !important;
-  }
-  .section-btn,
-  .rotating-btn {
-    background: #21F0B0 !important;
-  }
-  .about-btn,
-  .toggle-cta,
-  .testimonials-cta {
-    background: #124AF0 !important;
-  }
-  .urgency-btn {
-    background: #21F0B0 !important;
   }
   .section-btn span,
   .rotating-btn span,
@@ -199,8 +186,7 @@ a { text-decoration: none; color: inherit; }
   .toggle-cta span,
   .testimonials-cta span {
     padding: 14px 28px !important;
-    white-space: normal !important;
-    font-size: 0.95rem !important;
-    text-align: center !important;
+    white-space: nowrap !important;
+    font-size: 0.9rem !important;
   }
 }
