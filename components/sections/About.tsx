@@ -76,12 +76,16 @@ export default function About() {
               שידעו. שיבינו. שלא תצא עוד אישה לחיים בלי זה.
             </p>
 
-            <p style={{ fontSize: "1rem", lineHeight: 1.9, color: "#292929", marginBottom: 20 }}>
+            <p style={{ fontSize: "1rem", lineHeight: 1.9, color: "#292929", marginBottom: 24 }}>
               זכיתי ללוות עשרות משפחות לשלווה.
               מאות נשים שהיום מבינות, יודעות <span style={{ fontSize: "0.75em" }}>-</span> <strong>וחלק מהמהפכה.</strong>
             </p>
 
-            <a
+            <p style={{ fontSize: "1.05rem", fontWeight: 700, color: "#124AF0", lineHeight: 1.8, marginBottom: 28, borderRight: "3px solid #21F0B0", paddingRight: 16 }}>
+              אין לי רישיון. יש לי את הקהילה הגדולה ביותר של נשים שמדברות שוק ההון <span style={{ fontSize: "0.75em" }}>-</span> ואת התוצאות שמדברות בעד עצמן.
+            </p>
+
+            <
               href="#pricing"
               style={{ position: "relative", display: "inline-block", textDecoration: "none", transition: "transform 0.2s", maxWidth: "100%" }}
               onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-3px)")}

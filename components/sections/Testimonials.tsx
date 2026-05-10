@@ -187,22 +187,6 @@ export default function Testimonials() {
           </div>
         </motion.div>
 
-        {/* No-license credibility card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          style={{ background: "#F4F7FF", borderRight: "4px solid #FA5C5C", borderRadius: 12, padding: "20px 24px", marginTop: 24 }}
-        >
-          <p style={{ fontSize: "1rem", lineHeight: 1.9, color: "#292929", margin: 0 }}>
-            אין לי רישיון.
-            <br />
-            יש לי את הקהילה הגדולה ביותר של נשים שמדברות שוק ההון <span style={{ fontSize: "0.75em" }}>-</span> אלפי נשים.
-            <br />
-            ועזרתי ל-329 מהן להשלים את השיעור שלא לימדו אותנו בסמינר.
-          </p>
-        </motion.div>
 
         <style>{`
           @keyframes borderGlow {
