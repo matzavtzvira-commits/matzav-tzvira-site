@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { motion } from "framer-motion";
 
 export default function Hook() {
@@ -7,46 +7,62 @@ export default function Hook() {
       <div style={{ maxWidth: 760, margin: "0 auto" }}>
 
         <p style={{ fontSize: "0.9rem", fontWeight: 600, color: "#21F0B0", marginBottom: 20, letterSpacing: 1 }}>
-          רגע של כנות <span style={{ fontSize: "0.75em" }}>—</span>
+          סיפור אמיתי
         </p>
         <h2 style={{
-          fontSize: "clamp(2.4rem, 6vw, 4.2rem)",
+          fontSize: "clamp(2rem, 5vw, 3.4rem)",
           fontWeight: 900,
           fontFamily: "'Rubik', sans-serif",
-          lineHeight: 1.15,
+          lineHeight: 1.25,
           color: "#FFFFFF",
           marginBottom: 16,
         }}>
-          כשאת חושבת על לחתן
+          ישבתי מולה
           <br />
-          את מירי שלך <span style={{ fontSize: "0.75em" }}>—</span>
+          ולא הצלחתי לשמור פנים.
         </h2>
-        <p style={{ fontSize: "clamp(1.05rem, 2.2vw, 1.35rem)", color: "rgba(255,255,255,0.88)", lineHeight: 1.9, marginBottom: 36 }}>
-          יש לך מושג מאיפה יבוא הכסף?
-          <br />
-          <span style={{ color: "#21F0B0", fontWeight: 700, display: "inline-block" }}>
-            את ראויה לחגוג את השמחה <span style={{ fontSize: "0.75em" }}>—</span>
-            <br />
-            <motion.span
-              initial={{ opacity: 0, scale: 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              style={{ display: "inline-block", fontSize: "1.4em", fontWeight: 900 }}
-            >
-              בשמחה.
-              <svg viewBox="0 0 300 12" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", display: "block", marginTop: 2 }} preserveAspectRatio="none">
-                <defs>
-                  <filter id="hookSketch">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.04 0.08" numOctaves="3" seed="7" result="noise" />
-                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" />
-                  </filter>
-                </defs>
-                <motion.path d="M4 5 Q75 3 150 6 Q225 9 296 5" stroke="#21F0B0" strokeWidth="2" strokeLinecap="round" fill="none" filter="url(#hookSketch)" opacity="0.95" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.9, delay: 0.4, ease: "easeOut" }} />
-                <motion.path d="M8 8 Q80 6 155 9 Q230 11 292 7" stroke="#21F0B0" strokeWidth="1.2" strokeLinecap="round" fill="none" filter="url(#hookSketch)" opacity="0.6" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.9, delay: 0.55, ease: "easeOut" }} />
-              </svg>
-            </motion.span>
-          </span>
+        <p style={{ fontSize: "clamp(1rem, 2vw, 1.2rem)", color: "rgba(255,255,255,0.75)", lineHeight: 1.9, marginBottom: 36 }}>
+          הפגישה שגרמה לי להבין למה אני עושה את מה שאני עושה.
         </p>
+
+        {/* Client story */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          style={{ background: "rgba(255,255,255,0.07)", borderRadius: 16, padding: "36px 40px", marginBottom: 36, textAlign: "right", borderRight: "4px solid rgba(33,240,176,0.5)" }}>
+          <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.85)", lineHeight: 2, margin: "0 0 16px" }}>
+            אישה מקסימה. 36 שנה באותה עבודה. 8 שעות ביום.
+            <br />
+            גידלה ילדים, חתנה אותם, הגיעה לקצה המסלול.
+          </p>
+          <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.85)", lineHeight: 2, margin: "0 0 16px" }}>
+            ביחד פתחנו את הדוחות של הפנסיה שלה.
+          </p>
+          <p style={{ fontSize: "2rem", fontWeight: 900, color: "#21F0B0", margin: "0 0 8px", lineHeight: 1.2 }}>
+            320,000 ₪
+          </p>
+          <p style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.6)", margin: "0 0 20px", fontStyle: "italic" }}>
+            במקום קרוב ל-2 מיליון שקל. אחרי 36 שנה.
+          </p>
+          <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.85)", lineHeight: 2, margin: "0 0 16px" }}>
+            הפער? לא גנב. לא רמאות. לא משבר.
+            <br />
+            <strong style={{ color: "#FFFFFF" }}>מחוסר ידע בלבד.</strong>
+          </p>
+          <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.75)", lineHeight: 2, margin: "0 0 20px" }}>
+            היא סמכה על הבוס - שזה לא בדיוק התפקיד שלו.
+            <br />
+            על הסוכן - שיש לו אינטרסים משלו.
+            <br />
+            ועל עצמה - שלא ידעה מה לשאול.
+          </p>
+          <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.85)", lineHeight: 2, margin: "0 0 16px" }}>
+            כ&quot;כ הרבה שנות עבודה. כ&quot;כ הרבה כסף שאבד. כ&quot;כ פשוט למנוע.
+          </p>
+          <p style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.5)", margin: 0, fontStyle: "italic" }}>
+            כל מקרה לגופו - אבל הסיפור הזה חזר אצלי יותר מפעם אחת. ולכן אני כאן.
+          </p>
+        </motion.div>
 
         {/* White card */}
         <div style={{ marginBottom: 36, borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 40px rgba(0,0,0,0.18)" }}>
@@ -72,11 +88,11 @@ export default function Hook() {
             <p style={{ fontSize: "1rem", color: "#222", lineHeight: 2.2, marginBottom: 32 }}>
               בית, ילדים, עבודה, שוב בית.
               <br />
-              עד שנזכרת לנשום <span style={{ fontSize: "0.75em" }}>—</span> כבר ערב.
+              עד שנזכרת לנשום <span style={{ fontSize: "0.75em" }}>-</span> כבר ערב.
               <br />
-              ובינתיים <span style={{ fontSize: "0.75em" }}>—</span> מאות אלפי שקלים שלך עובדים בשביל מישהו אחר.
+              ובינתיים <span style={{ fontSize: "0.75em" }}>-</span> מאות אלפי שקלים שלך עובדים בשביל מישהו אחר.
               <br />
-              <strong>לא כי את לא חכמה <span style={{ fontSize: "0.75em" }}>—</span> כי אף אחד לא לימד אותך.</strong>
+              <strong>לא כי את לא חכמה <span style={{ fontSize: "0.75em" }}>-</span> כי אף אחד לא לימד אותך.</strong>
             </p>
 
             {/* Part 2 */}
@@ -98,13 +114,17 @@ export default function Hook() {
             <p style={{ fontSize: "1rem", color: "#222", lineHeight: 2.2, marginBottom: 36 }}>
               יש לך פנסיה? קרן השתלמות? חיסכון לכל ילד? גמל?
               <br />
-              <em style={{ color: "#666", fontSize: "0.95rem" }}>זה לא קנסות <span style={{ fontSize: "0.75em" }}>—</span> זה הכסף הכי טוב שיש לך. ואת לא מנהלת אותו.</em>
+              <em style={{ color: "#666", fontSize: "0.95rem" }}>זה לא קנסות <span style={{ fontSize: "0.75em" }}>-</span> זה הכסף הכי טוב שיש לך. ואת לא מנהלת אותו.</em>
             </p>
 
             {/* Highlight */}
             <span style={{ display: "inline-block", marginBottom: 32 }}>
               <strong style={{ fontSize: "1.4rem", display: "block", color: "#111" }}>
-                שבוע של ידע <span style={{ fontSize: "0.75em" }}>—</span> מאות אלפי שקלים רווח.
+                שבוע של ידע <span style={{ fontSize: "0.75em" }}>-</span> מאות אלפי שקלים רווח.
+                <br />
+                <span style={{ fontSize: "1.1rem", fontWeight: 700, color: "#124AF0" }}>
+                  ותצאי עם תיק ההשקעות שלך <span style={{ fontSize: "0.75em" }}>-</span> בנוי. מותאם. מתחיל לעבוד.
+                </span>
               </strong>
               <svg viewBox="0 0 300 12" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", display: "block", marginTop: 4 }} preserveAspectRatio="none">
                 <defs>
