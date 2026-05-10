@@ -85,7 +85,7 @@ export default function About() {
               אין לי רישיון. יש לי את הקהילה הגדולה ביותר של נשים שמדברות שוק ההון <span style={{ fontSize: "0.75em" }}>-</span> ואת התוצאות שמדברות בעד עצמן.
             </p>
 
-            <
+            <a
               href="#pricing"
               style={{ position: "relative", display: "inline-block", textDecoration: "none", transition: "transform 0.2s", maxWidth: "100%" }}
               onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-3px)")}
