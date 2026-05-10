@@ -96,14 +96,18 @@ export default function Hero() {
 
           </div>
 
-          {/* LEFT - video */}
-          <div className="hero-video" style={{ overflow: "hidden", borderRadius: 16, position: "relative", height: 420, background: "#060D3C" }}>
-            <video
-              autoPlay loop muted playsInline
-              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", position: "absolute", inset: 0, transform: "scale(1.6)", transformOrigin: "center 50%" }}
-            >
-              <source src="/must-video.mp4" type="video/mp4" />
-            </video>
+          {/* LEFT - slippers image */}
+          <div className="hero-video" style={{ overflow: "hidden", borderRadius: 24, position: "relative", height: 420 }}>
+            <img
+              src="/slippers-hero.jpg"
+              alt="שוק ההון - בנעלי בית"
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            />
+            <div style={{ position: "absolute", bottom: 20, right: 20, left: 20, background: "rgba(6,13,60,0.72)", backdropFilter: "blur(8px)", borderRadius: 14, padding: "14px 20px", textAlign: "center" }}>
+              <p style={{ margin: 0, color: "#FFFFFF", fontWeight: 700, fontSize: "1rem", lineHeight: 1.5 }}>
+                הכל מהספה. בנעלי בית. בקצב שלך.
+              </p>
+            </div>
           </div>
 
         </div>
