@@ -98,6 +98,25 @@ export default function Hook() {
         <div style={{ marginBottom: 36, borderRadius: 40, overflow: "hidden", boxShadow: "0 16px 56px rgba(0,0,0,0.35)", border: "1.5px solid rgba(255,255,255,0.18)" }}>
           <div style={{ background: "#ffffff", padding: "48px 64px 56px", textAlign: "right" }}>
 
+            {/* Yes Set */}
+            <div style={{ marginBottom: 32 }}>
+              <p style={{ fontSize: "1.1rem", fontWeight: 800, color: "#124AF0", marginBottom: 16 }}>תני לי לנחש.</p>
+              {[
+                "את עובדת קשה — וכל שקל בא ממאמץ",
+                "בסוף החודש יש תמיד יותר חודש מכסף",
+                "יש לך פנסיה, השתלמות, חיסכון לכל ילד — אבל מושג אין מה קורה שם",
+                "ואת לא בטוחה שיש לך מי שבאמת מסביר לך",
+              ].map((q, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12, marginBottom: 10, textAlign: "right" }}>
+                  <span style={{ background: "#124AF0", color: "#fff", fontSize: "0.72rem", fontWeight: 800, padding: "3px 10px", borderRadius: 50, whiteSpace: "nowrap", marginTop: 3, flexShrink: 0 }}>כן</span>
+                  <p style={{ fontSize: "1rem", color: "#222", lineHeight: 1.6, margin: 0 }}>{q}</p>
+                </div>
+              ))}
+              <p style={{ fontSize: "1rem", fontWeight: 700, color: "#124AF0", marginTop: 16, marginBottom: 0 }}>
+                אם ענית כן — המשך הדף הזה כתוב בשבילך.
+              </p>
+            </div>
+
             {/* Part 1 */}
             <span style={{ display: "inline-block", marginBottom: 20 }}>
               <span style={{ fontSize: "1.3rem", fontWeight: 800, color: "#124AF0", display: "block" }}>
