@@ -59,6 +59,27 @@ export default function Hook() {
           <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.85)", lineHeight: 2, margin: "0 0 16px" }}>
             כ&quot;כ הרבה שנות עבודה. כ&quot;כ הרבה כסף שאבד. כ&quot;כ פשוט למנוע.
           </p>
+
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.12)", paddingTop: 16, marginBottom: 16 }}>
+            <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.85)", lineHeight: 2, margin: "0 0 10px" }}>
+              לצערי, כבר לא היה הרבה מה לשנות עבורה.
+              <br />
+              <strong style={{ color: "#FA5C5C" }}>הרכבת שלה כבר עזבה.</strong>
+            </p>
+            <p style={{ fontSize: "0.95rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.9, margin: "0 0 12px" }}>
+              ריבית דריבית עובדת על דבר אחד בלבד <span style={{ fontSize: "0.75em" }}>-</span> <strong style={{ color: "#FFFFFF" }}>זמן.</strong>
+              <br />
+              ככל שמתחילות מוקדם יותר, הכסף עובד יותר שנים, ומכפיל את עצמו יותר פעמים.
+              <br />
+              כל שנה שעוברת בלי לדעת <span style={{ fontSize: "0.75em" }}>-</span> <strong style={{ color: "#21F0B0" }}>שווה מאות אלפי שקלים שלא יחזרו.</strong>
+            </p>
+            <p style={{ fontSize: "0.95rem", color: "#21F0B0", fontWeight: 700, margin: 0, lineHeight: 1.7 }}>
+              הרכבת שלך עדיין בתחנה.
+              <br />
+              <span style={{ color: "rgba(255,255,255,0.7)", fontWeight: 400, fontSize: "0.9rem" }}>השאלה היחידה היא: עד מתי תמתיני לעלות?</span>
+            </p>
+          </div>
+
           <p style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.5)", margin: 0, fontStyle: "italic" }}>
             כל מקרה לגופו - אבל הסיפור הזה חזר אצלי יותר מפעם אחת. ולכן אני כאן.
           </p>
