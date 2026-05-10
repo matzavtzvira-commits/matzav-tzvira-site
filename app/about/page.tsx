@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import FadeInView from "@/components/FadeInView";
@@ -16,8 +16,28 @@ const C = {
   soft: "#F4F7FF",
 };
 
-function Divider({ color = C.red }: { color?: string }) {
-  return <div style={{ width: "100%", height: 3, background: color }} />;
+function DiagonalDivider({ from, to }: { from: string; to: string }) {
+  return (
+    <div style={{ position: "relative", height: 64, background: to, overflow: "hidden" }}>
+      <svg
+        viewBox="0 0 1440 64"
+        preserveAspectRatio="none"
+        style={{ display: "block", width: "100%", height: "100%", position: "absolute", inset: 0 }}
+      >
+        <polygon points="0,0 1440,0 1440,16 0,64" fill={from} />
+      </svg>
+    </div>
+  );
+}
+
+function OrnamentDivider({ color = C.teal }: { color?: string }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 8, padding: "16px 0", background: C.white }}>
+      <div style={{ width: 40, height: 1.5, background: color, borderRadius: 1, opacity: 0.35 }} />
+      <div style={{ width: 5, height: 5, borderRadius: "50%", background: color, opacity: 0.7 }} />
+      <div style={{ width: 40, height: 1.5, background: color, borderRadius: 1, opacity: 0.35 }} />
+    </div>
+  );
 }
 
 function StoryImg({ src, alt, bg = C.white }: { src: string; alt: string; bg?: string }) {
@@ -204,7 +224,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <Divider />
+        <DiagonalDivider from={C.dark} to={C.white} />
 
         {/* ─── פרק א': ההצלחה ─── */}
         <section style={{ background: C.white, padding: "72px 1.5rem 64px" }}>
@@ -242,7 +262,7 @@ export default function AboutPage() {
             <FadeInView delay={0.05}>
               <div style={{ textAlign: "center" }}>
                 <Underlined color={C.red} delay={0.2}>
-                  <Line size="lg" color={C.red} weight={800}>לא נגמרת<span style={{ fontSize: "0.75em" }}> — — —</span></Line>
+                  <Line size="lg" color={C.red} weight={800}>לא נגמרת<span style={{ fontSize: "0.75em" }}> - - -</span></Line>
                 </Underlined>
               </div>
             </FadeInView>
@@ -285,7 +305,7 @@ export default function AboutPage() {
               <Line size="md" color={C.text} weight={600}>בין פן לפן</Line>
             </FadeInView>
             <FadeInView delay={0.1}>
-              <Line size="md" color={C.text} weight={600}>עמידה <span style={{ fontSize: "0.75em" }}>—</span> חום <span style={{ fontSize: "0.75em" }}>—</span> מאמץ</Line>
+              <Line size="md" color={C.text} weight={600}>עמידה <span style={{ fontSize: "0.75em" }}>-</span> חום <span style={{ fontSize: "0.75em" }}>-</span> מאמץ</Line>
             </FadeInView>
 
             <Pause h={16} />
@@ -339,7 +359,7 @@ export default function AboutPage() {
         {/* ─── IMAGE 1: פאנית ─── */}
         <StoryImg src="/about-hairdresser.jpg" alt="רבקי וייס בתקופת הפאנות" bg={C.white} />
 
-        <Divider />
+        <DiagonalDivider from={C.white} to={C.soft} />
 
         {/* ─── פרק ב': המכולת ─── */}
         <section style={{ background: C.soft, padding: "72px 1.5rem 64px" }}>
@@ -460,7 +480,7 @@ export default function AboutPage() {
               <Line size="md" color={C.text} weight={500}>מנסה לייצב את השקיות,</Line>
             </FadeInView>
             <FadeInView delay={0.15}>
-              <Line size="md" color={C.text} weight={500}>לחייך <span style={{ fontSize: "0.75em" }}>—</span> להתנצל <span style={{ fontSize: "0.75em" }}>—</span> לגמגם.</Line>
+              <Line size="md" color={C.text} weight={500}>לחייך <span style={{ fontSize: "0.75em" }}>-</span> להתנצל <span style={{ fontSize: "0.75em" }}>-</span> לגמגם.</Line>
             </FadeInView>
 
             <Pause h={24} />
@@ -586,7 +606,7 @@ export default function AboutPage() {
         {/* ─── IMAGE 2: לב נשבר ─── */}
         <StoryImg src="/about-broken-heart.jpg" alt="לב נשבר" bg={C.soft} />
 
-        <Divider color={C.blue} />
+        <DiagonalDivider from={C.soft} to={C.blue} />
 
         {/* ─── פרק ג': ההבנה ─── */}
         <section style={{ background: C.blue, padding: "72px 1.5rem 64px" }}>
@@ -611,7 +631,7 @@ export default function AboutPage() {
               <Line size="md" color="rgba(255,255,255,0.85)" weight={500}>כמה עוד אשען על לקוחות כצינור היחיד לכסף?</Line>
             </FadeInView>
             <FadeInView delay={0.08}>
-              <Line size="lg" color={C.teal} weight={900}>אם אין לקוחות <span style={{ fontSize: "0.75em" }}>—</span> אין כסף.</Line>
+              <Line size="lg" color={C.teal} weight={900}>אם אין לקוחות <span style={{ fontSize: "0.75em" }}>-</span> אין כסף.</Line>
             </FadeInView>
             <Pause h={16} />
             <InlineImg src="/about-money-pipe.jpg" alt="צינור כסף" />
@@ -666,7 +686,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <Divider color={C.blue} />
+        <DiagonalDivider from={C.blue} to={C.white} />
 
         {/* ─── פרק ד': המסע ─── */}
         <section style={{ background: C.white, padding: "72px 1.5rem 64px" }}>
@@ -691,7 +711,7 @@ export default function AboutPage() {
             <InlineImg src="/about-graphs.jpg" alt="מחשב גרפים" />
             <Pause h={8} />
             <FadeInView delay={0.1}>
-              <Line size="md" color="#888" weight={500}>בסוד 🤫 <span style={{ fontSize: "0.75em" }}>—</span> בעלי לא האמין שאני מסוגלת</Line>
+              <Line size="md" color="#888" weight={500}>בסוד 🤫 <span style={{ fontSize: "0.75em" }}>-</span> בעלי לא האמין שאני מסוגלת</Line>
             </FadeInView>
             <FadeInView delay={0.15}>
               <Line size="md" color="#888" weight={500}>לשבת כ"כ הרבה שעות ולטחון חומר.</Line>
@@ -748,7 +768,7 @@ export default function AboutPage() {
             </FadeInView>
 
             <Pause h={16} />
-            <InlineImg src="/about-america.jpg" alt="דגל אמריקה — גילוי" />
+            <InlineImg src="/about-america.jpg" alt="דגל אמריקה - גילוי" />
             <Pause h={8} />
 
             <FadeInView>
@@ -761,7 +781,7 @@ export default function AboutPage() {
               <Line size="lg" color={C.dark} weight={800}>חטפתי הפסד.</Line>
             </FadeInView>
             <Pause h={16} />
-            <InlineImg src="/about-boom.jpg" alt="בום — הפסד" />
+            <InlineImg src="/about-boom.jpg" alt="בום - הפסד" />
             <Pause h={8} />
             <FadeInView delay={0.16}>
               <Line size="md" color={C.text} weight={500}>הפסד של הרבה כסף.</Line>
@@ -816,7 +836,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <Divider color={C.teal} />
+        <OrnamentDivider color={C.teal} />
 
         {/* ─── פרק ה': הגילוי ─── */}
         <section style={{ background: C.white, padding: "72px 1.5rem 64px" }}>
@@ -905,7 +925,7 @@ export default function AboutPage() {
                 <Pause h={4} />
                 <Line size="lg" color={C.blue} weight={900}>התיק שלי גדל.</Line>
                 <Pause h={12} />
-                <Line size="md" color="#666" weight={500}>לא בענק <span style={{ fontSize: "0.75em" }}>—</span> אבל אמיתי ובטוח.</Line>
+                <Line size="md" color="#666" weight={500}>לא בענק <span style={{ fontSize: "0.75em" }}>-</span> אבל אמיתי ובטוח.</Line>
               </div>
             </FadeInView>
 
@@ -927,7 +947,7 @@ export default function AboutPage() {
                 <Pause h={4} />
                 <Line size="md" color={C.blue} weight={800}>אז אני לא בודקת בטווח הקצר.</Line>
                 <Pause h={16} />
-                <Line size="sm" color="#888" weight={400}>(קראי את 2 השורות האחרונות שוב <span style={{ fontSize: "0.75em" }}>—</span> זה מפתח להכל)</Line>
+                <Line size="sm" color="#888" weight={400}>(קראי את 2 השורות האחרונות שוב <span style={{ fontSize: "0.75em" }}>-</span> זה מפתח להכל)</Line>
               </div>
             </FadeInView>
 
@@ -950,7 +970,7 @@ export default function AboutPage() {
               <Line size="md" color={C.text} weight={500}>תיקונים (ירידות) תמיד יהיו.</Line>
             </FadeInView>
             <FadeInView delay={0.06}>
-              <Line size="md" color={C.text} weight={500}>הם לא ענין של 'האם' <span style={{ fontSize: "0.75em" }}>—</span> הם ענין של 'מתי'.</Line>
+              <Line size="md" color={C.text} weight={500}>הם לא ענין של 'האם' <span style={{ fontSize: "0.75em" }}>-</span> הם ענין של 'מתי'.</Line>
             </FadeInView>
             <FadeInView delay={0.1}>
               <Line size="md" color={C.text} weight={600}>וסטטיסטית השוק, בהסתכלות רחבה,</Line>
@@ -962,7 +982,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <Divider />
+        <DiagonalDivider from={C.white} to={C.dark} />
 
         {/* ─── פרק ו': הסיום / המסר ─── */}
         <section style={{ background: C.dark, padding: "72px 1.5rem 64px" }}>
@@ -1072,7 +1092,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <Divider color={C.teal} />
+        <DiagonalDivider from={C.dark} to={C.blue} />
 
         {/* ─── CTA ─── */}
         <section style={{ background: C.blue, padding: "64px 1.5rem" }}>
@@ -1090,7 +1110,7 @@ export default function AboutPage() {
               <p style={{ fontSize: "1.05rem", color: "rgba(255,255,255,0.8)", margin: "0 0 40px", fontFamily: "'Rubik', sans-serif", fontWeight: 500, lineHeight: 1.7 }}>
                 אני המרוויחה שעובדת כל היום בלי ידע
                 <br />
-                <span style={{ fontSize: "0.75em" }}>—</span> תגיע בלי שקל.
+                <span style={{ fontSize: "0.75em" }}>-</span> תגיע בלי שקל.
               </p>
               <Link
                 href="/course"

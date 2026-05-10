@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 export default function Magazine() {
   return (
@@ -54,7 +54,7 @@ export default function Magazine() {
           </div>
           <div style={{ textAlign: "right" }}>
             <div style={{ fontWeight: 700, color: "#124AF0", fontSize: "1.05rem" }}>
-              טור &quot;שוות הון&quot; — רבקי וייס
+              טור &quot;שוות הון&quot; - רבקי וייס
             </div>
             <div style={{ color: "#555", fontSize: "0.9rem", marginTop: 2 }}>
               מגזין &quot;בתוך המשפחה&quot;
@@ -71,9 +71,9 @@ export default function Magazine() {
             lineHeight: 1.7,
           }}
         >
-          אם קראת — את כבר יודעת שאני מאמינה שכל אישה יכולה להבין כסף.
+          אם קראת - את כבר יודעת שאני מאמינה שכל אישה יכולה להבין כסף.
           <br />
-          ואם לא — הנה מה שנשים שכן למדו איתי אומרות:
+          ואם לא - הנה מה שנשים שכן למדו איתי אומרות:
         </p>
       </div>
     </section>

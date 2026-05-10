@@ -4,32 +4,32 @@ import { useRef } from "react";
 
 const testimonials = [
   {
-    label: "מחוסר מושג לסדר מופתי — תוך חודש",
+    label: "מחוסר מושג לסדר מופתי - תוך חודש",
     quote: "הגעתי לרבקי בלי שום מושג מה קורה בתיק שלי, ותוך חודש הכל נראה אחרת. היא תקתקה עבודה, בדקה כפלי ביטוחים, ואיחדה הכל תחת קורת גג אחת. היא אפילו דיברה בשמי עם הסוכן. היום יש לי הוראת קבע שפועלת מעצמה. אין עוד שירות כזה.",
     name: "נחמה דוידוביץ",
     sub: "ליווי VIP",
   },
   {
     label: "מסינית למיליון שקלים",
-    quote: "שוק ההון, S&P 500, אינפלציה... הכל נשמע לי כמו סינית. רבקי הפכה את הכי מורכב לפשוט וברור. כשעשיתי את החשבון והבנתי שהרווחתי לטווח הארוך קרוב למיליון ש\"ח — לא האמנתי למראה עיניי.",
+    quote: "שוק ההון, S&P 500, אינפלציה... הכל נשמע לי כמו סינית. רבקי הפכה את הכי מורכב לפשוט וברור. כשעשיתי את החשבון והבנתי שהרווחתי לטווח הארוך קרוב למיליון ש\"ח - לא האמנתי למראה עיניי.",
     name: "שרית לוין",
     sub: "קורס ה-MUSTריות",
   },
   {
-    label: "המחסום שנשבר — ושינה את העתיד הכלכלי שלי",
+    label: "המחסום שנשבר - ושינה את העתיד הכלכלי שלי",
     quote: "פחדתי מהסיבוך ומהטכנולוגיה. התוכנית עשתה לי סדר בעיניים. ניקיתי עמלות מיותרות ודמי ניהול יקרים שזללו לי את החיסכון. היום אני יודעת בדיוק איפה הכסף שלי נמצא.",
     name: "מרים גלבשטיין",
     sub: "קורס ה-MUSTריות",
   },
   {
     label: "השיעור שהיינו חייבות לקבל כבר מזמן",
-    quote: "כשגיליתי כמה כסף איבדתי בקרן ההשתלמות הישנה שלי — פשוט כאב. היום אין מורה בצוות שאני לא עוצרת להסביר לה איך ההשקעות שלנו עובדות. זה לא יאומן כמה אנחנו מתאמצות להגדיל הכנסה, כשבאותו זמן אנחנו מאבדות מאות אלפי שקלים.",
+    quote: "כשגיליתי כמה כסף איבדתי בקרן ההשתלמות הישנה שלי - פשוט כאב. היום אין מורה בצוות שאני לא עוצרת להסביר לה איך ההשקעות שלנו עובדות. זה לא יאומן כמה אנחנו מתאמצות להגדיל הכנסה, כשבאותו זמן אנחנו מאבדות מאות אלפי שקלים.",
     name: "יהודית הלר",
     sub: "קורס ה-MUSTריות",
   },
   {
     label: "ההשקעה הכי משתלמת בקריירה שלך",
-    quote: "אנחנו משקיעות שנים בלימודים ובעבודה, אבל שוכחות להשקיע מינימום זמן כדי להבין איפה הכסף שלנו נמצא. כל בחורה שיוצאת לחיים חייבת את הקורס הזה. ההבדל בין לדעת לבין בורות — שווה מאות אלפי שקלים.",
+    quote: "אנחנו משקיעות שנים בלימודים ובעבודה, אבל שוכחות להשקיע מינימום זמן כדי להבין איפה הכסף שלנו נמצא. כל בחורה שיוצאת לחיים חייבת את הקורס הזה. ההבדל בין לדעת לבין בורות - שווה מאות אלפי שקלים.",
     name: "מיכל שרעבי",
     sub: "קורס ה-MUSTריות",
   },
@@ -76,7 +76,7 @@ export default function HomeTestimonials() {
         </div>
 
         {/* Cards grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 24, marginBottom: 40 }}>
+        <div className="testimonials-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24, marginBottom: 40 }}>
           {testimonials.map((t, i) => (
             <motion.div
               key={i}
@@ -122,7 +122,7 @@ export default function HomeTestimonials() {
               </p>
 
               <div style={{ fontWeight: 700, color: "#124AF0", fontSize: "0.9rem" }}>
-                <span style={{ fontSize: "0.75em" }}>—</span> {t.name}
+                <span style={{ fontSize: "0.75em" }}>-</span> {t.name}
               </div>
               <div style={{ color: "#999", fontSize: "0.83rem", marginTop: 2 }}>{t.sub}</div>
             </motion.div>
@@ -141,7 +141,7 @@ export default function HomeTestimonials() {
             <div style={{ background: "#060D3C", borderRadius: 26, width: "100%", height: "100%" }} />
           </div>
 
-          <div style={{ position: "relative", zIndex: 1, padding: "40px 48px", display: "flex", gap: 36, alignItems: "center", flexWrap: "wrap" }}>
+          <div className="expert-inner" style={{ position: "relative", zIndex: 1, padding: "40px 48px", display: "flex", gap: 36, alignItems: "center", flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 260 }}>
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
@@ -186,7 +186,7 @@ export default function HomeTestimonials() {
 
         {/* CTA */}
         <div style={{ textAlign: "center", marginTop: 40 }}>
-          <a href="/course" style={{ position: "relative", display: "inline-block", textDecoration: "none" }}>
+          <a href="/course" className="testimonials-cta" style={{ position: "relative", display: "inline-block", textDecoration: "none" }}>
             <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "url('/btn-blue-new.svg?v=2')", backgroundRepeat: "no-repeat", backgroundSize: "110% 560%", backgroundPosition: "center 41%" }} />
             <span style={{ position: "relative", zIndex: 1, color: "#FFFFFF", padding: "20px 64px", fontWeight: 800, fontSize: "1.05rem", display: "block", whiteSpace: "nowrap", textShadow: "0 0 12px rgba(255,255,255,0.8)" }}>
               אני רוצה להצטרף אליהן ←
@@ -200,6 +200,11 @@ export default function HomeTestimonials() {
           0%   { background-position: 0% 50%; }
           50%  { background-position: 100% 50%; }
           100% { background-position: 0% 50%; }
+        }
+        @media(max-width:640px){
+          .testimonials-grid { grid-template-columns: 1fr !important; }
+          .expert-inner { padding: 28px 20px !important; }
+          .testimonials-cta span { padding: 14px 28px !important; white-space: normal !important; font-size: 0.95rem !important; }
         }
       `}</style>
     </section>

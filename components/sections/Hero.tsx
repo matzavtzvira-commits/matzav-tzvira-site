@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { motion } from "framer-motion";
 
 export default function Hero() {
@@ -13,7 +13,7 @@ export default function Hero() {
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 1.5rem", width: "100%" }}>
         <div className="hero-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 56, alignItems: "center" }}>
 
-          {/* RIGHT — text */}
+          {/* RIGHT - text */}
           <div className="hero-text" style={{ textAlign: "right" }}>
 
             {/* MUST */}
@@ -51,7 +51,7 @@ export default function Hero() {
             <h1 style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)", fontWeight: 800, lineHeight: 1.35, margin: "0 0 12px", color: "#FFFFFF" }}>
               הגיע הזמן שגם הכסף שלך
               <br />
-              יעשה השתדלות <span style={{ fontSize: "0.75em" }}>—</span>
+              יעשה השתדלות <span style={{ fontSize: "0.75em" }}>-</span>
               <br />
               <span style={{ color: "#FA5C5C", display: "inline-block" }}>
                 לא רק את.
@@ -68,10 +68,15 @@ export default function Hero() {
               </span>
             </h1>
 
-            <p style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.7)", lineHeight: 1.8, marginBottom: 24 }}>
+            <p style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.7)", lineHeight: 1.8, marginBottom: 16 }}>
               הידע הפיננסי שהיה צריך ללמד אותנו בבית הספר.
               <br />
-              שוק ההון, פנסיה, השקעות, דמי ניהול <span style={{ fontSize: "0.75em" }}>—</span> בשפה שלנו, פעם אחת ולתמיד.
+              שוק ההון, פנסיה, השקעות, דמי ניהול <span style={{ fontSize: "0.75em" }}>-</span> בשפה שלנו, פעם אחת ולתמיד.
+            </p>
+            <p style={{ fontSize: "1rem", fontWeight: 700, color: "#21F0B0", lineHeight: 1.7, marginBottom: 24, textShadow: "0 0 12px rgba(33,240,176,0.5)" }}>
+              תיכנסי ללא ידע.
+              <br />
+              תצאי עם תיק השקעות שבנית בעצמך <span style={{ fontSize: "0.75em" }}>-</span> מותאם לך, מתחיל לעבוד.
             </p>
 
             {/* CTAs */}
@@ -91,7 +96,7 @@ export default function Hero() {
 
           </div>
 
-          {/* LEFT — video */}
+          {/* LEFT - video */}
           <div className="hero-video" style={{ overflow: "hidden", borderRadius: 16, position: "relative", height: 420, background: "#060D3C" }}>
             <video
               autoPlay loop muted playsInline

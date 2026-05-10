@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const links = [
   { label: "מי אני?", href: "/about" },
-  { label: "מדריכים", href: "/articles" },
+  { label: "מדריכים", href: "/articles", disabled: true },
   { label: "מחשבונים", href: "/calculators" },
   { label: "הרצאות וסדנאות", href: "/workshop" },
   { label: "הקהילה", href: "/#community" },
@@ -27,6 +27,7 @@ export default function Navigation() {
       }}
     >
       <div
+        className="nav-inner"
         style={{
           maxWidth: 1200,
           margin: "0 auto",
@@ -41,6 +42,7 @@ export default function Navigation() {
           <img
             src="/logo-new.png"
             alt="מצב צבירה"
+            className="nav-logo"
             style={{ height: 72, width: "auto", objectFit: "contain" }}
           />
         </Link>
@@ -55,7 +57,24 @@ export default function Navigation() {
           }}
           className="nav-desktop"
         >
-          {links.map((l) => (
+          {links.map((l) =>
+            l.disabled ? (
+              <span
+                key={l.label}
+                style={{
+                  color: "#BBBBBB",
+                  fontWeight: 500,
+                  fontSize: "0.9rem",
+                  padding: "8px 14px",
+                  borderRadius: 50,
+                  whiteSpace: "nowrap",
+                  border: "2px solid transparent",
+                  cursor: "default",
+                }}
+              >
+                {l.label}
+              </span>
+            ) : (
             <Link
               key={l.label}
               href={l.href}
@@ -97,7 +116,8 @@ export default function Navigation() {
             >
               {l.label}
             </Link>
-          ))}
+            )
+          )}
         </div>
 
         {/* Mobile hamburger */}
@@ -112,6 +132,10 @@ export default function Navigation() {
             flexDirection: "column",
             gap: 5,
             padding: 8,
+            minHeight: 44,
+            minWidth: 44,
+            justifyContent: "center",
+            alignItems: "center",
           }}
           aria-label={menuOpen ? "סגור תפריט" : "פתח תפריט"}
           aria-expanded={menuOpen}
@@ -139,7 +163,23 @@ export default function Navigation() {
           }}
           className="nav-mobile"
         >
-          {links.map((l) => (
+          {links.map((l) =>
+            l.disabled ? (
+              <span
+                key={l.label}
+                style={{
+                  color: "#BBBBBB",
+                  fontWeight: 500,
+                  fontSize: "1rem",
+                  padding: "14px 0",
+                  borderBottom: "1px solid #F4F7FF",
+                  display: "block",
+                  cursor: "default",
+                }}
+              >
+                {l.label}
+              </span>
+            ) : (
             <Link
               key={l.label}
               href={l.href}
@@ -148,14 +188,15 @@ export default function Navigation() {
                 color: l.label === "ליווי VIP" ? "#124AF0" : "#292929",
                 fontWeight: l.label === "MUSTריות" || l.label === "ליווי VIP" ? 700 : 500,
                 fontSize: "1rem",
-                padding: "12px 0",
+                padding: "14px 0",
                 borderBottom: "1px solid #F4F7FF",
                 display: "block",
               }}
             >
               {l.label}
             </Link>
-          ))}
+            )
+          )}
         </div>
       )}
 
@@ -163,6 +204,8 @@ export default function Navigation() {
         @media (max-width: 768px) {
           .nav-desktop { display: none !important; }
           .nav-hamburger { display: flex !important; }
+          .nav-inner { height: 64px !important; }
+          .nav-logo { height: 52px !important; }
         }
       `}</style>
     </nav>

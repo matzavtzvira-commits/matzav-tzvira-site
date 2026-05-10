@@ -1,5 +1,6 @@
 ﻿"use client";
 import { motion } from "framer-motion";
+import { LazyVideo } from "@/components/LazyVideo";
 
 export default function CommunitySection() {
   return (
@@ -9,10 +10,9 @@ export default function CommunitySection() {
         <motion.div
           initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="section-video-wrap"
           style={{ borderRadius: 20, overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", alignSelf: "stretch", maxHeight: 260 }}>
-          <video autoPlay loop muted playsInline style={{ width: "100%", height: "100%", display: "block", objectFit: "cover", transform: "scale(1.85)", transformOrigin: "center 50%" }}>
-            <source src="/community-video.mp4" type="video/mp4" />
-          </video>
+          <LazyVideo src="/community-video.mp4" style={{ width: "100%", height: "100%", display: "block", objectFit: "cover", transform: "scale(1.85)", transformOrigin: "center 50%" }} />
         </motion.div>
         {/* text */}
         <motion.div
@@ -31,19 +31,26 @@ export default function CommunitySection() {
             מדברות כסף בגובה העינים, שואלות, לומדות ומתקדמות יחד.
           </p>
           <a
-            href="https://chat.whatsapp.com/KUc5iTtqUdm85W6Fnf3Tcx"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ position: "relative", display: "inline-block", textDecoration: "none", alignSelf: "flex-start" }}
+            href="#newsletter"
+            className="section-btn"
+            style={{ position: "relative", display: "inline-block", textDecoration: "none", alignSelf: "flex-start", maxWidth: "100%" }}
           >
             <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "url('/btn-green.svg?v=2')", backgroundRepeat: "no-repeat", backgroundSize: "110% 560%", backgroundPosition: "center 41%" }} />
-            <span style={{ position: "relative", zIndex: 1, color: "#070C24", padding: "20px 64px", fontWeight: 800, fontSize: "1.05rem", display: "block", whiteSpace: "nowrap" }}>
+            <span style={{ position: "relative", zIndex: 1, color: "#070C24", padding: "20px 64px", fontWeight: 800, fontSize: "1.05rem", display: "block" }}>
               אני חלק מהקהילה <span className="arrow-anim">←</span>
             </span>
           </a>
         </motion.div>
       </div>
-      <style>{`@media(max-width:768px){.two-col{grid-template-columns:1fr!important;}}`}</style>
+      <style>{`
+        @media(max-width:768px){
+          .two-col { grid-template-columns: 1fr !important; }
+          .section-video-wrap { min-height: 220px !important; max-height: 260px !important; order: 2; }
+        }
+        @media(max-width:640px){
+          .section-btn span { padding: 14px 32px !important; white-space: normal !important; font-size: 0.95rem !important; }
+        }
+      `}</style>
     </section>
   );
 }

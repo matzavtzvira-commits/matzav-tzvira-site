@@ -1,4 +1,4 @@
-import Navigation from "@/components/Navigation";
+﻿import Navigation from "@/components/Navigation";
 import Hero from "@/components/sections/Hero";
 import SocialProof from "@/components/home/SocialProof";
 import Hook from "@/components/sections/Hook";
@@ -14,7 +14,7 @@ import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "תוכנית המאסטריות | מצב צבירה",
-  description: "הידע הפיננסי שהיה צריך ללמד אותנו בבית הספר — שוק ההון, פנסיה, השקעות, בשפה שלנו.",
+  description: "הידע הפיננסי שהיה צריך ללמד אותנו בבית הספר - שוק ההון, פנסיה, השקעות, בשפה שלנו.",
 };
 
 export default function CoursePage() {
@@ -61,7 +61,7 @@ export default function CoursePage() {
             <polygon points="0,0 1440,0 1440,56" fill="#FFFFFF"/>
           </svg>
         </div>
-        {/* CTA #2 — after testimonials */}
+        {/* CTA #2 - after testimonials */}
         <MidCTA />
         {/* blue → dark navy */}
         <div style={{ height: 56, background: "#060D3C", overflow: "hidden", lineHeight: 0 }}>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 
 export default function Newsletter() {
@@ -102,7 +102,7 @@ export default function Newsletter() {
                 margin: "0 auto 32px",
               }}
             >
-              המדריך שאני שולחת לכל מי שנרשמת לרשימת הדיוור שלי — חינם, בלי שיווק מיותר. רק ידע שעובד.
+              המדריך שאני שולחת לכל מי שנרשמת לרשימת הדיוור שלי - חינם, בלי שיווק מיותר. רק ידע שעובד.
             </p>
 
             {submitted ? (

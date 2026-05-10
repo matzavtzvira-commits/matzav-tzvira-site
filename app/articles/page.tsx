@@ -1,13 +1,13 @@
-"use client";
+﻿"use client";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 
 const articles = [
-  { slug: "pension-management-fees", title: "איך לבדוק את דמי הניהול בפנסיה שלך", excerpt: "רוב הנשים לא יודעות כמה הן משלמות בפנסיה — ואחרי שהן מגלות, הן לא מאמינות. מדריך פשוט שיחסוך לך עשרות אלפי שקלים.", date: "ינואר 2025", tag: "פנסיה", emoji: "📊", tagColor: "#124AF0" },
-  { slug: "har-hakessef", title: "הר הכסף — כך תמצאי כסף שלא ידעת שיש לך", excerpt: "מיליארדים ממתינים לבעליהם. כל מה שצריך זה לדעת לחפש. מדריך שלב אחר שלב לאיתור קרנות ישנות, ביטוחים ופנסיות שכוחות.", date: "פברואר 2025", tag: "חדש", emoji: "🏔️", tagColor: "#FA5C5C" },
-  { slug: "savings-for-kids", title: "חיסכון לכל ילד — מ-20,000 ל-70,000 ₪", excerpt: "החיסכון שהממשלה פותחת לכל ילד יכול להפוך להון אמיתי — אם בוחרים נכון. הנה הדרך הפשוטה שרוב ההורים לא מכירים.", date: "מרץ 2025", tag: "ילדים", emoji: "🌱", tagColor: "#21F0B0" },
-  { slug: "open-trading-account", title: "פתיחת חשבון מסחר — מדריך שלב אחרי שלב", excerpt: "פתיחת חשבון מסחר נשמעת מסובכת — אבל זה תהליך של פחות מ-20 דקות. הנה כל מה שצריך לדעת לפני שמתחילים.", date: "אפריל 2025", tag: "השקעות", emoji: "💼", tagColor: "#124AF0" },
+  { slug: "pension-management-fees", title: "איך לבדוק את דמי הניהול בפנסיה שלך", excerpt: "רוב הנשים לא יודעות כמה הן משלמות בפנסיה - ואחרי שהן מגלות, הן לא מאמינות. מדריך פשוט שיחסוך לך עשרות אלפי שקלים.", date: "ינואר 2025", tag: "פנסיה", emoji: "📊", tagColor: "#124AF0" },
+  { slug: "har-hakessef", title: "הר הכסף - כך תמצאי כסף שלא ידעת שיש לך", excerpt: "מיליארדים ממתינים לבעליהם. כל מה שצריך זה לדעת לחפש. מדריך שלב אחר שלב לאיתור קרנות ישנות, ביטוחים ופנסיות שכוחות.", date: "פברואר 2025", tag: "חדש", emoji: "🏔️", tagColor: "#FA5C5C" },
+  { slug: "savings-for-kids", title: "חיסכון לכל ילד - מ-20,000 ל-70,000 ₪", excerpt: "החיסכון שהממשלה פותחת לכל ילד יכול להפוך להון אמיתי - אם בוחרים נכון. הנה הדרך הפשוטה שרוב ההורים לא מכירים.", date: "מרץ 2025", tag: "ילדים", emoji: "🌱", tagColor: "#21F0B0" },
+  { slug: "open-trading-account", title: "פתיחת חשבון מסחר - מדריך שלב אחרי שלב", excerpt: "פתיחת חשבון מסחר נשמעת מסובכת - אבל זה תהליך של פחות מ-20 דקות. הנה כל מה שצריך לדעת לפני שמתחילים.", date: "אפריל 2025", tag: "השקעות", emoji: "💼", tagColor: "#124AF0" },
 ];
 
 
@@ -21,7 +21,7 @@ export default function ArticlesPage() {
           <div style={{ position: "absolute", top: -40, right: -40, width: 200, height: 200, borderRadius: "50%", background: "rgba(33,240,176,0.1)", filter: "blur(40px)", pointerEvents: "none" }} />
           <p style={{ color: "#21F0B0", fontWeight: 700, fontSize: "0.88rem", letterSpacing: 1, marginBottom: 12 }}>ידע = כוח</p>
           <h1 style={{ fontSize: "clamp(2rem, 5vw, 3rem)", color: "white", fontWeight: 700, marginBottom: 16, lineHeight: 1.2 }}>מאמרים ומדריכים</h1>
-          <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1.05rem", lineHeight: 1.8 }}>כל מה שצריך לדעת על שוק ההון, פנסיה והשקעות — בשפה שמבינים</p>
+          <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1.05rem", lineHeight: 1.8 }}>כל מה שצריך לדעת על שוק ההון, פנסיה והשקעות - בשפה שמבינים</p>
         </section>
 
         {/* Articles grid */}

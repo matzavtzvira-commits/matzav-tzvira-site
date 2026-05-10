@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect, useRef } from "react";
 
 async function subscribeToList(email: string, name?: string) {
@@ -74,7 +74,7 @@ function ExitIntentPopup() {
         </button>
 
         <p style={{ color: "#124AF0", fontWeight: 700, fontSize: "0.88rem", background: "#F4F7FF", display: "inline-block", padding: "4px 16px", borderRadius: 50, marginBottom: 16 }}>
-          רגע לפני שאת הולכת —
+          רגע לפני שאת הולכת -
         </p>
 
         <h3 style={{ fontSize: "clamp(1.2rem, 3vw, 1.5rem)", color: "#124AF0", lineHeight: 1.4, marginBottom: 8 }}>
@@ -164,6 +164,7 @@ function ScrollPopup() {
 
   return (
     <div
+      className="scroll-popup"
       style={{
         position: "fixed",
         bottom: 24,
@@ -189,7 +190,7 @@ function ScrollPopup() {
         5 טעויות. מאות אלפי שקלים.
       </p>
       <p style={{ color: "#555", fontSize: "0.85rem", lineHeight: 1.7, marginBottom: 14 }}>
-        את עושה לפחות אחת מהן <span style={{ fontSize: "0.75em" }}>—</span> ואת לא יודעת.
+        את עושה לפחות אחת מהן <span style={{ fontSize: "0.75em" }}>-</span> ואת לא יודעת.
         <br />
         קבלי את המדריך בחינם.
       </p>
@@ -237,6 +238,11 @@ export default function Popups() {
     <>
       <ExitIntentPopup />
       <ScrollPopup />
+      <style>{`
+        @media(max-width:640px){
+          .scroll-popup { width: calc(100vw - 32px) !important; right: 16px !important; bottom: 16px !important; }
+        }
+      `}</style>
     </>
   );
 }

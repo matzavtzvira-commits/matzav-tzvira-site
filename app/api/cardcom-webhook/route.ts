@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true });
     }
 
-    // הוספה לרב מסר — רשימת הקורס
+    // הוספה לרב מסר - רשימת הקורס
     const body = new URLSearchParams({
       "fields[subscribers_email]": email,
       "fields[subscribers_firstname]": firstName,

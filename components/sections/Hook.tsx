@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export default function Hook() {
   return (
-    <section style={{ background: "#124AF0", padding: "48px 1.5rem", textAlign: "center" }}>
+    <section id="hook" style={{ background: "#124AF0", padding: "48px 1.5rem", textAlign: "center" }}>
       <div style={{ maxWidth: 760, margin: "0 auto" }}>
 
         <p style={{ fontSize: "0.9rem", fontWeight: 600, color: "#21F0B0", marginBottom: 20, letterSpacing: 1 }}>

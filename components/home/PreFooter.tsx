@@ -33,13 +33,13 @@ export default function PreFooter() {
   };
 
   return (
-    <section style={{ background: "linear-gradient(135deg, #0a1a6e 0%, #124AF0 100%)", padding: "80px 1.5rem", position: "relative", overflow: "hidden" }}>
+    <section id="newsletter" style={{ background: "linear-gradient(135deg, #0a1a6e 0%, #124AF0 100%)", padding: "80px 1.5rem", position: "relative", overflow: "hidden" }}>
       {/* orbs */}
       <div style={{ position: "absolute", top: -80, right: -80, width: 360, height: 360, borderRadius: "50%", background: "rgba(33,240,176,0.08)", filter: "blur(70px)", animation: "float 12s ease-in-out infinite", pointerEvents: "none" }} />
       <div style={{ position: "absolute", bottom: -60, left: -60, width: 280, height: 280, borderRadius: "50%", background: "rgba(250,92,92,0.06)", filter: "blur(60px)", pointerEvents: "none" }} />
 
       <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", zIndex: 1 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "start" }}>
+        <div className="prefooter-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "start" }}>
 
           {/* Right: services list */}
           <div>
@@ -173,6 +173,14 @@ export default function PreFooter() {
         </div>
 
       </div>
+      <style>{`
+        @media(max-width:768px){
+          .prefooter-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+        }
+        @media(max-width:640px){
+          .prefooter-input { font-size: 0.95rem !important; }
+        }
+      `}</style>
     </section>
   );
 }

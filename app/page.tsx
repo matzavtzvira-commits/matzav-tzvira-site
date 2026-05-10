@@ -24,6 +24,7 @@ export default function Home() {
       <a
         href="/course"
         aria-label="עבור לתוכנית ה-MUSTריות"
+        className="floating-cta"
         style={{
           position: "fixed",
           bottom: 32,
@@ -40,11 +41,19 @@ export default function Home() {
           boxShadow: "0 6px 28px rgba(18,74,240,0.25)",
           whiteSpace: "nowrap",
           animation: "floatBtn 3s ease-in-out infinite",
+          minHeight: 44,
+          display: "inline-flex",
+          alignItems: "center",
         }}
       >
         לתוכנית ה-MUSTריות <span className="arrow-anim">←</span>
       </a>
-      <style>{`@keyframes floatBtn { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }`}</style>
+      <style>{`
+        @keyframes floatBtn { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+        @media(max-width:640px){
+          .floating-cta { bottom: 16px !important; left: 12px !important; padding: 12px 20px !important; font-size: 0.85rem !important; }
+        }
+      `}</style>
 
       <main id="main-content" tabIndex={-1}>
         <HomeHero />
@@ -59,8 +68,26 @@ export default function Home() {
         <HomeAbout />
         <CardsSection />
         <MUSTSection />
+        {/* diagonal ↘ */}
+        <div style={{ height: 40, background: "#FFFFFF", overflow: "hidden", lineHeight: 0 }}>
+          <svg viewBox="0 0 1440 40" preserveAspectRatio="none" width="100%" height="100%" style={{ display: "block" }}>
+            <polygon points="0,0 1440,0 0,40" fill="#060D3C"/>
+          </svg>
+        </div>
         <VIPSection />
+        {/* diagonal ↙ */}
+        <div style={{ height: 40, background: "#FFFFFF", overflow: "hidden", lineHeight: 0 }}>
+          <svg viewBox="0 0 1440 40" preserveAspectRatio="none" width="100%" height="100%" style={{ display: "block" }}>
+            <polygon points="0,0 1440,0 1440,40" fill="#060D3C"/>
+          </svg>
+        </div>
         <LibrarySection />
+        {/* diagonal ↘ */}
+        <div style={{ height: 40, background: "#FFFFFF", overflow: "hidden", lineHeight: 0 }}>
+          <svg viewBox="0 0 1440 40" preserveAspectRatio="none" width="100%" height="100%" style={{ display: "block" }}>
+            <polygon points="0,0 1440,0 0,40" fill="#060D3C"/>
+          </svg>
+        </div>
         <CommunitySection />
         {/* convex arch: dark blue → white */}
         <div style={{ height: 140, background: "#FFFFFF", overflow: "hidden", lineHeight: 0 }}>

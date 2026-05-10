@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
@@ -53,28 +53,28 @@ const cards = [
   {
     letter: "א",
     title: "חיסכון לכל ילד",
-    text: "איך למנף את ההשקעה שלך בכמה לחיצות כפתור ולהרוויח עוד כ-₪40,000 לכל ילד — כפול מספר הילדים שלך.",
+    text: "איך למנף את ההשקעה שלך בכמה לחיצות כפתור ולהרוויח עוד כ-₪40,000 לכל ילד - כפול מספר הילדים שלך.",
     cta: "אני רוצה",
     href: "/articles",
   },
   {
     letter: "ב",
-    title: "מחשבון דמי ניהול",
-    text: "כמה דמי ניהול את משלמת לפנסיה שלך? כמה הסוכן וחברות הביטוח מרוויחים עלייך? הכניסי את הנתונים — ותראי את המספרים מול העיניים.",
+    title: "מחשבון ריבית דריבית",
+    text: "הפלא השמיני - מי שמבין מרוויח ומי שלא עובד כל חייו.",
     cta: "למחשבון",
-    href: "/calculators",
+    href: "/calculators/compound-interest",
   },
   {
     letter: "ג",
     title: "פתיחת חשבון מסחר",
-    text: "מדריך יד ביד לפתיחת חשבון השקעות — טיפים והמלצות לבחירה נכונה.",
+    text: "מדריך יד ביד לפתיחת חשבון השקעות - טיפים והמלצות לבחירה נכונה.",
     cta: "למדריך",
     href: "/articles",
   },
   {
     letter: "ד",
     title: "קהילת צוברות פיננסיות",
-    text: "תצטרפי למהפכה — לאלפי נשים שיודעות, מתעדכנות ומרוויחות.",
+    text: "תצטרפי למהפכה - לאלפי נשים שיודעות, מתעדכנות ומרוויחות.",
     cta: "הצטרפי עכשיו",
     href: "https://chat.whatsapp.com/KUc5iTtqUdm85W6Fnf3Tcx",
   },
@@ -96,7 +96,7 @@ export default function BrushstrokeSection() {
             viewport={{ once: true, margin: "-40px" }}
             transition={{ type: "spring", stiffness: 180, damping: 14, delay: 0.15 }}
             style={{ fontSize: "1.1rem", color: "#21F0B0", fontWeight: 600, margin: 0, display: "inline-block" }}>
-            אגלה לך סוד <span style={{ fontSize: "0.75em" }}>—</span> את כבר מושקעת בשוק ההון ביג טיים.
+            אגלה לך סוד <span style={{ fontSize: "0.75em" }}>-</span> את כבר מושקעת בשוק ההון ביג טיים.
           </motion.p>
         </div>
 
@@ -126,7 +126,7 @@ export default function BrushstrokeSection() {
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "#124AF0"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
             >
               {/* floating icon */}
-              <div style={{
+              <div className="brush-icon" style={{
                 position: "absolute",
                 top: -28,
                 right: -28,
@@ -192,7 +192,11 @@ export default function BrushstrokeSection() {
         </div>
 
       </div>
-      <style>{`@media(max-width:900px){.brush-grid{grid-template-columns:1fr 1fr!important;}}@media(max-width:560px){.brush-grid{grid-template-columns:1fr!important;}}`}</style>
+      <style>{`
+        @media(max-width:900px){.brush-grid{grid-template-columns:1fr 1fr!important;}}
+        @media(max-width:560px){.brush-grid{grid-template-columns:1fr!important;}}
+        @media(max-width:900px){.brush-icon{right:12px!important;top:-20px!important;}}
+      `}</style>
     </section>
   );
 }

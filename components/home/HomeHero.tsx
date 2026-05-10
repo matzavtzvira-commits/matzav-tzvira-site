@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { motion } from "framer-motion";
 
 export default function HomeHero() {
@@ -14,6 +14,7 @@ export default function HomeHero() {
     >
       {/* Video - left side */}
       <div
+        className="hero-video-wrap"
         style={{
           position: "absolute",
           top: 80,
@@ -23,7 +24,7 @@ export default function HomeHero() {
         }}
       >
         <video
-          autoPlay loop muted playsInline
+          autoPlay loop muted playsInline preload="auto"
           style={{
             width: "100%",
             height: "100%",
@@ -34,6 +35,7 @@ export default function HomeHero() {
         </video>
         {/* Fade to dark toward center */}
         <div
+          className="hero-video-fade"
           style={{
             position: "absolute",
             top: 0, right: 0, bottom: 0,
@@ -43,8 +45,9 @@ export default function HomeHero() {
         />
       </div>
 
-      {/* Right side — content */}
+      {/* Right side - content */}
       <div
+        className="hero-content"
         style={{
           position: "relative",
           zIndex: 2,
@@ -66,6 +69,7 @@ export default function HomeHero() {
           </motion.p>
 
           <motion.h1
+            className="hero-h1"
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
             style={{ color: "white", fontSize: "clamp(2.8rem, 5vw, 4.2rem)", fontWeight: 700, lineHeight: 1.2, marginBottom: 36 }}
@@ -81,7 +85,7 @@ export default function HomeHero() {
               בשפה שרק אנחנו מבינות.
             </p>
             <p style={{ color: "#FFFFFF", fontSize: "1.25rem", fontWeight: 400, margin: 0, lineHeight: 1.6 }}>
-              כל מה שאת צריכה <span style={{ fontSize: "0.75em", opacity: 0.6 }}>—</span>
+              כל מה שאת צריכה <span style={{ fontSize: "0.75em", opacity: 0.6 }}>-</span>
             </p>
             <p style={{ color: "#FFFFFF", fontSize: "1.25rem", fontWeight: 400, margin: 0, lineHeight: 1.6 }}>
               תחת מטריה אחת.
@@ -92,7 +96,7 @@ export default function HomeHero() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
             style={{ position: "relative", display: "inline-block" }}>
-            <p style={{ color: "#FA5C5C", fontSize: "1.1rem", margin: 0, fontWeight: 600 }}>
+            <p className="hero-tagline" style={{ color: "#FA5C5C", fontSize: "1.1rem", margin: 0, fontWeight: 600 }}>
               בלי נוסחאות. בלי חליפות. עם נעלי בית.
             </p>
             <svg
@@ -141,6 +145,7 @@ export default function HomeHero() {
 
       {/* Scroll arrow */}
       <div
+        className="hero-scroll"
         style={{
           position: "absolute",
           bottom: 36,
@@ -158,6 +163,34 @@ export default function HomeHero() {
             0%   { opacity: 0; transform: translateY(-10px); }
             50%  { opacity: 1; transform: translateY(0px); }
             100% { opacity: 0; transform: translateY(10px); }
+          }
+          @media(max-width:768px){
+            .hero-video-wrap { width: 100% !important; top: 0 !important; }
+            .hero-video-fade {
+              width: 100% !important;
+              right: 0 !important;
+              left: 0 !important;
+              top: auto !important;
+              height: 70% !important;
+              background: linear-gradient(to top, #070C24 20%, transparent 100%) !important;
+            }
+            .hero-content {
+              padding-left: 1.25rem !important;
+              padding-right: 1.25rem !important;
+              align-items: flex-end !important;
+              padding-bottom: 5rem !important;
+              height: calc(100vh - 80px) !important;
+            }
+            .hero-content > div { max-width: 100% !important; }
+          }
+          @media(max-width:768px){ .hero-scroll { display: none !important; } }
+          @media(max-width:640px){
+            .hero-h1 { font-size: clamp(1.75rem, 7vw, 2.4rem) !important; margin-bottom: 16px !important; }
+            .hero-content p { font-size: 1rem !important; }
+            .hero-tagline { font-size: 0.9rem !important; }
+          }
+          @media(max-width:480px){
+            .hero-h1 { font-size: clamp(1.45rem, 5.8vw, 1.75rem) !important; line-height: 1.25 !important; }
           }
         `}</style>
         {[0, 1, 2].map((i) => (

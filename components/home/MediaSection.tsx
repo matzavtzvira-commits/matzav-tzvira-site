@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { motion } from "framer-motion";
 
 export default function MediaSection() {
@@ -19,7 +19,7 @@ export default function MediaSection() {
         {/* Two cards */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28 }} className="media-grid">
 
-          {/* Card 1 — Column */}
+          {/* Card 1 - Column */}
           <motion.div
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -35,7 +35,7 @@ export default function MediaSection() {
                 <span style={{ background: "#EEF2FF", color: "#124AF0", fontWeight: 700, fontSize: "0.78rem", padding: "3px 12px", borderRadius: 50, display: "inline-block", marginBottom: 8 }}>טור</span>
                 <p style={{ fontSize: "1.15rem", fontWeight: 800, color: "#070C24", margin: "0 0 8px" }}>שוות הון</p>
                 <p style={{ fontSize: "0.95rem", color: "#555", lineHeight: 1.8, margin: 0 }}>
-                  הטור הפיננסי לאישה <span style={{ fontSize: "0.75em" }}>—</span> כסף והשקעות בשפה שלנו.
+                  הטור הפיננסי לאישה <span style={{ fontSize: "0.75em" }}>-</span> כסף והשקעות בשפה שלנו.
                 </p>
               </div>
               <a href="/column-mishpacha.pdf" target="_blank" rel="noopener noreferrer"
@@ -45,7 +45,7 @@ export default function MediaSection() {
             </div>
           </motion.div>
 
-          {/* Card 2 — Podcast */}
+          {/* Card 2 - Podcast */}
           <motion.div
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
@@ -61,8 +61,8 @@ export default function MediaSection() {
                 פודקאסט
               </span>
               <div>
-                <p style={{ fontSize: "0.85rem", color: "#999", margin: "0 0 4px" }}>קפה לדרך <span style={{ fontSize: "0.75em" }}>—</span> דיתי וינשטיין</p>
-                <p style={{ fontSize: "1.15rem", fontWeight: 800, color: "#070C24", margin: "0 0 8px" }}>פרק 3 <span style={{ fontSize: "0.75em" }}>—</span> הון ללא שלטון</p>
+                <p style={{ fontSize: "0.85rem", color: "#999", margin: "0 0 4px" }}>קפה לדרך <span style={{ fontSize: "0.75em" }}>-</span> דיתי וינשטיין</p>
+                <p style={{ fontSize: "1.15rem", fontWeight: 800, color: "#070C24", margin: "0 0 8px" }}>פרק 3 <span style={{ fontSize: "0.75em" }}>-</span> הון ללא שלטון</p>
                 <p style={{ fontSize: "0.95rem", color: "#555", lineHeight: 1.8, margin: 0 }}>
                   איך הכסף שלך יעשה את העבודה בזמן שאת עסוקה בחיים.
                 </p>

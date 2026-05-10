@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 export const metadata = {
   title: "הצהרת נגישות | מצב צבירה",
@@ -38,7 +38,7 @@ export default function AccessibilityPage() {
             <li>כל הכפתורים הפעילים כוללים תיאור טקסטואלי (<code>aria-label</code>).</li>
             <li>שדות הטופס מקושרים לתוויות נגישות (<code>&lt;label&gt;</code>).</li>
             <li>תמונות מלוות בתיאור חלופי (<code>alt</code>).</li>
-            <li>ניווט מקלדת מלא — כל האלמנטים הלחיצים נגישים דרך <strong>Tab</strong>.</li>
+            <li>ניווט מקלדת מלא - כל האלמנטים הלחיצים נגישים דרך <strong>Tab</strong>.</li>
             <li>פוקוס ויזואלי ברור על כל האלמנטים הנגישים.</li>
             <li>אנימציות מבוטלות אוטומטית עבור משתמשים שהגדירו "הפחת תנועה" במערכת ההפעלה.</li>
             <li>היררכיית כותרות תקינה (H1 → H2 → H3).</li>
@@ -51,26 +51,26 @@ export default function AccessibilityPage() {
             אנו עובדות על שיפור מתמיד. ידוע לנו על האתגרים הבאים:
           </p>
           <ul>
-            <li>חלק מהסרטונים טרם כוללים כתוביות — אנו מתכננות להוסיפן.</li>
+            <li>חלק מהסרטונים טרם כוללים כתוביות - אנו מתכננות להוסיפן.</li>
             <li>ייתכנו בעיות ניגודיות צבע בטקסטים משניים מסוימים.</li>
           </ul>
         </Section>
 
         <Section title="כיצד ניתן לנווט באתר עם מקלדת">
           <ul>
-            <li><strong>Tab</strong> — מעבר לאלמנט הבא</li>
-            <li><strong>Shift + Tab</strong> — מעבר לאלמנט הקודם</li>
-            <li><strong>Enter / רווח</strong> — הפעלת כפתורים וקישורים</li>
-            <li><strong>Esc</strong> — סגירת תפריטים קופצים</li>
+            <li><strong>Tab</strong> - מעבר לאלמנט הבא</li>
+            <li><strong>Shift + Tab</strong> - מעבר לאלמנט הקודם</li>
+            <li><strong>Enter / רווח</strong> - הפעלת כפתורים וקישורים</li>
+            <li><strong>Esc</strong> - סגירת תפריטים קופצים</li>
           </ul>
         </Section>
 
         <Section title="קוראי מסך מומלצים">
           <ul>
-            <li><strong>NVDA</strong> — חינמי, Windows</li>
-            <li><strong>VoiceOver</strong> — מובנה ב-Mac ו-iPhone</li>
-            <li><strong>TalkBack</strong> — מובנה ב-Android</li>
-            <li><strong>JAWS</strong> — Windows (בתשלום)</li>
+            <li><strong>NVDA</strong> - חינמי, Windows</li>
+            <li><strong>VoiceOver</strong> - מובנה ב-Mac ו-iPhone</li>
+            <li><strong>TalkBack</strong> - מובנה ב-Android</li>
+            <li><strong>JAWS</strong> - Windows (בתשלום)</li>
           </ul>
         </Section>
 

@@ -1,8 +1,8 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 export const metadata = {
   title: "מדיניות פרטיות | מצב צבירה",
-  description: "מדיניות הפרטיות של מצב צבירה — כיצד אנו אוספים ומשתמשים במידע שלך.",
+  description: "מדיניות הפרטיות של מצב צבירה - כיצד אנו אוספים ומשתמשים במידע שלך.",
 };
 
 export default function PrivacyPage() {
@@ -39,8 +39,8 @@ export default function PrivacyPage() {
           <ul>
             <li><strong>פרטי הרשמה:</strong> שם ושדה מייל בעת הרשמה לניוזלטר.</li>
             <li><strong>פרטי יצירת קשר:</strong> שם, מייל וטלפון בעת מילוי טופס ליצירת קשר או בקשת ליווי VIP.</li>
-            <li><strong>פרטי רכישה:</strong> בעת רכישת קורס או שירות — פרטי תשלום מועברים ישירות לספק התשלומים ואינם נשמרים אצלנו.</li>
-            <li><strong>נתוני גלישה:</strong> כתובת IP, סוג דפדפן, דפים שנצפו — באמצעות כלי ניתוח אנונימיים (Google Analytics).</li>
+            <li><strong>פרטי רכישה:</strong> בעת רכישת קורס או שירות - פרטי תשלום מועברים ישירות לספק התשלומים ואינם נשמרים אצלנו.</li>
+            <li><strong>נתוני גלישה:</strong> כתובת IP, סוג דפדפן, דפים שנצפו - באמצעות כלי ניתוח אנונימיים (Google Analytics).</li>
           </ul>
         </Section>
 
@@ -60,14 +60,14 @@ export default function PrivacyPage() {
           <p>אנחנו עובדים עם ספקי שירות חיצוניים לצרכים מוגדרים:</p>
           <ul>
             <li>
-              <strong>רב מסר</strong> — פלטפורמת דיוור לשליחת ניוזלטר. המידע שלך מועבר אליהם לצורך זה בלבד, בהתאם{" "}
+              <strong>רב מסר</strong> - פלטפורמת דיוור לשליחת ניוזלטר. המידע שלך מועבר אליהם לצורך זה בלבד, בהתאם{" "}
               <a href="https://www.ravmesser.com/privacy" target="_blank" rel="noopener noreferrer" style={{ color: "#124AF0" }}>למדיניות הפרטיות שלהם</a>.
             </li>
             <li>
-              <strong>WhatsApp / Meta</strong> — קהילת הווטסאפ פועלת תחת תנאי השימוש של WhatsApp. ההצטרפות לקבוצה היא רשות ואינה חלק מהרישום לאתר.
+              <strong>WhatsApp / Meta</strong> - קהילת הווטסאפ פועלת תחת תנאי השימוש של WhatsApp. ההצטרפות לקבוצה היא רשות ואינה חלק מהרישום לאתר.
             </li>
             <li>
-              <strong>Google Analytics</strong> — נתוני גלישה אנונימיים לניתוח תנועה באתר.
+              <strong>Google Analytics</strong> - נתוני גלישה אנונימיים לניתוח תנועה באתר.
             </li>
           </ul>
         </Section>
@@ -91,7 +91,7 @@ export default function PrivacyPage() {
             <li>קבלת מידע על הנתונים שנשמרו אצלנו.</li>
             <li>תיקון מידע שגוי.</li>
             <li>מחיקת המידע שלך ("הזכות להישכח").</li>
-            <li>ביטול הסכמה לקבלת דיוור בכל עת — דרך קישור ההסרה בכל ניוזלטר או בפנייה ישירה.</li>
+            <li>ביטול הסכמה לקבלת דיוור בכל עת - דרך קישור ההסרה בכל ניוזלטר או בפנייה ישירה.</li>
           </ul>
           <p>
             לפנייה:{" "}

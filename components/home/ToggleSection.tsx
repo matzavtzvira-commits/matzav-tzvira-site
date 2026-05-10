@@ -6,12 +6,12 @@ const cards = [
     title: "המרוץ לא נגמר",
     color: "#FA5C5C",
     lines: [
-      "בית, עבודה, ילדים. עד שנזכרת לנשום — כבר ערב.",
+      "בית, עבודה, ילדים. עד שנזכרת לנשום - כבר ערב.",
       "וכשיש שקט?",
-      "את רוצה רק שקט. שש — שקט.",
+      "את רוצה רק שקט. שש - שקט.",
       "לא לחשוב. לא לעשות. לא לקרוא. לא לתכנן.",
       "פשוט לנשום.",
-      "לכסף אין מקום בסדר היום — גם אם את יודעת כמה זה חשוב.",
+      "לכסף אין מקום בסדר היום - גם אם את יודעת כמה זה חשוב.",
     ],
   },
   {
@@ -29,7 +29,7 @@ const cards = [
     lines: [
       "ריביות, תיקי השקעות, מדד, תשואות.",
       "מרגיש כמו שפה אחרת לגמרי.",
-      "אז את מורידה יד — ומחכה שמישהו אחר יטפל בזה.",
+      "אז את מורידה יד - ומחכה שמישהו אחר יטפל בזה.",
       "רק שאותו מישהו אחר לא תמיד עובד בשבילך.",
     ],
   },
@@ -48,7 +48,7 @@ export default function ToggleSection() {
             יותר ממספיק.
           </p>
           <p style={{ fontSize: "1.08rem", color: "#FFFFFF", lineHeight: 1.9, marginTop: 16, marginBottom: 0, fontWeight: 500, textShadow: "0 0 12px rgba(255,255,255,0.8)" }}>
-            השאלה היא לא כמה קשה את עובדת <span style={{ fontSize: "0.75em" }}>—</span>
+            השאלה היא לא כמה קשה את עובדת <span style={{ fontSize: "0.75em" }}>-</span>
             <br />
             השאלה היא לאן האנרגיה שלך הולכת.
           </p>
@@ -158,11 +158,11 @@ export default function ToggleSection() {
               דרך הפנסיה שלך, קרן ההשתלמות, קופת הגמל.
             </p>
             <p style={{ fontSize: "1.08rem", color: "#292929", lineHeight: 2, margin: "0 0 8px 0", fontWeight: 500 }}>
-              אבל כי אף אחד לא הסביר לך איך זה עובד <span style={{ fontSize: "0.75em" }}>—</span>
+              אבל כי אף אחד לא הסביר לך איך זה עובד <span style={{ fontSize: "0.75em" }}>-</span>
             </p>
             <div style={{ display: "inline-block", margin: "0 0 6px 0" }}>
               <p style={{ fontSize: "1.25rem", fontWeight: 800, color: "#124AF0", margin: 0 }}>
-                ההפרש בין לדעת ללא לדעת <span style={{ fontSize: "0.75em" }}>—</span> ₪1,300,000.
+                ההפרש בין לדעת ללא לדעת <span style={{ fontSize: "0.75em" }}>-</span> ₪1,300,000.
               </p>
               <svg viewBox="0 0 300 10" fill="none" xmlns="http://www.w3.org/2000/svg"
                 style={{ width: "100%", display: "block", marginTop: 2 }} preserveAspectRatio="none">
@@ -217,28 +217,36 @@ export default function ToggleSection() {
               <br />
               לא בטבלאות אקסל מפחידות.
               <br />
-              כוס קפה, שוקולד <span style={{ fontSize: "0.75em" }}>—</span> ויחד, יד ביד, צעד אחד בכל פעם.
+              כוס קפה, שוקולד <span style={{ fontSize: "0.75em" }}>-</span> ויחד, יד ביד, צעד אחד בכל פעם.
               <br />
               זה לא מפחיד כמו שזה נראה. מבטיחה.
               <br />
-              <strong style={{ color: "#124AF0" }}>אני לא יותר מוכשרת ממך <span style={{ fontSize: "0.75em" }}>—</span> גם על הספה עם נעלי בית, את יכולה לבנות הון. פשוטו כמשמעו.</strong>
+              <strong style={{ color: "#124AF0" }}>אני לא יותר מוכשרת ממך <span style={{ fontSize: "0.75em" }}>-</span> גם על הספה עם נעלי בית, את יכולה לבנות הון. פשוטו כמשמעו.</strong>
             </p>
           </div>
 
           <p style={{ fontWeight: 800, color: "#FA5C5C", fontSize: "1.15rem", marginBottom: 32 }}>
-            זה לא אמור להיות ככה <span style={{ fontSize: "0.75em" }}>—</span> בואי נשנה את זה יחד.
+            זה לא אמור להיות ככה <span style={{ fontSize: "0.75em" }}>-</span> בואי נשנה את זה יחד.
           </p>
 
-          <a href="/course" style={{ position: "relative", display: "inline-block", textDecoration: "none" }}>
+          <a href="/course" className="toggle-cta" style={{ position: "relative", display: "inline-block", textDecoration: "none" }}>
             <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "url('/btn-blue-new.svg?v=2')", backgroundRepeat: "no-repeat", backgroundSize: "110% 560%", backgroundPosition: "center 41%" }} />
             <span style={{ position: "relative", zIndex: 1, color: "#FFFFFF", padding: "20px 64px", fontWeight: 800, fontSize: "1.05rem", display: "block", whiteSpace: "nowrap", textShadow: "0 0 12px rgba(255,255,255,0.8)" }}>
               אני רוצה להתחיל <span className="arrow-anim">←</span>
             </span>
           </a>
+          <p style={{ marginTop: 14, fontSize: "0.88rem", color: "rgba(7,12,36,0.55)", fontWeight: 600, margin: "14px 0 0 0" }}>
+            להיכנס ללא ידע. לצאת עם תיק.
+          </p>
 
         </div>
 
       </div>
+      <style>{`
+        @media(max-width:640px){
+          .toggle-cta span { padding: 14px 28px !important; white-space: normal !important; font-size: 0.95rem !important; }
+        }
+      `}</style>
     </section>
   );
 }

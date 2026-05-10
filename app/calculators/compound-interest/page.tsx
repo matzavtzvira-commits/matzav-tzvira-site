@@ -1,5 +1,5 @@
-"use client";
-import { useState, useMemo } from "react";
+﻿"use client";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -62,10 +62,10 @@ function SketchLine({ color, id, delay = 0, onMount = false }: { color: string; 
 
 function AnimatedStripe() {
   const items = [
-    "ריבית דריבית — הפלא השמיני בתבל",
+    "ריבית דריבית - הפלא השמיני בתבל",
     "₪200 בחודש × 30 שנה = מעל ₪400,000",
     "10% תשואה שנתית ממוצעת בשוק המניות",
-    "כל שנה שמאחרת — שווה אלפי שקלים",
+    "כל שנה שמאחרת - שווה אלפי שקלים",
     "דמי ניהול נמוכים = עשרות אלפי שקלים יותר",
     "זמן הוא הנכס הכי יקר שלך",
   ];
@@ -265,7 +265,7 @@ function CompoundCalculator() {
           <p style={{ margin: 0, fontSize: "0.88rem", color: "#c0392b", lineHeight: 1.7 }}>
             <strong>תשומת ליבך:</strong> דמי הניהול עולים לך{" "}
             <strong>{Math.round(feeImpact).toLocaleString("he-IL")} ₪</strong> לאורך {years} שנה{" "}
-            <span style={{ fontSize: "0.75em" }}>—</span>{" "}
+            <span style={{ fontSize: "0.75em" }}>-</span>{" "}
             זה ההבדל בין לפרוש בשקט לבין לעבוד עוד {Math.max(1, Math.round(feeImpact / (monthly * 12)))} שנה.
           </p>
         </motion.div>
@@ -622,7 +622,7 @@ function RiddleSection() {
             }}
           >
             <h3 style={{ color: "white", fontWeight: 700, fontSize: "1.05rem", marginBottom: 28, textAlign: "center" }}>
-              30 יום <span style={{ fontSize: "0.75em" }}>—</span> מ-10 אגורות ל-53 מיליון
+              30 יום <span style={{ fontSize: "0.75em" }}>-</span> מ-10 אגורות ל-53 מיליון
             </h3>
 
             <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
@@ -963,11 +963,11 @@ function ExplanationSection() {
           }}>
             "ריבית דריבית היא הפלא השמיני בתבל. מי שמבינה אותה{" "}
             <span style={{ color: "#21F0B0" }}>מרוויחה</span> אותה,
-            ומי שאינה מבינה <span style={{ fontSize: "0.75em" }}>—</span>{" "}
+            ומי שאינה מבינה <span style={{ fontSize: "0.75em" }}>-</span>{" "}
             <span style={{ color: "#FA5C5C" }}>משלמת</span> אותה."
           </p>
           <p style={{ color: "rgba(255,255,255,0.9)", fontSize: "0.88rem", margin: 0 }}>
-            <span style={{ fontSize: "0.75em" }}>—</span> מיוחס לאלברט איינשטיין
+            <span style={{ fontSize: "0.75em" }}>-</span> מיוחס לאלברט איינשטיין
           </p>
         </motion.blockquote>
       </div>
@@ -986,7 +986,7 @@ const jsonLd = {
     {
       "@type": "WebApplication",
       name: "מחשבון ריבית דריבית",
-      description: "מחשבון ריבית דריבית חינמי — חשבי כמה הכסף שלך יגדל לאורך שנים, כולל דמי ניהול ודמי צבירה",
+      description: "מחשבון ריבית דריבית חינמי - חשבי כמה הכסף שלך יגדל לאורך שנים, כולל דמי ניהול ודמי צבירה",
       url: `${SITE_URL}/calculators/compound-interest`,
       applicationCategory: "FinanceApplication",
       offers: { "@type": "Offer", price: "0", priceCurrency: "ILS" },
@@ -1002,7 +1002,7 @@ const jsonLd = {
           name: "מה זה ריבית דריבית?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "ריבית דריבית זה כשהרווחים שלך מתחילים גם הם לעשות רווחים. לא רק הכסף המקורי — גם הריבית עצמה מרוויחה ריבית. כמו כדור שלג שמתגלגל: ככל שמתגלגל, כך הוא גדל מהר יותר.",
+            text: "ריבית דריבית זה כשהרווחים שלך מתחילים גם הם לעשות רווחים. לא רק הכסף המקורי - גם הריבית עצמה מרוויחה ריבית. כמו כדור שלג שמתגלגל: ככל שמתגלגל, כך הוא גדל מהר יותר.",
           },
         },
         {
@@ -1026,7 +1026,7 @@ const jsonLd = {
           name: "מה התשואה הממוצעת בשוק המניות?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "התשואה הממוצעת ההיסטורית של שוק המניות הגלובלי עומדת על כ-10% בשנה לפני אינפלציה. זה ממוצע לאורך עשרות שנים — בשנים ספציפיות יכולות להיות עליות וירידות משמעותיות.",
+            text: "התשואה הממוצעת ההיסטורית של שוק המניות הגלובלי עומדת על כ-10% בשנה לפני אינפלציה. זה ממוצע לאורך עשרות שנים - בשנים ספציפיות יכולות להיות עליות וירידות משמעותיות.",
           },
         },
         {
@@ -1051,6 +1051,7 @@ const jsonLd = {
 };
 
 export default function CompoundInterestPage() {
+  useEffect(() => { window.scrollTo(0, 0); }, []);
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -1114,7 +1115,7 @@ export default function CompoundInterestPage() {
           <div style={{ position: "absolute", bottom: -60, left: -60, width: 280, height: 280, borderRadius: "50%", background: "rgba(18,74,240,0.12)", filter: "blur(60px)", animation: "floatAlt 10s ease-in-out infinite", pointerEvents: "none" }} />
 
           <div style={{ maxWidth: 860, margin: "0 auto", position: "relative" }}>
-            {/* Slippers + badge — inline */}
+            {/* Slippers + badge - inline */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
@@ -1172,9 +1173,9 @@ export default function CompoundInterestPage() {
               style={{ color: "rgba(255,255,255,0.82)", fontSize: "clamp(1rem, 2.5vw, 1.22rem)", lineHeight: 1.8, marginBottom: 36 }}
             >
               הפלא השמיני בתבל{" "}
-              <span style={{ fontSize: "0.75em" }}>—</span>{" "}
+              <span style={{ fontSize: "0.75em" }}>-</span>{" "}
               מי שמבינה אותה <span style={{ color: "#21F0B0", fontWeight: 700 }}>מרוויחה</span>,
-              ומי שאינה מבינה <span style={{ fontSize: "0.75em" }}>—</span>{" "}
+              ומי שאינה מבינה <span style={{ fontSize: "0.75em" }}>-</span>{" "}
               <span style={{ color: "#FA5C5C", fontWeight: 700 }}>עובדת כל ימיה</span>.
             </motion.p>
 
@@ -1236,7 +1237,7 @@ export default function CompoundInterestPage() {
                 המחשבון הפרקטי
               </h2>
               <p style={{ color: "#444", fontSize: "1rem", lineHeight: 1.8 }}>
-                תראי בדיוק מה קורה לכסף שלך <span style={{ fontSize: "0.75em" }}>—</span> כולל הנזק האמיתי של דמי הניהול.
+                תראי בדיוק מה קורה לכסף שלך <span style={{ fontSize: "0.75em" }}>-</span> כולל הנזק האמיתי של דמי הניהול.
               </p>
             </motion.div>
             <CompoundCalculator />
@@ -1319,7 +1320,7 @@ export default function CompoundInterestPage() {
               </div>
               <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "1rem", lineHeight: 1.85, marginBottom: 36 }}>
                 בתוכנית המאסטריות לומדים ריבית דריבית, שוק ההון, פנסיה והשקעות{" "}
-                <span style={{ fontSize: "0.75em" }}>—</span>{" "}
+                <span style={{ fontSize: "0.75em" }}>-</span>{" "}
                 בשפה שלנו, בנעלי בית, בלי נוסחאות מסובכות.
               </p>
               <Link

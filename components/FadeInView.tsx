@@ -20,7 +20,7 @@ export default function FadeInView({
   className,
 }: Props) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const isInView = useInView(ref, { once: true, margin: "0px" });
 
   const offset = { up: { y: 40, x: 0 }, left: { x: 40, y: 0 }, right: { x: -40, y: 0 }, none: { x: 0, y: 0 } };
   const { x, y } = offset[direction];

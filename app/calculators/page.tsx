@@ -1,369 +1,252 @@
-"use client";
+﻿"use client";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { useState, useMemo } from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
 
-/* ─── Kids Savings Calculator ─── */
-function KidsCalc() {
-  const [age, setAge] = useState(3);
-  const [track, setTrack] = useState<"default" | "stocks">("stocks");
-
-  const monthly = 60;
-  const yearsLeft = Math.max(0, 18 - age);
-  const rate = track === "stocks" ? 0.075 : 0.025;
-  const months = yearsLeft * 12;
-
-  const fv = useMemo(() => {
-    if (months === 0) return 0;
-    const r = rate / 12;
-    return monthly * ((Math.pow(1 + r, months) - 1) / r);
-  }, [months, rate]);
-
+function SketchLine({ id, maxWidth = 460, delay = 0.3 }: { id: string; maxWidth?: number; delay?: number }) {
   return (
-    <div id="kids" style={{ background: "white", borderRadius: 24, padding: "40px 36px", border: "2px solid #E8EDFF", scrollMarginTop: 100 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 28 }}>
-        <div style={{ width: 52, height: 52, borderRadius: "50%", background: "#21F0B0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem", flexShrink: 0 }}>🌱</div>
-        <div>
-          <h2 style={{ fontSize: "1.3rem", fontWeight: 700, color: "#124AF0", margin: 0 }}>חיסכון לכל ילד</h2>
-          <p style={{ color: "#888", fontSize: "0.85rem", margin: 0 }}>כמה יהיה לילד שלך בגיל 18</p>
-        </div>
-      </div>
-
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 28 }}>
-        <div>
-          <label style={{ display: "block", fontWeight: 600, color: "#292929", marginBottom: 8, fontSize: "0.9rem" }}>גיל הילד: {age}</label>
-          <input
-            type="range" min={0} max={17} value={age}
-            onChange={(e) => setAge(Number(e.target.value))}
-            style={{ width: "100%", accentColor: "#124AF0" }}
-          />
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: "#aaa" }}>
-            <span>0</span><span>17</span>
-          </div>
-        </div>
-        <div>
-          <label style={{ display: "block", fontWeight: 600, color: "#292929", marginBottom: 8, fontSize: "0.9rem" }}>מסלול השקעה</label>
-          <div style={{ display: "flex", gap: 10 }}>
-            {([["default", "ברירת מחדל (2.5%)"], ["stocks", "מנייתי (7.5%)"]] as const).map(([val, label]) => (
-              <button key={val} onClick={() => setTrack(val)}
-                style={{
-                  flex: 1, padding: "10px 8px", borderRadius: 12,
-                  border: `2px solid ${track === val ? "#124AF0" : "#E8EDFF"}`,
-                  background: track === val ? "#EEF3FF" : "white",
-                  color: track === val ? "#124AF0" : "#666",
-                  fontWeight: track === val ? 700 : 400,
-                  fontSize: "0.78rem", cursor: "pointer",
-                }}>{label}</button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div style={{ background: "linear-gradient(135deg, #124AF0, #0a38c4)", borderRadius: 16, padding: "28px 32px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
-        <div>
-          <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.88rem", margin: "0 0 6px" }}>הסכום הצפוי בגיל 18</p>
-          <p style={{ color: "white", fontSize: "2rem", fontWeight: 700, margin: 0 }}>
-            {fv > 0 ? `${Math.round(fv).toLocaleString("he-IL")} ₪` : "—"}
-          </p>
-        </div>
-        <div style={{ textAlign: "center" }}>
-          <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.82rem", margin: "0 0 4px" }}>שנים לחיסכון</p>
-          <p style={{ color: "#21F0B0", fontSize: "1.5rem", fontWeight: 700, margin: 0 }}>{yearsLeft}</p>
-        </div>
-        <div style={{ textAlign: "center" }}>
-          <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.82rem", margin: "0 0 4px" }}>הפקדה חודשית</p>
-          <p style={{ color: "#21F0B0", fontSize: "1.5rem", fontWeight: 700, margin: 0 }}>60 ₪</p>
-        </div>
-      </div>
-      {track === "stocks" && fv > 0 && (
-        <p style={{ color: "#21F0B0", fontWeight: 700, fontSize: "0.88rem", marginTop: 16, textAlign: "center", background: "#F0FDF9", padding: "10px 16px", borderRadius: 10 }}>
-          במסלול מנייתי תחסכי {Math.round(fv - monthly * 12 * yearsLeft).toLocaleString("he-IL")} ₪ יותר מאשר בברירת המחדל
-        </p>
-      )}
-    </div>
+    <svg viewBox="0 0 400 14" fill="none" style={{ width: "100%", maxWidth, display: "block", margin: "6px auto 0" }} preserveAspectRatio="none">
+      <defs>
+        <filter id={id}>
+          <feTurbulence type="fractalNoise" baseFrequency="0.04 0.08" numOctaves="3" seed="5" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.8" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </defs>
+      <motion.path
+        d="M4 6 Q100 3 200 7 Q300 10 396 6"
+        stroke="#21F0B0" strokeWidth="2.6" strokeLinecap="round" fill="none"
+        filter={`url(#${id})`} opacity="0.95"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 1.0, delay, ease: "easeOut" }}
+      />
+      <motion.path
+        d="M8 9 Q105 7 205 10 Q305 13 392 9"
+        stroke="#21F0B0" strokeWidth="1.4" strokeLinecap="round" fill="none"
+        filter={`url(#${id})`} opacity="0.5"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 1.0, delay: delay + 0.18, ease: "easeOut" }}
+      />
+    </svg>
   );
 }
 
-/* ─── Management Fees Calculator ─── */
-function FeesCalc() {
-  const [balance, setBalance] = useState(200000);
-  const [currentFee, setCurrentFee] = useState(1.0);
-  const [targetFee, setTargetFee] = useState(0.5);
-  const [years, setYears] = useState(25);
+const CALCULATORS = [
+  {
+    href: "/calculators/compound-interest",
+    title: "ריבית דריבית",
+    desc: "הפלא השמיני בתבל - תראי איך 500 ₪ בחודש הופכים לסכום שתתפלאי עליו. כולל דמי ניהול ודמי צבירה.",
+    color: "#124AF0",
+    badge: "הכי פופולרי",
+    ready: true,
+  },
+  {
+    href: null,
+    title: "חיסכון לכל ילד",
+    desc: "כמה יהיה לילד שלך בגיל 18 לפי המסלול שתבחרי - מנייתי מול ברירת מחדל.",
+    color: "#21F0B0",
+    badge: "בקרוב",
+    ready: false,
+  },
+  {
+    href: null,
+    title: "מחשבון דמי ניהול",
+    desc: "כמה כסף תחסכי אם תורידי 0.5% דמי ניהול בפנסיה? התשובה תפתיע אותך.",
+    color: "#FA5C5C",
+    badge: "בקרוב",
+    ready: false,
+  },
+];
 
-  const growth = 0.06;
-  const fv = (b: number, fee: number) => b * Math.pow(1 + growth - fee / 100, years);
-  const currentFV = fv(balance, currentFee);
-  const targetFV = fv(balance, targetFee);
-  const saving = targetFV - currentFV;
-
-  return (
-    <div id="fees" style={{ background: "white", borderRadius: 24, padding: "40px 36px", border: "2px solid #E8EDFF", scrollMarginTop: 100 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 28 }}>
-        <div style={{ width: 52, height: 52, borderRadius: "50%", background: "#FA5C5C", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem", flexShrink: 0 }}>📉</div>
-        <div>
-          <h2 style={{ fontSize: "1.3rem", fontWeight: 700, color: "#124AF0", margin: 0 }}>מחשבון דמי ניהול</h2>
-          <p style={{ color: "#888", fontSize: "0.85rem", margin: 0 }}>כמה תחסכי אם תורידי את דמי הניהול</p>
-        </div>
-      </div>
-
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 28 }}>
-        <div>
-          <label style={{ display: "block", fontWeight: 600, color: "#292929", marginBottom: 8, fontSize: "0.9rem" }}>יתרת קרן נוכחית (₪)</label>
-          <input type="number" value={balance} onChange={(e) => setBalance(Number(e.target.value))}
-            style={{ width: "100%", padding: "12px 16px", borderRadius: 12, border: "2px solid #E8EDFF", fontSize: "1rem", outline: "none", direction: "rtl", boxSizing: "border-box" }} />
-        </div>
-        <div>
-          <label style={{ display: "block", fontWeight: 600, color: "#292929", marginBottom: 8, fontSize: "0.9rem" }}>שנים לפרישה: {years}</label>
-          <input type="range" min={5} max={40} value={years} onChange={(e) => setYears(Number(e.target.value))}
-            style={{ width: "100%", accentColor: "#124AF0" }} />
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: "#aaa" }}><span>5</span><span>40</span></div>
-        </div>
-        <div>
-          <label style={{ display: "block", fontWeight: 600, color: "#292929", marginBottom: 8, fontSize: "0.9rem" }}>דמי ניהול נוכחיים: {currentFee.toFixed(2)}%</label>
-          <input type="range" min={0.1} max={2} step={0.05} value={currentFee} onChange={(e) => setCurrentFee(Number(e.target.value))}
-            style={{ width: "100%", accentColor: "#FA5C5C" }} />
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: "#aaa" }}><span>0.1%</span><span>2%</span></div>
-        </div>
-        <div>
-          <label style={{ display: "block", fontWeight: 600, color: "#292929", marginBottom: 8, fontSize: "0.9rem" }}>דמי ניהול מבוקשים: {targetFee.toFixed(2)}%</label>
-          <input type="range" min={0.1} max={2} step={0.05} value={targetFee} onChange={(e) => setTargetFee(Number(e.target.value))}
-            style={{ width: "100%", accentColor: "#21F0B0" }} />
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: "#aaa" }}><span>0.1%</span><span>2%</span></div>
-        </div>
-      </div>
-
-      <div style={{ background: "linear-gradient(135deg, #124AF0, #0a38c4)", borderRadius: 16, padding: "28px 32px", display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20, textAlign: "center" }}>
-        <div>
-          <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.82rem", margin: "0 0 6px" }}>בדמי ניהול נוכחיים</p>
-          <p style={{ color: "white", fontSize: "1.3rem", fontWeight: 700, margin: 0 }}>{Math.round(currentFV).toLocaleString("he-IL")} ₪</p>
-        </div>
-        <div>
-          <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.82rem", margin: "0 0 6px" }}>בדמי ניהול מבוקשים</p>
-          <p style={{ color: "#21F0B0", fontSize: "1.3rem", fontWeight: 700, margin: 0 }}>{Math.round(targetFV).toLocaleString("he-IL")} ₪</p>
-        </div>
-        <div>
-          <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.82rem", margin: "0 0 6px" }}>חיסכון צפוי</p>
-          <p style={{ color: saving > 0 ? "#21F0B0" : "#FA5C5C", fontSize: "1.6rem", fontWeight: 700, margin: 0 }}>
-            {saving > 0 ? "+" : ""}{Math.round(saving).toLocaleString("he-IL")} ₪
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ─── Compound Interest Calculator ─── */
-function CompoundCalc() {
-  const [initial, setInitial] = useState(10000);
-  const [monthly, setMonthly] = useState(500);
-  const [ratePercent, setRatePercent] = useState(7);
-  const [years, setYears] = useState(20);
-
-  const data = useMemo(() => {
-    const r = ratePercent / 100 / 12;
-    const points: { year: number; total: number; deposits: number }[] = [];
-    for (let y = 0; y <= years; y++) {
-      const months = y * 12;
-      const fvInitial = initial * Math.pow(1 + r, months);
-      const fvMonthly = monthly > 0 ? monthly * ((Math.pow(1 + r, months) - 1) / r) : 0;
-      points.push({ year: y, total: fvInitial + fvMonthly, deposits: initial + monthly * months });
-    }
-    return points;
-  }, [initial, monthly, ratePercent, years]);
-
-  const final = data[data.length - 1];
-  const maxVal = final.total;
-  const barWidth = (val: number) => `${Math.max(2, (val / maxVal) * 100)}%`;
-
-  return (
-    <div id="compound" style={{ background: "white", borderRadius: 24, padding: "40px 36px", border: "2px solid #E8EDFF", scrollMarginTop: 100 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 28 }}>
-        <div style={{ width: 52, height: 52, borderRadius: "50%", background: "#124AF0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem", flexShrink: 0 }}>📈</div>
-        <div>
-          <h2 style={{ fontSize: "1.3rem", fontWeight: 700, color: "#124AF0", margin: 0 }}>ריבית דריבית</h2>
-          <p style={{ color: "#888", fontSize: "0.85rem", margin: 0 }}>ראי איך הכסף שלך גדל עם הזמן</p>
-        </div>
-      </div>
-
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 32 }}>
-        <div>
-          <label style={{ display: "block", fontWeight: 600, color: "#292929", marginBottom: 8, fontSize: "0.9rem" }}>סכום התחלתי (₪)</label>
-          <input type="number" value={initial} onChange={(e) => setInitial(Number(e.target.value))}
-            style={{ width: "100%", padding: "12px 16px", borderRadius: 12, border: "2px solid #E8EDFF", fontSize: "1rem", outline: "none", direction: "rtl", boxSizing: "border-box" }} />
-        </div>
-        <div>
-          <label style={{ display: "block", fontWeight: 600, color: "#292929", marginBottom: 8, fontSize: "0.9rem" }}>הפקדה חודשית (₪)</label>
-          <input type="number" value={monthly} onChange={(e) => setMonthly(Number(e.target.value))}
-            style={{ width: "100%", padding: "12px 16px", borderRadius: 12, border: "2px solid #E8EDFF", fontSize: "1rem", outline: "none", direction: "rtl", boxSizing: "border-box" }} />
-        </div>
-        <div>
-          <label style={{ display: "block", fontWeight: 600, color: "#292929", marginBottom: 8, fontSize: "0.9rem" }}>תשואה שנתית: {ratePercent}%</label>
-          <input type="range" min={1} max={15} step={0.5} value={ratePercent} onChange={(e) => setRatePercent(Number(e.target.value))}
-            style={{ width: "100%", accentColor: "#124AF0" }} />
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: "#aaa" }}><span>1%</span><span>15%</span></div>
-        </div>
-        <div>
-          <label style={{ display: "block", fontWeight: 600, color: "#292929", marginBottom: 8, fontSize: "0.9rem" }}>מספר שנים: {years}</label>
-          <input type="range" min={1} max={40} value={years} onChange={(e) => setYears(Number(e.target.value))}
-            style={{ width: "100%", accentColor: "#124AF0" }} />
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: "#aaa" }}><span>1</span><span>40</span></div>
-        </div>
-      </div>
-
-      {/* Summary */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginBottom: 28 }}>
-        {[
-          { label: "סכום סופי", value: `${Math.round(final.total).toLocaleString("he-IL")} ₪`, color: "#124AF0" },
-          { label: "סך הפקדות", value: `${Math.round(final.deposits).toLocaleString("he-IL")} ₪`, color: "#555" },
-          { label: "רווח מריבית", value: `${Math.round(final.total - final.deposits).toLocaleString("he-IL")} ₪`, color: "#21a87b" },
-        ].map((s, i) => (
-          <div key={i} style={{ background: "#F4F7FF", borderRadius: 14, padding: "20px 16px", textAlign: "center" }}>
-            <p style={{ color: "#888", fontSize: "0.78rem", margin: "0 0 8px" }}>{s.label}</p>
-            <p style={{ color: s.color, fontSize: "1.15rem", fontWeight: 700, margin: 0 }}>{s.value}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Bar chart */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-        {data.filter((_, i) => i % Math.max(1, Math.floor(years / 8)) === 0 || i === years).map((d) => (
-          <div key={d.year} style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <span style={{ width: 40, textAlign: "left", fontSize: "0.78rem", color: "#888", flexShrink: 0 }}>שנה {d.year}</span>
-            <div style={{ flex: 1, height: 22, background: "#F4F7FF", borderRadius: 6, overflow: "hidden", position: "relative" }}>
-              <div style={{ position: "absolute", top: 0, right: 0, height: "100%", width: barWidth(d.deposits), background: "#E8EDFF" }} />
-              <div style={{ position: "absolute", top: 0, right: 0, height: "100%", width: barWidth(d.total), background: "linear-gradient(90deg, #21F0B0, #124AF0)", transition: "width 0.3s" }} />
-            </div>
-            <span style={{ width: 90, textAlign: "right", fontSize: "0.78rem", color: "#555", flexShrink: 0 }}>
-              {Math.round(d.total / 1000)}K ₪
-            </span>
-          </div>
-        ))}
-      </div>
-      <div style={{ display: "flex", gap: 16, marginTop: 12, justifyContent: "center" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          <div style={{ width: 12, height: 12, borderRadius: 3, background: "linear-gradient(90deg, #21F0B0, #124AF0)" }} />
-          <span style={{ fontSize: "0.78rem", color: "#666" }}>סכום כולל</span>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          <div style={{ width: 12, height: 12, borderRadius: 3, background: "#E8EDFF" }} />
-          <span style={{ fontSize: "0.78rem", color: "#666" }}>סך הפקדות</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ─── Page ─── */
 export default function CalculatorsPage() {
   return (
     <>
       <Navigation />
-      <main style={{ paddingTop: 160 }}>
-        {/* Header */}
-        <section style={{ background: "linear-gradient(135deg, #124AF0, #0a38c4)", padding: "72px 1.5rem 60px", textAlign: "center", position: "relative", overflow: "hidden" }}>
-          <div style={{ position: "absolute", top: -40, left: -40, width: 220, height: 220, borderRadius: "50%", background: "rgba(33,240,176,0.1)", filter: "blur(50px)", pointerEvents: "none" }} />
-          <p style={{ color: "#21F0B0", fontWeight: 700, fontSize: "0.88rem", letterSpacing: 1, marginBottom: 12 }}>כלים חינמיים</p>
-          <h1 style={{ fontSize: "clamp(2rem, 5vw, 3rem)", color: "white", fontWeight: 700, marginBottom: 16 }}>מחשבונים פיננסיים</h1>
-          <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1.05rem", lineHeight: 1.8, maxWidth: 560, margin: "0 auto" }}>
-            כלים אינטראקטיביים שיעזרו לך לקבל החלטות פיננסיות מושכלות — בלי חישובים מסובכים
-          </p>
+      <main style={{ paddingTop: 80 }}>
+
+        {/* Hero */}
+        <section style={{
+          background: "radial-gradient(ellipse at 50% 30%, #1535B5 0%, #060D3C 65%)",
+          padding: "80px 1.5rem 96px",
+          textAlign: "center",
+          position: "relative",
+          overflow: "hidden",
+        }}>
+          <div style={{ position: "absolute", top: -80, right: -80, width: 360, height: 360, borderRadius: "50%", background: "rgba(33,240,176,0.06)", filter: "blur(80px)", pointerEvents: "none" }} />
+          <div style={{ position: "absolute", bottom: -60, left: -60, width: 280, height: 280, borderRadius: "50%", background: "rgba(18,74,240,0.12)", filter: "blur(60px)", pointerEvents: "none" }} />
+          <style>{`
+            @keyframes slippersFloat {
+              0%   { transform: translateY(0px) rotate(-4deg); }
+              25%  { transform: translateY(-10px) rotate(2deg); }
+              50%  { transform: translateY(-14px) rotate(-2deg); }
+              75%  { transform: translateY(-6px) rotate(3deg); }
+              100% { transform: translateY(0px) rotate(-4deg); }
+            }
+          `}</style>
+
+          <div style={{ maxWidth: 700, margin: "0 auto", position: "relative" }}>
+
+            {/* Slippers row */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.6 }}
+              style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", gap: 24, marginBottom: 28, flexWrap: "wrap" }}
+            >
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2, marginBottom: 8 }}>
+                <span style={{ color: "#21F0B0", fontWeight: 700, fontSize: "1rem", letterSpacing: 1.5 }}>
+                  שוק ההון בנעלי בית
+                </span>
+                <SketchLine id="sketch-slippers-label" maxWidth={220} delay={0.5} />
+              </div>
+              <motion.img
+                src="/slippers.svg"
+                alt="נעלי בית אדומות"
+                initial={{ scale: 0.5, rotate: -20 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ delay: 0.2, duration: 0.7, type: "spring", stiffness: 220, damping: 14 }}
+                style={{
+                  height: 110,
+                  width: "auto",
+                  filter: "drop-shadow(0 10px 24px rgba(250,92,92,0.5)) drop-shadow(0 2px 6px rgba(0,0,0,0.2))",
+                  animation: "slippersFloat 3.2s ease-in-out infinite",
+                  transformOrigin: "center bottom",
+                  flexShrink: 0,
+                  marginBottom: 6,
+                }}
+              />
+            </motion.div>
+
+            <h1 style={{
+              fontSize: "clamp(2.4rem, 6vw, 4rem)",
+              fontWeight: 900,
+              color: "white",
+              lineHeight: 1.15,
+              marginBottom: 8,
+              textShadow: "0 0 40px rgba(33,240,176,0.15)",
+            }}>
+              מחשבונים פיננסיים
+            </h1>
+            <SketchLine id="sketch-calc-title" maxWidth={460} delay={0.35} />
+            <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1.05rem", lineHeight: 1.85, marginTop: 24 }}>
+              כלים אינטראקטיביים שיעזרו לך לקבל החלטות פיננסיות מושכלות
+              <br />
+              בלי חישובים מסובכים. עם נעלי בית.
+            </p>
+          </div>
         </section>
 
-        {/* Calculator cards hub */}
-        <section style={{ background: "#F4F7FF", padding: "56px 1.5rem 72px" }}>
+        {/* Cards grid */}
+        <section style={{ background: "#F4F7FF", padding: "72px 1.5rem 88px" }}>
           <div style={{ maxWidth: 900, margin: "0 auto" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24, marginBottom: 56 }}>
-              {[
-                {
-                  href: "/calculators/compound-interest",
-                  title: "ריבית דריבית",
-                  desc: "הפלא השמיני בתבל — תראי איך 500 ₪ בחודש הופכים לסכום שתתפלאי עליו. כולל דמי ניהול ודמי צבירה.",
-                  color: "#124AF0",
-                  badge: "חידה + אינפוגרפיקה",
-                },
-                {
-                  href: "#kids",
-                  title: "חיסכון לכל ילד",
-                  desc: "כמה יהיה לילד שלך בגיל 18 לפי המסלול שתבחרי — מנייתי מול ברירת מחדל.",
-                  color: "#21F0B0",
-                  badge: "בקרוב",
-                },
-                {
-                  href: "#fees",
-                  title: "מחשבון דמי ניהול",
-                  desc: "כמה כסף תחסכי אם תורידי 0.5% דמי ניהול בפנסיה? התשובה תפתיע אותך.",
-                  color: "#FA5C5C",
-                  badge: "בקרוב",
-                },
-              ].map((c, i) => (
-                <a
-                  key={i}
-                  href={c.href}
-                  style={{
-                    background: "white",
-                    borderRadius: 22,
-                    padding: "32px 28px",
-                    border: "2px solid #E8EDFF",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 12,
-                    textDecoration: "none",
-                    transition: "border-color 0.2s, transform 0.2s, box-shadow 0.2s",
-                  }}
-                  onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.borderColor = c.color;
-                    (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-                    (e.currentTarget as HTMLElement).style.boxShadow = `0 12px 36px ${c.color}22`;
-                  }}
-                  onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "#E8EDFF";
-                    (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                    (e.currentTarget as HTMLElement).style.boxShadow = "none";
-                  }}
-                >
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                    <div style={{ width: 44, height: 44, borderRadius: "50%", background: c.color, flexShrink: 0 }} />
-                    <span style={{ background: "#F4F7FF", color: "#888", fontSize: "0.72rem", fontWeight: 600, padding: "4px 12px", borderRadius: 50, border: "1px solid #E8EDFF" }}>
-                      {c.badge}
-                    </span>
-                  </div>
-                  <h3 style={{ fontWeight: 700, color: "#070C24", fontSize: "1.1rem" }}>{c.title}</h3>
-                  <p style={{ fontSize: "0.88rem", color: "#666", lineHeight: 1.75 }}>{c.desc}</p>
-                  <span style={{ color: c.color, fontWeight: 700, fontSize: "0.88rem", marginTop: 4 }}>
-                    לכלי ←
-                  </span>
-                </a>
-              ))}
-            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))", gap: 28 }}>
+              {CALCULATORS.map((c, i) => {
+                const inner = (
+                  <>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
+                      <div style={{ width: 52, height: 52, borderRadius: "50%", background: c.color, flexShrink: 0 }} />
+                      <span style={{
+                        background: c.ready ? "#124AF0" : "#F4F7FF",
+                        color: c.ready ? "#21F0B0" : "#999",
+                        fontSize: "0.72rem",
+                        fontWeight: 700,
+                        padding: "4px 14px",
+                        borderRadius: 50,
+                        border: c.ready ? "none" : "1px solid #E8EDFF",
+                      }}>
+                        {c.badge}
+                      </span>
+                    </div>
+                    <h2 style={{ fontWeight: 800, color: "#070C24", fontSize: "1.2rem", marginBottom: 10 }}>{c.title}</h2>
+                    <p style={{ fontSize: "0.9rem", color: "#555", lineHeight: 1.8, marginBottom: 20, flexGrow: 1 }}>{c.desc}</p>
+                    {c.ready && (
+                      <span style={{ color: c.color, fontWeight: 700, fontSize: "0.9rem" }}>
+                        למחשבון ←
+                      </span>
+                    )}
+                  </>
+                );
 
-            {/* Legacy calculators below */}
-            <p style={{ color: "#aaa", fontSize: "0.82rem", textAlign: "center", marginBottom: 32, fontStyle: "italic" }}>
-              מחשבונים נוספים — גרסה מהירה
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
-              <KidsCalc />
-              <FeesCalc />
-              <CompoundCalc />
+                const cardStyle: React.CSSProperties = {
+                  background: "white",
+                  borderRadius: 24,
+                  padding: "32px 28px",
+                  border: "2px solid #E8EDFF",
+                  display: "flex",
+                  flexDirection: "column",
+                  textDecoration: "none",
+                  transition: "border-color 0.2s, transform 0.2s, box-shadow 0.2s",
+                  cursor: c.ready ? "pointer" : "default",
+                  opacity: c.ready ? 1 : 0.7,
+                };
+
+                return c.href ? (
+                  <Link key={i} href={c.href} style={cardStyle}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLElement).style.borderColor = c.color;
+                      (e.currentTarget as HTMLElement).style.transform = "translateY(-5px)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = `0 16px 48px ${c.color}22`;
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "#E8EDFF";
+                      (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                    }}
+                  >
+                    {inner}
+                  </Link>
+                ) : (
+                  <div key={i} style={cardStyle}>{inner}</div>
+                );
+              })}
             </div>
           </div>
         </section>
 
         {/* CTA */}
-        <section style={{ background: "white", padding: "72px 1.5rem", textAlign: "center" }}>
-          <p style={{ color: "#21F0B0", fontWeight: 700, fontSize: "0.88rem", background: "#124AF0", display: "inline-block", padding: "4px 16px", borderRadius: 50, marginBottom: 20 }}>
-            רוצה ללמוד יותר?
-          </p>
-          <h2 style={{ fontSize: "clamp(1.6rem, 4vw, 2.2rem)", color: "#124AF0", fontWeight: 700, marginBottom: 16 }}>
-            מהמחשבונים — לידע אמיתי
-          </h2>
-          <p style={{ color: "#555", fontSize: "1rem", lineHeight: 1.9, marginBottom: 32, maxWidth: 560, margin: "0 auto 32px" }}>
-            הקורס "הכסף ישתדל, ואת תנוחי" מלמד את כל הנושאים האלה לעומק — עם דוגמאות, תרגולים ותכנית פעולה אישית.
-          </p>
-          <a href="/course" style={{ display: "inline-block", background: "#124AF0", color: "white", borderRadius: 50, padding: "16px 40px", fontWeight: 700, fontSize: "1rem" }}>
-            לפרטי הקורס ←
-          </a>
+        <section style={{ background: "#124AF0", padding: "72px 1.5rem", textAlign: "center", position: "relative", overflow: "hidden" }}>
+          <div style={{ position: "absolute", top: -60, right: -60, width: 280, height: 280, borderRadius: "50%", background: "rgba(33,240,176,0.08)", filter: "blur(60px)", pointerEvents: "none" }} />
+          <div style={{ maxWidth: 580, margin: "0 auto", position: "relative" }}>
+            <p style={{ color: "#21F0B0", fontWeight: 700, fontSize: "0.88rem", letterSpacing: 1, marginBottom: 16 }}>
+              רוצה ללמוד יותר?
+            </p>
+            <h2 style={{ fontSize: "clamp(1.6rem, 4vw, 2.4rem)", color: "white", fontWeight: 700, marginBottom: 16, textShadow: "0 0 12px rgba(255,255,255,0.15)" }}>
+              מהמחשבונים <span style={{ fontSize: "0.75em" }}>-</span> לידע אמיתי
+            </h2>
+            <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1rem", lineHeight: 1.85, marginBottom: 36 }}>
+              תוכנית MUSTרית מלמדת את כל הנושאים האלה לעומק
+              <span style={{ fontSize: "0.75em" }}> - </span>
+              עם דוגמאות, תרגולים ותכנית פעולה אישית.
+            </p>
+            <Link href="/course" style={{ position: "relative", display: "inline-block", textDecoration: "none" }}>
+              <div style={{
+                position: "absolute",
+                inset: 0,
+                pointerEvents: "none",
+                backgroundImage: "url('/btn-blue-new.svg?v=2')",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "110% 560%",
+                backgroundPosition: "center 41%",
+              }} />
+              <span style={{
+                position: "relative",
+                zIndex: 1,
+                color: "#FFFFFF",
+                padding: "20px 64px",
+                fontWeight: 800,
+                fontSize: "1.05rem",
+                display: "block",
+                whiteSpace: "nowrap",
+                textShadow: "0 0 12px rgba(255,255,255,0.8)",
+              }}>
+                לפרטי התוכנית ←
+              </span>
+            </Link>
+          </div>
         </section>
+
       </main>
       <Footer />
     </>

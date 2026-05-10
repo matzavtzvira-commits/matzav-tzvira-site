@@ -45,10 +45,11 @@ export default function SocialProof() {
         ))}
       </div>
 
-      <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", justifyContent: "space-around", alignItems: "center", gap: 0, flexWrap: "wrap" }}>
+      <div className="stats-row" style={{ maxWidth: 1100, margin: "0 auto", display: "flex", justifyContent: "space-around", alignItems: "center", gap: 0, flexWrap: "wrap" }}>
         {stats.map((s, i) => (
           <motion.div
             key={i}
+            className="stat-item"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -60,6 +61,14 @@ export default function SocialProof() {
           </motion.div>
         ))}
       </div>
+      <style>{`
+        @media(max-width:640px){
+          .stats-row { flex-direction: column !important; align-items: stretch !important; gap: 0 !important; }
+          .stat-item { padding: 16px 1.5rem !important; border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.12); width: 100% !important; }
+          .stat-item:last-child { border-bottom: none !important; }
+          .stat-number { font-size: 2.2rem !important; }
+        }
+      `}</style>
     </section>
   );
 }

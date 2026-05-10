@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import Link from "next/link";
 
 export default function FeaturedCourse() {
@@ -10,11 +10,12 @@ export default function FeaturedCourse() {
             קורס הדגל
           </p>
           <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.4rem)", color: "#124AF0", lineHeight: 1.2 }}>
-            הכסף ישתדל, ואת תנוחי
+            תוכנית MUSTרית
           </h2>
         </div>
 
         <div
+          className="featured-course-grid"
           style={{
             background: "linear-gradient(135deg, #124AF0 0%, #0a38c4 100%)",
             borderRadius: 28,
@@ -34,7 +35,7 @@ export default function FeaturedCourse() {
           {/* Left: info */}
           <div style={{ position: "relative", zIndex: 1 }}>
             <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.92rem", lineHeight: 1.9, marginBottom: 24 }}>
-              תוכנית מקיפה ללמוד איך שוק ההון עובד — בשפה שלך. מאפס לביטחון פיננסי אמיתי, עם ליווי, כלים ודשבורדים דיגיטליים.
+              תוכנית מקיפה ללמוד איך שוק ההון עובד - בשפה שלך. מאפס לביטחון פיננסי אמיתי, עם ליווי, כלים ודשבורדים דיגיטליים.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 32 }}>
               {["שיעורים קלילים בגובה העיניים", "דשבורדים דיגיטליים שעושים את החישוב", "קהילת המאסטריות + ליווי צמוד", "גישה לשנה שלמה"].map((item, i) => (
@@ -101,6 +102,18 @@ export default function FeaturedCourse() {
           </div>
         </div>
       </div>
+      <style>{`
+        @media(max-width:768px){
+          .featured-course-grid {
+            grid-template-columns: 1fr !important;
+            gap: 24px !important;
+            padding: 36px 24px !important;
+          }
+        }
+        @media(max-width:640px){
+          .featured-course-grid { border-radius: 20px !important; padding: 28px 20px !important; }
+        }
+      `}</style>
     </section>
   );
 }

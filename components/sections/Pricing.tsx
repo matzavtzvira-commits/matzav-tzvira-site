@@ -5,7 +5,7 @@ const includes = [
   "32 שיעורים בגובה העיניים",
   "מדריכים יד-ביד לכל נושא",
   "דשבורדים דיגיטליים חכמים",
-  "בדיקת תיק פיננסי אישית — חינם",
+  "בדיקת תיק פיננסי אישית - חינם",
   "ליווי מלא לכל שאלה במייל",
   "קהילת המאסטריות",
   "גישה לשנה שלמה",
@@ -27,14 +27,14 @@ export default function Pricing() {
             כמה עולה לא לדעת?
           </h2>
           <p style={{ color: "#555", fontSize: "1rem", maxWidth: 500, margin: "0 auto" }}>
-            נשים בתוכנית חסכו בממוצע מאות אלפי שקלים <span style={{ fontSize: "0.75em" }}>—</span> רק מלדעת לשאול את השאלות הנכונות.
+            נשים בתוכנית חסכו בממוצע מאות אלפי שקלים <span style={{ fontSize: "0.75em" }}>-</span> רק מלדעת לשאול את השאלות הנכונות.
           </p>
         </div>
 
         {/* Single plan card */}
         <div style={{ background: "linear-gradient(160deg, #124AF0 0%, #0a38c4 100%)", color: "white", borderRadius: 28, padding: "48px 40px", position: "relative", boxShadow: "0 20px 60px rgba(18,74,240,0.3)", textAlign: "center" }}>
           <div style={{ position: "absolute", top: -16, left: "50%", transform: "translateX(-50%)", background: "#21F0B0", color: "#124AF0", borderRadius: 50, padding: "6px 24px", fontSize: "0.88rem", fontWeight: 800, whiteSpace: "nowrap" }}>
-            כולל הכל <span style={{ fontSize: "0.75em" }}>—</span> בלי הפתעות
+            כולל הכל <span style={{ fontSize: "0.75em" }}>-</span> בלי הפתעות
           </div>
 
           <div style={{ marginBottom: 8, marginTop: 8 }}>
@@ -66,7 +66,7 @@ export default function Pricing() {
           </button>
 
           <p style={{ opacity: 0.7, fontSize: "0.88rem", marginTop: 16 }}>
-            תשלום מאובטח | אחריות 14 יום <span style={{ fontSize: "0.75em" }}>—</span> לא מרוצה? מחזירים הכל בלי שאלות
+            תשלום מאובטח | אחריות 14 יום <span style={{ fontSize: "0.75em" }}>-</span> לא מרוצה? מחזירים הכל בלי שאלות
           </p>
         </div>
       </div>

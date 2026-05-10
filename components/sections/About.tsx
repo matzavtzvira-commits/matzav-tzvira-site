@@ -33,7 +33,7 @@ export default function About() {
 
             <div style={{ borderRight: "4px solid #21F0B0", paddingRight: 20, marginBottom: 24 }}>
               <p style={{ fontSize: "1.05rem", lineHeight: 1.9, color: "#292929" }}>
-                לפני 6 שנים הייתי בדיוק כמוך <span style={{ fontSize: "0.75em" }}>—</span> פאנית מצליחה,
+                לפני 6 שנים הייתי בדיוק כמוך <span style={{ fontSize: "0.75em" }}>-</span> פאנית מצליחה,
                 <br />
                 על הגז כל הזמן.
                 ואז הגיע הרגע ששבר אותי, בצורה הכי טובה שיש.
@@ -43,7 +43,7 @@ export default function About() {
             <div style={{ background: "#124AF0", color: "white", borderRadius: 16, padding: "20px 24px", marginBottom: 20, fontSize: "1rem", lineHeight: 1.8 }}>
               הסתכלתי על מזכירה שמרוויחה רבע ממה שאני הרווחתי.
               <br />
-              וראיתי שהיא תגיע לחתונות הילדים ברווחה, לפנסיה בשלווה <span style={{ fontSize: "0.75em" }}>—</span>
+              וראיתי שהיא תגיע לחתונות הילדים ברווחה, לפנסיה בשלווה <span style={{ fontSize: "0.75em" }}>-</span>
               <br />
               <strong>בזמן שאני, ״העשירה״, אעבוד נון סטופ לסגור הלוואות.</strong>
               <br />
@@ -71,14 +71,14 @@ export default function About() {
             </div>
 
             <p style={{ fontSize: "1rem", lineHeight: 1.9, color: "#292929", marginBottom: 20 }}>
-              החלטתי לצאת למסע <span style={{ fontSize: "0.75em" }}>—</span> לחקור, ללמוד, לאסוף <span style={{ fontSize: "0.75em" }}>—</span>
+              החלטתי לצאת למסע <span style={{ fontSize: "0.75em" }}>-</span> לחקור, ללמוד, לאסוף <span style={{ fontSize: "0.75em" }}>-</span>
               ופשוט לחלוק את הכל עם כל נשות עמ&quot;י.
               שידעו. שיבינו. שלא תצא עוד אישה לחיים בלי זה.
             </p>
 
             <p style={{ fontSize: "1rem", lineHeight: 1.9, color: "#292929", marginBottom: 28 }}>
               זכיתי ללוות עשרות משפחות לשלווה.
-              מאות נשים שהיום מבינות, יודעות <span style={{ fontSize: "0.75em" }}>—</span> <strong>וחלק מהמהפכה.</strong>
+              מאות נשים שהיום מבינות, יודעות <span style={{ fontSize: "0.75em" }}>-</span> <strong>וחלק מהמהפכה.</strong>
             </p>
 
             <a

@@ -13,7 +13,7 @@ export default function RotatingCircleSection() {
 
         {/* Circle */}
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <div style={{ position: "relative", width: 340, height: 340 }}>
+          <div className="rotating-circle-outer" style={{ position: "relative", width: 340, height: 340 }}>
 
             {/* Spinning ring of characters */}
             <div style={{
@@ -97,11 +97,11 @@ export default function RotatingCircleSection() {
             <span style={{ color: "#21F0B0" }}>יעשה השתדלות.</span>
           </h2>
           <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "1.05rem", lineHeight: 1.9, margin: 0 }}>
-            את עובדת קשה. הגיע הזמן שהכסף יעבוד בשבילך —
+            את עובדת קשה. הגיע הזמן שהכסף יעבוד בשבילך -
             <br />
             בלי להבין כלכלה, בלי תואר, מהספה שלך.
           </p>
-          <Link href="/course" style={{ position: "relative", display: "inline-block", textDecoration: "none", alignSelf: "flex-start" }}>
+          <Link href="/course" className="rotating-btn" style={{ position: "relative", display: "inline-block", textDecoration: "none", alignSelf: "flex-start" }}>
             <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "url('/btn-green.svg?v=2')", backgroundRepeat: "no-repeat", backgroundSize: "110% 560%", backgroundPosition: "center 41%" }} />
             <span style={{ position: "relative", zIndex: 1, color: "#070C24", padding: "20px 64px", fontWeight: 800, fontSize: "1.05rem", display: "block", whiteSpace: "nowrap" }}>
               אני מוכנה <span className="arrow-anim">←</span>
@@ -117,8 +117,12 @@ export default function RotatingCircleSection() {
           to   { transform: rotate(360deg); }
         }
         @media(max-width:768px){
-          .rotating-grid { grid-template-columns: 1fr !important; }
+          .rotating-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
           .rotating-grid > div:first-child { order: 2; }
+        }
+        @media(max-width:640px){
+          .rotating-circle-outer { width: 260px !important; height: 260px !important; overflow: hidden !important; }
+          .rotating-btn span { padding: 14px 32px !important; white-space: normal !important; font-size: 0.95rem !important; }
         }
       `}</style>
     </section>

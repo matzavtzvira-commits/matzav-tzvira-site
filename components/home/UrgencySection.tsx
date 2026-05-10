@@ -30,10 +30,10 @@ export default function UrgencySection() {
 
           <p style={{ fontSize: "clamp(1.3rem, 2.5vw, 1.75rem)", fontWeight: 800, color: "#FFFFFF", lineHeight: 1.55, margin: "0 0 24px 0" }}>
             הפלא השמיני בתבל <span style={{ color: "#21F0B0" }}>
-              <span style={{ fontSize: "0.75em" }}>—</span> ריבית דריבית.
+              <span style={{ fontSize: "0.75em" }}>-</span> ריבית דריבית.
             </span>
             <br />
-            מי שמבין זאת <span style={{ color: "#21F0B0" }}>מרוויח</span> <span style={{ fontSize: "0.75em" }}>—</span>
+            מי שמבין זאת <span style={{ color: "#21F0B0" }}>מרוויח</span> <span style={{ fontSize: "0.75em" }}>-</span>
             <br />
             מי שלא, <motion.span
               animate={{ scale: [1, 1.18, 0.95, 1.22, 1] }}
@@ -43,12 +43,13 @@ export default function UrgencySection() {
 
           <div style={{ borderRight: "3px solid #21F0B0", paddingRight: 16, marginBottom: 32 }}>
             <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.9rem", fontStyle: "italic", margin: 0 }}>
-              — אלברט איינשטיין
+              - אלברט איינשטיין
             </p>
           </div>
 
           <a
             href="/course"
+            className="urgency-btn"
             style={{ position: "relative", display: "inline-block", textDecoration: "none" }}
           >
             <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "url('/btn-green.svg?v=2')", backgroundRepeat: "no-repeat", backgroundSize: "110% 560%", backgroundPosition: "center 41%" }} />
@@ -60,7 +61,16 @@ export default function UrgencySection() {
 
       </div>
 
-      <style>{`@media(max-width:768px){.urgency-grid{flex-direction:column!important;text-align:center;}.urgency-grid img{width:160px!important;height:190px!important;}}`}</style>
+      <style>{`
+        @media(max-width:768px){
+          .urgency-grid { flex-direction: column !important; text-align: center; align-items: center !important; gap: 32px !important; }
+          .urgency-grid img { width: 160px !important; height: 190px !important; }
+          .urgency-btn span { padding: 16px 40px !important; white-space: normal !important; font-size: 0.95rem !important; }
+        }
+        @media(max-width:640px){
+          .urgency-btn span { padding: 14px 28px !important; }
+        }
+      `}</style>
     </section>
   );
 }
