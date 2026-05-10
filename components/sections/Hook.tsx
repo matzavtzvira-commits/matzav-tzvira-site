@@ -29,7 +29,7 @@ export default function Hook() {
         <motion.div
           initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-          style={{ background: "rgba(255,255,255,0.07)", borderRadius: 16, padding: "36px 40px", marginBottom: 36, textAlign: "right", borderRight: "4px solid rgba(33,240,176,0.5)" }}>
+          style={{ background: "rgba(0,0,0,0.25)", borderRadius: 16, padding: "36px 40px", marginBottom: 20, textAlign: "right", borderRight: "4px solid #21F0B0", boxShadow: "0 8px 32px rgba(0,0,0,0.25)" }}>
           <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.85)", lineHeight: 2, margin: "0 0 16px" }}>
             אישה מקסימה. 36 שנה באותה עבודה. 8 שעות ביום.
             <br />
@@ -64,8 +64,15 @@ export default function Hook() {
           </p>
         </motion.div>
 
+        {/* Bridge */}
+        <div style={{ textAlign: "center", marginBottom: 20, opacity: 0.6 }}>
+          <span style={{ fontSize: "0.82rem", color: "#21F0B0", fontWeight: 700, letterSpacing: 2 }}>
+            ועכשיו - בואי נדבר עלייך
+          </span>
+        </div>
+
         {/* White card */}
-        <div style={{ marginBottom: 36, borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 40px rgba(0,0,0,0.18)" }}>
+        <div style={{ marginBottom: 36, borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 40px rgba(0,0,0,0.28)" }}>
           <div style={{ background: "#124AF0", height: 14 }} />
           <div style={{ background: "#ffffff", padding: "48px 64px 56px", textAlign: "right" }}>
 
