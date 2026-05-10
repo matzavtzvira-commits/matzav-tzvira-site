@@ -102,18 +102,20 @@ export default function Hook() {
             <div style={{ marginBottom: 32 }}>
               <p style={{ fontSize: "1.1rem", fontWeight: 800, color: "#124AF0", marginBottom: 16 }}>תני לי לנחש.</p>
               {[
-                "את עובדת קשה — וכל שקל בא ממאמץ",
-                "בסוף החודש יש תמיד יותר חודש מכסף",
-                "יש לך פנסיה, השתלמות, חיסכון לכל ילד — אבל מושג אין מה קורה שם",
-                "ואת לא בטוחה שיש לך מי שבאמת מסביר לך",
+                "את עובדת קשה — וכל שקל בא ממאמץ?",
+                "בסוף החודש יש תמיד יותר חודש מכסף?",
+                "יש לך פנסיה, השתלמות, חיסכון לכל ילד — אבל מושג אין מה קורה שם?",
+                "ואת לא בטוחה שיש לך מי שבאמת מסביר לך?",
               ].map((q, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12, marginBottom: 10, textAlign: "right" }}>
-                  <span style={{ background: "#124AF0", color: "#fff", fontSize: "0.72rem", fontWeight: 800, padding: "3px 10px", borderRadius: 50, whiteSpace: "nowrap", marginTop: 3, flexShrink: 0 }}>כן</span>
-                  <p style={{ fontSize: "1rem", color: "#222", lineHeight: 1.6, margin: 0 }}>{q}</p>
-                </div>
+                <p key={i} style={{ fontSize: "1rem", color: "#222", lineHeight: 1.6, margin: "0 0 10px" }}>{q}</p>
               ))}
-              <p style={{ fontSize: "1rem", fontWeight: 700, color: "#124AF0", marginTop: 16, marginBottom: 0 }}>
-                אם ענית כן — המשך הדף הזה כתוב בשבילך.
+              <div style={{ display: "flex", alignItems: "center", gap: 14, margin: "20px 0 16px" }}>
+                <div style={{ flex: 1, height: 1, background: "rgba(18,74,240,0.15)" }} />
+                <span style={{ background: "#124AF0", color: "#fff", fontSize: "1.1rem", fontWeight: 900, padding: "8px 28px", borderRadius: 50, letterSpacing: 1 }}>כן.</span>
+                <div style={{ flex: 1, height: 1, background: "rgba(18,74,240,0.15)" }} />
+              </div>
+              <p style={{ fontSize: "1rem", fontWeight: 700, color: "#124AF0", marginBottom: 0 }}>
+                אז המשך הדף הזה כתוב בשבילך.
               </p>
             </div>
 

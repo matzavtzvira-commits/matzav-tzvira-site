@@ -5,16 +5,18 @@ export default function MidCTA() {
     <div style={{ background: "#124AF0", padding: "56px 1.5rem", textAlign: "center" }}>
       <div style={{ maxWidth: 520, margin: "0 auto 28px" }}>
         {[
-          "את רוצה שהכסף שלך יעבוד בשבילך",
-          "את לא רוצה להיות האישה שגילתה מאוחר מדי",
-          "את מוכנה להשקיע שבוע אחד כדי לשנות את כל השאר",
+          "את רוצה שהכסף שלך יעבוד בשבילך?",
+          "את לא רוצה להיות האישה שגילתה מאוחר מדי?",
+          "את מוכנה להשקיע שבוע אחד כדי לשנות את כל השאר?",
         ].map((q, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 10 }}>
-            <span style={{ background: "#21F0B0", color: "#124AF0", fontSize: "0.72rem", fontWeight: 800, padding: "3px 10px", borderRadius: 50, whiteSpace: "nowrap", flexShrink: 0 }}>כן</span>
-            <p style={{ fontSize: "0.97rem", color: "rgba(255,255,255,0.9)", margin: 0 }}>{q}</p>
-          </div>
+          <p key={i} style={{ fontSize: "1rem", color: "rgba(255,255,255,0.88)", margin: "0 0 10px", lineHeight: 1.7 }}>{q}</p>
         ))}
-        <p style={{ fontSize: "1.1rem", fontWeight: 800, color: "#FFFFFF", marginTop: 20, marginBottom: 0 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginTop: 20 }}>
+          <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.2)" }} />
+          <span style={{ background: "#21F0B0", color: "#124AF0", fontSize: "1.1rem", fontWeight: 900, padding: "8px 28px", borderRadius: 50, letterSpacing: 1 }}>כן.</span>
+          <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.2)" }} />
+        </div>
+        <p style={{ fontSize: "1.1rem", fontWeight: 800, color: "#FFFFFF", marginTop: 16, marginBottom: 0 }}>
           אז את כבר יודעת מה לעשות.
         </p>
       </div>
