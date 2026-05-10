@@ -65,10 +65,12 @@ export default function Hook() {
         </motion.div>
 
         {/* Bridge */}
-        <div style={{ textAlign: "center", marginBottom: 20, opacity: 0.6 }}>
-          <span style={{ fontSize: "0.82rem", color: "#21F0B0", fontWeight: 700, letterSpacing: 2 }}>
+        <div style={{ textAlign: "center", margin: "32px 0 28px", display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
+          <div style={{ width: 1, height: 36, background: "linear-gradient(to bottom, rgba(33,240,176,0), rgba(33,240,176,0.7))" }} />
+          <span style={{ fontSize: "0.92rem", color: "#21F0B0", fontWeight: 700, letterSpacing: 2 }}>
             ועכשיו - בואי נדבר עלייך
           </span>
+          <div style={{ width: 1, height: 24, background: "linear-gradient(to bottom, rgba(33,240,176,0.7), rgba(33,240,176,0))" }} />
         </div>
 
         {/* White card */}
