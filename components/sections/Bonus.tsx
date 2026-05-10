@@ -52,6 +52,10 @@ export default function Bonus() {
             </div>
           ))}
         </div>
+
+        <p style={{ textAlign: "center", marginTop: 32, fontSize: "1rem", color: "#555", fontWeight: 600 }}>
+          10 המדריכים האלה <span style={{ fontSize: "0.75em" }}>-</span> כלולים בתוכנית. בלי תוספת מחיר.
+        </p>
       </div>
       <style>{`
         @keyframes checkPulse {
