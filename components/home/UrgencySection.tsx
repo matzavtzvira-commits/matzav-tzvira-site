@@ -50,10 +50,10 @@ export default function UrgencySection() {
           <a
             href="/course"
             className="urgency-btn"
-            style={{ position: "relative", display: "inline-block", textDecoration: "none" }}
+            style={{ position: "relative", display: "inline-block", textDecoration: "none", maxWidth: "100%" }}
           >
             <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "url('/btn-green.svg?v=2')", backgroundRepeat: "no-repeat", backgroundSize: "110% 560%", backgroundPosition: "center 41%" }} />
-            <span style={{ position: "relative", zIndex: 1, color: "#070C24", padding: "20px 64px", fontWeight: 800, fontSize: "1.05rem", display: "block", whiteSpace: "nowrap" }}>
+            <span style={{ position: "relative", zIndex: 1, color: "#070C24", padding: "20px 64px", fontWeight: 800, fontSize: "1.05rem", display: "block" }}>
               בואי תביני ותרוויחי <span className="arrow-anim">←</span>
             </span>
           </a>

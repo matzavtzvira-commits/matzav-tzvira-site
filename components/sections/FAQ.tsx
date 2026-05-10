@@ -89,12 +89,12 @@ export default function FAQ() {
           </p>
           <a
             href="/course"
-            style={{ position: "relative", display: "inline-block", textDecoration: "none", transition: "transform 0.2s" }}
+            style={{ position: "relative", display: "inline-block", textDecoration: "none", transition: "transform 0.2s", maxWidth: "100%" }}
             onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-3px)")}
             onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
           >
             <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "url('/btn-green.svg?v=2')", backgroundRepeat: "no-repeat", backgroundSize: "110% 560%", backgroundPosition: "center 43%" }} />
-            <span style={{ position: "relative", zIndex: 1, color: "#070C24", padding: "18px 52px", fontWeight: 800, fontSize: "1.1rem", display: "block", whiteSpace: "nowrap" }}>
+            <span style={{ position: "relative", zIndex: 1, color: "#070C24", padding: "18px 52px", fontWeight: 800, fontSize: "1.1rem", display: "block" }}>
               אני מצטרפת לתוכנית ←
             </span>
           </a>

@@ -55,12 +55,12 @@ export default function Pricing() {
 
           <button
             onClick={handleBuy}
-            style={{ position: "relative", background: "transparent", border: "none", cursor: "pointer", fontFamily: "inherit", display: "inline-block", padding: 0, transition: "transform 0.2s" }}
+            style={{ position: "relative", background: "transparent", border: "none", cursor: "pointer", fontFamily: "inherit", display: "inline-block", padding: 0, transition: "transform 0.2s", maxWidth: "100%" }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)"; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
           >
             <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "url('/btn-green.svg?v=2')", backgroundRepeat: "no-repeat", backgroundSize: "110% 560%", backgroundPosition: "center 43%" }} />
-            <span style={{ position: "relative", zIndex: 1, color: "#070C24", padding: "18px 56px", fontWeight: 800, fontSize: "1.15rem", display: "block", whiteSpace: "nowrap" }}>
+            <span style={{ position: "relative", zIndex: 1, color: "#070C24", padding: "18px 56px", fontWeight: 800, fontSize: "1.15rem", display: "block" }}>
               אני מצטרפת לתוכנית ←
             </span>
           </button>

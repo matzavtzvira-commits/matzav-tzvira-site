@@ -175,7 +175,7 @@ export default function Hook() {
           onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
         >
           <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "url('/btn-blue-new.svg?v=2')", backgroundRepeat: "no-repeat", backgroundSize: "110% 560%", backgroundPosition: "center 43%" }} />
-          <span style={{ position: "relative", zIndex: 1, color: "#FFFFFF", padding: "16px 52px", fontWeight: 700, fontSize: "1.05rem", display: "block", whiteSpace: "nowrap" }}>
+          <span style={{ position: "relative", zIndex: 1, color: "#FFFFFF", padding: "16px 52px", fontWeight: 700, fontSize: "1.05rem", display: "block" }}>
             אז מה עושים? ←
           </span>
         </a>

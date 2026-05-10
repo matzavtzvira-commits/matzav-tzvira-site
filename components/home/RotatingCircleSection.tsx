@@ -101,9 +101,9 @@ export default function RotatingCircleSection() {
             <br />
             בלי להבין כלכלה, בלי תואר, מהספה שלך.
           </p>
-          <Link href="/course" className="rotating-btn" style={{ position: "relative", display: "inline-block", textDecoration: "none", alignSelf: "flex-start" }}>
+          <Link href="/course" className="rotating-btn" style={{ position: "relative", display: "inline-block", textDecoration: "none", alignSelf: "flex-start", maxWidth: "100%" }}>
             <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "url('/btn-green.svg?v=2')", backgroundRepeat: "no-repeat", backgroundSize: "110% 560%", backgroundPosition: "center 41%" }} />
-            <span style={{ position: "relative", zIndex: 1, color: "#070C24", padding: "20px 64px", fontWeight: 800, fontSize: "1.05rem", display: "block", whiteSpace: "nowrap" }}>
+            <span style={{ position: "relative", zIndex: 1, color: "#070C24", padding: "20px 64px", fontWeight: 800, fontSize: "1.05rem", display: "block" }}>
               אני מוכנה <span className="arrow-anim">←</span>
             </span>
           </Link>

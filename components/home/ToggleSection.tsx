@@ -229,9 +229,9 @@ export default function ToggleSection() {
             זה לא אמור להיות ככה <span style={{ fontSize: "0.75em" }}>-</span> בואי נשנה את זה יחד.
           </p>
 
-          <a href="/course" className="toggle-cta" style={{ position: "relative", display: "inline-block", textDecoration: "none" }}>
+          <a href="/course" className="toggle-cta" style={{ position: "relative", display: "inline-block", textDecoration: "none", maxWidth: "100%" }}>
             <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "url('/btn-blue-new.svg?v=2')", backgroundRepeat: "no-repeat", backgroundSize: "110% 560%", backgroundPosition: "center 41%" }} />
-            <span style={{ position: "relative", zIndex: 1, color: "#FFFFFF", padding: "20px 64px", fontWeight: 800, fontSize: "1.05rem", display: "block", whiteSpace: "nowrap", textShadow: "0 0 12px rgba(255,255,255,0.8)" }}>
+            <span style={{ position: "relative", zIndex: 1, color: "#FFFFFF", padding: "20px 64px", fontWeight: 800, fontSize: "1.05rem", display: "block", textShadow: "0 0 12px rgba(255,255,255,0.8)" }}>
               אני רוצה להתחיל <span className="arrow-anim">←</span>
             </span>
           </a>

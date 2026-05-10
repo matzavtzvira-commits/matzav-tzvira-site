@@ -88,7 +88,7 @@ export default function Hero() {
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
               >
                 <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "url('/btn-blue-new.svg?v=2')", backgroundRepeat: "no-repeat", backgroundSize: "110% 560%", backgroundPosition: "center 43%" }} />
-                <span style={{ position: "relative", zIndex: 1, color: "#FFFFFF", padding: "14px 40px", fontWeight: 800, fontSize: "0.95rem", display: "block", whiteSpace: "nowrap" }}>
+                <span style={{ position: "relative", zIndex: 1, color: "#FFFFFF", padding: "14px 40px", fontWeight: 800, fontSize: "0.95rem", display: "block" }}>
                   אני רוצה להפסיק לעבוד לבד ←
                 </span>
               </a>

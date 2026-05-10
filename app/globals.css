@@ -172,19 +172,35 @@ a { text-decoration: none; color: inherit; }
 /* ── Mobile button fallbacks (SVG brushstroke may not render at small sizes) ── */
 @media (max-width: 640px) {
   .section-btn,
+  .rotating-btn,
+  .about-btn,
+  .urgency-btn,
+  .toggle-cta,
+  .testimonials-cta {
+    max-width: 100% !important;
+    border-radius: 50px !important;
+  }
+  .section-btn,
   .rotating-btn {
     background: #21F0B0 !important;
-    border-radius: 50px !important;
-    max-width: 100% !important;
   }
-  .section-btn span {
+  .about-btn,
+  .toggle-cta,
+  .testimonials-cta {
+    background: #124AF0 !important;
+  }
+  .urgency-btn {
+    background: #21F0B0 !important;
+  }
+  .section-btn span,
+  .rotating-btn span,
+  .about-btn span,
+  .urgency-btn span,
+  .toggle-cta span,
+  .testimonials-cta span {
     padding: 14px 28px !important;
     white-space: normal !important;
     font-size: 0.95rem !important;
     text-align: center !important;
-  }
-  .about-btn {
-    background: #124AF0 !important;
-    border-radius: 50px !important;
   }
 }
