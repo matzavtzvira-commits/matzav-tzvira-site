@@ -80,6 +80,14 @@ export default function Pricing() {
             </p>
           </div>
 
+          <div style={{ background: "rgba(255,255,255,0.08)", borderRadius: 12, padding: "14px 18px", marginBottom: 24, textAlign: "right" }}>
+            <p style={{ margin: 0, fontSize: "0.92rem", color: "rgba(255,255,255,0.9)", lineHeight: 1.7 }}>
+              <strong style={{ color: "#21F0B0" }}>חנוקה כלכלית? זה בדיוק בשבילך.</strong>
+              <br />
+              את לא צריכה כסף פנוי. את צריכה לדעת איפה הכסף שכבר יש לך הולך לאיבוד.
+            </p>
+          </div>
+
           <button
             onClick={handleBuy}
             style={{ position: "relative", background: "transparent", border: "none", cursor: "pointer", fontFamily: "inherit", display: "inline-block", padding: 0, transition: "transform 0.2s", maxWidth: "100%" }}
