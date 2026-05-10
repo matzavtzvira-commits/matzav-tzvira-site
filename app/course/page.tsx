@@ -53,8 +53,8 @@ export default function CoursePage() {
         <About />
         {/* white → white: no divider needed */}
         <Testimonials />
-        {/* white → blue */}
-        <div style={{ height: 56, background: "#124AF0", overflow: "hidden", lineHeight: 0 }}>
+        {/* white → dark navy */}
+        <div style={{ height: 56, background: "#060D3C", overflow: "hidden", lineHeight: 0 }}>
           <svg viewBox="0 0 1440 56" preserveAspectRatio="none" width="100%" height="100%" style={{ display: "block" }}>
             <polygon points="0,0 1440,0 1440,56" fill="#FFFFFF"/>
           </svg>
