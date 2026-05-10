@@ -79,9 +79,24 @@ export default function Hero() {
               תצאי עם תיק השקעות שבנית בעצמך <span style={{ fontSize: "0.75em" }}>-</span> מותאם לך, מתחיל לעבוד.
             </p>
 
-            <p style={{ fontSize: "0.95rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.6, marginBottom: 24, fontStyle: "italic" }}>
-              הכל מהספה. בנעלי בית. בקצב שלך.
-            </p>
+            <span style={{ display: "inline-block", marginBottom: 24 }}>
+              <p style={{ fontSize: "0.95rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.6, margin: "0 0 4px", fontStyle: "italic" }}>
+                הכל מהספה. בנעלי בית. בקצב שלך.
+              </p>
+              <svg viewBox="0 0 300 8" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", display: "block" }} preserveAspectRatio="none">
+                <defs>
+                  <filter id="slipSketch">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.04 0.08" numOctaves="3" seed="7" result="noise" />
+                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G" />
+                  </filter>
+                  <linearGradient id="slipGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#21F0B0" />
+                    <stop offset="100%" stopColor="#FA5C5C" />
+                  </linearGradient>
+                </defs>
+                <motion.path d="M4 4 Q75 2 150 4 Q225 6 296 4" stroke="url(#slipGrad)" strokeWidth="2" strokeLinecap="round" fill="none" filter="url(#slipSketch)" opacity="0.85" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.2, delay: 1.3, ease: "easeOut", repeat: Infinity, repeatDelay: 3 }} />
+              </svg>
+            </span>
 
             {/* CTAs */}
             <div className="hero-cta" style={{ display: "flex", gap: 12, alignItems: "center", justifyContent: "flex-start", marginBottom: 28, transform: "translateX(40px)" }}>
