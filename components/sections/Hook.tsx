@@ -74,8 +74,7 @@ export default function Hook() {
         </div>
 
         {/* White card */}
-        <div style={{ marginBottom: 36, borderRadius: 28, overflow: "hidden", boxShadow: "0 8px 40px rgba(0,0,0,0.28)" }}>
-          <div style={{ background: "#124AF0", height: 14 }} />
+        <div style={{ marginBottom: 36, borderRadius: 40, overflow: "hidden", boxShadow: "0 16px 56px rgba(0,0,0,0.35)", border: "1.5px solid rgba(255,255,255,0.18)" }}>
           <div style={{ background: "#ffffff", padding: "48px 64px 56px", textAlign: "right" }}>
 
             {/* Part 1 */}
