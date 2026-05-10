@@ -30,6 +30,15 @@ export default function Pricing() {
           </p>
         </div>
 
+        {/* Scarcity banner */}
+        <div style={{ background: "#FFF3CD", border: "1.5px solid #F5A623", borderRadius: 14, padding: "14px 20px", marginBottom: 16, display: "flex", alignItems: "center", gap: 12, textAlign: "right" }}>
+          <span style={{ fontSize: "1.3rem", flexShrink: 0 }}>⚠️</span>
+          <p style={{ margin: 0, fontSize: "0.95rem", color: "#7A4F00", fontWeight: 700, lineHeight: 1.6 }}>
+            בגלל בדיקת התיק האישית שכלולה בתוכנית — אנחנו מגבילות מקומות.
+            <span style={{ fontWeight: 400, display: "block", fontSize: "0.88rem", marginTop: 2 }}>לא נוכל לתת ליווי אישי לכמות בלתי מוגבלת. ברגע שהמקומות מלאים — הדלת נסגרת.</span>
+          </p>
+        </div>
+
         {/* Single plan card */}
         <div className="pricing-card" style={{ background: "linear-gradient(160deg, #124AF0 0%, #0a38c4 100%)", color: "white", borderRadius: 28, padding: "48px 40px", position: "relative", boxShadow: "0 20px 60px rgba(18,74,240,0.3)", textAlign: "center" }}>
           <div style={{ position: "absolute", top: -16, left: "50%", transform: "translateX(-50%)", background: "#21F0B0", color: "#124AF0", borderRadius: 50, padding: "6px 24px", fontSize: "0.88rem", fontWeight: 800, whiteSpace: "nowrap" }}>
@@ -86,7 +95,10 @@ export default function Pricing() {
           <p style={{ opacity: 0.7, fontSize: "0.88rem", marginTop: 16 }}>
             תשלום מאובטח | אחריות 14 יום <span style={{ fontSize: "0.75em" }}>-</span> לא מרוצה? מחזירים הכל בלי שאלות
           </p>
-          <p style={{ fontSize: "0.9rem", color: "#21F0B0", marginTop: 12, fontWeight: 600, opacity: 0.9 }}>
+          <p style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.55)", marginTop: 8, fontStyle: "italic" }}>
+            המקומות מוגבלים בגלל הבדיקה האישית. כשהם מלאים — הטופס נסגר.
+          </p>
+          <p style={{ fontSize: "0.9rem", color: "#21F0B0", marginTop: 10, fontWeight: 600, opacity: 0.9 }}>
             המחיר נגיש בכוונה. כי מגיעה לכל אישה לדעת.
           </p>
         </div>
