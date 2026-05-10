@@ -26,7 +26,7 @@ export default function About() {
             </p>
             <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", color: "#124AF0", marginBottom: 8 }}>רבקי וייס</h2>
             <p style={{ fontSize: "1rem", color: "#555", marginBottom: 24, fontWeight: 600 }}>
-              מתכננת פיננסית ומייסדת ״מצב צבירה״
+              מייסדת מצב צבירה <span style={{ fontSize: "0.75em" }}>-</span> בעלת הקהילה הגדולה לנשים בשוק ההון
               <br />
               כותבת טור &quot;שוות הון&quot; במגזין &quot;בתוך המשפחה&quot;
             </p>
@@ -76,7 +76,7 @@ export default function About() {
               שידעו. שיבינו. שלא תצא עוד אישה לחיים בלי זה.
             </p>
 
-            <p style={{ fontSize: "1rem", lineHeight: 1.9, color: "#292929", marginBottom: 28 }}>
+            <p style={{ fontSize: "1rem", lineHeight: 1.9, color: "#292929", marginBottom: 20 }}>
               זכיתי ללוות עשרות משפחות לשלווה.
               מאות נשים שהיום מבינות, יודעות <span style={{ fontSize: "0.75em" }}>-</span> <strong>וחלק מהמהפכה.</strong>
             </p>

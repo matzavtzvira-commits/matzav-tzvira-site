@@ -13,7 +13,7 @@ const stats = [
 function AnimatedCounter({ target, suffix }: { target: number; suffix: string }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-  const count = useMotionValue(1);
+  const count = useMotionValue(0);
   const rounded = useTransform(count, (v) => {
     const n = Math.round(v);
     return target >= 1000

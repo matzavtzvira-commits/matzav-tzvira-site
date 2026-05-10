@@ -3,9 +3,8 @@ const PAYMENT_URL = "https://secure.cardcom.solutions/EA/EA5/dKoPGzcdZEqxgTyXuRf
 
 const includes = [
   "32 שיעורים בגובה העיניים",
+  "14 דשבורדים דיגיטליים מבוססי בינה מלאכותית",
   "מדריכים יד-ביד לכל נושא",
-  "דשבורדים דיגיטליים חכמים",
-  "בדיקת תיק פיננסי אישית - חינם",
   "ליווי מלא לכל שאלה במייל",
   "קהילת המאסטריות",
   "גישה לשנה שלמה",
@@ -32,7 +31,7 @@ export default function Pricing() {
         </div>
 
         {/* Single plan card */}
-        <div style={{ background: "linear-gradient(160deg, #124AF0 0%, #0a38c4 100%)", color: "white", borderRadius: 28, padding: "48px 40px", position: "relative", boxShadow: "0 20px 60px rgba(18,74,240,0.3)", textAlign: "center" }}>
+        <div className="pricing-card" style={{ background: "linear-gradient(160deg, #124AF0 0%, #0a38c4 100%)", color: "white", borderRadius: 28, padding: "48px 40px", position: "relative", boxShadow: "0 20px 60px rgba(18,74,240,0.3)", textAlign: "center" }}>
           <div style={{ position: "absolute", top: -16, left: "50%", transform: "translateX(-50%)", background: "#21F0B0", color: "#124AF0", borderRadius: 50, padding: "6px 24px", fontSize: "0.88rem", fontWeight: 800, whiteSpace: "nowrap" }}>
             כולל הכל <span style={{ fontSize: "0.75em" }}>-</span> בלי הפתעות
           </div>
@@ -53,6 +52,25 @@ export default function Pricing() {
             ))}
           </ul>
 
+          {/* Free portfolio review highlight */}
+          <div style={{ background: "rgba(33,240,176,0.12)", border: "1.5px solid #21F0B0", borderRadius: 16, padding: "20px 24px", marginBottom: 28, textAlign: "right" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+              <span style={{ background: "#21F0B0", color: "#070C24", fontSize: "0.75rem", fontWeight: 800, padding: "3px 10px", borderRadius: 50, whiteSpace: "nowrap", flexShrink: 0 }}>
+                כלול בחינם
+              </span>
+              <p style={{ fontWeight: 800, fontSize: "1rem", color: "#FFFFFF", margin: 0 }}>
+                בדיקת תיק פיננסי אישית
+              </p>
+            </div>
+            <p style={{ fontSize: "0.92rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.75, margin: 0 }}>
+              סוכנת ביטוח מורשית תצור איתך קשר ותבדוק את כל התיק שלך <span style={{ fontSize: "0.75em" }}>-</span>
+              <br />
+              פנסיה, ביטוחים, דמי ניהול, מסלולים <span style={{ fontSize: "0.75em" }}>-</span> ותמליץ על שינויים.
+              <br />
+              <span style={{ color: "#21F0B0", fontWeight: 700 }}>שירות שאנשים משלמים עליו. כלול בתוכנית.</span>
+            </p>
+          </div>
+
           <button
             onClick={handleBuy}
             style={{ position: "relative", background: "transparent", border: "none", cursor: "pointer", fontFamily: "inherit", display: "inline-block", padding: 0, transition: "transform 0.2s", maxWidth: "100%" }}
@@ -68,8 +86,16 @@ export default function Pricing() {
           <p style={{ opacity: 0.7, fontSize: "0.88rem", marginTop: 16 }}>
             תשלום מאובטח | אחריות 14 יום <span style={{ fontSize: "0.75em" }}>-</span> לא מרוצה? מחזירים הכל בלי שאלות
           </p>
+          <p style={{ fontSize: "0.9rem", color: "#21F0B0", marginTop: 12, fontWeight: 600, opacity: 0.9 }}>
+            המחיר נגיש בכוונה. כי מגיעה לכל אישה לדעת.
+          </p>
         </div>
       </div>
+      <style>{`
+        @media(max-width:520px){
+          .pricing-card { padding: 36px 20px !important; border-radius: 20px !important; }
+        }
+      `}</style>
     </section>
   );
 }

@@ -125,16 +125,21 @@ export default function HomeAbout() {
             </p>
             <div style={{ marginTop: 8, height: 4, width: "100%", borderRadius: 4, background: "linear-gradient(to left, #21F0B0, #124AF0)" }} />
             <p style={{ marginTop: 8, fontSize: "0.88rem", color: "#666", fontWeight: 600 }}>
-              מתכננת פיננסית <span style={{ fontSize: "0.75em" }}>-</span> מייסדת מצב צבירה
+              מייסדת מצב צבירה <span style={{ fontSize: "0.75em" }}>-</span> בעלת הקהילה הגדולה לנשים בשוק ההון
             </p>
           </div>
 
-          <Link href="/about" className="about-btn" style={{ position: "relative", display: "inline-block", textDecoration: "none", maxWidth: "100%" }}>
-            <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "url('/btn-blue-new.svg?v=2')", backgroundRepeat: "no-repeat", backgroundSize: "110% 560%", backgroundPosition: "center 41%" }} />
-            <span style={{ position: "relative", zIndex: 1, color: "#FFFFFF", padding: "20px 64px", fontWeight: 800, fontSize: "1.05rem", display: "block", textShadow: "0 0 12px rgba(255,255,255,0.8)" }}>
-              לסיפור המלא <span className="arrow-anim">←</span>
-            </span>
-          </Link>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 12 }}>
+            <p style={{ fontSize: "0.95rem", color: "#555", margin: 0 }}>
+              329 נשים כבר השלימו את השיעור.
+            </p>
+            <Link href="/course" className="about-btn" style={{ position: "relative", display: "inline-block", textDecoration: "none", maxWidth: "100%" }}>
+              <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "url('/btn-blue-new.svg?v=2')", backgroundRepeat: "no-repeat", backgroundSize: "110% 560%", backgroundPosition: "center 41%" }} />
+              <span style={{ position: "relative", zIndex: 1, color: "#FFFFFF", padding: "20px 64px", fontWeight: 800, fontSize: "1.05rem", display: "block", textShadow: "0 0 12px rgba(255,255,255,0.8)" }}>
+                אני רוצה ללמוד גם <span className="arrow-anim">←</span>
+              </span>
+            </Link>
+          </div>
 
         </motion.div>
 

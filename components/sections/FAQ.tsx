@@ -37,7 +37,7 @@ const faqs = [
 ];
 
 export default function FAQ() {
-  const [open, setOpen] = useState<number | null>(null);
+  const [open, setOpen] = useState<number | null>(0);
 
   return (
     <section style={{ background: "#F4F7FF", padding: "48px 1.5rem" }}>
@@ -88,7 +88,7 @@ export default function FAQ() {
             329 נשים כבר קמו ואספו אותו.
           </p>
           <a
-            href="/course"
+            href="#pricing"
             style={{ position: "relative", display: "inline-block", textDecoration: "none", transition: "transform 0.2s", maxWidth: "100%" }}
             onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-3px)")}
             onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}

@@ -93,13 +93,13 @@ export default function Hook() {
               </svg>
             </span>
             <p style={{ fontSize: "1rem", color: "#222", lineHeight: 2.2, marginBottom: 32 }}>
-              בית, ילדים, עבודה, שוב בית.
+              את עובדת קשה.
               <br />
-              עד שנזכרת לנשום <span style={{ fontSize: "0.75em" }}>-</span> כבר ערב.
+              כל שקל שמכניסה <span style={{ fontSize: "0.75em" }}>-</span> בא ממאמץ.
               <br />
-              ובינתיים <span style={{ fontSize: "0.75em" }}>-</span> מאות אלפי שקלים שלך עובדים בשביל מישהו אחר.
+              ובינתיים, יש לך כסף שכבר עובד <span style={{ fontSize: "0.75em" }}>-</span> רק לא בשבילך.
               <br />
-              <strong>לא כי את לא חכמה <span style={{ fontSize: "0.75em" }}>-</span> כי אף אחד לא לימד אותך.</strong>
+              <strong>לא כי את לא חכמה <span style={{ fontSize: "0.75em" }}>-</span> כי אף אחד לא לימד אותך לנהל אותו.</strong>
             </p>
 
             {/* Part 2 */}

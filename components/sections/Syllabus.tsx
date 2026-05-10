@@ -26,6 +26,7 @@ const chapters = [
       "המדד הכי מוצלח בעולם - ולמה דווקא הוא",
       "מחלקת צוברת - להבין מה באמת קורה שם",
     ],
+    proofTopics: ["הפלא השמיני בתבל - אפקט ריבית דריבית", "השיטה שמנצחת את הכלכלנים הבכירים - בפשטות"],
     bonus: "🟢 בונוס - מדריך מסלולים כשרים: כל האפשרויות להשקיע בהתאם להלכה, בבהירות מלאה",
   },
   {
@@ -43,6 +44,7 @@ const chapters = [
       "הר הכסף - איך למצוא כספים רדומים בקלות",
       "הרווח הבטוח - הסוד של דמי הניהול",
     ],
+    proofTopics: ["הרווח הבטוח - הסוד של דמי הניהול"],
   },
   {
     num: "ד",
@@ -68,6 +70,64 @@ const chapters = [
   },
 ];
 
+const methodSteps = [
+  {
+    num: "1",
+    title: "גלי",
+    desc: "את כבר מושקעת בשוק ההון — פנסיה, קרן השתלמות, חסכון לכל ילד. רוב הנשים לא יודעות את זה.",
+    source: "פנסיה נט - רשות שוק ההון",
+    href: "https://pensyanet.cma.gov.il",
+  },
+  {
+    num: "2",
+    title: "נקי",
+    desc: "הפרש של 0.5% בדמי ניהול שווה מאות אלפי שקלים לאורך 30 שנה. זה לא שיווק — זה מחשבון ממשלתי.",
+    source: "מחשבון דמי ניהול - nihul.cma.gov.il",
+    href: "https://nihul.cma.gov.il",
+  },
+  {
+    num: "3",
+    title: "הפעילי",
+    desc: "90% מהקרנות האקטיביות מפסידות למדד לאורך 10 שנים. ההשקעה הפשוטה מנצחת.",
+    source: "SPIVA Report - S&P Global",
+    href: "https://spglobal.com/spdji/en/research-insights/spiva/",
+  },
+];
+
+function MethodStrip() {
+  return (
+    <div className="method-strip" style={{ background: "#F4F7FF", borderRadius: 16, padding: "32px 28px", marginBottom: 36, border: "1px solid #E8EDFF" }}>
+      <p style={{ textAlign: "center", fontSize: "0.82rem", fontWeight: 700, color: "#21F0B0", letterSpacing: 1.5, marginBottom: 20, textTransform: "uppercase" }}>
+        השיטה שמלמדים בתוכנית
+      </p>
+      <div className="method-steps" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+        {methodSteps.map((s) => (
+          <div key={s.num} style={{ textAlign: "center" }}>
+            <div style={{ width: 48, height: 48, borderRadius: "50%", background: "#124AF0", color: "#fff", fontWeight: 900, fontSize: "1.3rem", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 12px" }}>
+              {s.num}
+            </div>
+            <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#124AF0", marginBottom: 6 }}>{s.title}</div>
+            <p style={{ fontSize: "0.85rem", color: "#555", lineHeight: 1.6, margin: "0 0 10px" }}>{s.desc}</p>
+            <a
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: "0.75rem", color: "#21F0B0", fontWeight: 700, textDecoration: "none", borderBottom: "1px solid rgba(33,240,176,0.4)", paddingBottom: 1 }}
+            >
+              {s.source} ›
+            </a>
+          </div>
+        ))}
+      </div>
+      <style>{`
+        @media(max-width:600px){
+          .method-steps { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </div>
+  );
+}
+
 export default function Syllabus() {
   const [open, setOpen] = useState<number | null>(null);
 
@@ -83,6 +143,8 @@ export default function Syllabus() {
           </h2>
           <p style={{ color: "#555", fontSize: "1rem" }}>5 פרקים. מהבסיס עד המתקדם. בלי לדלג על כלום.</p>
         </div>
+
+        <MethodStrip />
 
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {chapters.map((ch, i) => (
@@ -116,9 +178,14 @@ export default function Syllabus() {
                   )}
                   <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
                     {ch.topics.map((topic, j) => (
-                      <li key={j} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: "0.95rem", color: "#292929" }}>
-                        <span style={{ color: "#21F0B0", fontWeight: 700, marginTop: 3, fontSize: "0.7rem", flexShrink: 0 }}>■</span>
-                        {topic}
+                      <li key={j} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: "0.95rem", color: "#292929", flexWrap: "wrap" }}>
+                        <span style={{ color: "#21F0B0", fontWeight: 700, fontSize: "0.7rem", flexShrink: 0 }}>■</span>
+                        <span style={{ flex: 1 }}>{topic}</span>
+                        {(ch as { proofTopics?: string[] }).proofTopics?.includes(topic) && (
+                          <span style={{ fontSize: "0.72rem", background: "rgba(33,240,176,0.15)", color: "#0DAF80", padding: "2px 9px", borderRadius: 50, fontWeight: 700, whiteSpace: "nowrap", flexShrink: 0 }}>
+                            מוכח ›
+                          </span>
+                        )}
                       </li>
                     ))}
                   </ul>
