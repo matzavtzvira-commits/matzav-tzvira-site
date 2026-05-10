@@ -131,17 +131,17 @@ export default function ContrastCard() {
             >
               {/* Miri */}
               <div className="cc-cell" style={{ padding: "16px 12px", textAlign: "center", borderLeft: "1px solid rgba(255,255,255,0.07)" }}>
-                <div style={{ fontWeight: 800, fontSize: "1rem", color: "#FA5C5C", whiteSpace: "nowrap" }}>{row.miri.text}</div>
-                <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.35)", marginTop: 4, lineHeight: 1.4 }}>{row.miri.sub}</div>
+                <div className="cc-val" style={{ fontWeight: 800, fontSize: "1rem", color: "#FA5C5C", whiteSpace: "nowrap" }}>{row.miri.text}</div>
+                <div className="cc-sub" style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.35)", marginTop: 4, lineHeight: 1.4 }}>{row.miri.sub}</div>
               </div>
               {/* Label */}
               <div className="cc-cell" style={{ padding: "16px 8px", textAlign: "center", borderLeft: "1px solid rgba(255,255,255,0.07)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <div style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.5)", fontWeight: 600 }}>{row.label}</div>
+                <div className="cc-label" style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.5)", fontWeight: 600 }}>{row.label}</div>
               </div>
               {/* Batya */}
               <div className="cc-cell" style={{ padding: "16px 12px", textAlign: "center" }}>
-                <div style={{ fontWeight: 800, fontSize: "1rem", color: "#21F0B0", whiteSpace: "nowrap" }}>{row.batya.text}</div>
-                <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.35)", marginTop: 4, lineHeight: 1.4 }}>{row.batya.sub}</div>
+                <div className="cc-val" style={{ fontWeight: 800, fontSize: "1rem", color: "#21F0B0", whiteSpace: "nowrap" }}>{row.batya.text}</div>
+                <div className="cc-sub" style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.35)", marginTop: 4, lineHeight: 1.4 }}>{row.batya.sub}</div>
               </div>
             </motion.div>
           ))}
@@ -174,7 +174,7 @@ export default function ContrastCard() {
           style={{ display: "flex", justifyContent: "center" }}
         >
           <a
-            href="#pricing"
+            href="#about"
             style={{ position: "relative", display: "inline-block", textDecoration: "none", transition: "transform 0.2s" }}
             onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-3px)")}
             onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
@@ -196,6 +196,14 @@ export default function ContrastCard() {
           תשלום מאובטח | אחריות 14 יום - החזר מלא ללא שאלות
         </motion.p>
       </div>
+      <style>{`
+        @media(max-width:480px){
+          .cc-cell { padding: 10px 6px !important; }
+          .cc-val { font-size: 0.82rem !important; white-space: normal !important; }
+          .cc-sub { font-size: 0.65rem !important; }
+          .cc-label { font-size: 0.7rem !important; }
+        }
+      `}</style>
     </section>
   );
 }

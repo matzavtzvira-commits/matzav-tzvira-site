@@ -32,6 +32,7 @@ const testimonials = [
     quote: "אנחנו משקיעות שנים בלימודים ובעבודה, אבל שוכחות להשקיע מינימום זמן כדי להבין איפה הכסף שלנו נמצא. כל בחורה שיוצאת לחיים חייבת את הקורס הזה. ההבדל בין לדעת לבין בורות - שווה מאות אלפי שקלים.",
     name: "מיכל שרעבי",
     highlight: "ההשקעה הכי משתלמת בקריירה שלך",
+    quoteOverride: "אנחנו משקיעות שנים בלימודים ובעבודה, אבל שוכחות להשקיע מינימום זמן כדי להבין איפה הכסף שלנו נמצא. כל בחורה שיוצאת לחיים חייבת את התוכנית הזו. ההבדל בין לדעת לבין בורות - שווה מאות אלפי שקלים.",
   },
 ];
 
@@ -121,7 +122,7 @@ export default function Testimonials() {
               </motion.div>
 
               <p style={{ fontSize: "0.98rem", lineHeight: 1.8, color: "#292929", marginBottom: 20 }}>
-                {t.quote}
+                {(t as { quoteOverride?: string }).quoteOverride ?? t.quote}
               </p>
 
               <div style={{ fontWeight: 700, color: "#124AF0", fontSize: "0.9rem" }}>

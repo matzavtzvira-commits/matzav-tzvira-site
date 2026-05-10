@@ -96,7 +96,7 @@ export default function Hook() {
 
         {/* White card */}
         <div style={{ marginBottom: 36, borderRadius: 40, overflow: "hidden", boxShadow: "0 16px 56px rgba(0,0,0,0.35)", border: "1.5px solid rgba(255,255,255,0.18)" }}>
-          <div style={{ background: "#ffffff", padding: "48px 64px 56px", textAlign: "right" }}>
+          <div className="hook-white-inner" style={{ background: "#ffffff", padding: "48px 64px 56px", textAlign: "right" }}>
 
             {/* Yes Set */}
             <div style={{ marginBottom: 32 }}>
@@ -114,36 +114,13 @@ export default function Hook() {
                 <span style={{ background: "#124AF0", color: "#fff", fontSize: "1.1rem", fontWeight: 900, padding: "8px 28px", borderRadius: 50, letterSpacing: 1 }}>כן.</span>
                 <div style={{ flex: 1, height: 1, background: "rgba(18,74,240,0.15)" }} />
               </div>
+              <p style={{ fontSize: "1rem", color: "#444", lineHeight: 1.75, marginBottom: 6 }}>
+                יש לך כסף שכבר עובד <span style={{ fontSize: "0.75em" }}>-</span> רק לא בשבילך.
+              </p>
               <p style={{ fontSize: "1rem", fontWeight: 700, color: "#124AF0", marginBottom: 0 }}>
-                אז המשך הדף הזה כתוב בשבילך.
+                לא כי את לא חכמה <span style={{ fontSize: "0.75em" }}>-</span> כי אף אחד לא לימד אותך לנהל אותו.
               </p>
             </div>
-
-            {/* Part 1 */}
-            <span style={{ display: "inline-block", marginBottom: 20 }}>
-              <span style={{ fontSize: "1.3rem", fontWeight: 800, color: "#124AF0", display: "block" }}>
-                תני לי לנחש איך היום שלך נראה
-              </span>
-              <svg viewBox="0 0 300 12" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", display: "block", marginTop: 3 }} preserveAspectRatio="none">
-                <defs>
-                  <filter id="blueSketch">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.04 0.08" numOctaves="3" seed="3" result="noise" />
-                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" />
-                  </filter>
-                </defs>
-                <motion.path d="M4 5 Q75 3 150 6 Q225 9 296 5" stroke="#124AF0" strokeWidth="2" strokeLinecap="round" fill="none" filter="url(#blueSketch)" opacity="0.95" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }} />
-                <motion.path d="M8 8 Q80 6 155 9 Q230 11 292 7" stroke="#124AF0" strokeWidth="1.2" strokeLinecap="round" fill="none" filter="url(#blueSketch)" opacity="0.5" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.9, delay: 0.45, ease: "easeOut" }} />
-              </svg>
-            </span>
-            <p style={{ fontSize: "1rem", color: "#222", lineHeight: 2.2, marginBottom: 32 }}>
-              את עובדת קשה.
-              <br />
-              כל שקל שמכניסה <span style={{ fontSize: "0.75em" }}>-</span> בא ממאמץ.
-              <br />
-              ובינתיים, יש לך כסף שכבר עובד <span style={{ fontSize: "0.75em" }}>-</span> רק לא בשבילך.
-              <br />
-              <strong>לא כי את לא חכמה <span style={{ fontSize: "0.75em" }}>-</span> כי אף אחד לא לימד אותך לנהל אותו.</strong>
-            </p>
 
             {/* Part 2 */}
             <span style={{ display: "inline-block", marginBottom: 16 }}>
@@ -223,6 +200,11 @@ export default function Hook() {
           </span>
         </a>
       </div>
+      <style>{`
+        @media(max-width:600px){
+          .hook-white-inner { padding: 32px 20px 40px !important; }
+        }
+      `}</style>
     </section>
   );
 }
