@@ -11,7 +11,8 @@ const articles: Record<string, {
   emoji: string;
   readTime: string;
   intro: string;
-  sections: { heading: string; body: string }[];
+  heroImage?: string;
+  sections: { heading: string; body: string; image?: string; imageAlt?: string; images?: { src: string; alt: string }[]; link?: string; linkLabel?: string }[];
 }> = {
   "pension-management-fees": {
     title: "איך לבדוק את דמי הניהול בפנסיה שלך",
@@ -72,29 +73,139 @@ const articles: Record<string, {
     ],
   },
   "savings-for-kids": {
-    title: "חיסכון לכל ילד - מ-20,000 ל-70,000 ₪",
-    date: "מרץ 2025",
+    title: "חיסכון לכל ילד - המדריך המלא",
+    date: "מאי 2026",
     tag: "ילדים",
     tagColor: "#21F0B0",
-    emoji: "",
-    readTime: "5 דקות קריאה",
-    intro: "החיסכון שהממשלה פותחת לכל ילד יכול להפוך להון אמיתי - אם בוחרים נכון. מרגע לידתו של כל ילד בישראל, המדינה מפקידה 60 ₪ בחודש בחשבון חיסכון על שמו. עד גיל 18 - זה 12,960 ₪ בלי לעשות כלום. אבל עם בחירה נכונה, זה יכול להגיע ל-70,000 ₪.",
+    emoji: "🌱",
+    readTime: "12 דקות קריאה",
+    heroImage: "/kids-balloon.png",
+    intro: "מ-2017 המדינה מפקידה כסף לכל ילד - כל חודש, בלי לבקש.\nהכסף נצבר בשקט. אחד לאחד.\n\nהבעיה? ברירת המחדל מנחיתה אתכן במסלול שמניב הרבה פחות ממה שיכול.\nוההפרש לאורך 21 שנה יכול להגיע ל-57,000 ₪ - לכל ילד.\n\nזה המדריך שיכניס אתכן לתמונה המלאה.",
     sections: [
       {
-        heading: "שני מסלולים - הבדל של 50,000 ₪",
-        body: "ברירת המחדל: הכסף מנוהל על ידי ביטוח לאומי בתשואה נמוכה של כ-2.5% בשנה. תוצאה: כ-20,000 ₪ בגיל 18. המסלול הטוב יותר: העברה לקרן השתלמות או לפנסיה בניהול אישי, עם מסלול מנייתי שמניב כ-7-8% בשנה. תוצאה: 60,000-70,000 ₪ בגיל 18.",
+        heading: "למה הקימה המדינה את התוכנית?",
+        body: "התוכנית יצאה לדרך ב-1 בינואר 2017, כתוצאה מהחלטת ממשלה והסכמים קואליציוניים.\nהמטרה: להחזיר חלק מהקיצוצים שנעשו בעבר בקצבאות הילדים - אבל הפעם בפורמט של חיסכון לטווח ארוך, ולא כהוצאה שוטפת.\n\nנקודה חשובה: המדינה הפקידה סכומים רטרואקטיבית עבור כל ילד שהיה זכאי לקצבת ילדים מ-מאי 2015.\n\nשלוש מטרות מרכזיות לתוכנית:\n\n1. צמצום פערים חברתיים - גם ילד שגדל במשפחה עם קשיים כלכליים יגיע לבגרות עם סכום כסף ראשוני שיפתח עבורו הזדמנויות.\n\n2. עידוד אוריינות פיננסית - ההורים צריכים לבחור בין גוף מנהל ומסלול השקעה. זה מכריח את כולם להכיר מושגים כלכליים בסיסיים.\n\n3. ניצול כוח הזמן - הממשלה מבינה שסכום קטן (כמו 58 ₪) שמופקד לאורך 18-21 שנה צובר ריבית דריבית בצורה משמעותית - דבר שקשה מאוד לשחזר בחיסכון לטווח קצר.",
       },
       {
-        heading: "איך עושים את זה?",
-        body: "פונים לאחת מחברות הפנסיה הגדולות (מנורה, הראל, הפניקס) ומבקשים פתיחת חיסכון לכל ילד במסלול מנייתי. ממלאים טופס, מצרפים תעודת זהות ותעודת לידה של הילד - וזהו. התהליך לוקח פחות משעה.",
+        heading: "איך זה עובד בפועל?",
+        body: "כוח ההחלטה - בידיים שלכן:\n\n• ביטוח לאומי מפקיד 58 ₪ לחודש עבור כל ילד לחשבון חיסכון ייעודי על שמו (נכון ל-2026).\n\n• כל הורה יכול לבקש להוסיף עוד 58 ₪ מקצבת הילדים - כך שיופקדו 116 ₪ בפועל כל חודש.\n\n• ההורים בוחרים היכן ינוהל הכסף: בבנק (מסלול יציב עם ריבית קבועה) או בקופת גמל (השקעות בשוק ההון).\n\n• לאורך הדרך יש גם מענקים מהמדינה:\n  284 ₪ בגיל 3\n  284 ₪ נוספים בגיל 12 לבנות / 13 לבנים\n  568 ₪ נוספים אם מחכות עד גיל 21\n\n• החיסכון שייך לאמא בחוק. רק דרך האזור האישי שלה ניתן לצפות בנתונים ולשנות מסלול.",
       },
       {
-        heading: "מה המסלול הנכון?",
-        body: "לילד מתחת לגיל 10 - מסלול מנייתי מלא (100% מניות). יש זמן להתאושש מירידות שוק. לילד מעל גיל 14 - מסלול מעורב עם יותר אגרות חוב. ככלל: ככל שיש יותר זמן - מסלול יותר אגרסיבי.",
+        heading: "רפורמת 2025 - מה השתנה?",
+        body: "בתחילת 2025 נכנסו לתוקף שינויים משמעותיים בתוכנית. מטרת המדינה ברורה: שהכסף של הילדים שלכן לא ישב 'ישן' בבנק, אלא יעבוד ויניב הרבה יותר.\n\nהכסף שבבנק - 'כנפיים קצוצות'\nאם לילדים שלכן כבר יש חיסכון בבנק - הכסף הזה נשאר שם עד גיל 18. הרפורמה לא מאפשרת להעביר כסף שכבר הופקד בבנק לגוף אחר.\n\nאבל (ויש כאן אבל גדול!) - ניתן להחליט שכל התשלומים החדשים יעברו לקופת גמל להשקעה. זו הזדמנות מצוינת להציל את המשך החיסכון ולתת לו פוטנציאל צמיחה גבוה יותר.\n\nברירת המחדל השתנתה לתינוקות חדשים\nנולד לכן תינוקת? מזל טוב! עבור התינוקת החדשה, המדינה תפתח אוטומטית חשבון בקופת גמל להשקעה - גם אם לאחים הגדולים יש חיסכון בבנק. המדינה כבר לא שולחת ילדים לבנק כברירת מחדל.\n\nעוברות למסלול סיכון מוגבר\nשינוי נוסף ודרמטי: בעבר ברירת המחדל הייתה מסלול עם סיכון מועט. היום, המדינה קובעת שברירת המחדל בקופות הגמל היא מסלול סיכון מוגבר. הסטטיסטיקה מראה שלחיסכון של 18 שנה, מסלול מניות משיג תוצאות הרבה יותר טובות ממסלולים יציבים.",
       },
       {
-        heading: "נקודה חשובה",
-        body: "הכסף הזה שייך לילד בגיל 18. אם לא רוצים שהוא ימשוך אותו מיד, ניתן לעזור לו להבין את ערך ההמשכה. חיסכון של 70,000 ₪ שממשיך להיות מושקע עוד 10 שנים - יגיע ל-130,000-150,000 ₪.",
+        heading: "הפער המדהים: בנק לעומת קופת גמל",
+        body: "תסתכלנה על המספרים:\n\nאם תפקידנה 116 ₪ בחודש (כולל תוספת הורים) - כמה יצטבר אחרי 21 שנה?\n\n• בנק:                              38,974 ₪\n• קופת גמל - סיכון נמוך:    50,062 ₪\n• קופת גמל - סיכון בינוני:   64,697 ₪\n• קופת גמל - סיכון גבוה:     95,963 ₪\n\nהפרש של 57,000 ₪ - לכל ילד - בין הבנק למסלול המניות.\nובלי לעשות שום דבר. הכסף עובד לבד.\n\n(חישוב מבוסס על נתוני השנים האחרונות. אין ערובה לתשואה עתידית. כל האמור הוא למטרת העשרה בלבד.)",
+        image: "/guides/savings-for-kids/growth-bar.jpg",
+        imageAlt: "גרף השוואת צמיחה בין בנק לקופות גמל לאורך שנים",
+      },
+      {
+        heading: "המסלולים הקיימים - מה ההבדל?",
+        body: "לכל גוף מנהל יש כמה מסלולים לבחירה:\n\nמסלול בנק\nהיציב ביותר - ריבית קבועה ובטוחה. אבל: אין כמעט צמיחה. לאורך 18 שנה, הכסף ייצבר הרבה פחות ממה שיכול היה.\n\nסיכון נמוך\nקופת גמל עם השקעות שמרניות. בטוח יחסית, אבל פוטנציאל הצמיחה עדיין מוגבל.\n\nסיכון בינוני\nתמהיל של אגרות חוב ומניות. בינוני בסיכון ובתשואה.\n\nסיכון גבוה\nמסלול שנועד לצמיחה משמעותית לטווח ארוך. חשיפה גבוהה למניות.\n\nמסלול הלכה\n• מיטב הלכה - עוקב S&P500 (500 החברות הגדולות בארה\"ב). כשרות: העדה החרדית, גלאט הון והרב דביר.\n• אינפיניטי הלכה - עוקב MSCI ACWI (כ-3,000 חברות ב-47 מדינות). כשרות: רבני תשואה כהלכה וגלאט הון.\n• הראל הלכה - הרכב ייחודי בסיכון מוגבר, לא עוקב מדד ספציפי. כשרות: העדה החרדית וגלאט הון.\n• מור הלכה - שילוב בין המדד העולמי לשוק הישראלי. כשרות: הרב דביר.",
+      },
+      {
+        heading: "S&P 500 - הכירו את מנוע הצמיחה האמריקאי",
+        body: "S&P 500 הוא מדד שמאגד את 500 החברות החזקות והגדולות בארה\"ב - Apple, Microsoft, Amazon, Google, Tesla ועוד.\n\nהשקעה במדד הזה אומרת שאתן קונות חלק מהכלכלה האמריקאית כולה.\n\nלמה הוא חזק לטווח הארוך?\n• המדד כולל מאות חברות - כך שאם אחת נפגעת, האחרות מאזנות.\n• מייצג את הכלכלה החזקה ביותר בעולם ובוחר באופן דינמי את המובילות.\n• פוטנציאל התשואה לטווח הארוך - גבוה.\n\n'ביצועי עבר אינם מעידים על העתיד.'\n'ניקיונות' בשוק (ירידות זמניות) הם חלק טבעי ובריא, ולעתים מהווים הזדמנות לקנות בזול - כשהמדד נוטה לטפס חזרה.\n\nפיזור רחב, פוטנציאל תשואה גבוה ופשטות ההשקעה - אלה שהפכו אותו לכלי ההשקעה המועדף על מיליוני משקיעים בעולם.",
+      },
+      {
+        heading: "MSCI World - הכירו את המדד הגלובלי",
+        body: "אם את מחפשת את הדרך הכי רחבה ומפוזרת להשקיע את כסף הילדים - MSCI World הוא התשובה.\n\nזהו מדד גלובלי שמכיל אלפי חברות מובילות מהמדינות החזקות בעולם.\n\nמה יש בתוך ה'סל' הגלובלי?\n• ארה\"ב: ענקיות הטכנולוגיה והצריכה\n• אירופה: תעשייה, רכב ואופנה מובילות\n• אסיה ואוסטרליה: מעצמות צומחות וחדשניות\n\nלמה זה נחשב לבחירה חכמה?\n• פיזור מקסימלי - אם יש מיתון במדינה מסוימת, הגשגש של מדינה אחרת יכול לאזן.\n• ביטוח מפני סיכונים מקומיים - הגנה מפני זעזועים פוליטיים או ביטחוניים.\n• מנגנון 'עדכון עצמי' - המדד מתעדכן כל הזמן: החברה שצומחת נכנסת, הכבודה יוצאת.\n\nההיסטוריה מראה שלמרות 'גלים' בבורסות העולם - הכלכלה הגלובלית תמיד שואפת כלפי מעלה ומתאוששת ממשברים.",
+      },
+      {
+        heading: "ת\"א 125 - הכירו את הבורסה הישראלית",
+        body: "ת\"א 125 הוא מדד הדגל של הבורסה לניירות ערך בתל אביב.\nהוא כולל את 125 החברות בעלות שווי השוק הגבוה ביותר שנסחרות בבורסה המקומית.\n\nהמדד מורכב משני מדדים:\n• ת\"א 35 - 35 החברות הגדולות ביותר\n• ת\"א 90 - 90 החברות הבאות בגודלן\n\nמה יש בפנים?\n• הבנקים הגדולים (לאומי, פועלים, מזרחי) - חלק מאוד משמעותי מהמדד, יציבים ומחלקים דיבידנדים.\n• נדל\"ן ובינוי - חברות נדל\"ן מניב וחברות בנייה למגורים.\n• טכנולוגיה ורייסייבר - ייצוג גדל והולך, כולל חברות ישראליות שנסחרות גם בנאסד\"ק.\n\nהשקעה במדד זה היא הדרך הישירה ביותר ל'לקנות' חלק מהמשק הישראלי כולו.\nמסלול מור הלכה משלב בין השוק הגלובלי לשוק הישראלי.",
+      },
+      {
+        heading: "ריסק מול ריסק: איך מתאימים מסלול לגיל הילד?",
+        body: "שוק ההון הוא מקום דינמי - לצד הפוטנציאל לרווחים יפים, יש גם תקופות של ירידות. בשפה המקצועית קוראים לירידות זמניות בשוק 'ניקיון'.\n\nהכלל פשוט: זמן = ביטחון\n\nלילדים צעירים (לידה עד גיל 12-13):\nכשלדלי יש עוד שנים ארוכות עד גיל 18-21, יש לו 'אופק השקעה' רחב. גם אם השוק ירד מחר - יש לו מספיק שנים להתאושש ולחזור לצמוח. לכן מסלול מניות נחשב לבחירה חכמה שמטרתה למקסם את התשואה לטווח הארוך.\n\nלבני נוער (קרובים לגיל 18):\nכאן התמונה משתנה. אם נותרו רק 3-4 שנים עד שהילד יחפוץ למשוך את הכסף - חשיפה מלאה למניות עלולה להיות מסוכנת מדי. אם יהיה 'ניקיון' חד בשוק בדיוק שנה לפני גיל 18 - לכסף לא יהיה מספיק זמן ל'תקן' את עצמו לפני המשיכה.\n\nהשורה התחתונה:\n• לילדים קטנים - תנו לכסף לעבוד קשה.\n• לילדים גדולים - התחילו לשמור על הקיים.",
+      },
+      {
+        heading: "המסלולים המומלצים - השוואה מהירה",
+        body: "שלוש אפשרויות מצוינות למסלולי הלכה:\n\nמיטב הלכה - S&P 500\nהכסף מושקע ב-500 החברות החזקות בארה\"ב (Apple, Google, Microsoft).\nמתאים למי שמאמינה בכלכלה האמריקאית ומחפשת פוטנציאל צמיחה גבוה.\nכשרות: העדה החרדית, גלאט הון, הרב דביר.\n\nאינפיניטי הלכה - MSCI World\nהכסף מתפזר על פני אלפי חברות מכל העולם (ארה\"ב, אירופה, יפן ועוד).\nמתאים למי שרוצה פיזור מקסימלי ולא להיות תלויה בכלכלה אחת בלבד.\nכשרות: רבני תשואה כהלכה, גלאט הון.\n\nמור הלכה - גלובלי + ישראלי\nמשלב בין המדד העולמי לת\"א 125. הרכב המדויק משתנה מעת לעת לפי החלטת מנהלי ההשקעות, אך תמיד נשאר מסלול מניות.\nכשרות: הרב דביר.\n\nכל האמור הוא למטרת העשרה בלבד ואינו מהווה ייעוץ פיננסי. תוצאות משתנות ואין ערובה לתשואה.",
+      },
+      {
+        heading: "איך בודקות היכן הכסף עכשיו?",
+        body: "שלב 1 - נכנסות לאזור האישי בביטוח לאומי\nשלב 2 - לוחצות על 'מידע אישי על פרטי חיסכון הילד'\nשלב 3 - מזינות פרטי מקבלת קצבת הילדים (האמא)\nשלב 4 - מזדהות דרך כרטיס אשראי (לא גובים כלום - זה לאימות בלבד) או דרך אימייל\nשלב 5 - מקבלות קוד אישי למייל - מזינות אותו\nשלב 6 - רואות את כל הפרטים של הילדים שלכן\n\nשימו לב: יופיעו רק מיקום ההפקדה הנוכחי וגובהה - ללא הרווחים.",
+        images: [
+          { src: "/guides/savings-for-kids/btl-step1.jpg", alt: "שלב 1 - כניסה לתכנית חיסכון לכל ילד בביטוח לאומי" },
+          { src: "/guides/savings-for-kids/btl-auth.jpg", alt: "שלב אימות זהות באתר ביטוח לאומי" },
+          { src: "/guides/savings-for-kids/btl-main.jpg", alt: "עמוד מידע אישי על תכנית החיסכון של הילד" },
+          { src: "/guides/savings-for-kids/btl-overview.jpg", alt: "סקירת פרטי החיסכון לכל ילד" },
+        ],
+        link: "https://b2b.btl.gov.il/BTL.ILG.Payments/TochnitChisachonYeledListInfo.aspx",
+        linkLabel: "כניסה לאזור האישי בביטוח לאומי",
+      },
+      {
+        heading: "הצעד הבא - ניוד",
+        body: "בדקתן את המסלול הנוכחי - ורוצות לשנות?\n\nמדריך הניוד המלא - איך עוברות בין חברה לחברה ובין מסלול למסלול - מחכה לכן.",
+        link: "/articles/savings-for-kids-niyud",
+        linkLabel: "למדריך הניוד המלא",
+      },
+    ],
+  },
+  "savings-for-kids-niyud": {
+    title: "ניוד חיסכון לכל ילד - כך עוברות למסלול שעובד",
+    date: "מאי 2026",
+    tag: "ילדים",
+    tagColor: "#21F0B0",
+    emoji: "🔄",
+    readTime: "10 דקות קריאה",
+    intro: "בדקתן היכן הכסף של הילדים שלכן - ורוצות לשנות מסלול.\nמעולה.\n\nהניוד נשמע מסובך. הוא לא.\nתהליך מקוון וחינמי לגמרי.\n\nהמדריך הזה יראה לכן שלב-אחרי-שלב איך עושות את זה - למיטב הלכה, לאינפיניטי הלכה, למור הלכה.\nואם הכסף עדיין בבנק - גם איך עוברות לקופת גמל דרך ביטוח לאומי.",
+    sections: [
+      {
+        heading: "לפני שמתחילות - מה חשוב לדעת",
+        body: "כמה דברים שיחסכו לכן בלבול בדרך:\n\n• הניוד חינמי לחלוטין - אין עמלה ואין קנס\n• ניתן להניד רק את ההפקדות העתידיות, או גם את כל הכסף הצבור (בקופות גמל)\n• אין צורך לסגור חשבון ישן - הכל עובר אוטומטית\n• הניוד לוקח בין 7 ל-30 ימי עסקים\n• החיסכון שייך לאמא - הניוד ייחתם על ידה\n\nחשוב מאוד - הכסף שבבנק:\nאם יש כבר כסף בבנק שהופקד לפני 2025 - אי אפשר להניד אותו. הכסף הזה נשאר בבנק עד גיל 18. רק ההפקדות מ-2025 ואילך ניתנות לניוד לקופת גמל.\n\nאם החיסכון כבר בקופת גמל:\nחופש מלא - ניתן לעבור בין מסלולים (ממסלול סיכון בינוני למסלול גבוה, למשל) ובין חברות. בניוד בין חברות - כל הצבירה כולל הרווחים עוברת אוטומטית.\n\nשימו לב: ממקופת גמל - אי אפשר לחזור לבנק. זה 'כרטיס לכיוון אחד' לעולם ההשקעות.",
+      },
+      {
+        heading: "ניוד למיטב הלכה - S&P 500",
+        body: "מיטב הלכה עוקב אחרי מדד S&P500 ומגיע בכשרות העדה החרדית, גלאט הון והרב דביר.\n\nשלב 1 - נכנסות לאתר מיטב בית השקעות\nשלב 2 - לוחצות על 'להעברת החיסכון למיטב'\nשלב 3 - מזינות פרטי הילד (שם, ת\"ז, תאריך לידה, מין)\nשלב 4 - מזינות פרטי ההורה המורשה (האמא)\nשלב 5 - בוחרות קופת מקור - הגוף שמנהל את החיסכון כרגע\nשלב 6 - בוחרות מסלול: מיטב הלכה S&P500 - מסלול 11388\nשלב 7 - מעלות צילום ת\"ז (פנים וגב)\nשלב 8 - חותמות דיגיטלית על הצהרה ומאשרות\n\nתקבלו אישור במייל. זהו.",
+        images: [
+          { src: "/guides/savings-for-kids/niyud-mitav-home.jpg", alt: "עמוד הבית של מיטב - העברת חיסכון לכל ילד" },
+          { src: "/guides/savings-for-kids/niyud-mitav-child.jpg", alt: "שלב 3 - מזינות פרטי הילד" },
+          { src: "/guides/savings-for-kids/niyud-mitav-parent.jpg", alt: "שלב 4 - מזינות פרטי ההורה" },
+          { src: "/guides/savings-for-kids/niyud-mitav-source.jpg", alt: "שלב 5 - בחירת קופת מקור" },
+          { src: "/guides/savings-for-kids/niyud-mitav-track.jpg", alt: "שלב 6 - בחירת מסלול הלכה S&P500" },
+          { src: "/guides/savings-for-kids/niyud-mitav-docs.jpg", alt: "שלב 7 - העלאת צילום תעודת זהות" },
+          { src: "/guides/savings-for-kids/niyud-mitav-sign.jpg", alt: "שלב 8 - חתימה דיגיטלית ואישור" },
+        ],
+        link: "https://dforms.meitav.co.il/index.html?TemplateID=6e9c8c1b-09f1-4908-9f1d-409fb0cbafb9&UserFormID=af94cb71-bdda-48b9-a758-47b2abd252e2",
+        linkLabel: "לחצו כאן - העברת חיסכון למיטב",
+      },
+      {
+        heading: "ניוד לאינפיניטי הלכה - MSCI World",
+        body: "אינפיניטי הלכה עוקב אחרי מדד ACWI (כ-3,000 חברות ב-47 מדינות) ומגיע בכשרות רבני תשואה כהלכה וגלאט הון.\n\nשלב 1 - נכנסות לאתר אינפיניטי\nשלב 2 - לוחצות על 'חיסכון לכל ילד מסלול הלכה'\nשלב 3 - לוחצות על 'להגשת בקשה'\nשלב 4 - ממלאות את הטופס המקוון - פרטי הילד, פרטי ההורה, קופת מקור ומסלול\nשלב 5 - מאשרות ושולחות\n\nגם כאן - הכל מקוון. שימו לב: התהליך יכול לקחת כמה חודשים.",
+        images: [
+          { src: "/guides/savings-for-kids/niyud-infinity-home.jpg", alt: "עמוד חיסכון לכל ילד מסלול הלכה באתר אינפיניטי" },
+          { src: "/guides/savings-for-kids/niyud-infinity-form.jpg", alt: "טופס ניוד חיסכון לכל ילד באינפיניטי" },
+        ],
+        link: "https://app.tepez.co.il/c/6097ade9e3ee910d97204c3b/run/",
+        linkLabel: "לחצו כאן - העברת חיסכון לאינפיניטי",
+      },
+      {
+        heading: "ניוד למור הלכה - גלובלי + ישראלי",
+        body: "מור הלכה משלב בין המדד הגלובלי לשוק הישראלי ת\"א 125 ומגיע בכשרות הרב דביר.\n\nהתהליך אצל מור נעשה דרך טופס - מורידות, ממלאות ושולחות למייל.\n\nמה ממלאות בטופס:\n- פרטי הילד (טופס נפרד לכל ילד)\n- פרטי ההורה המורשה (האמא)\n- שם החברה שמנהלת את החיסכון כיום (נמצא באתר ביטוח לאומי)\n- המסלול הרצוי - בוחרות מסלול הלכה עם כשרות הרב דביר\n- חתימה\n\nאחרי המילוי - שולחות את הטופס החתום למייל sherut@mor.co.il ומצרפות צילום ת\"ז של ההורה כולל ספח (פנים וגב).\n\nשימו לב: הרכב המדויק של המסלול יכול להשתנות מעת לעת לפי החלטת מנהלי ההשקעות, אבל תמיד נשאר מסלול מניות.",
+        link: "https://www.moreinvest.co.il/media/kvbbawel/18-%d7%91%d7%a7%d7%a9%d7%aa-%d7%94%d7%a2%d7%91%d7%a8%d7%aa-%d7%9b%d7%a1%d7%a4%d7%99%d7%9d-%d7%9c%d7%a7%d7%95%d7%a4%d7%aa-%d7%97%d7%99%d7%a1%d7%9b%d7%95%d7%9f-%d7%9c%d7%9b%d7%9c-%d7%99%d7%9c%d7%93.pdf",
+        linkLabel: "הורידו את הטופס - ניוד למור",
+      },
+      {
+        heading: "הכסף בבנק? ככה עוברות לקופת גמל",
+        body: "שימו לב: המסלול הזה מיועד רק למי שהחיסכון של הילד נמצא בבנק ורוצה להתחיל להפקיד לקופת גמל.\nאם הכסף כבר בקופת גמל - עוברות ישירות למיטב, אינפיניטי או מור (ראו למעלה).\n\nהכסף שצבור בבנק - נשאר שם עד גיל 18. לא ניתן להעביר אותו.\nרק ההפקדות החדשות (מהחודש שבחרתן ואילך) יעברו לקופת הגמל.\n\nשלב 1 - נכנסות לאזור האישי בביטוח לאומי\nשלב 2 - מחפשות 'חיסכון לכל ילד' בתפריט\nשלב 3 - בוחרות את הילד הרלוונטי ולוחצות על 'שינוי בחירת הורה'\nשלב 4 - מזדהות (ת\"ז + אמצעי אימות)\nשלב 5 - ממלאות גוף מנהל חדש ומסלול חדש\nשלב 6 - מאשרות\n\nחשוב: ניתן לעדכן רק ילד אחד בכל פעם.",
+        images: [
+          { src: "/guides/savings-for-kids/btl-change-track.jpg", alt: "עמוד שינוי גוף חוסך ומסלול חיסכון באתר ביטוח לאומי" },
+          { src: "/guides/savings-for-kids/btl-niyud-step1.jpg", alt: "שלב 1 - בחירת גוף מנהל חדש בביטוח לאומי" },
+          { src: "/guides/savings-for-kids/btl-niyud-step2.jpg", alt: "שלב 2 - אישור הניוד בביטוח לאומי" },
+        ],
+        link: "https://b2b.btl.gov.il/BTL.ILG.Payments/TochnitChisachonYeledListInfo.aspx",
+        linkLabel: "כניסה לאתר ביטוח לאומי - חיסכון לכל ילד",
+      },
+      {
+        heading: "טעיתי בבחירה - אפשר לתקן?",
+        body: "ברוב המקרים - כן.\n\nהמדינה מאפשרת לנו לחזור בנו ולשפר את המצב.\n\nמעבר מבנק לקופת גמל:\nניתן - ההפקדות העתידיות (מהחודש השוטף ואילך) יועברו לקופת הגמל שבחרתן.\nהכסף שכבר צבור בבנק - נשאר שם עד גיל 18.\n\nבתוך עולם קופות הגמל:\n• ניתן לשנות מסלול בכל עת (ממסלול סיכון בינוני למסלול גבוה/הלכה)\n• ניתן לעבור מחברה אחת לאחרת ולהעביר את כל הצבירה כולל הרווחים\n\nממקופת גמל - לא ניתן לחזור לבנק.\n\nהשינוי נכנס לתוקף בדרך כלל תוך חודש-חודשיים. אם אחרי השינוי רואות הפקדה נוספת לבנק - אל תדאגו, המערכת לוקחת את הזמן שלה לעדכן את כולם.",
+      },
+      {
+        heading: "מה לצפות אחרי הניוד?",
+        body: "כשתגישו את הבקשה:\n\n• תקבלו אישור במייל\n• הניוד לוקח 7-30 ימי עסקים\n• ההפקדות החדשות מביטוח לאומי יכנסו ישירות למסלול החדש\n• תוכלו לבדוק את הסטטוס באזור האישי של הגוף המנהל החדש\n\nאחרי הניוד - אין צורך לעשות שום דבר נוסף.\nהמסלול יעבוד לבד. הכסף יצמח לבד.\nאת שותה קפה בנחת.",
       },
     ],
   },
@@ -150,45 +261,108 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   return (
     <>
       <Navigation />
-      <main style={{ paddingTop: 160 }}>
+      <main style={{ paddingTop: article.heroImage ? 80 : 160 }}>
         {/* Hero */}
-        <section style={{ background: "linear-gradient(135deg, #124AF0, #0a38c4)", padding: "72px 1.5rem 60px", textAlign: "center" }}>
-          <div style={{ fontSize: "3.5rem", marginBottom: 20 }}>{article.emoji}</div>
-          <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 20, flexWrap: "wrap" }}>
-            <span style={{
-              background: article.tagColor,
-              color: article.tagColor === "#21F0B0" ? "#124AF0" : "white",
-              borderRadius: 50,
-              padding: "4px 14px",
-              fontSize: "0.82rem",
-              fontWeight: 700,
-            }}>{article.tag}</span>
-            <span style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem", display: "flex", alignItems: "center" }}>{article.date}</span>
-            <span style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem", display: "flex", alignItems: "center" }}>• {article.readTime}</span>
-          </div>
-          <h1 style={{ fontSize: "clamp(1.6rem, 4vw, 2.6rem)", color: "white", fontWeight: 700, lineHeight: 1.3, maxWidth: 700, margin: "0 auto" }}>
-            {article.title}
-          </h1>
+        <section style={{ background: "radial-gradient(ellipse at 50% 30%, #1535B5 0%, #060D3C 65%)", padding: article.heroImage ? "80px 1.5rem 64px" : "72px 1.5rem 60px", position: "relative", overflow: "hidden" }}>
+          {article.heroImage ? (
+            /* 2-col layout with image */
+            <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+              <div className="article-hero-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: 56, alignItems: "center" }}>
+                {/* RIGHT - text */}
+                <div style={{ textAlign: "right" }}>
+                  <div style={{ display: "flex", gap: 8, marginBottom: 18, alignItems: "center", justifyContent: "flex-start", flexWrap: "wrap" }}>
+                    <span style={{ background: article.tagColor, color: article.tagColor === "#21F0B0" ? "#124AF0" : "white", borderRadius: 50, padding: "5px 16px", fontSize: "0.82rem", fontWeight: 700 }}>{article.tag}</span>
+                    <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.82rem" }}>{article.date}</span>
+                    <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.82rem" }}>•</span>
+                    <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.82rem" }}>{article.readTime}</span>
+                  </div>
+                  <h1 style={{ fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)", color: "white", fontWeight: 800, lineHeight: 1.3, margin: "0 0 18px" }}>
+                    {article.title}
+                  </h1>
+                  <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.8, margin: 0 }}>
+                    {article.intro.split('\n')[0]}
+                  </p>
+                </div>
+                {/* LEFT - hero image */}
+                <div className="article-hero-img" style={{ display: "flex", alignItems: "center", justifyContent: "center", minWidth: 0, width: "100%" }}>
+                  <img src={article.heroImage} alt={article.title} className="hero-float-img" style={{ maxWidth: "100%", maxHeight: 420, width: "auto", height: "auto", display: "block", mixBlendMode: "lighten" }} />
+                </div>
+              </div>
+              <style>{`
+                @keyframes floatHero {
+                  0%, 100% { transform: translateY(0px); }
+                  50% { transform: translateY(-14px); }
+                }
+                .hero-float-img { animation: floatHero 3.5s ease-in-out infinite; }
+                @media(max-width:768px){
+                  .article-hero-grid { grid-template-columns: 1fr !important; }
+                  .article-hero-img { order: 2; }
+                  .hero-float-img { max-width: 260px !important; }
+                }
+              `}</style>
+            </div>
+          ) : (
+            /* centered layout (no image) */
+            <div style={{ textAlign: "center" }}>
+              <div style={{ fontSize: "3.5rem", marginBottom: 20 }}>{article.emoji}</div>
+              <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 20, flexWrap: "wrap" }}>
+                <span style={{ background: article.tagColor, color: article.tagColor === "#21F0B0" ? "#124AF0" : "white", borderRadius: 50, padding: "4px 14px", fontSize: "0.82rem", fontWeight: 700 }}>{article.tag}</span>
+                <span style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem", display: "flex", alignItems: "center" }}>{article.date}</span>
+                <span style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem", display: "flex", alignItems: "center" }}>• {article.readTime}</span>
+              </div>
+              <h1 style={{ fontSize: "clamp(1.6rem, 4vw, 2.6rem)", color: "white", fontWeight: 700, lineHeight: 1.3, maxWidth: 700, margin: "0 auto" }}>
+                {article.title}
+              </h1>
+            </div>
+          )}
         </section>
 
         {/* Article body */}
         <section style={{ background: "#F4F7FF", padding: "64px 1.5rem" }}>
+          <style>{`
+            @media(max-width:600px){
+              .art-card { padding: 22px 18px !important; }
+              .art-cta { padding: 28px 18px !important; }
+              .art-btn { display: block !important; text-align: center !important; box-sizing: border-box; width: 100%; }
+            }
+          `}</style>
           <div style={{ maxWidth: 740, margin: "0 auto" }}>
             {/* Intro card */}
-            <div style={{ background: "white", borderRadius: 20, padding: "32px 36px", border: "1px solid #E8EDFF", marginBottom: 32 }}>
-              <p style={{ fontSize: "1.1rem", color: "#292929", lineHeight: 2.0, fontWeight: 500, margin: 0 }}>{article.intro}</p>
+            <div className="art-card" style={{ background: "white", borderRadius: 20, padding: "32px 36px", border: "1px solid #E8EDFF", marginBottom: 32 }}>
+              <p style={{ fontSize: "1.1rem", color: "#292929", lineHeight: 2.0, fontWeight: 500, margin: 0, whiteSpace: "pre-line" }}>{article.intro}</p>
             </div>
 
             {/* Sections */}
             {article.sections.map((s, i) => (
-              <div key={i} style={{ background: "white", borderRadius: 20, padding: "32px 36px", border: "1px solid #E8EDFF", marginBottom: 20 }}>
+              <div key={i} className="art-card" style={{ background: "white", borderRadius: 20, padding: "32px 36px", border: "1px solid #E8EDFF", marginBottom: 20 }}>
                 <h2 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#124AF0", marginBottom: 16, lineHeight: 1.3 }}>{s.heading}</h2>
-                <p style={{ fontSize: "1rem", color: "#444", lineHeight: 2.0, margin: 0 }}>{s.body}</p>
+                <p style={{ fontSize: "1rem", color: "#444", lineHeight: 2.0, margin: 0, whiteSpace: "pre-line" }}>{s.body}</p>
+                {s.images && s.images.map((img, j) => (
+                  <img key={j} src={img.src} alt={img.alt} style={{ width: "100%", borderRadius: 12, marginTop: 16, border: "1px solid #E8EDFF", display: "block" }} />
+                ))}
+                {!s.images && s.image && (
+                  s.image === "placeholder" ? (
+                    <div style={{ width: "100%", borderRadius: 12, marginTop: 20, border: "2px dashed #21F0B0", padding: "48px 24px", textAlign: "center", color: "#aaa", fontSize: "0.9rem", background: "#F9FFFD" }}>
+                      תמונה בקרוב
+                    </div>
+                  ) : (
+                    <img src={s.image} alt={s.imageAlt || ""} style={{ width: "100%", borderRadius: 12, marginTop: 20, border: "1px solid #E8EDFF" }} />
+                  )
+                )}
+                {s.link && (s.link.startsWith("/") ? (
+                  <Link href={s.link} style={{ display: "inline-block", marginTop: 20, background: "#21F0B0", color: "#124AF0", borderRadius: 50, padding: "12px 28px", fontWeight: 700, fontSize: "0.95rem", textDecoration: "none" }}>
+                    {s.linkLabel || "המשך"}
+                  </Link>
+                ) : (
+                  <a href={s.link} target="_blank" rel="noopener noreferrer" className="art-btn" style={{ display: "inline-block", marginTop: 20, background: "#124AF0", color: "white", borderRadius: 50, padding: "12px 28px", fontWeight: 700, fontSize: "0.95rem", textDecoration: "none" }}>
+                    {s.linkLabel || "לחצו כאן"}
+                  </a>
+                ))}
               </div>
             ))}
 
             {/* CTA */}
-            <div style={{ background: "linear-gradient(135deg, #124AF0, #0a38c4)", borderRadius: 20, padding: "40px 36px", textAlign: "center", marginTop: 12 }}>
+            <div className="art-cta" style={{ background: "linear-gradient(135deg, #124AF0, #0a38c4)", borderRadius: 20, padding: "40px 36px", textAlign: "center", marginTop: 12 }}>
               <p style={{ color: "#21F0B0", fontWeight: 700, fontSize: "0.88rem", marginBottom: 12 }}>רוצה ללמוד יותר?</p>
               <h3 style={{ color: "white", fontSize: "1.4rem", fontWeight: 700, marginBottom: 20 }}>
                 הצטרפי לתוכנית MUSTרית
