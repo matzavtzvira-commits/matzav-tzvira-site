@@ -3,31 +3,28 @@ import Link from "next/link";
 
 const articles = [
   {
+    slug: "savings-for-kids",
+    title: "חיסכון לכל ילד - המדריך המלא",
+    excerpt: "מ-2017 המדינה מפקידה כסף לכל ילד כל חודש. ברירת המחדל מנחיתה אתכן במסלול שמניב פחות - וההפרש יכול להגיע ל-50,000 ₪. המדריך שיכניס אתכן לתמונה.",
+    date: "מאי 2026",
+    tag: "ילדים",
+    tagColor: "#21F0B0",
+  },
+  {
+    slug: "savings-for-kids-niyud",
+    title: "ניוד חיסכון לכל ילד - כך עוברות למסלול שעובד",
+    excerpt: "בדקתן היכן הכסף ורוצות לשנות מסלול? מדריך מלא לניוד - למיטב הלכה, אינפיניטי הלכה ודרך ביטוח לאומי ישירות. חינמי ופחות מ-15 דקות.",
+    date: "מאי 2026",
+    tag: "ילדים",
+    tagColor: "#21F0B0",
+  },
+  {
     slug: "pension-management-fees",
     title: "איך לבדוק את דמי הניהול בפנסיה שלך",
     excerpt: "רוב הנשים לא יודעות כמה הן משלמות בפנסיה - ואחרי שהן מגלות, הן לא מאמינות. מדריך פשוט שיחסוך לך עשרות אלפי שקלים.",
     date: "ינואר 2025",
     tag: "פנסיה",
     tagColor: "#124AF0",
-    emoji: "",
-  },
-  {
-    slug: "har-hakessef",
-    title: "הר הכסף - כך תמצאי כסף שלא ידעת שיש לך",
-    excerpt: "מיליארדים ממתינים לבעליהם. כל מה שצריך זה לדעת לחפש. מדריך שלב אחר שלב לאיתור קרנות ישנות, ביטוחים ופנסיות שכוחות.",
-    date: "פברואר 2025",
-    tag: "חדש",
-    tagColor: "#FA5C5C",
-    emoji: "",
-  },
-  {
-    slug: "savings-for-kids",
-    title: "חיסכון לכל ילד - מ-20,000 ל-70,000 ₪",
-    excerpt: "החיסכון שהממשלה פותחת לכל ילד יכול להפוך להון אמיתי - אם בוחרים נכון. הנה הדרך הפשוטה שרוב ההורים לא מכירים.",
-    date: "מרץ 2025",
-    tag: "ילדים",
-    tagColor: "#21F0B0",
-    emoji: "",
   },
 ];
 
@@ -69,9 +66,7 @@ export default function ArticlesPreview() {
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
             >
               {/* Image placeholder */}
-              <div style={{ background: "linear-gradient(135deg, #F4F7FF, #e8edff)", height: 160, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "3rem" }}>
-                {a.emoji}
-              </div>
+              <div style={{ background: "linear-gradient(135deg, #F4F7FF, #e8edff)", height: 160 }} />
               <div style={{ padding: "24px 20px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
                   <span style={{ background: a.tagColor, color: a.tagColor === "#21F0B0" ? "#124AF0" : "white", borderRadius: 50, padding: "3px 12px", fontSize: "0.78rem", fontWeight: 700 }}>

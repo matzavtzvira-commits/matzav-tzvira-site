@@ -32,7 +32,7 @@ export default function ThankYouPage() {
             ואני מחכה לפידבק שלך.
           </p>
           <p style={{ color: "rgba(255,255,255,0.88)", fontSize: "1.05rem", lineHeight: 1.9, marginBottom: 4 }}>
-            ואל תשכחי כוס קפה רותח ושוקולד מפנק ☕
+            ואל תשכחי כוס קפה רותח ושוקולד מפנק
           </p>
           <p style={{ color: "rgba(255,255,255,0.88)", fontSize: "1.05rem", lineHeight: 1.9, marginBottom: 4 }}>
             תוך כדי הצפייה
@@ -74,7 +74,7 @@ export default function ThankYouPage() {
           </div>
 
           <p style={{ color: "#21F0B0", fontWeight: 900, fontSize: "1.15rem", marginBottom: 0 }}>
-            תהני, רבקי ❤️
+            תהני, רבקי
           </p>
 
           {/* ספאם */}

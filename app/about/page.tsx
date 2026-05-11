@@ -711,7 +711,7 @@ export default function AboutPage() {
             <InlineImg src="/about-graphs.jpg" alt="מחשב גרפים" />
             <Pause h={8} />
             <FadeInView delay={0.1}>
-              <Line size="md" color="#888" weight={500}>בסוד 🤫 <span style={{ fontSize: "0.75em" }}>-</span> בעלי לא האמין שאני מסוגלת</Line>
+              <Line size="md" color="#888" weight={500}>בסוד <span style={{ fontSize: "0.75em" }}>-</span> בעלי לא האמין שאני מסוגלת</Line>
             </FadeInView>
             <FadeInView delay={0.15}>
               <Line size="md" color="#888" weight={500}>לשבת כ"כ הרבה שעות ולטחון חומר.</Line>
@@ -1058,7 +1058,7 @@ export default function AboutPage() {
             <Pause h={48} />
 
             <FadeInView>
-              <Line size="sm" color="rgba(255,255,255,0.5)" weight={400}>בשליחות ❤️</Line>
+              <Line size="sm" color="rgba(255,255,255,0.5)" weight={400}>בשליחות</Line>
             </FadeInView>
             <FadeInView delay={0.08}>
               <Line size="lg" color={C.white} weight={800}>רבקי</Line>

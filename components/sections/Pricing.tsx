@@ -32,7 +32,6 @@ export default function Pricing() {
 
         {/* Scarcity banner */}
         <div style={{ background: "#FFF3CD", border: "1.5px solid #F5A623", borderRadius: 14, padding: "14px 20px", marginBottom: 16, display: "flex", alignItems: "center", gap: 12, textAlign: "right" }}>
-          <span style={{ fontSize: "1.3rem", flexShrink: 0 }}>⚠️</span>
           <p style={{ margin: 0, fontSize: "0.95rem", color: "#7A4F00", fontWeight: 700, lineHeight: 1.6 }}>
             בגלל בדיקת התיק האישית שכלולה בתוכנית — אנחנו מגבילות מקומות.
             <span style={{ fontWeight: 400, display: "block", fontSize: "0.88rem", marginTop: 2 }}>לא נוכל לתת ליווי אישי לכמות בלתי מוגבלת. ברגע שהמקומות מלאים — הדלת נסגרת.</span>
