@@ -15,14 +15,137 @@ import MidCTA from "@/components/sections/MidCTA";
 import FloatingCTA from "@/components/FloatingCTA";
 import Footer from "@/components/Footer";
 
+const courseSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Course",
+      "name": "שוק ההון - בנעלי בית",
+      "description": "תוכנית דיגיטלית ללמוד להשקיע בשוק ההון מאפס. 32 שיעורים, 14 דשבורדים חכמים, בדיקת תיק אישית וגישה לשנה שלמה.",
+      "url": "https://matzavtzvira.co.il/course",
+      "provider": {
+        "@type": "Organization",
+        "name": "מצב צבירה",
+        "url": "https://matzavtzvira.co.il"
+      },
+      "instructor": {
+        "@type": "Person",
+        "name": "רבקי וייס",
+        "jobTitle": "מתכננת פיננסית"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "תוכנית דיגיטלית",
+          "price": "597",
+          "priceCurrency": "ILS",
+          "availability": "https://schema.org/InStock",
+          "url": "https://matzavtzvira.co.il/course"
+        },
+        {
+          "@type": "Offer",
+          "name": "תוכנית דיגיטלית + פגישה אישית",
+          "price": "1190",
+          "priceCurrency": "ILS",
+          "availability": "https://schema.org/InStock",
+          "url": "https://matzavtzvira.co.il/course"
+        }
+      ],
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online",
+        "inLanguage": "he"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "reviewCount": "329",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "מלכה פרל" },
+          "reviewBody": "ביום שאחרי השיעור על כספים אבודים גיליתי פנסיה רדומה בסכום של 23,000 ש״ח. בהמלצת רבקי שיניתי את המסלול, והיום אני צפויה לקבל מעל 750,000 ש״ח יותר.",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "שרית לוין" },
+          "reviewBody": "רבקי הפכה את הכי מורכב לפשוט וברור. כשעשיתי את החשבון והבנתי שהרווחתי לטווח הארוך קרוב למיליון ש\"ח - לא האמנתי למראה עיניי.",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "בסוף התוכנית - מה יש לי שלא היה לפני?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "אסטרטגיית השקעות מותאמת לך אישית. תדעי בדיוק מה בתיק שלך, מה לשנות ומה לעשות מחר בבוקר. ביטחון מלא בתיק שלך."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "אין לי כסף פנוי כרגע - זה בשבילי?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "בדיוק בשבילך. את לא צריכה כסף פנוי - את צריכה לדעת איפה הכסף שכבר יש לך הולך לאיבוד. פנסיה, קרן השתלמות, חיסכון לכל ילד - הכסף כבר שם, רק לא עובד בשבילך."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "אני לא מבינה כלום בכסף - זה בשבילי?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "בדיוק בשבילך. התוכנית נבנתה למי שמתחילה מאפס. אם את יודעת לקנות בסופר - את יכולה לעשות את זה."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "כמה זמן זה יקח לי?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "השיעורים קצרים וממוקדים. אפשר ללמוד בקצב שלך, בכל זמן פנוי - גם 20 דקות ביום מספיקות. הגישה פתוחה שנה שלמה."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "מה אם לא התאים לי?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "14 יום אחריות מלאה. לא מרוצה - מחזירים הכל בלי שאלות."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "יש לי כבר סוכן שדואג להכל.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "נהדר. אבל - האם את יודעת כמה הוא מרוויח עלייך? אחרי התוכנית תדעי לשאול את השאלות הנכונות. ותופתעי מהתשובות."
+          }
+        }
+      ]
+    }
+  ]
+};
+
 export const metadata = {
-  title: "תוכנית המאסטריות | מצב צבירה",
-  description: "הידע הפיננסי שהיה צריך ללמד אותנו בבית הספר - שוק ההון, פנסיה, השקעות, בשפה שלנו.",
+  title: "תוכנית השקעות לנשים | שוק ההון בנעלי בית | מצב צבירה",
+  description: "32 שיעורים, 14 דשבורדים ובדיקת תיק אישית. ללמוד להשקיע בשוק ההון מאפס - בתוכנית הדיגיטלית של רבקי וייס. מתאימה לנשים עם אפס ניסיון. 597 ש\"ח בלבד.",
 };
 
 export default function CoursePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
+      />
       <Navigation />
 
       <FloatingCTA />

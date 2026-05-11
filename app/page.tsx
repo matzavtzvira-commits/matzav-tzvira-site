@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import Navigation from "@/components/Navigation";
+
+export const metadata: Metadata = {
+  title: "מצב צבירה | השקעות לנשים בשפה פשוטה - רבקי וייס",
+  description: "מתכננת פיננסית לנשים חרדיות. לומדות להשקיע בשוק ההון בלי פחד ובלי ז'רגון. 329 נשים כבר בנו תיק השקעות. תוכנית דיגיטלית - 597 ש\"ח בלבד.",
+};
 import HomeHero from "@/components/home/HomeHero";
 import SocialProof from "@/components/home/SocialProof";
 import ToggleSection from "@/components/home/ToggleSection";
@@ -16,9 +22,47 @@ import PreFooter from "@/components/home/PreFooter";
 import Popups from "@/components/home/Popups";
 import Footer from "@/components/Footer";
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://matzavtzvira.co.il/#organization",
+      "name": "מצב צבירה",
+      "url": "https://matzavtzvira.co.il",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://matzavtzvira.co.il/logo-new.png",
+        "width": 200,
+        "height": 60
+      },
+      "description": "מתכננת פיננסית לנשים חרדיות. לומדות להשקיע בשוק ההון בשפה פשוטה, בלי פחד ובלי ז'רגון.",
+      "founder": {
+        "@type": "Person",
+        "name": "רבקי וייס",
+        "jobTitle": "מתכננת פיננסית"
+      },
+      "areaServed": "IL",
+      "inLanguage": "he"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://matzavtzvira.co.il/#website",
+      "url": "https://matzavtzvira.co.il",
+      "name": "מצב צבירה",
+      "publisher": { "@id": "https://matzavtzvira.co.il/#organization" },
+      "inLanguage": "he"
+    }
+  ]
+};
+
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
       <Navigation />
       {/* Floating CTA */}
       <a
