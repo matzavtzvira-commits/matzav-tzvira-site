@@ -2,9 +2,9 @@
 import Link from "next/link";
 import { useState } from "react";
 
-const links = [
+const links: { label: string; href: string; disabled?: boolean }[] = [
   { label: "מי אני?", href: "/about" },
-  { label: "מדריכים", href: "/articles", disabled: true },
+  { label: "מדריכים", href: "/articles" },
   { label: "מחשבונים", href: "/calculators" },
   { label: "הרצאות וסדנאות", href: "/workshop" },
   { label: "הקהילה", href: "/#community" },
