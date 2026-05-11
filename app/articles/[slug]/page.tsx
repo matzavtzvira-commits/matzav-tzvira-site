@@ -335,7 +335,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <div style={{ textAlign: "center" }}>
               <div style={{ fontSize: "3.5rem", marginBottom: 20 }}>{article.emoji}</div>
               <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 20, flexWrap: "wrap" }}>
-                <span style={{ background: article.tagColor, color: article.tagColor === "#21F0B0" ? "#124AF0" : "white", borderRadius: 50, padding: "4px 14px", fontSize: "0.82rem", fontWeight: 700 }}>{article.tag}</span>
+                {article.tag && <span style={{ background: article.tagColor, color: article.tagColor === "#21F0B0" ? "#124AF0" : "white", borderRadius: 50, padding: "4px 14px", fontSize: "0.82rem", fontWeight: 700 }}>{article.tag}</span>}
                 <span style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem", display: "flex", alignItems: "center" }}>{article.date}</span>
                 <span style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem", display: "flex", alignItems: "center" }}>• {article.readTime}</span>
               </div>
@@ -367,7 +367,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <h2 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#124AF0", marginBottom: 16, lineHeight: 1.3 }}>{s.heading}</h2>
                 <p style={{ fontSize: "1rem", color: "#444", lineHeight: 2.0, margin: 0, whiteSpace: "pre-line" }}>{s.body}</p>
                 {s.images && s.images.map((img, j) => (
-                  <img key={j} src={img.src} alt={img.alt} style={{ width: "100%", borderRadius: 12, marginTop: 16, border: "1px solid #E8EDFF", display: "block" }} />
+                  <img key={j} src={img.src} alt={img.alt} style={{ width: "100%", height: "auto", borderRadius: 12, marginTop: 16, border: "1px solid #E8EDFF", display: "block", maxWidth: "100%" }} />
                 ))}
                 {!s.images && s.image && (
                   s.image === "placeholder" ? (
