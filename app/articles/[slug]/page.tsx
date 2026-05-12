@@ -321,7 +321,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                       muted
                       playsInline
                       className="hero-float-img"
-                      style={{ maxWidth: "100%", maxHeight: 420, width: "auto", height: "auto", display: "block", mixBlendMode: "lighten" }}
+                      style={{ maxWidth: "100%", maxHeight: 420, width: "auto", height: "auto", display: "block", maskImage: "radial-gradient(ellipse 85% 80% at 50% 50%, black 40%, transparent 100%)", WebkitMaskImage: "radial-gradient(ellipse 85% 80% at 50% 50%, black 40%, transparent 100%)" }}
                     />
                   ) : (
                     <img src={article.heroImage} alt={article.title} className="hero-float-img" style={{ maxWidth: "100%", maxHeight: 420, width: "auto", height: "auto", display: "block", mixBlendMode: "lighten" }} />
