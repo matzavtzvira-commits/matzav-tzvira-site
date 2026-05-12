@@ -13,6 +13,7 @@ const articles: Record<string, {
   intro: string;
   heroImage?: string;
   heroVideo?: string;
+  viewCount?: number;
   sections: { heading: string; body: string; image?: string; imageAlt?: string; images?: { src: string; alt: string }[]; link?: string; linkLabel?: string; tableData?: { headers: string[]; rows: string[][] } }[];
 }> = {
   "pension-management-fees": {
@@ -243,7 +244,8 @@ const articles: Record<string, {
     tag: "השקעות",
     tagColor: "#124AF0",
     readTime: "10 דקות קריאה",
-    intro: "659 נשים כבר קראו את המדריך הזה\n\nלפתוח חשבון מסחר עצמאי זה קל יותר מלקבוע תור לרופא שיניים.\n\nברצינות.\n\nהרבה נשים שאני מכירה דחו את זה חצי שנה, שנה, ולפעמים יותר - כי זה נשמע מורכב ומפחיד. אחרי שהן עשו את זה? הן צחקו על עצמן.\n\nכל התהליך לוקח בין 10 ל-15 דקות. מהמחשב בבית. בכוס קפה לצד.",
+    viewCount: 659,
+    intro: "לפתוח חשבון מסחר עצמאי זה קל יותר מלקבוע תור לרופא שיניים.\n\nברצינות.\n\nהרבה נשים שאני מכירה דחו את זה חצי שנה, שנה, ולפעמים יותר - כי זה נשמע מורכב ומפחיד. אחרי שהן עשו את זה? הן צחקו על עצמן.\n\nכל התהליך לוקח בין 10 ל-15 דקות. מהמחשב בבית. בכוס קפה לצד.",
     sections: [
       {
         heading: "למה בית השקעות ישראלי - ולא בנק?",
@@ -330,6 +332,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.82rem" }}>{article.date}</span>
                     <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.82rem" }}>•</span>
                     <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.82rem" }}>{article.readTime}</span>
+                    {article.viewCount && <><span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.82rem" }}>•</span><span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.82rem" }}>👁 {article.viewCount.toLocaleString()}</span></>}
                   </div>
                   <h1 style={{ fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)", color: "white", fontWeight: 800, lineHeight: 1.3, margin: "0 0 18px" }}>
                     {article.title}
@@ -376,6 +379,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 {article.tag && <span style={{ background: article.tagColor, color: article.tagColor === "#21F0B0" ? "#124AF0" : "white", borderRadius: 50, padding: "4px 14px", fontSize: "0.82rem", fontWeight: 700 }}>{article.tag}</span>}
                 <span style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem", display: "flex", alignItems: "center" }}>{article.date}</span>
                 <span style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem", display: "flex", alignItems: "center" }}>• {article.readTime}</span>
+                {article.viewCount && <span style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: 4 }}>• 👁 {article.viewCount.toLocaleString()}</span>}
               </div>
               <h1 style={{ fontSize: "clamp(1.6rem, 4vw, 2.6rem)", color: "white", fontWeight: 700, lineHeight: 1.3, maxWidth: 700, margin: "0 auto" }}>
                 {article.title}
