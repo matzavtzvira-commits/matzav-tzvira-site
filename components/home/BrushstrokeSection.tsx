@@ -71,13 +71,6 @@ const cards = [
     cta: "למדריך",
     href: "/articles",
   },
-  {
-    letter: "ד",
-    title: "קהילת צוברות פיננסיות",
-    text: "תצטרפי למהפכה - לאלפי נשים שיודעות, מתעדכנות ומרוויחות.",
-    cta: "הצטרפי עכשיו",
-    href: "https://chat.whatsapp.com/KUc5iTtqUdm85W6Fnf3Tcx",
-  },
 ];
 
 export default function BrushstrokeSection() {
