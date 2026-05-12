@@ -8,7 +8,7 @@ const articles: Record<string, {
   date: string;
   tag: string;
   tagColor: string;
-  emoji: string;
+  emoji?: string;
   readTime: string;
   intro: string;
   heroImage?: string;
