@@ -82,7 +82,6 @@ export default function ArticlesPage() {
         {/* All articles - unified grid, kids first */}
         <section style={{ background: "#F4F7FF", padding: "64px 1.5rem" }}>
           <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-            <p style={{ color: "#124AF0", fontWeight: 700, fontSize: "0.82rem", letterSpacing: 1, marginBottom: 16, textAlign: "right" }}>חיסכון לכל ילד</p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
 
               {kidsArticles.map((a) => (
