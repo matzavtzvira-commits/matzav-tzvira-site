@@ -90,14 +90,14 @@ export default function ArticlesPage() {
                   onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 32px rgba(33,240,176,0.15)"; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
                 >
-                  <div style={{ background: "radial-gradient(ellipse at 50% 40%, #1535B5 0%, #060D3C 80%)", height: 200, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+                  <div style={{ background: "radial-gradient(ellipse at 50% 40%, #1535B5 0%, #060D3C 80%)", height: 160, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
                     <video
                       src="/kids-balloon.mp4"
                       autoPlay
                       loop
                       muted
                       playsInline
-                      style={{ height: "100%", width: "100%", objectFit: "cover", mixBlendMode: "lighten", opacity: 0.9 }}
+                      style={{ height: "100%", width: "100%", objectFit: "contain" }}
                     />
                   </div>
                   <div style={{ padding: "24px 20px" }}>
