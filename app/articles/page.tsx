@@ -10,7 +10,7 @@ const kidsArticles = [
 ];
 
 const articles = [
-  { slug: "har-hakessef", title: "הר הכסף - כך תמצאי כסף שלא ידעת שיש לך", excerpt: "מעל 8 מיליארד ש\"ח מחכים לבעליהם. פנסיות ישנות, ביטוחי חיים שנשכחו, חשבונות שנסגרו. בדיקה של 5 דקות שיכולה לגלות עשרות אלפי שקלים.", date: "מאי 2026", tag: "", tagColor: "#FA5C5C" },
+  { slug: "har-hakessef", title: "הר הכסף - כך תמצאי כסף שלא ידעת שיש לך", excerpt: "מעל 8 מיליארד ש\"ח מחכים לבעליהם. פנסיות ישנות, ביטוחי חיים שנשכחו, חשבונות שנסגרו. בדיקה של 5 דקות שיכולה לגלות עשרות אלפי שקלים.", date: "מאי 2026", tag: "", tagColor: "#FA5C5C", views: 235 },
   { slug: "pension-management-fees", title: "איך לבדוק את דמי הניהול בפנסיה שלך", excerpt: "רוב הנשים לא יודעות כמה הן משלמות בפנסיה - ואחרי שהן מגלות, הן לא מאמינות. מדריך פשוט שיחסוך לך עשרות אלפי שקלים.", date: "ינואר 2025", tag: "פנסיה", tagColor: "#124AF0", comingSoon: true },
   { slug: "open-trading-account", title: "איך פותחים חשבון מסחר עצמאי - מדריך שלב אחר שלב", excerpt: "לפתוח חשבון מסחר זה קל יותר מלקבוע תור לרופא שיניים. מדריך מלא עם כל השלבים - פחות מ-15 דקות, מהבית, עם הטבה של 100 ש\"ח.", date: "מאי 2026", tag: "השקעות", tagColor: "#124AF0" },
 ];
@@ -134,7 +134,7 @@ export default function ArticlesPage() {
                     )}
                     <div style={{ padding: "24px 20px" }}>
                       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
-                        {a.tag ? <span style={{ background: a.tagColor, color: a.tagColor === "#21F0B0" ? "#124AF0" : "white", borderRadius: 50, padding: "3px 12px", fontSize: "0.78rem", fontWeight: 700 }}>{a.tag}</span> : <span />}
+                        {a.tag ? <span style={{ background: a.tagColor, color: a.tagColor === "#21F0B0" ? "#124AF0" : "white", borderRadius: 50, padding: "3px 12px", fontSize: "0.78rem", fontWeight: 700 }}>{a.tag}</span> : (a as { views?: number }).views ? <span style={{ display: "flex", alignItems: "center", gap: 4, color: "#999", fontSize: "0.78rem" }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>{(a as { views?: number }).views}</span> : <span />}
                         <span style={{ color: "#999", fontSize: "0.8rem" }}>{a.date}</span>
                       </div>
                       <h2 style={{ fontSize: "1rem", fontWeight: 700, color: "#292929", lineHeight: 1.4, marginBottom: 10 }}>{a.title}</h2>
