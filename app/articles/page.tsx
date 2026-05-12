@@ -4,10 +4,13 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-const articles = [
+const kidsArticles = [
   { slug: "savings-for-kids", title: "חיסכון לכל ילד - המדריך המלא", excerpt: "מ-2017 המדינה מפקידה כסף לכל ילד כל חודש. ברירת המחדל מנחיתה אתכן במסלול שמניב פחות - וההפרש יכול להגיע ל-50,000 ₪. המדריך שיכניס אתכן לתמונה.", date: "מאי 2026", tag: "ילדים", tagColor: "#21F0B0" },
-  { slug: "har-hakessef", title: "הר הכסף - כך תמצאי כסף שלא ידעת שיש לך", excerpt: "מעל 8 מיליארד ש\"ח מחכים לבעליהם. פנסיות ישנות, ביטוחי חיים שנשכחו, חשבונות שנסגרו. בדיקה של 5 דקות שיכולה לגלות עשרות אלפי שקלים.", date: "מאי 2026", tag: "", tagColor: "#FA5C5C" },
   { slug: "savings-for-kids-niyud", title: "ניוד חיסכון לכל ילד - כך עוברות למסלול שעובד", excerpt: "בדקתן היכן הכסף ורוצות לשנות מסלול? המדריך המלא לניוד - למיטב הלכה, אינפיניטי הלכה ודרך ביטוח לאומי ישירות. חינמי, מקוון, פחות מ-15 דקות.", date: "מאי 2026", tag: "ילדים", tagColor: "#21F0B0" },
+];
+
+const articles = [
+  { slug: "har-hakessef", title: "הר הכסף - כך תמצאי כסף שלא ידעת שיש לך", excerpt: "מעל 8 מיליארד ש\"ח מחכים לבעליהם. פנסיות ישנות, ביטוחי חיים שנשכחו, חשבונות שנסגרו. בדיקה של 5 דקות שיכולה לגלות עשרות אלפי שקלים.", date: "מאי 2026", tag: "", tagColor: "#FA5C5C" },
   { slug: "pension-management-fees", title: "איך לבדוק את דמי הניהול בפנסיה שלך", excerpt: "רוב הנשים לא יודעות כמה הן משלמות בפנסיה - ואחרי שהן מגלות, הן לא מאמינות. מדריך פשוט שיחסוך לך עשרות אלפי שקלים.", date: "ינואר 2025", tag: "פנסיה", tagColor: "#124AF0", comingSoon: true },
   { slug: "open-trading-account", title: "פתיחת חשבון מסחר - מדריך שלב אחרי שלב", excerpt: "פתיחת חשבון מסחר נשמעת מסובכת - אבל זה תהליך של פחות מ-20 דקות. הנה כל מה שצריך לדעת לפני שמתחילים.", date: "אפריל 2025", tag: "השקעות", tagColor: "#124AF0", comingSoon: true },
 ];
@@ -76,8 +79,46 @@ export default function ArticlesPage() {
           `}</style>
         </section>
 
-        {/* Articles grid */}
-        <section style={{ background: "#F4F7FF", padding: "64px 1.5rem" }}>
+        {/* Kids articles - featured side by side with video */}
+        <section style={{ background: "#F4F7FF", padding: "64px 1.5rem 0" }}>
+          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+            <p style={{ color: "#124AF0", fontWeight: 700, fontSize: "0.82rem", letterSpacing: 1, marginBottom: 16, textAlign: "right" }}>חיסכון לכל ילד</p>
+            <div className="kids-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
+              {kidsArticles.map((a) => (
+                <Link key={a.slug} href={`/articles/${a.slug}`}
+                  style={{ background: "white", borderRadius: 20, overflow: "hidden", border: "2px solid #21F0B033", display: "block", transition: "transform 0.2s, box-shadow 0.2s" }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 32px rgba(33,240,176,0.15)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
+                >
+                  <div style={{ background: "radial-gradient(ellipse at 50% 40%, #1535B5 0%, #060D3C 80%)", height: 200, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+                    <video
+                      src="/kids-balloon.mp4"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      style={{ height: "100%", width: "100%", objectFit: "cover", mixBlendMode: "lighten", opacity: 0.9 }}
+                    />
+                  </div>
+                  <div style={{ padding: "24px 20px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
+                      <span style={{ background: "#21F0B0", color: "#124AF0", borderRadius: 50, padding: "3px 12px", fontSize: "0.78rem", fontWeight: 700 }}>{a.tag}</span>
+                      <span style={{ color: "#999", fontSize: "0.8rem" }}>{a.date}</span>
+                    </div>
+                    <h2 style={{ fontSize: "1rem", fontWeight: 700, color: "#292929", lineHeight: 1.4, marginBottom: 10 }}>{a.title}</h2>
+                    <p style={{ fontSize: "0.88rem", color: "#555", lineHeight: 1.7 }}>{a.excerpt}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+          <style>{`
+            @media(max-width:640px){ .kids-grid { grid-template-columns: 1fr !important; } }
+          `}</style>
+        </section>
+
+        {/* Rest of articles */}
+        <section style={{ background: "#F4F7FF", padding: "24px 1.5rem 64px" }}>
           <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
             {articles.map((a) =>
               a.comingSoon ? (
