@@ -83,7 +83,7 @@ export default function ArticlesPage() {
         <section style={{ background: "#F4F7FF", padding: "64px 1.5rem 0" }}>
           <div style={{ maxWidth: 1100, margin: "0 auto" }}>
             <p style={{ color: "#124AF0", fontWeight: 700, fontSize: "0.82rem", letterSpacing: 1, marginBottom: 16, textAlign: "right" }}>חיסכון לכל ילד</p>
-            <div className="kids-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
+            <div className="kids-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 340px))", gap: 24, marginBottom: 24, justifyContent: "end" }}>
               {kidsArticles.map((a) => (
                 <Link key={a.slug} href={`/articles/${a.slug}`}
                   style={{ background: "white", borderRadius: 20, overflow: "hidden", border: "2px solid #21F0B033", display: "block", transition: "transform 0.2s, box-shadow 0.2s" }}
@@ -140,7 +140,13 @@ export default function ArticlesPage() {
                   onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 32px rgba(18,74,240,0.1)"; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
                 >
-                  <div style={{ background: "linear-gradient(135deg, #F4F7FF, #e8edff)", height: 160 }} />
+                  {a.slug === "har-hakessef" ? (
+                    <div style={{ background: "radial-gradient(ellipse at 50% 40%, #1535B5 0%, #060D3C 80%)", height: 160, overflow: "hidden" }}>
+                      <video src="/guides/har-hakessef/video.mp4" autoPlay loop muted playsInline style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    </div>
+                  ) : (
+                    <div style={{ background: "linear-gradient(135deg, #F4F7FF, #e8edff)", height: 160 }} />
+                  )}
                   <div style={{ padding: "24px 20px" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
                       {a.tag ? <span style={{ background: a.tagColor, color: a.tagColor === "#21F0B0" ? "#124AF0" : "white", borderRadius: 50, padding: "3px 12px", fontSize: "0.78rem", fontWeight: 700 }}>{a.tag}</span> : <span />}
