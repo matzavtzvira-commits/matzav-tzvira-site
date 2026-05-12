@@ -12,6 +12,7 @@ const articles: Record<string, {
   readTime: string;
   intro: string;
   heroImage?: string;
+  heroVideo?: string;
   sections: { heading: string; body: string; image?: string; imageAlt?: string; images?: { src: string; alt: string }[]; link?: string; linkLabel?: string }[];
 }> = {
   "pension-management-fees": {
@@ -106,7 +107,7 @@ const articles: Record<string, {
     tag: "ילדים",
     tagColor: "#21F0B0",
     readTime: "12 דקות קריאה",
-    heroImage: "/kids-balloon.png",
+    heroVideo: "/kids-balloon.mp4",
     intro: "מ-2017 המדינה מפקידה כסף לכל ילד - כל חודש, בלי לבקש.\nהכסף נצבר בשקט. אחד לאחד.\n\nהבעיה? ברירת המחדל מנחיתה אתכן במסלול שמניב הרבה פחות ממה שיכול.\nוההפרש לאורך 21 שנה יכול להגיע ל-57,000 ₪ - לכל ילד.\n\nזה המדריך שיכניס אתכן לתמונה המלאה.",
     sections: [
       {
@@ -287,10 +288,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   return (
     <>
       <Navigation />
-      <main style={{ paddingTop: article.heroImage ? 80 : 160 }}>
+      <main style={{ paddingTop: (article.heroImage || article.heroVideo) ? 80 : 160 }}>
         {/* Hero */}
-        <section style={{ background: "radial-gradient(ellipse at 50% 30%, #1535B5 0%, #060D3C 65%)", padding: article.heroImage ? "80px 1.5rem 64px" : "72px 1.5rem 60px", position: "relative", overflow: "hidden" }}>
-          {article.heroImage ? (
+        <section style={{ background: "radial-gradient(ellipse at 50% 30%, #1535B5 0%, #060D3C 65%)", padding: (article.heroImage || article.heroVideo) ? "80px 1.5rem 64px" : "72px 1.5rem 60px", position: "relative", overflow: "hidden" }}>
+          {(article.heroImage || article.heroVideo) ? (
             /* 2-col layout with image */
             <div style={{ maxWidth: 1100, margin: "0 auto" }}>
               <div className="article-hero-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: 56, alignItems: "center" }}>
@@ -309,9 +310,21 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     {article.intro.split('\n')[0]}
                   </p>
                 </div>
-                {/* LEFT - hero image */}
+                {/* LEFT - hero image or video */}
                 <div className="article-hero-img" style={{ display: "flex", alignItems: "center", justifyContent: "center", minWidth: 0, width: "100%" }}>
-                  <img src={article.heroImage} alt={article.title} className="hero-float-img" style={{ maxWidth: "100%", maxHeight: 420, width: "auto", height: "auto", display: "block", mixBlendMode: "lighten" }} />
+                  {article.heroVideo ? (
+                    <video
+                      src={article.heroVideo}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="hero-float-img"
+                      style={{ maxWidth: "100%", maxHeight: 420, width: "auto", height: "auto", display: "block", mixBlendMode: "lighten" }}
+                    />
+                  ) : (
+                    <img src={article.heroImage} alt={article.title} className="hero-float-img" style={{ maxWidth: "100%", maxHeight: 420, width: "auto", height: "auto", display: "block", mixBlendMode: "lighten" }} />
+                  )}
                 </div>
               </div>
               <style>{`
