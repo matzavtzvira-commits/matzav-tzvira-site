@@ -121,8 +121,8 @@ export default function ArticlesPage() {
                   </div>
                 ) : (
                   <Link key={a.slug} href={`/articles/${a.slug}`}
-                    style={{ background: "white", borderRadius: 20, overflow: "hidden", border: "1px solid #E8EDFF", display: "block", transition: "transform 0.2s, box-shadow 0.2s" }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 32px rgba(18,74,240,0.1)"; }}
+                    style={{ background: "white", borderRadius: 20, overflow: "hidden", border: "2px solid #21F0B033", display: "block", transition: "transform 0.2s, box-shadow 0.2s" }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 32px rgba(33,240,176,0.15)"; }}
                     onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
                   >
                     {a.slug === "har-hakessef" ? (
