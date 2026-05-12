@@ -79,11 +79,12 @@ export default function ArticlesPage() {
           `}</style>
         </section>
 
-        {/* Kids articles - featured side by side with video */}
-        <section style={{ background: "#F4F7FF", padding: "64px 1.5rem 0" }}>
+        {/* All articles - unified grid, kids first */}
+        <section style={{ background: "#F4F7FF", padding: "64px 1.5rem" }}>
           <div style={{ maxWidth: 1100, margin: "0 auto" }}>
             <p style={{ color: "#124AF0", fontWeight: 700, fontSize: "0.82rem", letterSpacing: 1, marginBottom: 16, textAlign: "right" }}>חיסכון לכל ילד</p>
-            <div className="kids-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 340px))", gap: 24, marginBottom: 24, justifyContent: "end" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
+
               {kidsArticles.map((a) => (
                 <Link key={a.slug} href={`/articles/${a.slug}`}
                   style={{ background: "white", borderRadius: 20, overflow: "hidden", border: "2px solid #21F0B033", display: "block", transition: "transform 0.2s, box-shadow 0.2s" }}
@@ -91,14 +92,7 @@ export default function ArticlesPage() {
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
                 >
                   <div style={{ background: "radial-gradient(ellipse at 50% 40%, #1535B5 0%, #060D3C 80%)", height: 160, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                    <video
-                      src="/kids-balloon.mp4"
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      style={{ height: "100%", width: "100%", objectFit: "contain" }}
-                    />
+                    <video src="/kids-balloon.mp4" autoPlay loop muted playsInline style={{ height: "100%", width: "100%", objectFit: "contain" }} />
                   </div>
                   <div style={{ padding: "24px 20px" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
@@ -110,54 +104,40 @@ export default function ArticlesPage() {
                   </div>
                 </Link>
               ))}
-            </div>
-          </div>
-          <style>{`
-            @media(max-width:640px){ .kids-grid { grid-template-columns: 1fr !important; } }
-          `}</style>
-        </section>
 
-        {/* Rest of articles */}
-        <section style={{ background: "#F4F7FF", padding: "24px 1.5rem 64px" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
-            {articles.map((a) =>
-              a.comingSoon ? (
-                <div key={a.slug} style={{ background: "white", borderRadius: 20, overflow: "hidden", border: "1px solid #E8EDFF", opacity: 0.55, cursor: "default", position: "relative" }}>
-                  <div style={{ background: "linear-gradient(135deg, #F4F7FF, #e8edff)", height: 160, filter: "grayscale(1)" }} />
-                  <div style={{ position: "absolute", top: 16, left: 16, background: "#888", color: "white", borderRadius: 50, padding: "3px 14px", fontSize: "0.78rem", fontWeight: 700 }}>בקרוב</div>
-                  <div style={{ padding: "24px 20px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
-                      <span style={{ background: "#ddd", color: "#999", borderRadius: 50, padding: "3px 12px", fontSize: "0.78rem", fontWeight: 700 }}>{a.tag}</span>
-                      <span style={{ color: "#bbb", fontSize: "0.8rem" }}>{a.date}</span>
+              {articles.map((a) =>
+                a.comingSoon ? (
+                  <div key={a.slug} style={{ background: "white", borderRadius: 20, overflow: "hidden", border: "1px solid #E8EDFF", opacity: 0.55, cursor: "default", position: "relative" }}>
+                    <div style={{ background: "linear-gradient(135deg, #F4F7FF, #e8edff)", height: 160, filter: "grayscale(1)" }} />
+                    <div style={{ position: "absolute", top: 16, left: 16, background: "#888", color: "white", borderRadius: 50, padding: "3px 14px", fontSize: "0.78rem", fontWeight: 700 }}>בקרוב</div>
+                    <div style={{ padding: "24px 20px" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
+                        <span style={{ background: "#ddd", color: "#999", borderRadius: 50, padding: "3px 12px", fontSize: "0.78rem", fontWeight: 700 }}>{a.tag}</span>
+                        <span style={{ color: "#bbb", fontSize: "0.8rem" }}>{a.date}</span>
+                      </div>
+                      <h2 style={{ fontSize: "1rem", fontWeight: 700, color: "#aaa", lineHeight: 1.4, marginBottom: 10 }}>{a.title}</h2>
+                      <p style={{ fontSize: "0.88rem", color: "#bbb", lineHeight: 1.7 }}>{a.excerpt}</p>
                     </div>
-                    <h2 style={{ fontSize: "1rem", fontWeight: 700, color: "#aaa", lineHeight: 1.4, marginBottom: 10 }}>{a.title}</h2>
-                    <p style={{ fontSize: "0.88rem", color: "#bbb", lineHeight: 1.7 }}>{a.excerpt}</p>
                   </div>
-                </div>
-              ) : (
-                <Link key={a.slug} href={`/articles/${a.slug}`}
-                  style={{ background: "white", borderRadius: 20, overflow: "hidden", border: "1px solid #E8EDFF", display: "block", transition: "transform 0.2s, box-shadow 0.2s" }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 32px rgba(18,74,240,0.1)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
-                >
-                  {a.slug === "har-hakessef" ? (
-                    <div style={{ background: "radial-gradient(ellipse at 50% 40%, #1535B5 0%, #060D3C 80%)", height: 160, overflow: "hidden" }}>
-                      <video src="/guides/har-hakessef/video.mp4" autoPlay loop muted playsInline style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                    </div>
-                  ) : (
+                ) : (
+                  <Link key={a.slug} href={`/articles/${a.slug}`}
+                    style={{ background: "white", borderRadius: 20, overflow: "hidden", border: "1px solid #E8EDFF", display: "block", transition: "transform 0.2s, box-shadow 0.2s" }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 32px rgba(18,74,240,0.1)"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
+                  >
                     <div style={{ background: "linear-gradient(135deg, #F4F7FF, #e8edff)", height: 160 }} />
-                  )}
-                  <div style={{ padding: "24px 20px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
-                      {a.tag ? <span style={{ background: a.tagColor, color: a.tagColor === "#21F0B0" ? "#124AF0" : "white", borderRadius: 50, padding: "3px 12px", fontSize: "0.78rem", fontWeight: 700 }}>{a.tag}</span> : <span />}
-                      <span style={{ color: "#999", fontSize: "0.8rem" }}>{a.date}</span>
+                    <div style={{ padding: "24px 20px" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
+                        {a.tag ? <span style={{ background: a.tagColor, color: a.tagColor === "#21F0B0" ? "#124AF0" : "white", borderRadius: 50, padding: "3px 12px", fontSize: "0.78rem", fontWeight: 700 }}>{a.tag}</span> : <span />}
+                        <span style={{ color: "#999", fontSize: "0.8rem" }}>{a.date}</span>
+                      </div>
+                      <h2 style={{ fontSize: "1rem", fontWeight: 700, color: "#292929", lineHeight: 1.4, marginBottom: 10 }}>{a.title}</h2>
+                      <p style={{ fontSize: "0.88rem", color: "#555", lineHeight: 1.7 }}>{a.excerpt}</p>
                     </div>
-                    <h2 style={{ fontSize: "1rem", fontWeight: 700, color: "#292929", lineHeight: 1.4, marginBottom: 10 }}>{a.title}</h2>
-                    <p style={{ fontSize: "0.88rem", color: "#555", lineHeight: 1.7 }}>{a.excerpt}</p>
-                  </div>
-                </Link>
-              )
-            )}
+                  </Link>
+                )
+              )}
+            </div>
           </div>
         </section>
       </main>
