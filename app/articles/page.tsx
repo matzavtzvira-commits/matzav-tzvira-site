@@ -126,8 +126,8 @@ export default function ArticlesPage() {
                     onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
                   >
                     {a.slug === "har-hakessef" ? (
-                      <div style={{ background: "radial-gradient(ellipse at 50% 40%, #1535B5 0%, #060D3C 80%)", height: 160, overflow: "hidden" }}>
-                        <video src="/guides/har-hakessef/video.mp4" autoPlay loop muted playsInline style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      <div style={{ background: "radial-gradient(ellipse at 50% 40%, #1535B5 0%, #060D3C 80%)", height: 160, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+                        <video src="/guides/har-hakessef/video.mp4" autoPlay loop muted playsInline style={{ height: "100%", width: "100%", objectFit: "contain" }} />
                       </div>
                     ) : (
                       <div style={{ background: "linear-gradient(135deg, #F4F7FF, #e8edff)", height: 160 }} />
