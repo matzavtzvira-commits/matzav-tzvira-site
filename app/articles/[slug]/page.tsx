@@ -382,21 +382,23 @@ const articles: Record<string, {
   },
 };
 
+const draftSlugs: string[] = ["mischar-vs-gemel"];
+
 export async function generateStaticParams() {
-  return Object.keys(articles).map((slug) => ({ slug }));
+  return Object.keys(articles).filter(s => !draftSlugs.includes(s)).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const article = articles[slug];
-  if (!article) return { title: "מאמר לא נמצא" };
+  if (!article || draftSlugs.includes(slug)) return { title: "מאמר לא נמצא" };
   return { title: `${article.title} | מצב צבירה`, description: article.intro };
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const article = articles[slug];
-  if (!article) notFound();
+  if (!article || draftSlugs.includes(slug)) notFound();
 
   return (
     <>
