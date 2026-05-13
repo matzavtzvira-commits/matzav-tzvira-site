@@ -1,6 +1,7 @@
 ﻿import type { Metadata } from "next";
 import { Heebo, Rubik } from "next/font/google";
 import "./globals.css";
+import { PostHogProvider } from "@/components/PostHogProvider";
 
 const heebo = Heebo({
   subsets: ["hebrew", "latin"],
@@ -32,8 +33,10 @@ export default function RootLayout({
         <link rel="preload" href="/hero-video.mp4" as="video" type="video/mp4" />
       </head>
       <body className="min-h-full">
-        <a href="#main-content" className="skip-link">דלג לתוכן הראשי</a>
-        {children}
+        <PostHogProvider>
+          <a href="#main-content" className="skip-link">דלג לתוכן הראשי</a>
+          {children}
+        </PostHogProvider>
       </body>
     </html>
   );
