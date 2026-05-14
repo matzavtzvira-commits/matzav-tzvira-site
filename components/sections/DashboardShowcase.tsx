@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const dashboards = [
   {
-    title: "ריבית דריבית",
+    title: "מחשבון ריבית דריבית",
     desc: "ראי איך 500 ₪ בחודש הופכים למיליון שקל - בזמן ובתשואה שאת בוחרת",
     tag: "הכי פופולרי",
     color: "#21F0B0",
