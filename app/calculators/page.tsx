@@ -36,7 +36,7 @@ function SketchLine({ id, maxWidth = 460, delay = 0.3 }: { id: string; maxWidth?
 const CALCULATORS = [
   {
     href: "/calculators/compound-interest",
-    title: "ריבית דריבית",
+    title: "מחשבון ריבית דריבית",
     desc: "הפלא השמיני בתבל - תראי איך 500 ₪ בחודש הופכים לסכום שתתפלאי עליו. כולל דמי ניהול ודמי צבירה.",
     color: "#124AF0",
     badge: "הכי פופולרי",
