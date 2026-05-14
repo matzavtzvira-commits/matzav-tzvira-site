@@ -14,6 +14,7 @@ function ExitIntentPopup() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [consent, setConsent] = useState(false);
   const shown = useRef(false);
 
   useEffect(() => {
@@ -93,7 +94,7 @@ function ExitIntentPopup() {
           </div>
         ) : (
           <form
-            onSubmit={async (e) => { e.preventDefault(); if (!email) return; setLoading(true); await subscribeToList(email); setLoading(false); setSubmitted(true); }}
+            onSubmit={async (e) => { e.preventDefault(); if (!email || !consent) return; setLoading(true); await subscribeToList(email); setLoading(false); setSubmitted(true); }}
             style={{ display: "flex", flexDirection: "column", gap: 12 }}
           >
             <input
@@ -104,17 +105,27 @@ function ExitIntentPopup() {
               required
               style={{ padding: "14px 20px", borderRadius: 50, border: "2px solid #E8EDFF", fontSize: "1rem", outline: "none", direction: "rtl", color: "#292929" }}
             />
+            <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", fontSize: "0.82rem", color: "#555", direction: "rtl", textAlign: "right" }}>
+              <input
+                type="checkbox"
+                checked={consent}
+                onChange={(e) => setConsent(e.target.checked)}
+                style={{ width: 15, height: 15, cursor: "pointer", accentColor: "#124AF0", flexShrink: 0 }}
+              />
+              אני מאשרת קבלת דיוורים ותכנים ממצב צבירה
+            </label>
             <button
               type="submit"
+              disabled={!consent}
               style={{
-                background: "#21F0B0",
+                background: consent ? "#21F0B0" : "#c8d6f8",
                 color: "#124AF0",
                 border: "none",
                 borderRadius: 50,
                 padding: "15px",
                 fontWeight: 700,
                 fontSize: "1rem",
-                cursor: "pointer",
+                cursor: consent ? "pointer" : "not-allowed",
               }}
             >
               {loading ? "שולחת..." : "שלחי לי את הסרטון ←"}
@@ -139,6 +150,7 @@ function ScrollPopup() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [consent, setConsent] = useState(false);
   const shown = useRef(false);
 
   useEffect(() => {
@@ -201,7 +213,7 @@ function ScrollPopup() {
         </div>
       ) : (
         <form
-          onSubmit={async (e) => { e.preventDefault(); if (!email) return; setLoading(true); await subscribeToList(email); setLoading(false); setSubmitted(true); }}
+          onSubmit={async (e) => { e.preventDefault(); if (!email || !consent) return; setLoading(true); await subscribeToList(email); setLoading(false); setSubmitted(true); }}
           style={{ display: "flex", flexDirection: "column", gap: 8 }}
         >
           <input
@@ -212,17 +224,27 @@ function ScrollPopup() {
             required
             style={{ padding: "11px 16px", borderRadius: 50, border: "2px solid #E8EDFF", fontSize: "0.92rem", outline: "none", direction: "rtl", color: "#292929" }}
           />
+          <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: "0.78rem", color: "#666", direction: "rtl" }}>
+            <input
+              type="checkbox"
+              checked={consent}
+              onChange={(e) => setConsent(e.target.checked)}
+              style={{ width: 14, height: 14, cursor: "pointer", accentColor: "#124AF0", flexShrink: 0 }}
+            />
+            אני מאשרת קבלת דיוורים ממצב צבירה
+          </label>
           <button
             type="submit"
+            disabled={!consent}
             style={{
-              background: "#124AF0",
+              background: consent ? "#124AF0" : "#a0b4e8",
               color: "white",
               border: "none",
               borderRadius: 50,
               padding: "12px",
               fontWeight: 700,
               fontSize: "0.92rem",
-              cursor: "pointer",
+              cursor: consent ? "pointer" : "not-allowed",
             }}
           >
             שלחי לי ←

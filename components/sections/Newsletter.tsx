@@ -4,12 +4,12 @@ import { useState } from "react";
 export default function Newsletter() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
-
   const [loading, setLoading] = useState(false);
+  const [consent, setConsent] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    if (!email || !consent) return;
     setLoading(true);
     await fetch("/api/newsletter", {
       method: "POST",
@@ -151,24 +151,34 @@ export default function Newsletter() {
                 />
                 <button
                   type="submit"
+                  disabled={!consent}
                   style={{
-                    background: "#21F0B0",
+                    background: consent ? "#21F0B0" : "#a0b4e8",
                     color: "#124AF0",
                     border: "none",
                     borderRadius: 50,
                     padding: "14px 28px",
                     fontWeight: 700,
                     fontSize: "1rem",
-                    cursor: "pointer",
+                    cursor: consent ? "pointer" : "not-allowed",
                     whiteSpace: "nowrap",
                     transition: "transform 0.15s",
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
+                  onMouseEnter={(e) => { if (consent) e.currentTarget.style.transform = "translateY(-2px)"; }}
                   onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
                 >
                   {loading ? "שולחת..." : "שלחי לי את המדריך ←"}
                 </button>
               </form>
+              <label style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 12, cursor: "pointer", opacity: 0.85, fontSize: "0.82rem", color: "white", direction: "rtl" }}>
+                <input
+                  type="checkbox"
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  style={{ width: 15, height: 15, cursor: "pointer", accentColor: "#21F0B0" }}
+                />
+                אני מאשרת קבלת דיוורים ותכנים ממצב צבירה
+              </label>
             )}
 
             <p style={{ opacity: 0.6, fontSize: "0.82rem", marginTop: 16 }}>
