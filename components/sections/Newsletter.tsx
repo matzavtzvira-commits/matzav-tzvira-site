@@ -121,64 +121,59 @@ export default function Newsletter() {
             ) : (
               <form
                 onSubmit={handleSubmit}
-                style={{
-                  display: "flex",
-                  gap: 12,
-                  maxWidth: 480,
-                  margin: "0 auto",
-                  flexWrap: "wrap",
-                  justifyContent: "center",
-                }}
+                style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, maxWidth: 480, margin: "0 auto" }}
               >
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="כתובת האימייל שלך"
-                  required
-                  style={{
-                    flex: 1,
-                    minWidth: 220,
-                    padding: "14px 20px",
-                    borderRadius: 50,
-                    border: "none",
-                    fontSize: "1rem",
-                    outline: "none",
-                    textAlign: "right",
-                    color: "#292929",
-                    direction: "rtl",
-                  }}
-                />
-                <button
-                  type="submit"
-                  disabled={!consent}
-                  style={{
-                    background: consent ? "#21F0B0" : "#a0b4e8",
-                    color: "#124AF0",
-                    border: "none",
-                    borderRadius: 50,
-                    padding: "14px 28px",
-                    fontWeight: 700,
-                    fontSize: "1rem",
-                    cursor: consent ? "pointer" : "not-allowed",
-                    whiteSpace: "nowrap",
-                    transition: "transform 0.15s",
-                  }}
-                  onMouseEnter={(e) => { if (consent) e.currentTarget.style.transform = "translateY(-2px)"; }}
-                  onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
-                >
-                  {loading ? "שולחת..." : "שלחי לי את המדריך ←"}
-                </button>
+                <div style={{ display: "flex", gap: 12, width: "100%", flexWrap: "wrap", justifyContent: "center" }}>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="כתובת האימייל שלך"
+                    required
+                    style={{
+                      flex: 1,
+                      minWidth: 220,
+                      padding: "14px 20px",
+                      borderRadius: 50,
+                      border: "none",
+                      fontSize: "1rem",
+                      outline: "none",
+                      textAlign: "right",
+                      color: "#292929",
+                      direction: "rtl",
+                    }}
+                  />
+                  <button
+                    type="submit"
+                    disabled={!consent}
+                    style={{
+                      background: consent ? "#21F0B0" : "#a0b4e8",
+                      color: "#124AF0",
+                      border: "none",
+                      borderRadius: 50,
+                      padding: "14px 28px",
+                      fontWeight: 700,
+                      fontSize: "1rem",
+                      cursor: consent ? "pointer" : "not-allowed",
+                      whiteSpace: "nowrap",
+                      transition: "transform 0.15s",
+                    }}
+                    onMouseEnter={(e) => { if (consent) e.currentTarget.style.transform = "translateY(-2px)"; }}
+                    onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+                  >
+                    {loading ? "שולחת..." : "שלחי לי את המדריך ←"}
+                  </button>
+                </div>
+                <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", fontSize: "0.82rem", color: "white", opacity: 0.85, direction: "rtl" }}>
+                  <input
+                    type="checkbox"
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
+                    style={{ width: 15, height: 15, cursor: "pointer", accentColor: "#21F0B0" }}
+                  />
+                  אני מאשרת קבלת דיוורים ותכנים ממצב צבירה
+                </label>
               </form>
-              <label style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 12, cursor: "pointer", opacity: 0.85, fontSize: "0.82rem", color: "white", direction: "rtl" }}>
-                <input
-                  type="checkbox"
-                  checked={consent}
-                  onChange={(e) => setConsent(e.target.checked)}
-                  style={{ width: 15, height: 15, cursor: "pointer", accentColor: "#21F0B0" }}
-                />
-                אני מאשרת קבלת דיוורים ותכנים ממצב צבירה
-              </label>
             )}
 
             <p style={{ opacity: 0.6, fontSize: "0.82rem", marginTop: 16 }}>
