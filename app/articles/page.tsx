@@ -132,8 +132,8 @@ export default function ArticlesPage() {
                         <video src="/guides/har-hakessef/video.mp4" autoPlay loop muted playsInline style={{ height: "100%", width: "100%", objectFit: "contain" }} />
                       </div>
                     ) : a.slug === "bitcoin-guide" ? (
-                      <div style={{ background: "radial-gradient(ellipse at 50% 40%, #1535B5 0%, #060D3C 80%)", height: 160, overflow: "hidden" }}>
-                        <video src="/guides/bitcoin-guide/video.mp4" autoPlay loop muted playsInline style={{ width: "300%", marginLeft: "-100%", height: "100%", objectFit: "cover", display: "block" }} />
+                      <div style={{ background: "radial-gradient(ellipse at 50% 40%, #1535B5 0%, #060D3C 80%)", height: 160, overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <video src="/guides/bitcoin-guide/video.mp4" autoPlay loop muted playsInline style={{ height: "100%", width: "auto", mixBlendMode: "lighten" }} />
                       </div>
                     ) : (
                       <div style={{ background: "linear-gradient(135deg, #F4F7FF, #e8edff)", height: 160 }} />
