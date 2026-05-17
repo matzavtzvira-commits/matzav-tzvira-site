@@ -38,7 +38,7 @@ export default function Footer() {
 
       <div style={{ position: "relative", zIndex: 2, maxWidth: 1100, margin: "0 auto", textAlign: "center" }}>
         <div style={{ display: "flex", justifyContent: "center", gap: 16, marginBottom: 40 }}>
-          <a href="mailto:matzavtzvira@gmail.com" aria-label="שלח מייל למצב צבירה" style={{ width: 48, height: 48, borderRadius: "50%", background: "rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s" }}
+          <a href="https://mail.google.com/mail/?view=cm&to=matzavtzvira@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="שלח מייל למצב צבירה" style={{ width: 48, height: 48, borderRadius: "50%", background: "rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s" }}
             onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.35)")}
             onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.15)")}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
