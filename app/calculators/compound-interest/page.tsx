@@ -1,9 +1,10 @@
 ﻿"use client";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import Image from "next/image";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -311,6 +312,50 @@ function CompoundCalculator() {
           </div>
         ))}
       </div>
+
+      {feeImpact > 10000 && (
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: EASE }}
+          style={{
+            marginTop: 28,
+            background: "linear-gradient(135deg, #060D3C 0%, #124AF0 100%)",
+            borderRadius: 16,
+            padding: "24px 28px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 20,
+            flexWrap: "wrap",
+          }}
+        >
+          <div style={{ flex: 1, minWidth: 200 }}>
+            <p style={{ color: "#FA5C5C", fontWeight: 700, fontSize: "0.85rem", marginBottom: 6 }}>
+              {Math.round(feeImpact).toLocaleString("he-IL")} ₪ לא חייבים להישרף בדמי ניהול
+            </p>
+            <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.88rem", lineHeight: 1.6, margin: 0 }}>
+              בתוכנית המאסטריות לומדים בדיוק איך לצמצם את הנזק הזה.
+            </p>
+          </div>
+          <Link
+            href="/course"
+            style={{
+              background: "#21F0B0",
+              color: "#060D3C",
+              padding: "12px 24px",
+              borderRadius: 50,
+              fontWeight: 800,
+              fontSize: "0.9rem",
+              textDecoration: "none",
+              whiteSpace: "nowrap",
+              flexShrink: 0,
+            }}
+          >
+            אני רוצה ללמוד ←
+          </Link>
+        </motion.div>
+      )}
     </motion.div>
   );
 }
@@ -337,10 +382,12 @@ function HowToUse() {
           transition={{ duration: 0.5, delay: i * 0.1, ease: EASE }}
           style={{ background: "white", borderRadius: 20, padding: "28px 24px", border: "2px solid #E8EDFF", position: "relative" }}
         >
-          <img
+          <Image
             src="/badge-proof.png"
             alt=""
             aria-hidden="true"
+            width={36}
+            height={36}
             style={{
               position: "absolute",
               top: 16,
@@ -740,11 +787,14 @@ function RiddleSection() {
             transition={{ delay: 1.4, duration: 0.8, ease: EASE }}
             style={{ marginBottom: 40 }}
           >
-            <img
+            <Image
               src="/infographic-compound.png"
               alt="כוחה המטורף של ההכפלה: מ-10 אגורות ל-53 מיליון ש״ח"
+              width={1200}
+              height={630}
               style={{
                 width: "100%",
+                height: "auto",
                 borderRadius: 20,
                 boxShadow: "0 16px 64px rgba(0,0,0,0.5)",
                 display: "block",
@@ -914,10 +964,12 @@ function ExplanationSection() {
                 position: "relative",
               }}
             >
-              <img
+              <Image
                 src="/badge-proof.png"
                 alt=""
                 aria-hidden="true"
+                width={32}
+                height={32}
                 style={{
                   position: "absolute",
                   top: 16,
@@ -978,83 +1030,10 @@ function ExplanationSection() {
 /* ════════════════════════════════════════════════════════
    PAGE
 ════════════════════════════════════════════════════════ */
-const SITE_URL = "https://www.matzav-tzvira.co.il";
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebApplication",
-      name: "מחשבון ריבית דריבית",
-      description: "מחשבון ריבית דריבית חינמי - חשבי כמה הכסף שלך יגדל לאורך שנים, כולל דמי ניהול ודמי צבירה",
-      url: `${SITE_URL}/calculators/compound-interest`,
-      applicationCategory: "FinanceApplication",
-      offers: { "@type": "Offer", price: "0", priceCurrency: "ILS" },
-      provider: { "@type": "Organization", name: "מצב צבירה", url: SITE_URL },
-      inLanguage: "he",
-      operatingSystem: "Web",
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "מה זה ריבית דריבית?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "ריבית דריבית זה כשהרווחים שלך מתחילים גם הם לעשות רווחים. לא רק הכסף המקורי - גם הריבית עצמה מרוויחה ריבית. כמו כדור שלג שמתגלגל: ככל שמתגלגל, כך הוא גדל מהר יותר.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "כמה כסף אצבור עם ריבית דריבית?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "זה תלוי בסכום ההתחלתי, ההפקדה החודשית, שיעור התשואה השנתית ומספר השנים. לדוגמה: 500 ₪ בחודש עם תשואה שנתית של 10% לאורך 30 שנה יצמחו למעל מיליון שקלים. השתמשי במחשבון החינמי שלנו לחישוב מדויק עם הנתונים שלך.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "מה ההשפעה של דמי הניהול על ריבית דריבית?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "דמי ניהול של 1% נשמעים זניחים, אבל לאורך 30 שנה הם יכולים לגרום להפסד של עשרות עד מאות אלפי שקלים בגלל אפקט ריבית הדריבית. בדיוק בגלל זה חשוב להוריד דמי ניהול בפנסיה ובקרן ההשתלמות.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "מה התשואה הממוצעת בשוק המניות?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "התשואה הממוצעת ההיסטורית של שוק המניות הגלובלי עומדת על כ-10% בשנה לפני אינפלציה. זה ממוצע לאורך עשרות שנים - בשנים ספציפיות יכולות להיות עליות וירידות משמעותיות.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "מתי הכי כדאי להתחיל לחסוך?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "ככל שמתחילים מוקדם יותר, כך ריבית הדריבית עובדת יותר זמן לטובתך. 200 ₪ בחודש מגיל 25 שווים הרבה יותר מ-500 ₪ בחודש מגיל 45, בגלל הזמן שנוסף לצמיחה.",
-          },
-        },
-      ],
-    },
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "דף הבית", item: SITE_URL },
-        { "@type": "ListItem", position: 2, name: "מחשבונים", item: `${SITE_URL}/calculators` },
-        { "@type": "ListItem", position: 3, name: "מחשבון ריבית דריבית", item: `${SITE_URL}/calculators/compound-interest` },
-      ],
-    },
-  ],
-};
 
 export default function CompoundInterestPage() {
-  useEffect(() => { window.scrollTo(0, 0); }, []);
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navigation />
 
       {/* Floating CTA */}
@@ -1162,7 +1141,7 @@ export default function CompoundInterestPage() {
                 textShadow: "0 0 40px rgba(33,240,176,0.18)",
               }}
             >
-              ריבית דריבית
+              מחשבון ריבית דריבית
             </motion.h1>
 
             {/* Tagline */}
