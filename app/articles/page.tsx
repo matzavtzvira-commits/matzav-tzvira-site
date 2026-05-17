@@ -4,17 +4,23 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
+const EyeIcon = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+  </svg>
+);
+
 const kidsArticles = [
-  { slug: "savings-for-kids", title: "חיסכון לכל ילד - המדריך המלא", excerpt: "מ-2017 המדינה מפקידה כסף לכל ילד כל חודש. ברירת המחדל מנחיתה אתכן במסלול שמניב פחות - וההפרש יכול להגיע ל-50,000 ₪. המדריך שיכניס אתכן לתמונה.", date: "מאי 2026", tag: "ילדים", tagColor: "#21F0B0" },
-  { slug: "savings-for-kids-niyud", title: "ניוד חיסכון לכל ילד - כך עוברות למסלול שעובד", excerpt: "בדקתן היכן הכסף ורוצות לשנות מסלול? המדריך המלא לניוד - למיטב הלכה, אינפיניטי הלכה ודרך ביטוח לאומי ישירות. חינמי, מקוון, פחות מ-15 דקות.", date: "מאי 2026", tag: "ילדים", tagColor: "#21F0B0" },
+  { slug: "savings-for-kids", title: "חיסכון לכל ילד - המדריך המלא", excerpt: "מ-2017 המדינה מפקידה כסף לכל ילד כל חודש. ברירת המחדל מנחיתה אתכן במסלול שמניב פחות - וההפרש יכול להגיע ל-50,000 ₪. המדריך שיכניס אתכן לתמונה.", date: "מאי 2026", tag: "ילדים", tagColor: "#21F0B0", views: 881 },
+  { slug: "savings-for-kids-niyud", title: "ניוד חיסכון לכל ילד - כך עוברות למסלול שעובד", excerpt: "בדקתן היכן הכסף ורוצות לשנות מסלול? המדריך המלא לניוד - למיטב הלכה, אינפיניטי הלכה ודרך ביטוח לאומי ישירות. חינמי, מקוון, פחות מ-15 דקות.", date: "מאי 2026", tag: "ילדים", tagColor: "#21F0B0", views: 634 },
 ];
 
 const articles = [
-  { slug: "bitcoin-guide", title: "המדריך הפרקטי לביטקוין: לעשות סדר בבלאגן", excerpt: "כולם מדברים על ביטקוין. חלק מפחדים, חלק נלהבים - ורוב הנשים לא יודעות מה לחשוב. מדריך ברור ובלי פחד.", date: "מאי 2026", tag: "השקעות", tagColor: "#124AF0" },
+  { slug: "bitcoin-guide", title: "המדריך הפרקטי לביטקוין: לעשות סדר בבלאגן", excerpt: "כולם מדברים על ביטקוין. חלק מפחדים, חלק נלהבים - ורוב הנשים לא יודעות מה לחשוב. מדריך ברור ובלי פחד.", date: "מאי 2026", tag: "השקעות", tagColor: "#124AF0", views: 412 },
   { slug: "har-hakessef", title: "הר הכסף - כך תמצאי כסף שלא ידעת שיש לך", excerpt: "מעל 8 מיליארד ש\"ח מחכים לבעליהם. פנסיות ישנות, ביטוחי חיים שנשכחו, חשבונות שנסגרו. בדיקה של 5 דקות שיכולה לגלות עשרות אלפי שקלים.", date: "מאי 2026", tag: "", tagColor: "#FA5C5C", views: 235 },
   // { slug: "keren-hishtalmut", title: "קרן השתלמות - הכסף שעובד בשבילך בשקט", excerpt: "יש לך חשבון שמתמלא כל חודש בלי שאת עושה כלום. המדריך המלא - כולל הסבר מיוחד למורות, טבלת השוואת מסלולים, והטעות שעולה מאות אלפי שקלים.", date: "מאי 2026", tag: "חיסכון", tagColor: "#124AF0" },
   { slug: "pension-management-fees", title: "איך לבדוק את דמי הניהול בפנסיה שלך", excerpt: "רוב הנשים לא יודעות כמה הן משלמות בפנסיה - ואחרי שהן מגלות, הן לא מאמינות. מדריך פשוט שיחסוך לך עשרות אלפי שקלים.", date: "ינואר 2025", tag: "פנסיה", tagColor: "#124AF0", comingSoon: true },
-  { slug: "open-trading-account", title: "איך פותחים חשבון מסחר עצמאי - מדריך שלב אחר שלב", excerpt: "לפתוח חשבון מסחר זה קל יותר מלקבוע תור לרופא שיניים. מדריך מלא עם כל השלבים - פחות מ-15 דקות, מהבית, עם הטבה של 100 ש\"ח.", date: "מאי 2026", tag: "השקעות", tagColor: "#124AF0" },
+  { slug: "open-trading-account", title: "איך פותחים חשבון מסחר עצמאי - מדריך שלב אחר שלב", excerpt: "לפתוח חשבון מסחר זה קל יותר מלקבוע תור לרופא שיניים. מדריך מלא עם כל השלבים - פחות מ-15 דקות, מהבית, עם הטבה של 100 ש\"ח.", date: "מאי 2026", tag: "השקעות", tagColor: "#124AF0", views: 659 },
   // { slug: "mischar-vs-gemel", title: "חשבון מסחר עצמאי מול קופת גמל להשקעה - מי מנצח?", excerpt: "שאלה אחת מגיעה אלי יותר מכל אחרת. עשיתי סימולציה של 30 שנה עם מספרים אמיתיים - כולל המיסוי שהופך את כל התמונה. התשובה תפתיע אתכן.", date: "מאי 2026", tag: "השקעות", tagColor: "#124AF0" },
 ];
 
@@ -97,9 +103,9 @@ export default function ArticlesPage() {
                     <video src="/kids-balloon.mp4" autoPlay loop muted playsInline style={{ height: "100%", width: "100%", objectFit: "contain" }} />
                   </div>
                   <div style={{ padding: "24px 20px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
                       <span style={{ background: "#21F0B0", color: "#124AF0", borderRadius: 50, padding: "3px 12px", fontSize: "0.78rem", fontWeight: 700 }}>{a.tag}</span>
-                      <span style={{ color: "#999", fontSize: "0.8rem" }}>{a.date}</span>
+                      <span style={{ display: "flex", alignItems: "center", gap: 4, color: "#999", fontSize: "0.78rem" }}><EyeIcon />{a.views}</span>
                     </div>
                     <h2 style={{ fontSize: "1rem", fontWeight: 700, color: "#292929", lineHeight: 1.4, marginBottom: 10 }}>{a.title}</h2>
                     <p style={{ fontSize: "0.88rem", color: "#555", lineHeight: 1.7 }}>{a.excerpt}</p>
@@ -140,9 +146,9 @@ export default function ArticlesPage() {
                       <div style={{ background: "linear-gradient(135deg, #F4F7FF, #e8edff)", height: 160 }} />
                     )}
                     <div style={{ padding: "24px 20px" }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
-                        {a.tag ? <span style={{ background: a.tagColor, color: a.tagColor === "#21F0B0" ? "#124AF0" : "white", borderRadius: 50, padding: "3px 12px", fontSize: "0.78rem", fontWeight: 700 }}>{a.tag}</span> : (a as { views?: number }).views ? <span style={{ display: "flex", alignItems: "center", gap: 4, color: "#999", fontSize: "0.78rem" }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>{(a as { views?: number }).views}</span> : <span />}
-                        <span style={{ color: "#999", fontSize: "0.8rem" }}>{a.date}</span>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+                        {a.tag ? <span style={{ background: a.tagColor, color: a.tagColor === "#21F0B0" ? "#124AF0" : "white", borderRadius: 50, padding: "3px 12px", fontSize: "0.78rem", fontWeight: 700 }}>{a.tag}</span> : <span />}
+                        {(a as { views?: number }).views ? <span style={{ display: "flex", alignItems: "center", gap: 4, color: "#999", fontSize: "0.78rem" }}><EyeIcon />{(a as { views?: number }).views}</span> : <span style={{ color: "#999", fontSize: "0.8rem" }}>{a.date}</span>}
                       </div>
                       <h2 style={{ fontSize: "1rem", fontWeight: 700, color: "#292929", lineHeight: 1.4, marginBottom: 10 }}>{a.title}</h2>
                       <p style={{ fontSize: "0.88rem", color: "#555", lineHeight: 1.7 }}>{a.excerpt}</p>
