@@ -534,15 +534,14 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 {/* LEFT - hero image or video */}
                 <div className="article-hero-img" style={{ display: "flex", alignItems: "center", justifyContent: "center", minWidth: 0, width: "100%" }}>
                   {article.heroVideo ? (
-                    <div style={{ width: "100%", maxHeight: 420, overflow: "hidden", borderRadius: 16 }}>
+                    <div style={{ width: "100%", height: 380, overflow: "hidden", borderRadius: 16, position: "relative" }}>
                       <video
                         src={article.heroVideo}
                         autoPlay
                         loop
                         muted
                         playsInline
-                        className="hero-float-img"
-                        style={{ width: "130%", height: "130%", marginLeft: "-15%", marginTop: "-15%", objectFit: "cover", display: "block" }}
+                        style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%) scale(2)", width: "100%", height: "100%", objectFit: "cover" }}
                       />
                     </div>
                   ) : (
