@@ -133,7 +133,7 @@ export default function ArticlesPage() {
                       </div>
                     ) : a.slug === "bitcoin-guide" ? (
                       <div style={{ background: "radial-gradient(ellipse at 50% 40%, #1535B5 0%, #060D3C 80%)", height: 160, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                        <video src="/guides/bitcoin-guide/video.mp4" autoPlay loop muted playsInline style={{ height: "100%", width: "100%", objectFit: "contain" }} />
+                        <video src="/guides/bitcoin-guide/video.mp4" autoPlay loop muted playsInline style={{ height: "100%", width: "100%", objectFit: "cover" }} />
                       </div>
                     ) : (
                       <div style={{ background: "linear-gradient(135deg, #F4F7FF, #e8edff)", height: 160 }} />
