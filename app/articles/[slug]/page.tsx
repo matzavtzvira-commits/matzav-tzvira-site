@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ViewCount } from "./ViewCount";
 
 const articles: Record<string, {
   title: string;
@@ -14,6 +15,7 @@ const articles: Record<string, {
   heroImage?: string;
   heroVideo?: string;
   viewCount?: number;
+  viewInc?: number;
   sections: { heading: string; body: string; image?: string; imageAlt?: string; images?: { src: string; alt: string }[]; link?: string; linkLabel?: string; tableData?: { headers: string[]; rows: string[][] } }[];
 }> = {
   "pension-management-fees": {
@@ -55,6 +57,7 @@ const articles: Record<string, {
     readTime: "7 דקות קריאה",
     heroVideo: "/guides/har-hakessef/video.mp4",
     viewCount: 235,
+    viewInc: 3,
     intro: "שמעתן על 'הר הכסף'?\n\nזה לא מטאפורה. זה שירות ממשלתי שמכיל מעל 8 מיליארד ש\"ח של אנשים אמיתיים - שסתם שכחו שיש להם כסף.\n\nפנסיות ממקומות עבודה ישנים. ביטוחי חיים שפתחו ולא זוכרים. חשבונות חיסכון מלפני עשרים שנה.\n\nהמדריך הזה יעזור לכן לבדוק אם חלק מהמיליארדים האלה הוא שלכן.",
     sections: [
       {
@@ -177,6 +180,7 @@ const articles: Record<string, {
     heroVideo: "/kids-balloon.mp4",
     intro: "מ-2017 המדינה מפקידה כסף לכל ילד - כל חודש, בלי לבקש.\nהכסף נצבר בשקט. אחד לאחד.\n\nהבעיה? ברירת המחדל מנחיתה אתכן במסלול שמניב הרבה פחות ממה שיכול.\nוההפרש לאורך 21 שנה יכול להגיע ל-57,000 ₪ - לכל ילד.\n\nזה המדריך שיכניס אתכן לתמונה המלאה.",
     viewCount: 881,
+    viewInc: 6,
     sections: [
       {
         heading: "למה הקימה המדינה את התוכנית?",
@@ -247,6 +251,7 @@ const articles: Record<string, {
     tagColor: "#21F0B0",
     readTime: "10 דקות קריאה",
     viewCount: 634,
+    viewInc: 5,
     intro: "בדקתן היכן הכסף של הילדים שלכן - ורוצות לשנות מסלול.\nמעולה.\n\nהניוד נשמע מסובך. הוא לא.\nתהליך מקוון וחינמי לגמרי.\n\nהמדריך הזה יראה לכן שלב-אחרי-שלב איך עושות את זה - למיטב הלכה, לאינפיניטי הלכה, למור הלכה.\nואם הכסף עדיין בבנק - גם איך עוברות לקופת גמל דרך ביטוח לאומי.",
     sections: [
       {
@@ -312,6 +317,7 @@ const articles: Record<string, {
     tagColor: "#124AF0",
     readTime: "10 דקות קריאה",
     viewCount: 659,
+    viewInc: 7,
     intro: "לפתוח חשבון מסחר עצמאי זה קל יותר מלקבוע תור לרופא שיניים.\n\nברצינות.\n\nהרבה נשים שאני מכירה דחו את זה חצי שנה, שנה, ולפעמים יותר - כי זה נשמע מורכב ומפחיד. אחרי שהן עשו את זה? הן צחקו על עצמן.\n\nכל התהליך לוקח בין 10 ל-15 דקות. מהמחשב בבית. בכוס קפה לצד.",
     sections: [
       {
@@ -454,6 +460,7 @@ const articles: Record<string, {
     readTime: "8 דקות קריאה",
     heroVideo: "/guides/bitcoin-guide/video.mp4",
     viewCount: 412,
+    viewInc: 4,
     intro: "בשנים האחרונות אי אפשר לברוח מזה: בחדשות, בעיתונות - כולם מדברים על ביטקוין.\nחלק רואים בו את עתיד הכסף, חלק בטוחים שמדובר בבועה שתתפוצץ, והרוב? פשוט מרגישות שזה סינית.\n\nאז החלטתי לעשות לנו סדר. בלי מושגים טכנולוגיים מסובכים, בלי גרפים מפחידים. פשוט, ברור, ומנקודת מבט חכמה ואחראית.",
     sections: [
       {
@@ -525,7 +532,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.82rem" }}>{article.date}</span>
                     <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.82rem" }}>•</span>
                     <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.82rem" }}>{article.readTime}</span>
-                    {article.viewCount && <><span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.82rem" }}>•</span><span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.82rem" }}>👁 {article.viewCount.toLocaleString()}</span></>}
+                    {article.viewCount && <><span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.82rem" }}>•</span><span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.82rem" }}>👁 <ViewCount base={article.viewCount} inc={article.viewInc ?? 0} /></span></>}
                   </div>
                   <h1 style={{ fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)", color: "white", fontWeight: 800, lineHeight: 1.3, margin: "0 0 18px" }}>
                     {article.title}
@@ -574,7 +581,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 {article.tag && <span style={{ background: article.tagColor, color: article.tagColor === "#21F0B0" ? "#124AF0" : "white", borderRadius: 50, padding: "4px 14px", fontSize: "0.82rem", fontWeight: 700 }}>{article.tag}</span>}
                 <span style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem", display: "flex", alignItems: "center" }}>{article.date}</span>
                 <span style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem", display: "flex", alignItems: "center" }}>• {article.readTime}</span>
-                {article.viewCount && <span style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: 4 }}>• 👁 {article.viewCount.toLocaleString()}</span>}
+                {article.viewCount && <span style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: 4 }}>• 👁 <ViewCount base={article.viewCount} inc={article.viewInc ?? 0} /></span>}
               </div>
               <h1 style={{ fontSize: "clamp(1.6rem, 4vw, 2.6rem)", color: "white", fontWeight: 700, lineHeight: 1.3, maxWidth: 700, margin: "0 auto" }}>
                 {article.title}
