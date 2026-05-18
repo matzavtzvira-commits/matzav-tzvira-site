@@ -58,8 +58,8 @@ export default function SavingsForKidsGuidePage() {
         </p>
 
         {/* Video */}
-        <div style={{ borderRadius: 20, overflow: "hidden", boxShadow: "0 12px 48px rgba(0,0,0,0.5)", marginBottom: 32 }}>
-          <video autoPlay loop muted playsInline style={{ width: "100%", display: "block" }}>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 32 }}>
+          <video autoPlay loop muted playsInline style={{ maxWidth: "100%", height: "auto", display: "block", borderRadius: 20, boxShadow: "0 12px 48px rgba(0,0,0,0.5)" }}>
             <source src="/guides/savings-kids-video.mp4" type="video/mp4" />
           </video>
         </div>
