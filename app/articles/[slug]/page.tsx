@@ -497,7 +497,7 @@ const articles: Record<string, {
   },
 };
 
-const draftSlugs: string[] = ["mischar-vs-gemel", "keren-hishtalmut"];
+const draftSlugs: string[] = ["mischar-vs-gemel", "keren-hishtalmut", "savings-for-kids", "savings-for-kids-niyud"];
 
 export async function generateStaticParams() {
   return Object.keys(articles).filter(s => !draftSlugs.includes(s)).map((slug) => ({ slug }));
