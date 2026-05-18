@@ -50,9 +50,16 @@ export default function BitcoinGuidePage() {
         <h1 style={{ color: "#FFFFFF", fontSize: "clamp(1.7rem, 5vw, 2.4rem)", fontWeight: 900, lineHeight: 1.3, marginBottom: 12 }}>
           המדריך הפרקטי לביטקוין
         </h1>
-        <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "1.05rem", marginBottom: 36, lineHeight: 1.6 }}>
-          לעשות סדר בבלאגן - בלי ז׳רגון, בלי פחד
+        <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "1.05rem", marginBottom: 28, lineHeight: 1.6 }}>
+          לעשות סדר בבלאגן - בלי פחד
         </p>
+
+        {/* Video */}
+        <div style={{ borderRadius: 16, overflow: "hidden", marginBottom: 32, boxShadow: "0 8px 40px rgba(0,0,0,0.4)" }}>
+          <video autoPlay loop muted playsInline style={{ width: "100%", display: "block" }}>
+            <source src="/guides/bitcoin-video.mp4" type="video/mp4" />
+          </video>
+        </div>
 
         {/* Bullets */}
         <div style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 16, padding: "24px 28px", marginBottom: 36, textAlign: "right" }}>
