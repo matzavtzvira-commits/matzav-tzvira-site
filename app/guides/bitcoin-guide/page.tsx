@@ -55,10 +55,12 @@ export default function BitcoinGuidePage() {
         </p>
 
         {/* Video */}
-        <div style={{ borderRadius: 16, overflow: "hidden", marginBottom: 32, boxShadow: "0 8px 40px rgba(0,0,0,0.4)" }}>
-          <video autoPlay loop muted playsInline style={{ width: "100%", display: "block" }}>
-            <source src="/guides/bitcoin-video.mp4" type="video/mp4" />
-          </video>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 32 }}>
+          <div style={{ borderRadius: 20, overflow: "hidden", boxShadow: "0 12px 48px rgba(0,0,0,0.5)", width: "100%", maxWidth: 340, aspectRatio: "9/16", position: "relative" }}>
+            <video autoPlay loop muted playsInline style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}>
+              <source src="/guides/bitcoin-video.mp4" type="video/mp4" />
+            </video>
+          </div>
         </div>
 
         {/* Bullets */}
