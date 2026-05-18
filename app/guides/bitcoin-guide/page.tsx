@@ -101,7 +101,7 @@ export default function BitcoinGuidePage() {
             <button
               type="submit"
               disabled={!email || !consent || loading}
-              style={{ background: !email || !consent ? "rgba(33,240,176,0.35)" : "#21F0B0", color: "#124AF0", border: "none", borderRadius: 50, padding: "15px 32px", fontSize: "1rem", fontWeight: 800, cursor: !email || !consent ? "not-allowed" : "pointer", transition: "all 0.2s", width: "100%" }}
+              style={{ background: !email || !consent ? "rgba(33,240,176,0.35)" : "#21F0B0", color: "#ffffff", border: "none", borderRadius: 50, padding: "15px 32px", fontSize: "1rem", fontWeight: 800, cursor: !email || !consent ? "not-allowed" : "pointer", transition: "all 0.2s", width: "100%" }}
             >
               {loading ? "שולחת..." : "שלחי לי את המדריך ←"}
             </button>
