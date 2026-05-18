@@ -92,7 +92,7 @@ export default function BitcoinGuidePage() {
               onChange={(e) => setEmail(e.target.value)}
               required
               dir="rtl"
-              style={{ padding: "15px 20px", borderRadius: 50, border: "none", fontSize: "1rem", outline: "none", textAlign: "right", color: "#292929", width: "100%", boxSizing: "border-box" }}
+              style={{ padding: "15px 20px", borderRadius: 50, border: "2px solid #21F0B0", fontSize: "1rem", outline: "none", textAlign: "right", color: "#292929", width: "100%", boxSizing: "border-box", background: "#ffffff", boxShadow: "0 0 0 4px rgba(33,240,176,0.15)" }}
             />
 
             <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer", textAlign: "right" }}>
