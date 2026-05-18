@@ -542,7 +542,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   </p>
                 </div>
                 {/* LEFT - hero image or video */}
-                <div className="article-hero-img" style={{ display: "flex", alignItems: "center", justifyContent: "center", minWidth: 0, width: "100%" }}>
+                <div className="article-hero-img no-print" style={{ display: "flex", alignItems: "center", justifyContent: "center", minWidth: 0, width: "100%" }}>
                   {article.heroVideo ? (
                     <div style={{ width: "100%", height: 380, overflow: "hidden", borderRadius: 16, position: "relative", background: "radial-gradient(ellipse at 50% 30%, #1535B5 0%, #060D3C 65%)" }}>
                       <video
