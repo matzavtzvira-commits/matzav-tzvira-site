@@ -680,7 +680,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </div>
 
             {/* Back link */}
-            <div style={{ textAlign: "center", marginTop: 32 }}>
+            <div className="no-print" style={{ textAlign: "center", marginTop: 32 }}>
               <Link href="/articles" style={{ color: "#124AF0", fontWeight: 600, fontSize: "0.95rem", borderBottom: "2px solid #21F0B0", paddingBottom: 2 }}>
                 ← לכל המאמרים
               </Link>

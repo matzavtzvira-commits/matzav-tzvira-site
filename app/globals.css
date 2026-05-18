@@ -162,6 +162,10 @@ a { text-decoration: none; color: inherit; }
   }
 }
 
+@media print {
+  nav, footer, .skip-link, .arrow-anim, .no-print { display: none !important; }
+}
+
 .prefooter-input::placeholder { color: rgba(255,255,255,0.6); }
 
 .arrow-anim {
