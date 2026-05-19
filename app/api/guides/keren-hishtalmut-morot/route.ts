@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     const body = new URLSearchParams({
       "fields[subscribers_name]": name || "",
       "fields[subscribers_email]": email,
-      "form_id": formId,
+      "id_form": formId,
       "encoding": "UTF-8",
       "__ravxx_url__": "http://form.ravpage.co.il/keren-hishtalmut-morot",
     });

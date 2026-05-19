@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
 
     const body = new URLSearchParams({
       "fields[subscribers_email]": email,
-      "form_id": process.env.RAVMESSER_FORM_ID!,
+      "id_form": process.env.RAVMESSER_FORM_ID!,
       "encoding": "UTF-8",
     });
 
