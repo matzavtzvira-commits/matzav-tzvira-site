@@ -16,7 +16,7 @@ const articles: Record<string, {
   heroVideo?: string;
   viewCount?: number;
   viewInc?: number;
-  sections: { heading: string; body: string; image?: string; imageAlt?: string; images?: { src: string; alt: string }[]; link?: string; linkLabel?: string; tableData?: { headers: string[]; rows: string[][] } }[];
+  sections: { heading: string; body: string; image?: string; imageAlt?: string; images?: { src: string; alt: string }[]; link?: string; linkLabel?: string; tableData?: { headers: string[]; rows: string[][] }; embedUrl?: string }[];
 }> = {
   "pension-management-fees": {
     title: "איך לבדוק את דמי הניהול בפנסיה שלך",
@@ -528,6 +528,7 @@ const articles: Record<string, {
       {
         heading: "פתיחת חשבון במיטב - עם הטבה",
         body: "100 ₪ מתנה + פטור דמי ניהול לשנתיים.\nתהליך פשוט, מהבית, פחות מ-15 דקות.\n\nאני מרוויחה עמלה מפתיחת חשבון דרך הלינק - ואת מקבלת הטבה.",
+        embedUrl: "https://drive.google.com/file/d/1ShyeKOHgwdI4Ip8dohUeHgjwOKI1rnVY/preview",
         link: "https://landing.meitav.co.il/he-IL/landing/trade/tradeleadsfreinds?utm_medium=E9A9E949610ADFA60F7EA9A8D01A99C1",
         linkLabel: "לפתיחת חשבון במיטב ←",
       },
@@ -697,6 +698,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   ) : (
                     <img src={s.image} alt={s.imageAlt || ""} style={{ width: "100%", borderRadius: 12, marginTop: 20, border: "1px solid #E8EDFF" }} />
                   )
+                )}
+                {s.embedUrl && (
+                  <iframe
+                    src={s.embedUrl}
+                    style={{ width: "100%", height: 620, border: "1px solid #E8EDFF", borderRadius: 12, marginTop: 16, display: "block" }}
+                    allow="autoplay"
+                  />
                 )}
                 {s.link && (s.link.startsWith("/") ? (
                   <Link href={s.link} style={{ display: "inline-block", marginTop: 20, background: "#21F0B0", color: "#124AF0", borderRadius: 50, padding: "12px 28px", fontWeight: 700, fontSize: "0.95rem", textDecoration: "none" }}>
