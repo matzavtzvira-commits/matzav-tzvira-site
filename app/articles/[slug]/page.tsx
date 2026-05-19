@@ -16,7 +16,7 @@ const articles: Record<string, {
   heroVideo?: string;
   viewCount?: number;
   viewInc?: number;
-  sections: { heading: string; body: string; image?: string; imageAlt?: string; images?: { src: string; alt: string }[]; link?: string; linkLabel?: string; tableData?: { headers: string[]; rows: string[][] }; embedUrl?: string }[];
+  sections: { heading: string; body: string; image?: string; imageAlt?: string; images?: { src: string; alt: string }[]; link?: string; linkLabel?: string; links?: { href: string; label: string }[]; tableData?: { headers: string[]; rows: string[][] }; embedUrl?: string }[];
 }> = {
   "pension-management-fees": {
     title: "איך לבדוק את דמי הניהול בפנסיה שלך",
@@ -527,12 +527,11 @@ const articles: Record<string, {
       },
       {
         heading: "רוצה לקנות ביטקוין? הנה המספר שצריך",
-        body: "הקרן הפופולרית בקרב הקהילה החרדית היא תכלית TTF ביטקוין - כשר ב\"ד העדה החרדית.\nמספר קרן: 5139787\n\nהקרן הזו נמצאת בשתי הפלטפורמות - גם במיטב וגם בפייר.\nמחפשות את המספר בתיבת החיפוש של חשבון המסחר - ומשם ממשיכות לקנייה.",
+        body: "הקרן הפופולרית היא תכלית TTF ביטקוין - כשר ב\"ד העדה החרדית.\nמספר קרן: 5139787\n\nהקרן הזו נמצאת בשתי הפלטפורמות - גם במיטב וגם בפייר.\nמחפשות את המספר בתיבת החיפוש של חשבון המסחר - ומשם ממשיכות לקנייה.",
       },
       {
         heading: "פתיחת חשבון במיטב - עם הטבה",
         body: "100 ₪ מתנה + פטור דמי ניהול לשנתיים.\nתהליך פשוט, מהבית, פחות מ-15 דקות.\n\nאני מרוויחה עמלה מפתיחת חשבון דרך הלינק - ואת מקבלת הטבה.",
-        embedUrl: "https://drive.google.com/file/d/1ShyeKOHgwdI4Ip8dohUeHgjwOKI1rnVY/preview",
         link: "https://landing.meitav.co.il/he-IL/landing/trade/tradeleadsfreinds?utm_medium=E9A9E949610ADFA60F7EA9A8D01A99C1",
         linkLabel: "לפתיחת חשבון במיטב ←",
       },
@@ -545,8 +544,10 @@ const articles: Record<string, {
       {
         heading: "המדריך עם צילומי מסך",
         body: "הכנתי מדריך מלא עם צילומי מסך - לפייר ולמיטב ביחד.\nשלב אחרי שלב, בלי ניחושים, בלי לסבב.\nמדפיסות, שומרות, פותחות ישר.",
-        link: "https://drive.google.com/file/d/1bSq78A-ofMIia6bsdDwO9Crb5G8_laiK/view?usp=drive_link",
-        linkLabel: "להורדת המדריך עם צילומי מסך ←",
+        links: [
+          { href: "https://drive.google.com/file/d/1ShyeKOHgwdI4Ip8dohUeHgjwOKI1rnVY/view?usp=drive_link", label: "מדריך מיטב עם צילומי מסך ←" },
+          { href: "https://drive.google.com/file/d/1bSq78A-ofMIia6bsdDwO9Crb5G8_laiK/view?usp=drive_link", label: "מדריך פייר עם צילומי מסך ←" },
+        ],
       },
       {
         heading: "אחריות",
@@ -719,6 +720,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     {s.linkLabel || "לחצו כאן"}
                   </a>
                 ))}
+                {s.links && (
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 20 }}>
+                    {s.links.map((l, k) => (
+                      <a key={k} href={l.href} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: "#124AF0", color: "white", borderRadius: 50, padding: "12px 28px", fontWeight: 700, fontSize: "0.95rem", textDecoration: "none" }}>
+                        {l.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
 
