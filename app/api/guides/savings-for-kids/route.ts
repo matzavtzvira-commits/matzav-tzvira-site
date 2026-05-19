@@ -2,10 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { email } = await req.json();
+    const { name, email } = await req.json();
     if (!email) return NextResponse.json({ error: "Email required" }, { status: 400 });
 
     const body = new URLSearchParams({
+      "fields[subscribers_name]": name || "",
       "fields[subscribers_email]": email,
       "form_id": process.env.RAVMESSER_SAVINGS_KIDS_FORM_ID!,
       "encoding": "UTF-8",

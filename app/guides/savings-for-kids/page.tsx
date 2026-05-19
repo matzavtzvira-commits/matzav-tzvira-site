@@ -11,6 +11,7 @@ const bullets = [
 ];
 
 export default function SavingsForKidsGuidePage() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -18,13 +19,13 @@ export default function SavingsForKidsGuidePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !consent) return;
+    if (!name || !email || !consent) return;
     setLoading(true);
     try {
       await fetch("/api/guides/savings-for-kids", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ name, email }),
       });
     } catch {}
     setLoading(false);
@@ -87,6 +88,15 @@ export default function SavingsForKidsGuidePage() {
         ) : (
           <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             <input
+              type="text"
+              placeholder="השם שלך"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              dir="rtl"
+              style={{ padding: "15px 20px", borderRadius: 50, border: "2px solid #21F0B0", fontSize: "1rem", outline: "none", textAlign: "right", color: "#292929", width: "100%", boxSizing: "border-box", background: "#ffffff", boxShadow: "0 0 0 4px rgba(33,240,176,0.15)" }}
+            />
+            <input
               type="email"
               placeholder="כתובת האימייל שלך"
               value={email}
@@ -110,8 +120,8 @@ export default function SavingsForKidsGuidePage() {
 
             <button
               type="submit"
-              disabled={!email || !consent || loading}
-              style={{ background: !email || !consent ? "rgba(33,240,176,0.35)" : "#21F0B0", color: "#ffffff", border: "none", borderRadius: 50, padding: "15px 32px", fontSize: "1rem", fontWeight: 800, cursor: !email || !consent ? "not-allowed" : "pointer", transition: "all 0.2s", width: "100%" }}
+              disabled={!name || !email || !consent || loading}
+              style={{ background: !name || !email || !consent ? "rgba(33,240,176,0.35)" : "#21F0B0", color: "#ffffff", border: "none", borderRadius: 50, padding: "15px 32px", fontSize: "1rem", fontWeight: 800, cursor: !name || !email || !consent ? "not-allowed" : "pointer", transition: "all 0.2s", width: "100%" }}
             >
               {loading ? "שולחת..." : "שלחי לי את המדריך ←"}
             </button>
