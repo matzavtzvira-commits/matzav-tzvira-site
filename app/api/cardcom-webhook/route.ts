@@ -31,10 +31,16 @@ export async function POST(req: NextRequest) {
     }
 
     // הוספה לרב מסר - רשימת הקורס
+    const courseFormId = process.env.RAVMESSER_COURSE_FORM_ID;
+    if (!courseFormId) {
+      console.error("RAVMESSER_COURSE_FORM_ID is not set — skipping Rav Messer enrollment for:", email);
+      return NextResponse.json({ ok: true });
+    }
+
     const body = new URLSearchParams({
       "fields[subscribers_email]": email,
       "fields[subscribers_firstname]": firstName,
-      "form_id": process.env.RAVMESSER_COURSE_FORM_ID!,
+      "form_id": courseFormId,
       "encoding": "UTF-8",
     });
 
@@ -44,7 +50,12 @@ export async function POST(req: NextRequest) {
       body: body.toString(),
     });
 
-    console.log("Rav Messer enrollment status:", rmRes.status, "email:", email);
+    const rmText = await rmRes.text();
+    if (rmText.includes("Error initializing class")) {
+      console.error("Rav Messer enrollment failed for:", email, rmText.slice(0, 300));
+    } else {
+      console.log("Rav Messer enrollment ok for:", email);
+    }
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("Webhook error:", err);
