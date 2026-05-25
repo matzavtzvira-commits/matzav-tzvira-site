@@ -33,8 +33,10 @@ const html = `<!DOCTYPE html>
     justify-content: center;
     text-align: center;
     padding: 0 50px;
+    padding-top: 60mm;
     page-break-after: always;
     position: relative;
+    justify-content: flex-start;
   }
 
   .cover-top-line {
