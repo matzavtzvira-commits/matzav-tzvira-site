@@ -77,10 +77,17 @@ export default function BitcoinGuidePage() {
 
         {/* Form or Success */}
         {submitted ? (
-          <div style={{ background: "#21F0B0", color: "#124AF0", borderRadius: 16, padding: "24px 28px", fontWeight: 800, fontSize: "1.05rem", lineHeight: 1.5 }}>
-            המדריך בדרך! תבדקי את תיבת הדואר שלך
-            <p style={{ fontWeight: 400, fontSize: "0.88rem", marginTop: 8, opacity: 0.75 }}>
-              לא קיבלת? שלחי מייל ל-
+          <div style={{ background: "#21F0B0", color: "#124AF0", borderRadius: 16, padding: "24px 28px", lineHeight: 1.6 }}>
+            <p style={{ fontWeight: 900, fontSize: "1.05rem", marginBottom: 12 }}>המדריך מוכן להורדה.</p>
+            <a
+              href="/guides/bitcoin-guide.pdf"
+              download
+              style={{ display: "inline-block", background: "#124AF0", color: "#ffffff", fontWeight: 800, fontSize: "0.95rem", padding: "11px 28px", borderRadius: 50, textDecoration: "none", marginBottom: 14 }}
+            >
+              להורדת המדריך
+            </a>
+            <p style={{ fontWeight: 400, fontSize: "0.82rem", opacity: 0.75 }}>
+              שלחנו גם לינק למייל שלך. לא קיבלת?{" "}
               <a href="mailto:matzavtzvira@gmail.com" style={{ color: "#124AF0", textDecoration: "underline" }}>matzavtzvira@gmail.com</a>
             </p>
           </div>
