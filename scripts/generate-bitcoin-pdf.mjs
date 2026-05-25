@@ -109,9 +109,11 @@ const html = `<!DOCTYPE html>
   /* ===== CONTENT PAGES ===== */
   .page {
     width: 210mm;
-    min-height: 297mm;
-    padding: 14mm 18mm 18mm;
+    height: 297mm;
+    padding: 22mm 22mm 20mm;
     page-break-after: always;
+    overflow: hidden;
+    position: relative;
   }
 
   .page-header {
@@ -120,7 +122,7 @@ const html = `<!DOCTYPE html>
     justify-content: space-between;
     border-bottom: 2px solid #124AF0;
     padding-bottom: 10px;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
 
   .page-header-brand {
@@ -134,34 +136,51 @@ const html = `<!DOCTYPE html>
     font-size: 10.5px;
   }
 
+  .page-footer {
+    position: absolute;
+    bottom: 12mm;
+    right: 22mm;
+    left: 22mm;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #e8eeff;
+    padding-top: 8px;
+  }
+
+  .page-footer span {
+    color: #bbb;
+    font-size: 9.5px;
+  }
+
   .intro-box {
     background: #f0f4ff;
     border-right: 4px solid #124AF0;
-    padding: 16px 20px;
+    padding: 15px 20px;
     border-radius: 0 8px 8px 0;
-    margin-bottom: 28px;
-    font-size: 13px;
+    margin-bottom: 24px;
+    font-size: 12.5px;
     line-height: 1.8;
     color: #1a1a2e;
     white-space: pre-line;
   }
 
   .section {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     page-break-inside: avoid;
   }
 
   .section h2 {
-    font-size: 15px;
+    font-size: 14.5px;
     font-weight: 800;
     color: #124AF0;
-    margin-bottom: 10px;
+    margin-bottom: 9px;
     padding-bottom: 5px;
     border-bottom: 1px solid #dde6ff;
   }
 
   .section p {
-    font-size: 12.5px;
+    font-size: 12px;
     line-height: 1.85;
     color: #2d2d44;
     white-space: pre-line;
@@ -170,50 +189,50 @@ const html = `<!DOCTYPE html>
   .quote-block {
     background: #f7f9ff;
     border-right: 3px solid #21F0B0;
-    padding: 12px 16px;
-    margin: 12px 0;
+    padding: 11px 15px;
+    margin: 10px 0;
     border-radius: 0 6px 6px 0;
     page-break-inside: avoid;
   }
 
   .quote-block p {
-    font-size: 12px;
+    font-size: 11.5px;
     color: #333;
     line-height: 1.7;
   }
 
   .quote-block .quote-source {
-    font-size: 11px;
+    font-size: 10.5px;
     color: #124AF0;
     font-weight: 700;
-    margin-top: 6px;
+    margin-top: 5px;
   }
 
   .rule-box {
     background: linear-gradient(135deg, #eef2ff, #e8fff8);
     border: 1.5px solid #21F0B0;
     border-radius: 10px;
-    padding: 14px 18px;
-    margin: 14px 0;
+    padding: 13px 17px;
+    margin: 12px 0;
     page-break-inside: avoid;
   }
 
   .rule-box p {
     font-weight: 700;
     color: #124AF0;
-    font-size: 12.5px;
-    line-height: 1.7;
+    font-size: 12px;
+    line-height: 1.75;
   }
 
   .fund-tag {
     display: inline-block;
     background: #124AF0;
     color: #fff;
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 700;
-    padding: 4px 14px;
+    padding: 5px 14px;
     border-radius: 4px;
-    margin-top: 8px;
+    margin-top: 10px;
   }
 
   /* ===== CTA ===== */
@@ -310,6 +329,7 @@ const html = `<!DOCTYPE html>
     <span class="page-header-sub">המדריך הפרקטי לביטקוין</span>
   </div>
 
+
   <div class="intro-box">בשנים האחרונות אי אפשר לברוח מזה: בחדשות, בעיתונות - כולם מדברים על ביטקוין.
 חלק רואים בו את עתיד הכסף, חלק בטוחים שמדובר בבועה שתתפוצץ, והרוב? פשוט מרגישות שזה סינית.
 
@@ -347,14 +367,20 @@ const html = `<!DOCTYPE html>
     </div>
     <p>שני אנשים חכמים. שתי דעות הפוכות לגמרי. זה אומר לך משהו על מורכבות הנכס הזה.</p>
   </div>
+
+  <div class="page-footer">
+    <span>matzavtzvira.co.il</span>
+    <span>עמוד 2 מתוך 4</span>
+  </div>
 </div>
 
-<!-- ========== PAGE 3: סקשנים 4-6 ========== -->
+<!-- ========== PAGE 3: סקשנים 4-7 ========== -->
 <div class="page">
   <div class="page-header">
     <span class="page-header-brand">מצב צבירה | רבקי וייס</span>
     <span class="page-header-sub">המדריך הפרקטי לביטקוין</span>
   </div>
+
 
   <div class="section">
     <h2>מה קורה עם זה בעולם?</h2>
@@ -410,6 +436,11 @@ const html = `<!DOCTYPE html>
 אם מחר - חלילה - אחת מהן נסגרת? הכסף שלך לא נעלם. הוא יועבר לבית השקעות אחר. זו חובה חוקית.
 
 הסיכון הוא בשוק. לא בפלטפורמה.</p>
+  </div>
+
+  <div class="page-footer">
+    <span>matzavtzvira.co.il</span>
+    <span>עמוד 3 מתוך 4</span>
   </div>
 </div>
 
