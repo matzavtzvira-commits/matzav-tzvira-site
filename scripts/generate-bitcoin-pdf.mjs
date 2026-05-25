@@ -334,7 +334,7 @@ const html = `<!DOCTYPE html>
     <h3>מוכנה לצעד הבא?</h3>
     <p>לפתוח חשבון מסחר ולקנות קרן סל ביטקוין - בשקלים, בקלות, ב-10 דקות</p>
     <a class="cta-link" href="https://matzavtzvira.co.il/articles/meitav-vs-fair">
-      מיטב, פייר או IBI - מה מתאים לי?
+      מיטב, פייר או IBI - מה מתאים לך?
     </a>
   </div>
 
