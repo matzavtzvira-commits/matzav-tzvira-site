@@ -530,7 +530,7 @@
             <input type="file" id="tzFile" accept="image/*,.pdf" onchange="handleFile('tzFile','tz-area','tz-label')" />
             <div class="upload-icon">🪪</div>
             <div class="upload-label" id="tz-label">לחצי לבחירת קובץ</div>
-            <div class="upload-hint">jpg, png או pdf - עד 10MB</div>
+            <div class="upload-hint">jpg, png או pdf - עד 4MB</div>
             <div class="required-badge">חובה לבדיקת התיק</div>
           </div>
           <div class="error-msg" id="err-tz">נא להעלות צילום ת"ז</div>
@@ -542,7 +542,7 @@
             <input type="file" id="spouseTzFile" accept="image/*,.pdf" onchange="handleFile('spouseTzFile','spousetz-area','spousetz-label')" />
             <div class="upload-icon">🪪</div>
             <div class="upload-label" id="spousetz-label">לחצי לבחירת קובץ</div>
-            <div class="upload-hint">jpg, png או pdf - עד 10MB</div>
+            <div class="upload-hint">jpg, png או pdf - עד 4MB</div>
             <div class="required-badge">חובה לבדיקת התיק</div>
           </div>
           <div class="error-msg" id="err-spousetz">נא להעלות צילום ת"ז של הבעל</div>
@@ -625,15 +625,26 @@
       document.getElementById('mortgage-report-wrap').style.display = show ? 'block' : 'none';
     }
 
+    const MAX_FILE_MB = 4;
+    const MAX_FILE_BYTES = MAX_FILE_MB * 1024 * 1024;
+
     function handleFile(inputId, areaId, labelId) {
-      const file = document.getElementById(inputId).files[0];
+      const input = document.getElementById(inputId);
+      const file = input.files[0];
       const area = document.getElementById(areaId);
       const label = document.getElementById(labelId);
-      if (file) {
-        area.classList.add('has-file');
-        label.textContent = '✓ ' + file.name;
-        label.classList.add('done');
+      if (!file) return;
+      if (file.size > MAX_FILE_BYTES) {
+        alert('הקובץ גדול מדי (' + (file.size / 1024 / 1024).toFixed(1) + 'MB). המגבלה היא ' + MAX_FILE_MB + 'MB. אנא העלי תמונה קטנה יותר.');
+        input.value = '';
+        area.classList.remove('has-file');
+        label.textContent = 'לחצי לבחירת קובץ';
+        label.classList.remove('done');
+        return;
       }
+      area.classList.add('has-file');
+      label.textContent = '✓ ' + file.name;
+      label.classList.add('done');
     }
 
     function getRadioValue(name) {
