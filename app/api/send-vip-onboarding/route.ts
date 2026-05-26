@@ -20,8 +20,8 @@ export async function POST(req: NextRequest) {
       from: "רבקי - מצב צבירה <onboarding@resend.dev>",
       to: email,
       subject: "השלב הבא - טופס קבלת מידע VIP",
-      html: `
-        <div dir="rtl" style="font-family:Arial,sans-serif;max-width:580px;margin:0 auto;padding:0;background:#ffffff;">
+      html: `<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8"/></head><body>
+        <div style="font-family:Arial,sans-serif;max-width:580px;margin:0 auto;padding:0;background:#ffffff;direction:rtl;unicode-bidi:embed;">
 
           <!-- Header -->
           <div style="background:linear-gradient(135deg,#124AF0 0%,#060D3C 100%);padding:36px 32px;border-radius:0 0 0 0;text-align:center;">
@@ -69,7 +69,6 @@ export async function POST(req: NextRequest) {
             </p>
 
             <p style="font-size:16px;color:#292929;font-weight:700;margin:24px 0 0;">
-              בעזרת השם,<br/>
               רבקי
             </p>
           </div>
@@ -84,7 +83,7 @@ export async function POST(req: NextRequest) {
           </div>
 
         </div>
-      `,
+      </body></html>`,
     });
 
     return NextResponse.json({ ok: true });
