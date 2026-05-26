@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
 
     const tzFile = formData.get("tzFile") as File | null;
     const spouseTzFile = formData.get("spouseTzFile") as File | null;
+    const mortgageReportFile = formData.get("mortgageReportFile") as File | null;
 
     if (!name || !phone || !email) {
       return NextResponse.json(
@@ -56,6 +57,11 @@ export async function POST(req: NextRequest) {
 
     const spouseBuffer = Buffer.from(await spouseTzFile.arrayBuffer());
     attachments.push({ filename: `tz-spouse-${spouseTzFile.name}`, content: spouseBuffer });
+
+    if (mortgageReportFile && mortgageReportFile.size > 0) {
+      const mortgageBuffer = Buffer.from(await mortgageReportFile.arrayBuffer());
+      attachments.push({ filename: `mortgage-report-${mortgageReportFile.name}`, content: mortgageBuffer });
+    }
 
     const row = (label: string, value: string) => `
       <tr>
@@ -118,7 +124,7 @@ export async function POST(req: NextRequest) {
         </div>` : ""}
 
         <div style="background:#21F0B0;border-radius:10px;padding:14px 20px;">
-          <p style="margin:0;color:#060D3C;font-weight:bold;font-size:14px;">✓ 2 קבצי ת"ז מצורפים למייל זה</p>
+          <p style="margin:0;color:#060D3C;font-weight:bold;font-size:14px;">✓ ${attachments.length} קבצים מצורפים (ת"ז${attachments.length > 2 ? " + דוח משכנתא" : ""})</p>
         </div>
 
         <p style="color:#aaa;font-size:12px;margin-top:20px;text-align:center;">נשלח מטופס קבלת מידע VIP - matzavtzvira.co.il</p>

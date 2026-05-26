@@ -491,9 +491,21 @@
           <div id="refinance-wrap" class="conditional-field">
             <label>מעוניינת לבדוק מחזור משכנתא?</label>
             <div class="radio-group">
-              <label class="radio-option"><input type="radio" name="interestedInRefinance" value="כן" /> כן, בהחלט</label>
-              <label class="radio-option"><input type="radio" name="interestedInRefinance" value="לא" /> לא כרגע</label>
-              <label class="radio-option"><input type="radio" name="interestedInRefinance" value="לא יודעת" /> לא יודעת</label>
+              <label class="radio-option"><input type="radio" name="interestedInRefinance" value="כן" onchange="toggleMortgageReport(true)" /> כן, בהחלט</label>
+              <label class="radio-option"><input type="radio" name="interestedInRefinance" value="לא" onchange="toggleMortgageReport(false)" /> לא כרגע</label>
+              <label class="radio-option"><input type="radio" name="interestedInRefinance" value="לא יודעת" onchange="toggleMortgageReport(false)" /> לא יודעת</label>
+            </div>
+
+            <div id="mortgage-report-wrap" style="display:none;margin-top:16px;">
+              <p style="font-size:13px;color:#555;line-height:1.6;margin-bottom:10px;">
+                לצורך בדיקת כדאיות - שלחי צילום מסך של <strong>דוח יתרת משכנתא</strong> מהאפליקציה של הבנק
+              </p>
+              <div class="file-upload-area" id="mortgage-report-area">
+                <input type="file" id="mortgageReportFile" accept="image/*,.pdf" onchange="handleFile('mortgageReportFile','mortgage-report-area','mortgage-report-label')" />
+                <div class="upload-icon">🏦</div>
+                <div class="upload-label" id="mortgage-report-label">לחצי לבחירת קובץ</div>
+                <div class="upload-hint">צילום מסך, jpg, png או pdf</div>
+              </div>
             </div>
           </div>
         </div>
@@ -603,6 +615,11 @@
 
     function toggleRefinance(show) {
       document.getElementById('refinance-wrap').classList.toggle('visible', show);
+      if (!show) toggleMortgageReport(false);
+    }
+
+    function toggleMortgageReport(show) {
+      document.getElementById('mortgage-report-wrap').style.display = show ? 'block' : 'none';
     }
 
     function handleFile(inputId, areaId, labelId) {
@@ -717,6 +734,8 @@
       fd.append('notes', document.getElementById('notes').value.trim());
       fd.append('tzFile', document.getElementById('tzFile').files[0]);
       fd.append('spouseTzFile', document.getElementById('spouseTzFile').files[0]);
+      const mortgageFile = document.getElementById('mortgageReportFile').files[0];
+      if (mortgageFile) fd.append('mortgageReportFile', mortgageFile);
 
       try {
         const res = await fetch('https://matzavtzvira.co.il/api/vip-onboarding', {
