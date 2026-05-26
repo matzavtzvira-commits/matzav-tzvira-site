@@ -579,11 +579,49 @@ export async function generateStaticParams() {
   return Object.keys(articles).filter(s => !draftSlugs.includes(s)).map((slug) => ({ slug }));
 }
 
+const SITE_URL = "https://matzavtzvira.co.il";
+
+function hebrewDateToISO(hebrewDate: string): string {
+  const map: Record<string, string> = {
+    "ינואר": "01", "פברואר": "02", "מרץ": "03", "אפריל": "04",
+    "מאי": "05", "יוני": "06", "יולי": "07", "אוגוסט": "08",
+    "ספטמבר": "09", "אוקטובר": "10", "נובמבר": "11", "דצמבר": "12",
+  };
+  const [month, year] = hebrewDate.split(" ");
+  return month && year && map[month] ? `${year}-${map[month]}-01` : new Date().toISOString().split("T")[0];
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const article = articles[slug];
   if (!article || draftSlugs.includes(slug)) return { title: "מאמר לא נמצא" };
-  return { title: `${article.title} | מצב צבירה`, description: article.intro };
+
+  const url = `${SITE_URL}/articles/${slug}`;
+  const ogImage = article.heroImage ?? "/logo-new.png";
+  const shortDescription = article.intro.split("\n")[0];
+
+  return {
+    title: `${article.title} | מצב צבירה`,
+    description: shortDescription,
+    alternates: { canonical: url },
+    openGraph: {
+      title: article.title,
+      description: shortDescription,
+      url,
+      siteName: "מצב צבירה",
+      locale: "he_IL",
+      type: "article",
+      publishedTime: hebrewDateToISO(article.date),
+      authors: ["רבקי וייס"],
+      images: [{ url: `${SITE_URL}${ogImage}`, width: 1200, height: 630, alt: article.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: shortDescription,
+      images: [`${SITE_URL}${ogImage}`],
+    },
+  };
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -591,8 +629,27 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const article = articles[slug];
   if (!article || draftSlugs.includes(slug)) notFound();
 
+  const articleUrl = `${SITE_URL}/articles/${slug}`;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.intro.split("\n")[0],
+    url: articleUrl,
+    datePublished: hebrewDateToISO(article.date),
+    inLanguage: "he",
+    author: { "@type": "Person", name: "רבקי וייס", url: `${SITE_URL}/about` },
+    publisher: {
+      "@type": "Organization",
+      name: "מצב צבירה",
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo-new.png` },
+    },
+    ...(article.heroImage ? { image: `${SITE_URL}${article.heroImage}` } : {}),
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navigation />
       <main style={{ paddingTop: (article.heroImage || article.heroVideo) ? 80 : 160 }}>
         {/* Hero */}
