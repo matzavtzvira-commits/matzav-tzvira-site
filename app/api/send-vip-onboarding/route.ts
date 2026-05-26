@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
           <div style="padding:36px 32px;">
 
             <p style="font-size:16px;color:#292929;line-height:1.8;margin:0 0 20px;">
-              ${firstName} שלום,
+              שלום,
             </p>
             <p style="font-size:16px;color:#292929;line-height:1.8;margin:0 0 20px;">
               שמחה לקבל אותך לתהליך!
