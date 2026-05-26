@@ -337,6 +337,8 @@
       <div class="step-dot" id="dot2">2</div>
       <div class="step-line" id="line2"></div>
       <div class="step-dot" id="dot3">3</div>
+      <div class="step-line" id="line3"></div>
+      <div class="step-dot" id="dot4">4</div>
     </div>
 
     <div class="card" id="form-card">
@@ -555,16 +557,298 @@
 
         <div class="btn-row">
           <button class="btn-back" onclick="goStep(2)">&rarr; חזרה</button>
+          <button class="btn-next" id="to-step4-btn" onclick="submitVipAndNext()">
+            <span id="to-step4-text">הבאה ← החזר מס</span>
+            <div class="spinner" id="spinner-step3" style="display:none;width:18px;height:18px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;"></div>
+          </button>
         </div>
-
-        <button class="btn-submit" id="submit-btn" onclick="submitForm()">
-          <span id="submit-text">שלחי את הפרטים</span>
-          <div class="spinner" id="spinner"></div>
-        </button>
 
         <p style="font-size:12px;color:#aaa;text-align:center;margin-top:14px;line-height:1.6;">
           המידע נשמר בצורה מאובטחת ומשמש רק לצורך הליווי האישי שלך.
         </p>
+      </div>
+
+      <!-- STEP 4 — החזר מס -->
+      <div id="step4" style="display:none;">
+
+        <!-- פתיח -->
+        <div style="background:linear-gradient(135deg,#124AF0,#060D3C);border-radius:14px;padding:20px 22px;margin-bottom:24px;text-align:center;">
+          <p style="color:#21F0B0;font-size:13px;font-weight:700;margin-bottom:6px;">שלב 4 — החזר מס הכנסה</p>
+          <h2 style="color:#fff;font-size:18px;font-weight:900;margin-bottom:8px;line-height:1.4;">כמה כסף עשוי לחכות לך?</h2>
+          <p style="color:rgba(255,255,255,0.8);font-size:14px;line-height:1.7;">ממוצע ההחזר הוא עשרות אלפי שקלים - עד 6 שנים אחורה (2020-2025).<br/>את ממלאת, אני עושה את כל הבירוקרטיה.</p>
+        </div>
+
+        <!-- חלק א׳: פרטים מזהים -->
+        <p style="font-size:13px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">חלק א׳ - פרטים מזהים</p>
+
+        <div class="field">
+          <label>מספר תעודת זהות שלך <span class="required">*</span></label>
+          <input type="text" id="idNumber" inputmode="numeric" placeholder="9 ספרות" />
+          <div class="error-msg" id="err-idNumber">נא להזין מספר תעודת זהות</div>
+        </div>
+        <div class="field">
+          <label>תאריך לידה שלך <span class="required">*</span></label>
+          <input type="date" id="dob" />
+          <div class="error-msg" id="err-dob">נא לבחור תאריך לידה</div>
+        </div>
+        <div class="field">
+          <label>כתובת מגורים מלאה <span class="required">*</span></label>
+          <input type="text" id="address" placeholder="רחוב, עיר" />
+          <div class="error-msg" id="err-address">נא להזין כתובת מגורים</div>
+        </div>
+
+        <div id="spouse-tax-fields" style="display:none;">
+          <div class="field">
+            <label>מספר ת"ז של בעלך <span class="required">*</span></label>
+            <input type="text" id="spouseIdNumber" inputmode="numeric" placeholder="9 ספרות" />
+          </div>
+          <div class="field">
+            <label>תאריך לידה של בעלך <span class="required">*</span></label>
+            <input type="date" id="spouseDob" />
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- חלק ב׳: שינויי תעסוקה -->
+        <p style="font-size:13px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin:20px 0 6px;">חלק ב׳ - שינויי תעסוקה ושכר</p>
+        <p style="font-size:14px;color:var(--text-sec);margin-bottom:14px;">בשנים 2020-2025, האם קרה אחד מאלה? (אפשר לסמן כמה)</p>
+
+        <div class="field">
+          <div style="display:flex;flex-direction:column;gap:10px;" id="employment-checks">
+            <label class="radio-option" style="cursor:pointer;">
+              <input type="checkbox" name="empChange" value="עבודות" style="accent-color:var(--blue);width:18px;height:18px;" onchange="updateEmploymentDocs()" /> החלפת מקום עבודה
+            </label>
+            <label class="radio-option" style="cursor:pointer;">
+              <input type="checkbox" name="empChange" value="חלת" style="accent-color:var(--blue);width:18px;height:18px;" onchange="updateEmploymentDocs()" /> חל"ת (חופשה ללא תשלום)
+            </label>
+            <label class="radio-option" style="cursor:pointer;">
+              <input type="checkbox" name="empChange" value="לידה" style="accent-color:var(--blue);width:18px;height:18px;" onchange="updateEmploymentDocs()" /> חופשת לידה מוארכת (מעל 15 שבועות)
+            </label>
+            <label class="radio-option" style="cursor:pointer;">
+              <input type="checkbox" name="empChange" value="בלאום" style="accent-color:var(--blue);width:18px;height:18px;" onchange="updateEmploymentDocs()" id="cb-bituach-leumi" /> קיבלתי קצבה מביטוח לאומי (מחלה / נכות / אחר)
+            </label>
+            <label class="radio-option" style="cursor:pointer;background:#f9f9f9;">
+              <input type="checkbox" name="empChange" value="none" style="accent-color:var(--blue);width:18px;height:18px;" id="cb-emp-none" onchange="toggleNoneCheck('emp')" /> לא קרה אף אחד מאלה
+            </label>
+          </div>
+        </div>
+
+        <div id="employment-docs" style="display:none;padding:16px;background:#F0F5FF;border-radius:12px;border-right:3px solid var(--blue);margin-bottom:16px;">
+          <div class="field">
+            <label>טפסי 106 (אפשר להעלות כמה קבצים — שנה אחת או יותר)</label>
+            <div class="file-upload-area" id="forms106-area" onclick="document.getElementById('forms106').click()">
+              <input type="file" id="forms106" accept="image/*,.pdf" multiple style="display:none;" onchange="handleMultiFile('forms106','forms106-area','forms106-label')" />
+              <div class="upload-icon">📄</div>
+              <div class="upload-label" id="forms106-label">לחצי לבחירת קבצים</div>
+              <div class="upload-hint">pdf, jpg, png - ניתן לבחור כמה קבצים בבת אחת</div>
+            </div>
+          </div>
+
+          <div id="bituach-leumi-doc-wrap" style="display:none;">
+            <div class="field">
+              <label>ריכוז תשלומים מביטוח לאומי</label>
+              <div class="file-upload-area" id="bituachLeumi-area" onclick="document.getElementById('bituachLeumiDoc').click()">
+                <input type="file" id="bituachLeumiDoc" accept="image/*,.pdf" style="display:none;" onchange="handleFile('bituachLeumiDoc','bituachLeumi-area','bituachLeumi-label')" />
+                <div class="upload-icon">📋</div>
+                <div class="upload-label" id="bituachLeumi-label">לחצי לבחירת קובץ</div>
+                <div class="upload-hint">pdf, jpg, png</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- חלק ג׳: הטבות משפחתיות ורפואיות -->
+        <p style="font-size:13px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin:20px 0 6px;">חלק ג׳ - הטבות משפחתיות ורפואיות</p>
+        <p style="font-size:14px;color:var(--text-sec);margin-bottom:14px;">האם אחד מאלה רלוונטי אלייך? (אפשר לסמן כמה)</p>
+
+        <div class="field">
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <label class="radio-option" style="cursor:pointer;">
+              <input type="checkbox" name="familyBenefit" value="ילד" style="accent-color:var(--blue);width:18px;height:18px;" onchange="updateFamilyDocs()" /> נולד לי ילד בשנים 2020-2025
+            </label>
+            <label class="radio-option" style="cursor:pointer;">
+              <input type="checkbox" name="familyBenefit" value="תואר" style="accent-color:var(--blue);width:18px;height:18px;" onchange="updateFamilyDocs()" /> סיימתי תואר אקדמי
+            </label>
+            <label class="radio-option" style="cursor:pointer;">
+              <input type="checkbox" name="familyBenefit" value="ישוב" style="accent-color:var(--blue);width:18px;height:18px;" onchange="updateFamilyDocs()" /> אני גרה בישוב מזכה (ספר / עדיפות לאומית)
+            </label>
+            <label class="radio-option" style="cursor:pointer;">
+              <input type="checkbox" name="familyBenefit" value="ועדה" style="accent-color:var(--blue);width:18px;height:18px;" onchange="updateFamilyDocs()" /> לילד/ה שלי יש ועדת השמה / חינוך מיוחד
+            </label>
+            <label class="radio-option" style="cursor:pointer;">
+              <input type="checkbox" name="familyBenefit" value="נכות" style="accent-color:var(--blue);width:18px;height:18px;" onchange="updateFamilyDocs()" /> יש לי מוגבלות או מחלה כרונית מוכרת
+            </label>
+            <label class="radio-option" style="cursor:pointer;background:#f9f9f9;">
+              <input type="checkbox" name="familyBenefit" value="none" style="accent-color:var(--blue);width:18px;height:18px;" id="cb-family-none" onchange="toggleNoneCheck('family')" /> לא רלוונטי אף אחד
+            </label>
+          </div>
+        </div>
+
+        <div id="family-docs" style="display:none;padding:16px;background:#F0F5FF;border-radius:12px;border-right:3px solid var(--blue);margin-bottom:16px;">
+          <div id="doc-ילד" style="display:none;" class="family-doc-item">
+            <div class="field">
+              <label>תעודת לידה של הילד/ה שנולד/ה</label>
+              <div class="file-upload-area" id="birthCert-area" onclick="document.getElementById('birthCertDoc').click()">
+                <input type="file" id="birthCertDoc" accept="image/*,.pdf" style="display:none;" onchange="handleFile('birthCertDoc','birthCert-area','birthCert-label')" />
+                <div class="upload-icon">👶</div>
+                <div class="upload-label" id="birthCert-label">לחצי לבחירת קובץ</div>
+                <div class="upload-hint">pdf, jpg, png</div>
+              </div>
+            </div>
+          </div>
+          <div id="doc-תואר" style="display:none;" class="family-doc-item">
+            <div class="field">
+              <label>תעודת סיום / אישור ממוסד הלימוד</label>
+              <div class="file-upload-area" id="degree-area" onclick="document.getElementById('degreeDoc').click()">
+                <input type="file" id="degreeDoc" accept="image/*,.pdf" style="display:none;" onchange="handleFile('degreeDoc','degree-area','degree-label')" />
+                <div class="upload-icon">🎓</div>
+                <div class="upload-label" id="degree-label">לחצי לבחירת קובץ</div>
+                <div class="upload-hint">pdf, jpg, png</div>
+              </div>
+            </div>
+          </div>
+          <div id="doc-ישוב" style="display:none;" class="family-doc-item">
+            <div class="field">
+              <label>אישור תושב מהמועצה המקומית</label>
+              <div class="file-upload-area" id="settlement-area" onclick="document.getElementById('settlementDoc').click()">
+                <input type="file" id="settlementDoc" accept="image/*,.pdf" style="display:none;" onchange="handleFile('settlementDoc','settlement-area','settlement-label')" />
+                <div class="upload-icon">🏘️</div>
+                <div class="upload-label" id="settlement-label">לחצי לבחירת קובץ</div>
+                <div class="upload-hint">pdf, jpg, png</div>
+              </div>
+            </div>
+          </div>
+          <div id="doc-ועדה" style="display:none;" class="family-doc-item">
+            <div class="field">
+              <label>החלטת ועדת ההשמה / חינוך מיוחד</label>
+              <div class="file-upload-area" id="specialEd-area" onclick="document.getElementById('specialEdDoc').click()">
+                <input type="file" id="specialEdDoc" accept="image/*,.pdf" style="display:none;" onchange="handleFile('specialEdDoc','specialEd-area','specialEd-label')" />
+                <div class="upload-icon">📝</div>
+                <div class="upload-label" id="specialEd-label">לחצי לבחירת קובץ</div>
+                <div class="upload-hint">pdf, jpg, png</div>
+              </div>
+            </div>
+          </div>
+          <div id="doc-נכות" style="display:none;" class="family-doc-item">
+            <div class="field">
+              <label>אישור רפואי / ועדה רפואית</label>
+              <div class="file-upload-area" id="disability-area" onclick="document.getElementById('disabilityDoc').click()">
+                <input type="file" id="disabilityDoc" accept="image/*,.pdf" style="display:none;" onchange="handleFile('disabilityDoc','disability-area','disability-label')" />
+                <div class="upload-icon">🏥</div>
+                <div class="upload-label" id="disability-label">לחצי לבחירת קובץ</div>
+                <div class="upload-hint">pdf, jpg, png</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- חלק ד׳: פיננסים -->
+        <p style="font-size:13px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin:20px 0 6px;">חלק ד׳ - פיננסים והשקעות</p>
+        <p style="font-size:14px;color:var(--text-sec);margin-bottom:14px;">האם אחד מאלה קיים אצלך? (אפשר לסמן כמה)</p>
+
+        <div class="field">
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <label class="radio-option" style="cursor:pointer;">
+              <input type="checkbox" name="financeItem" value="ביטוחחיים" style="accent-color:var(--blue);width:18px;height:18px;" onchange="updateFinanceDocs()" /> ביטוח חיים פרטי (לא דרך המעסיק)
+            </label>
+            <label class="radio-option" style="cursor:pointer;">
+              <input type="checkbox" name="financeItem" value="ביטוחמשכנתא" style="accent-color:var(--blue);width:18px;height:18px;" onchange="updateFinanceDocs()" id="cb-mortgage-ins" /> ביטוח חיים למשכנתא
+            </label>
+            <label class="radio-option" style="cursor:pointer;">
+              <input type="checkbox" name="financeItem" value="פנסיה" style="accent-color:var(--blue);width:18px;height:18px;" onchange="updateFinanceDocs()" /> הפקדות עצמאיות לקרן פנסיה / גמל
+            </label>
+            <label class="radio-option" style="cursor:pointer;">
+              <input type="checkbox" name="financeItem" value="867" style="accent-color:var(--blue);width:18px;height:18px;" onchange="updateFinanceDocs()" /> תיק השקעות / מניות (טופס 867)
+            </label>
+            <label class="radio-option" style="cursor:pointer;">
+              <input type="checkbox" name="financeItem" value="שבח" style="accent-color:var(--blue);width:18px;height:18px;" onchange="updateFinanceDocs()" /> מכרתי נכס (מס שבח)
+            </label>
+            <label class="radio-option" style="cursor:pointer;background:#f9f9f9;">
+              <input type="checkbox" name="financeItem" value="none" style="accent-color:var(--blue);width:18px;height:18px;" id="cb-finance-none" onchange="toggleNoneCheck('finance')" /> לא רלוונטי אף אחד
+            </label>
+          </div>
+        </div>
+
+        <div id="finance-docs" style="display:none;padding:16px;background:#F0F5FF;border-radius:12px;border-right:3px solid var(--blue);margin-bottom:16px;">
+          <div id="fdoc-ביטוחחיים" style="display:none;" class="finance-doc-item">
+            <div class="field">
+              <label>אישור שנתי מחברת הביטוח — ביטוח חיים פרטי</label>
+              <div class="file-upload-area" id="lifeIns-area" onclick="document.getElementById('lifeInsDoc').click()">
+                <input type="file" id="lifeInsDoc" accept="image/*,.pdf" multiple style="display:none;" onchange="handleMultiFile('lifeInsDoc','lifeIns-area','lifeIns-label')" />
+                <div class="upload-icon">📑</div>
+                <div class="upload-label" id="lifeIns-label">לחצי לבחירת קבצים</div>
+                <div class="upload-hint">pdf, jpg, png - ניתן לבחור כמה</div>
+              </div>
+            </div>
+          </div>
+          <div id="fdoc-ביטוחמשכנתא" style="display:none;" class="finance-doc-item">
+            <div class="field">
+              <label>אישור שנתי מחברת הביטוח — ביטוח חיים למשכנתא</label>
+              <div class="file-upload-area" id="mortgageIns-area" onclick="document.getElementById('mortgageInsDoc').click()">
+                <input type="file" id="mortgageInsDoc" accept="image/*,.pdf" multiple style="display:none;" onchange="handleMultiFile('mortgageInsDoc','mortgageIns-area','mortgageIns-label')" />
+                <div class="upload-icon">🏠</div>
+                <div class="upload-label" id="mortgageIns-label">לחצי לבחירת קבצים</div>
+                <div class="upload-hint">pdf, jpg, png - ניתן לבחור כמה</div>
+              </div>
+            </div>
+          </div>
+          <div id="fdoc-פנסיה" style="display:none;" class="finance-doc-item">
+            <div class="field">
+              <label>אישור שנתי מקרן הפנסיה / גמל להשקעה</label>
+              <div class="file-upload-area" id="pension-area" onclick="document.getElementById('pensionDoc').click()">
+                <input type="file" id="pensionDoc" accept="image/*,.pdf" multiple style="display:none;" onchange="handleMultiFile('pensionDoc','pension-area','pension-label')" />
+                <div class="upload-icon">💰</div>
+                <div class="upload-label" id="pension-label">לחצי לבחירת קבצים</div>
+                <div class="upload-hint">pdf, jpg, png - ניתן לבחור כמה</div>
+              </div>
+            </div>
+          </div>
+          <div id="fdoc-867" style="display:none;" class="finance-doc-item">
+            <div class="field">
+              <label>טופס 867 מהבנק / בית השקעות</label>
+              <div class="file-upload-area" id="form867-area" onclick="document.getElementById('form867Doc').click()">
+                <input type="file" id="form867Doc" accept="image/*,.pdf" multiple style="display:none;" onchange="handleMultiFile('form867Doc','form867-area','form867-label')" />
+                <div class="upload-icon">📊</div>
+                <div class="upload-label" id="form867-label">לחצי לבחירת קבצים</div>
+                <div class="upload-hint">pdf, jpg, png - ניתן לבחור כמה</div>
+              </div>
+            </div>
+          </div>
+          <div id="fdoc-שבח" style="display:none;" class="finance-doc-item">
+            <div class="field">
+              <label>שומת מס שבח</label>
+              <div class="file-upload-area" id="propertyTax-area" onclick="document.getElementById('propertyTaxDoc').click()">
+                <input type="file" id="propertyTaxDoc" accept="image/*,.pdf" style="display:none;" onchange="handleFile('propertyTaxDoc','propertyTax-area','propertyTax-label')" />
+                <div class="upload-icon">🏗️</div>
+                <div class="upload-label" id="propertyTax-label">לחצי לבחירת קובץ</div>
+                <div class="upload-hint">pdf, jpg, png</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- גודל כולל -->
+        <div id="size-warning" style="display:none;background:#FFF8E1;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#92400E;"></div>
+
+        <div class="field">
+          <label>הערות נוספות</label>
+          <textarea id="taxNotes" placeholder="כל מידע נוסף שחשוב שאדע..."></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-back" onclick="goStep(3)">&rarr; חזרה</button>
+        </div>
+
+        <button class="btn-submit" id="submit-tax-btn" onclick="submitTaxForm()">
+          <span id="submit-tax-text">שלחי ← סיום</span>
+          <div class="spinner" id="spinner-tax"></div>
+        </button>
+
       </div>
 
     </div><!-- end card -->
@@ -574,9 +858,8 @@
       <div class="icon">✅</div>
       <h2>קיבלתי! תודה רבה</h2>
       <p>
-        הפרטים שלך הגיעו אליי בשלום.<br />
-        אצור איתך קשר בקרוב כדי לקבוע את הפגישה הראשונה.<br /><br />
-        בעזרת השם - מתחילים לבנות לך תיק שעובד.
+        כל הפרטים והמסמכים הגיעו אליי בשלום.<br /><br />
+        אעבור על הכל ואצור איתך קשר בקרוב עם סיכום מה מצאנו ומה השלב הבא.
       </p>
       <p style="margin-top:20px;font-weight:700;color:var(--blue);">רבקי</p>
     </div>
@@ -587,13 +870,13 @@
     let currentStep = 1;
 
     function updateProgress(step) {
-      for (let i = 1; i <= 3; i++) {
+      for (let i = 1; i <= 4; i++) {
         const dot = document.getElementById('dot' + i);
         dot.classList.remove('active', 'done');
         if (i < step) dot.classList.add('done');
         else if (i === step) dot.classList.add('active');
       }
-      for (let i = 1; i <= 2; i++) {
+      for (let i = 1; i <= 3; i++) {
         const line = document.getElementById('line' + i);
         line.classList.toggle('done', i < step);
       }
@@ -721,16 +1004,45 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    async function submitForm() {
+    // הצגת שדות בן/בת זוג בשלב 4 אם נשואה
+    function initStep4() {
+      const marital = getRadioValue('maritalStatus');
+      document.getElementById('spouse-tax-fields').style.display = marital === 'נשואה' ? 'block' : 'none';
+      // אם יש משכנתא — מסמן אוטומטית ביטוח משכנתא
+      const hasMortgage = getRadioValue('hasMortgage');
+      if (hasMortgage === 'כן') {
+        document.getElementById('cb-mortgage-ins').checked = true;
+        updateFinanceDocs();
+      }
+    }
+
+    async function submitVipAndNext() {
       if (!validateStep3()) return;
-
-      const btn = document.getElementById('submit-btn');
-      const text = document.getElementById('submit-text');
-      const spinner = document.getElementById('spinner');
+      const btn = document.getElementById('to-step4-btn');
+      const text = document.getElementById('to-step4-text');
+      const sp = document.getElementById('spinner-step3');
       btn.disabled = true;
-      text.textContent = 'שולחת...';
-      spinner.style.display = 'block';
+      text.style.display = 'none';
+      sp.style.display = 'inline-block';
 
+      try {
+        const fd = buildVipFormData();
+        await fetch('https://matzavtzvira.co.il/api/vip-onboarding', { method: 'POST', body: fd });
+      } catch(e) { console.warn('VIP submit error', e); }
+
+      btn.disabled = false;
+      text.style.display = 'inline';
+      sp.style.display = 'none';
+
+      initStep4();
+      document.getElementById('step3').style.display = 'none';
+      currentStep = 4;
+      document.getElementById('step4').style.display = 'block';
+      updateProgress(4);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function buildVipFormData() {
       const fd = new FormData();
       fd.append('name', document.getElementById('name').value.trim());
       fd.append('phone', document.getElementById('phone').value.trim());
@@ -746,16 +1058,164 @@
       fd.append('interestedInRefinance', getRadioValue('interestedInRefinance'));
       fd.append('hasChildSavings', getRadioValue('hasChildSavings'));
       fd.append('notes', document.getElementById('notes').value.trim());
-      fd.append('tzFile', document.getElementById('tzFile').files[0]);
-      fd.append('spouseTzFile', document.getElementById('spouseTzFile').files[0]);
-      const mortgageFile = document.getElementById('mortgageReportFile').files[0];
-      if (mortgageFile) fd.append('mortgageReportFile', mortgageFile);
+      const tzFile = document.getElementById('tzFile').files[0];
+      const spouseTzFile = document.getElementById('spouseTzFile').files[0];
+      if (tzFile) fd.append('tzFile', tzFile);
+      if (spouseTzFile) fd.append('spouseTzFile', spouseTzFile);
+      const mrf = document.getElementById('mortgageReportFile').files[0];
+      if (mrf) fd.append('mortgageReportFile', mrf);
+      return fd;
+    }
+
+    // Checkbox conditional docs
+    function getCheckedValues(name) {
+      return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(c => c.value).filter(v => v !== 'none');
+    }
+
+    function toggleNoneCheck(group) {
+      const noneId = { emp: 'cb-emp-none', family: 'cb-family-none', finance: 'cb-finance-none' }[group];
+      const nameMap = { emp: 'empChange', family: 'familyBenefit', finance: 'financeItem' };
+      const isNone = document.getElementById(noneId).checked;
+      if (isNone) {
+        document.querySelectorAll(`input[name="${nameMap[group]}"]`).forEach(cb => {
+          if (cb.value !== 'none') cb.checked = false;
+        });
+      }
+      if (group === 'emp') updateEmploymentDocs();
+      if (group === 'family') updateFamilyDocs();
+      if (group === 'finance') updateFinanceDocs();
+    }
+
+    function updateEmploymentDocs() {
+      const none = document.getElementById('cb-emp-none');
+      const vals = getCheckedValues('empChange');
+      if (vals.length > 0) { none.checked = false; }
+      const show = vals.length > 0;
+      document.getElementById('employment-docs').style.display = show ? 'block' : 'none';
+      document.getElementById('bituach-leumi-doc-wrap').style.display =
+        vals.includes('בלאום') ? 'block' : 'none';
+      updateSizeWarning();
+    }
+
+    function updateFamilyDocs() {
+      const none = document.getElementById('cb-family-none');
+      const vals = getCheckedValues('familyBenefit');
+      if (vals.length > 0) { none.checked = false; }
+      const show = vals.length > 0;
+      document.getElementById('family-docs').style.display = show ? 'block' : 'none';
+      ['ילד','תואר','ישוב','ועדה','נכות'].forEach(v => {
+        const el = document.getElementById('doc-' + v);
+        if (el) el.style.display = vals.includes(v) ? 'block' : 'none';
+      });
+      updateSizeWarning();
+    }
+
+    function updateFinanceDocs() {
+      const none = document.getElementById('cb-finance-none');
+      const vals = getCheckedValues('financeItem');
+      if (vals.length > 0) { none.checked = false; }
+      const show = vals.length > 0;
+      document.getElementById('finance-docs').style.display = show ? 'block' : 'none';
+      ['ביטוחחיים','ביטוחמשכנתא','פנסיה','867','שבח'].forEach(v => {
+        const el = document.getElementById('fdoc-' + v);
+        if (el) el.style.display = vals.includes(v) ? 'block' : 'none';
+      });
+      updateSizeWarning();
+    }
+
+    function handleMultiFile(inputId, areaId, labelId) {
+      const input = document.getElementById(inputId);
+      const files = input.files;
+      const area = document.getElementById(areaId);
+      const label = document.getElementById(labelId);
+      if (!files || files.length === 0) return;
+      let tooBig = false;
+      for (const f of files) {
+        if (f.size > MAX_FILE_BYTES) { tooBig = true; break; }
+      }
+      if (tooBig) {
+        alert('אחד הקבצים גדול מ-4MB. אנא בחרי קבצים קטנים יותר.');
+        input.value = '';
+        return;
+      }
+      area.classList.add('has-file');
+      label.textContent = files.length === 1 ? '✓ ' + files[0].name : '✓ ' + files.length + ' קבצים נבחרו';
+      label.classList.add('done');
+      updateSizeWarning();
+    }
+
+    function getTotalUploadSize() {
+      let total = 0;
+      const ids = ['forms106','bituachLeumiDoc','birthCertDoc','degreeDoc','settlementDoc','specialEdDoc','disabilityDoc',
+                   'lifeInsDoc','mortgageInsDoc','pensionDoc','form867Doc','propertyTaxDoc'];
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.files) for (const f of el.files) total += f.size;
+      });
+      return total;
+    }
+
+    function updateSizeWarning() {
+      const total = getTotalUploadSize();
+      const mb = (total / 1024 / 1024).toFixed(1);
+      const warn = document.getElementById('size-warning');
+      if (total > 3.5 * 1024 * 1024) {
+        warn.style.display = 'block';
+        warn.textContent = '⚠️ סך הקבצים הנוכחי: ' + mb + 'MB — מגיע לגבול. קבצים נוספים ניתן לשלוח בווטסאפ.';
+      } else if (total > 0) {
+        warn.style.display = 'block';
+        warn.textContent = 'סך קבצים שנבחרו: ' + mb + 'MB';
+        warn.style.background = '#F0FDF4';
+        warn.style.color = '#166534';
+      } else {
+        warn.style.display = 'none';
+      }
+    }
+
+    async function submitTaxForm() {
+      const idNumber = document.getElementById('idNumber').value.trim();
+      const dob = document.getElementById('dob').value;
+      const address = document.getElementById('address').value.trim();
+      if (!idNumber || !dob || !address) {
+        if (!idNumber) document.getElementById('err-idNumber').style.display = 'block';
+        if (!dob) document.getElementById('err-dob').style.display = 'block';
+        if (!address) document.getElementById('err-address').style.display = 'block';
+        return;
+      }
+
+      const btn = document.getElementById('submit-tax-btn');
+      const text = document.getElementById('submit-tax-text');
+      const sp = document.getElementById('spinner-tax');
+      btn.disabled = true;
+      text.textContent = 'שולחת...';
+      sp.style.display = 'block';
+
+      const fd = new FormData();
+      fd.append('clientName', document.getElementById('name').value.trim());
+      fd.append('clientEmail', document.getElementById('email').value.trim());
+      fd.append('idNumber', idNumber);
+      fd.append('dob', dob);
+      fd.append('address', address);
+      fd.append('spouseIdNumber', document.getElementById('spouseIdNumber').value.trim());
+      fd.append('spouseDob', document.getElementById('spouseDob').value);
+      fd.append('employmentChanges', getCheckedValues('empChange').join(', '));
+      fd.append('familyBenefits', getCheckedValues('familyBenefit').join(', '));
+      fd.append('financeItems', getCheckedValues('financeItem').join(', '));
+      fd.append('taxNotes', document.getElementById('taxNotes').value.trim());
+
+      const multiIds = ['forms106','lifeInsDoc','mortgageInsDoc','pensionDoc','form867Doc'];
+      multiIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.files) for (const f of el.files) fd.append(id, f);
+      });
+      const singleIds = ['bituachLeumiDoc','birthCertDoc','degreeDoc','settlementDoc','specialEdDoc','disabilityDoc','propertyTaxDoc'];
+      singleIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.files && el.files[0]) fd.append(id, el.files[0]);
+      });
 
       try {
-        const res = await fetch('https://matzavtzvira.co.il/api/vip-onboarding', {
-          method: 'POST',
-          body: fd,
-        });
+        const res = await fetch('https://matzavtzvira.co.il/api/vip-tax-documents', { method: 'POST', body: fd });
         const data = await res.json();
         if (data.ok) {
           document.getElementById('form-card').style.display = 'none';
@@ -764,17 +1224,14 @@
           window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
           alert('שגיאה בשליחה: ' + (data.error || 'נסי שוב'));
-          btn.disabled = false;
-          text.textContent = 'שלחי את הפרטים';
-          spinner.style.display = 'none';
+          btn.disabled = false; text.textContent = 'שלחי ← סיום'; sp.style.display = 'none';
         }
       } catch {
         alert('שגיאת חיבור - נא לנסות שוב');
-        btn.disabled = false;
-        text.textContent = 'שלחי את הפרטים';
-        spinner.style.display = 'none';
+        btn.disabled = false; text.textContent = 'שלחי ← סיום'; sp.style.display = 'none';
       }
     }
+
   </script>
 </body>
 </html>
