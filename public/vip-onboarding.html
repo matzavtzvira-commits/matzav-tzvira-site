@@ -584,32 +584,34 @@
           <p style="color:#333;font-size:13px;line-height:1.7;margin:0;">הבדיקה תתמקד בעיקר באופטימיזציה של הוצאות מוכרות, ניכויים, והפקדות לפנסיה וקרן השתלמות כעצמאית.<br/>לשם כך נצטרך את <strong>הדוחות השנתיים של העסק שלך</strong> (במקום טפסי 106 / בנוסף אליהם).</p>
         </div>
 
+        <!-- הודעת גמישות -->
+        <div style="background:#FFF8E1;border-radius:10px;padding:12px 16px;margin-bottom:20px;border-right:3px solid #F59E0B;">
+          <p style="color:#92400E;font-size:13px;margin:0;line-height:1.7;">אין לחץ - לא חייבת למלא הכל עכשיו. שלחי מה שיש לך ברגע זה, את השאר נשלים ביחד בהמשך.</p>
+        </div>
+
         <!-- חלק א׳: פרטים מזהים -->
         <p style="font-size:13px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">חלק א׳ - פרטים מזהים</p>
 
         <div class="field">
-          <label>מספר תעודת זהות שלך <span class="required">*</span></label>
+          <label>מספר תעודת זהות שלך</label>
           <input type="text" id="idNumber" inputmode="numeric" placeholder="9 ספרות" />
-          <div class="error-msg" id="err-idNumber">נא להזין מספר תעודת זהות</div>
         </div>
         <div class="field">
-          <label>תאריך לידה שלך <span class="required">*</span></label>
+          <label>תאריך לידה שלך</label>
           <input type="date" id="dob" />
-          <div class="error-msg" id="err-dob">נא לבחור תאריך לידה</div>
         </div>
         <div class="field">
-          <label>כתובת מגורים מלאה <span class="required">*</span></label>
+          <label>כתובת מגורים מלאה</label>
           <input type="text" id="address" placeholder="רחוב, עיר" />
-          <div class="error-msg" id="err-address">נא להזין כתובת מגורים</div>
         </div>
 
         <div id="spouse-tax-fields" style="display:none;">
           <div class="field">
-            <label>מספר ת"ז של בעלך <span class="required">*</span></label>
+            <label>מספר ת"ז של בעלך</label>
             <input type="text" id="spouseIdNumber" inputmode="numeric" placeholder="9 ספרות" />
           </div>
           <div class="field">
-            <label>תאריך לידה של בעלך <span class="required">*</span></label>
+            <label>תאריך לידה של בעלך</label>
             <input type="date" id="spouseDob" />
           </div>
         </div>
@@ -1205,16 +1207,6 @@
     }
 
     async function submitTaxForm() {
-      const idNumber = document.getElementById('idNumber').value.trim();
-      const dob = document.getElementById('dob').value;
-      const address = document.getElementById('address').value.trim();
-      if (!idNumber || !dob || !address) {
-        if (!idNumber) document.getElementById('err-idNumber').style.display = 'block';
-        if (!dob) document.getElementById('err-dob').style.display = 'block';
-        if (!address) document.getElementById('err-address').style.display = 'block';
-        return;
-      }
-
       const btn = document.getElementById('submit-tax-btn');
       const text = document.getElementById('submit-tax-text');
       const sp = document.getElementById('spinner-tax');
@@ -1225,9 +1217,9 @@
       const fd = new FormData();
       fd.append('clientName', document.getElementById('name').value.trim());
       fd.append('clientEmail', document.getElementById('email').value.trim());
-      fd.append('idNumber', idNumber);
-      fd.append('dob', dob);
-      fd.append('address', address);
+      fd.append('idNumber', document.getElementById('idNumber').value.trim());
+      fd.append('dob', document.getElementById('dob').value);
+      fd.append('address', document.getElementById('address').value.trim());
       fd.append('spouseIdNumber', document.getElementById('spouseIdNumber').value.trim());
       fd.append('spouseDob', document.getElementById('spouseDob').value);
       fd.append('employmentChanges', getCheckedValues('empChange').join(', '));
