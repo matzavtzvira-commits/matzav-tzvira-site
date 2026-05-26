@@ -29,13 +29,13 @@ export async function POST(req: NextRequest) {
     const taxNotes     = formData.get("taxNotes") as string;
 
     const fileFields = [
-      "forms106", "bituachLeumiDoc", "birthCertDoc", "degreeDoc",
+      "forms106", "annualReportsDoc", "bituachLeumiDoc", "birthCertDoc", "degreeDoc",
       "settlementDoc", "specialEdDoc", "disabilityDoc",
       "lifeInsDoc", "mortgageInsDoc", "pensionDoc", "form867Doc", "propertyTaxDoc"
     ];
 
     const labelMap: Record<string, string> = {
-      forms106: "טופס 106", bituachLeumiDoc: "ריכוז ב\"ל",
+      forms106: "טופס 106", annualReportsDoc: "דוח שנתי עסק", bituachLeumiDoc: "ריכוז ב\"ל",
       birthCertDoc: "תעודת לידה", degreeDoc: "תעודת תואר",
       settlementDoc: "אישור ישוב מזכה", specialEdDoc: "ועדת השמה",
       disabilityDoc: "אישור נכות", lifeInsDoc: "ביטוח חיים פרטי",

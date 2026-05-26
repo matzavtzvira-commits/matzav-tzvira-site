@@ -572,10 +572,16 @@
       <div id="step4" style="display:none;">
 
         <!-- פתיח -->
-        <div style="background:linear-gradient(135deg,#124AF0,#060D3C);border-radius:14px;padding:20px 22px;margin-bottom:24px;text-align:center;">
+        <div style="background:linear-gradient(135deg,#124AF0,#060D3C);border-radius:14px;padding:20px 22px;margin-bottom:16px;text-align:center;">
           <p style="color:#21F0B0;font-size:13px;font-weight:700;margin-bottom:6px;">שלב 4 — החזר מס הכנסה</p>
           <h2 style="color:#fff;font-size:18px;font-weight:900;margin-bottom:8px;line-height:1.4;">כמה כסף עשוי לחכות לך?</h2>
           <p style="color:rgba(255,255,255,0.8);font-size:14px;line-height:1.7;">ממוצע ההחזר הוא עשרות אלפי שקלים - עד 6 שנים אחורה (2020-2025).<br/>את ממלאת, אני עושה את כל הבירוקרטיה.</p>
+        </div>
+
+        <!-- באנר עצמאית — מוצג רק כשרלוונטי -->
+        <div id="freelance-banner" style="display:none;background:linear-gradient(135deg,#E8FFF8,#D0FFF0);border:1.5px solid #21F0B0;border-radius:12px;padding:16px 20px;margin-bottom:20px;">
+          <p style="color:#060D3C;font-size:14px;font-weight:800;margin:0 0 6px;">💼 כעצמאית — הבדיקה שלנו קצת שונה</p>
+          <p style="color:#333;font-size:13px;line-height:1.7;margin:0;">הבדיקה תתמקד בעיקר באופטימיזציה של הוצאות מוכרות, ניכויים, והפקדות לפנסיה וקרן השתלמות כעצמאית.<br/>לשם כך נצטרך את <strong>הדוחות השנתיים של העסק שלך</strong> (במקום טפסי 106 / בנוסף אליהם).</p>
         </div>
 
         <!-- חלק א׳: פרטים מזהים -->
@@ -635,13 +641,30 @@
         </div>
 
         <div id="employment-docs" style="display:none;padding:16px;background:#F0F5FF;border-radius:12px;border-right:3px solid var(--blue);margin-bottom:16px;">
-          <div class="field">
-            <label>טפסי 106 (אפשר להעלות כמה קבצים — שנה אחת או יותר)</label>
-            <div class="file-upload-area" id="forms106-area" onclick="document.getElementById('forms106').click()">
-              <input type="file" id="forms106" accept="image/*,.pdf" multiple style="display:none;" onchange="handleMultiFile('forms106','forms106-area','forms106-label')" />
-              <div class="upload-icon">📄</div>
-              <div class="upload-label" id="forms106-label">לחצי לבחירת קבצים</div>
-              <div class="upload-hint">pdf, jpg, png - ניתן לבחור כמה קבצים בבת אחת</div>
+
+          <!-- טפסי 106 — מוצג לשכירה ו"גם וגם" -->
+          <div id="doc-106-wrap">
+            <div class="field">
+              <label>טפסי 106 (אפשר להעלות כמה קבצים — שנה אחת או יותר)</label>
+              <div class="file-upload-area" id="forms106-area" onclick="document.getElementById('forms106').click()">
+                <input type="file" id="forms106" accept="image/*,.pdf" multiple style="display:none;" onchange="handleMultiFile('forms106','forms106-area','forms106-label')" />
+                <div class="upload-icon">📄</div>
+                <div class="upload-label" id="forms106-label">לחצי לבחירת קבצים</div>
+                <div class="upload-hint">pdf, jpg, png - ניתן לבחור כמה קבצים בבת אחת</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- דוחות שנתיים — מוצג לעצמאית ו"גם וגם" -->
+          <div id="doc-annual-wrap" style="display:none;">
+            <div class="field">
+              <label>דוחות שנתיים של העסק (2020-2025 — אפשר להעלות כמה קבצים)</label>
+              <div class="file-upload-area" id="annualReports-area" onclick="document.getElementById('annualReportsDoc').click()">
+                <input type="file" id="annualReportsDoc" accept="image/*,.pdf" multiple style="display:none;" onchange="handleMultiFile('annualReportsDoc','annualReports-area','annualReports-label')" />
+                <div class="upload-icon">📊</div>
+                <div class="upload-label" id="annualReports-label">לחצי לבחירת קבצים</div>
+                <div class="upload-hint">pdf, jpg, png - ניתן לבחור כמה קבצים בבת אחת</div>
+              </div>
             </div>
           </div>
 
@@ -1008,6 +1031,15 @@
     function initStep4() {
       const marital = getRadioValue('maritalStatus');
       document.getElementById('spouse-tax-fields').style.display = marital === 'נשואה' ? 'block' : 'none';
+
+      // סוג תעסוקה — מתאים את בקשת המסמכים
+      const emp = getRadioValue('employmentStatus');
+      const isFreelance = emp === 'עצמאית' || emp === 'שכירה ועצמאית';
+      const isEmployee  = emp === 'שכירה'   || emp === 'שכירה ועצמאית';
+      document.getElementById('freelance-banner').style.display = isFreelance ? 'block' : 'none';
+      document.getElementById('doc-106-wrap').style.display     = isEmployee  ? 'block' : 'none';
+      document.getElementById('doc-annual-wrap').style.display  = isFreelance ? 'block' : 'none';
+
       // אם יש משכנתא — מסמן אוטומטית ביטוח משכנתא
       const hasMortgage = getRadioValue('hasMortgage');
       if (hasMortgage === 'כן') {
@@ -1146,7 +1178,7 @@
 
     function getTotalUploadSize() {
       let total = 0;
-      const ids = ['forms106','bituachLeumiDoc','birthCertDoc','degreeDoc','settlementDoc','specialEdDoc','disabilityDoc',
+      const ids = ['forms106','annualReportsDoc','bituachLeumiDoc','birthCertDoc','degreeDoc','settlementDoc','specialEdDoc','disabilityDoc',
                    'lifeInsDoc','mortgageInsDoc','pensionDoc','form867Doc','propertyTaxDoc'];
       ids.forEach(id => {
         const el = document.getElementById(id);
@@ -1203,7 +1235,7 @@
       fd.append('financeItems', getCheckedValues('financeItem').join(', '));
       fd.append('taxNotes', document.getElementById('taxNotes').value.trim());
 
-      const multiIds = ['forms106','lifeInsDoc','mortgageInsDoc','pensionDoc','form867Doc'];
+      const multiIds = ['forms106','annualReportsDoc','lifeInsDoc','mortgageInsDoc','pensionDoc','form867Doc'];
       multiIds.forEach(id => {
         const el = document.getElementById(id);
         if (el && el.files) for (const f of el.files) fd.append(id, f);
