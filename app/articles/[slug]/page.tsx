@@ -512,7 +512,7 @@ const articles: Record<string, {
     sections: [
       {
         heading: "ההשוואה - בלי עיגולים",
-        body: "",
+        body: "ההטבות האלה מחכות לכן דרך הקישורים שלי - תחת המטריה הפיננסית.",
         tableData: {
           headers: ["", "מיטב", "פייר", "IBI", "אלטשולר"],
           rows: [
