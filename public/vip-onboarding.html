@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>טופס קבלת מידע - ליווי VIP | מצב צבירה</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #124AF0;
+      --mint: #21F0B0;
+      --dark: #060D3C;
+      --black: #292929;
+      --bg: #F4F7FF;
+      --border: #E8EDFF;
+      --text-sec: #666;
+      --red: #FA5C5C;
+    }
+
+    body {
+      font-family: 'Heebo', sans-serif;
+      background: var(--bg);
+      color: var(--black);
+      min-height: 100vh;
+      padding: 24px 16px 60px;
+    }
+
+    .wrapper {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .logo {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--blue);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .header h1 {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--dark);
+      line-height: 1.3;
+    }
+    .header p {
+      font-size: 15px;
+      color: var(--text-sec);
+      margin-top: 8px;
+    }
+
+    /* Progress */
+    .progress-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 36px;
+    }
+    .step-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-sec);
+      transition: all 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+    .step-dot.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+    }
+    .step-dot.done {
+      background: var(--mint);
+      border-color: var(--mint);
+      color: var(--dark);
+    }
+    .step-line {
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+      max-width: 80px;
+      transition: background 0.3s;
+    }
+    .step-line.done { background: var(--mint); }
+
+    /* Card */
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 28px 24px;
+      box-shadow: 0 4px 24px rgba(18,74,240,0.07);
+    }
+    .card-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+    .card-sub {
+      font-size: 14px;
+      color: var(--text-sec);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    /* Fields */
+    .field { margin-bottom: 20px; }
+    .field label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 7px;
+    }
+    .field label .required {
+      color: var(--blue);
+      margin-right: 3px;
+    }
+    .field input[type="text"],
+    .field input[type="tel"],
+    .field input[type="email"],
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 13px 15px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 15px;
+      color: var(--black);
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--blue);
+    }
+    .field textarea { resize: vertical; min-height: 90px; }
+
+    /* Radio group */
+    .radio-group { display: flex; flex-direction: column; gap: 10px; }
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 15px;
+    }
+    .radio-option:hover { border-color: var(--blue); background: #f0f5ff; }
+    .radio-option input[type="radio"] { accent-color: var(--blue); width: 18px; height: 18px; cursor: pointer; }
+    .radio-option.selected { border-color: var(--blue); background: #EEF3FF; font-weight: 600; }
+
+    /* File upload */
+    .file-upload-area {
+      border: 2px dashed var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .file-upload-area:hover { border-color: var(--blue); background: #f5f8ff; }
+    .file-upload-area.has-file { border-color: var(--mint); background: #f0fdf8; border-style: solid; }
+    .file-upload-area input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .upload-icon { font-size: 28px; margin-bottom: 6px; }
+    .upload-label { font-size: 14px; font-weight: 700; color: var(--blue); }
+    .upload-label.done { color: #059669; }
+    .upload-hint { font-size: 12px; color: var(--text-sec); margin-top: 3px; }
+    .required-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      background: #FFF3CD;
+      color: #92400E;
+      border-radius: 6px;
+      padding: 2px 8px;
+      margin-top: 6px;
+    }
+
+    /* Conditional */
+    .conditional-field {
+      display: none;
+      margin-top: 16px;
+      padding: 16px;
+      background: #F0F5FF;
+      border-radius: 12px;
+      border-right: 3px solid var(--blue);
+    }
+    .conditional-field.visible { display: block; }
+    .conditional-field label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    /* Divider */
+    .divider { height: 1px; background: var(--border); margin: 20px 0; }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .btn-back {
+      flex: 1;
+      padding: 14px;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      border-radius: 14px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-sec);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-back:hover { border-color: var(--blue); color: var(--blue); }
+    .btn-next {
+      flex: 2;
+      padding: 14px;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-next:hover { background: #0f3fd6; }
+    .btn-next:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-submit:hover { background: #0f3fd6; }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* Error */
+    .error-msg {
+      color: var(--red);
+      font-size: 13px;
+      margin-top: 6px;
+      display: none;
+    }
+    .field.has-error input,
+    .field.has-error select {
+      border-color: var(--red);
+    }
+
+    /* Thank you */
+    .thankyou {
+      display: none;
+      text-align: center;
+      padding: 40px 24px;
+    }
+    .thankyou .icon { font-size: 56px; margin-bottom: 16px; }
+    .thankyou h2 { font-size: 24px; font-weight: 900; color: var(--dark); margin-bottom: 10px; }
+    .thankyou p { font-size: 16px; color: var(--text-sec); line-height: 1.6; }
+
+    /* Spinner */
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 480px) {
+      .card { padding: 22px 16px; }
+      .header h1 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <div class="header">
+      <div class="logo">מצב צבירה</div>
+      <h1>ברוכה הבאה לתהליך VIP</h1>
+      <p>מלאי את הפרטים הבאים כדי שנוכל להתחיל לעבוד על התיק שלך</p>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-wrap">
+      <div class="step-dot active" id="dot1">1</div>
+      <div class="step-line" id="line1"></div>
+      <div class="step-dot" id="dot2">2</div>
+      <div class="step-line" id="line2"></div>
+      <div class="step-dot" id="dot3">3</div>
+    </div>
+
+    <div class="card" id="form-card">
+
+      <!-- STEP 1 -->
+      <div id="step1">
+        <div class="card-title">קצת עלייך</div>
+        <div class="card-sub">זה לוקח כ-5 דקות, ומאפשר לנו להגיע מוכנות לפגישה</div>
+
+        <div class="field" id="field-name">
+          <label>שם מלא <span class="required">*</span></label>
+          <input type="text" id="name" placeholder="למשל: שרה לוי" autocomplete="name" />
+          <div class="error-msg" id="err-name">נא להזין שם מלא</div>
+        </div>
+
+        <div class="field" id="field-phone">
+          <label>מספר טלפון <span class="required">*</span></label>
+          <input type="tel" id="phone" placeholder="050-0000000" autocomplete="tel" />
+          <div class="error-msg" id="err-phone">נא להזין מספר טלפון</div>
+        </div>
+
+        <div class="field" id="field-email">
+          <label>כתובת מייל <span class="required">*</span></label>
+          <input type="email" id="email" placeholder="you@example.com" autocomplete="email" />
+          <div class="error-msg" id="err-email">נא להזין כתובת מייל תקינה</div>
+        </div>
+
+        <div class="field" id="field-marital">
+          <label>מצב משפחתי <span class="required">*</span></label>
+          <div class="radio-group" id="marital-group">
+            <label class="radio-option">
+              <input type="radio" name="maritalStatus" value="נשואה" /> נשואה
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="maritalStatus" value="רווקה" /> רווקה
+            </label>
+          </div>
+          <div class="error-msg" id="err-marital">נא לבחור מצב משפחתי</div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-next" onclick="goStep(2)">הבאה &larr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div id="step2" style="display:none;">
+        <div class="card-title">המשפחה והעבודה</div>
+        <div class="card-sub">המידע הזה עוזר לנו להבין את התמונה הכלכלית שלך</div>
+
+        <div class="field">
+          <label>מספר ילדים <span class="required">*</span></label>
+          <select id="numChildren" onchange="toggleChildrenAges()">
+            <option value="">בחרי...</option>
+            <option value="0">אין ילדים</option>
+            <option value="1">ילד/ה אחד/ת</option>
+            <option value="2">2 ילדים</option>
+            <option value="3">3 ילדים</option>
+            <option value="4">4 ילדים</option>
+            <option value="5">5 ילדים</option>
+            <option value="6">6 ילדים</option>
+            <option value="7">7 ילדים</option>
+            <option value="8">8 ילדים</option>
+            <option value="9">9 ילדים</option>
+            <option value="10+">10 ילדים ומעלה</option>
+          </select>
+          <div class="error-msg" id="err-children">נא לבחור מספר ילדים</div>
+        </div>
+
+        <div id="children-ages-wrap" class="conditional-field">
+          <label>גילאי הילדים</label>
+          <input type="text" id="childrenAges" placeholder="לדוגמה: 3, 7, 12, 15" />
+        </div>
+
+        <div class="field" id="field-employment">
+          <label>סטטוס תעסוקה <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="employmentStatus" value="שכירה" /> שכירה
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="employmentStatus" value="עצמאית" /> עצמאית
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="employmentStatus" value="שכירה ועצמאית" /> גם וגם
+            </label>
+          </div>
+          <div class="error-msg" id="err-employment">נא לבחור סטטוס תעסוקה</div>
+        </div>
+
+        <div class="field" id="field-income">
+          <label>הכנסה חודשית ממוצעת <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="income" value="עד 8,000 ש&quot;ח" /> עד 8,000 ש"ח
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="income" value="8,000-15,000 ש&quot;ח" /> 8,000-15,000 ש"ח
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="income" value="15,000-25,000 ש&quot;ח" /> 15,000-25,000 ש"ח
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="income" value="מעל 25,000 ש&quot;ח" /> מעל 25,000 ש"ח
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="income" value="מעדיפה לא לציין" /> מעדיפה לא לציין
+            </label>
+          </div>
+          <div class="error-msg" id="err-income">נא לבחור טווח הכנסה</div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-back" onclick="goStep(1)">&rarr; חזרה</button>
+          <button class="btn-next" onclick="goStep(3)">הבאה &larr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div id="step3" style="display:none;">
+        <div class="card-title">מה כבר קיים אצלך</div>
+        <div class="card-sub">ודאגי, גם "לא יודעת" זו תשובה מעולה - זה בדיוק בשביל מה אני כאן</div>
+
+        <div class="field" id="field-pension">
+          <label>יש לך פנסיה? <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="hasPension" value="כן" /> כן</label>
+            <label class="radio-option"><input type="radio" name="hasPension" value="לא" /> לא</label>
+            <label class="radio-option"><input type="radio" name="hasPension" value="לא יודעת" /> לא יודעת</label>
+          </div>
+          <div class="error-msg" id="err-pension">נא לענות על השאלה</div>
+        </div>
+
+        <div class="field" id="field-hishtalmut">
+          <label>יש לך קרן השתלמות? <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="hasHishtalmut" value="כן" /> כן</label>
+            <label class="radio-option"><input type="radio" name="hasHishtalmut" value="לא" /> לא</label>
+            <label class="radio-option"><input type="radio" name="hasHishtalmut" value="לא יודעת" /> לא יודעת</label>
+          </div>
+          <div class="error-msg" id="err-hishtalmut">נא לענות על השאלה</div>
+        </div>
+
+        <div class="field" id="field-mortgage">
+          <label>יש לך משכנתא? <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="hasMortgage" value="כן" onchange="toggleRefinance(true)" /> כן</label>
+            <label class="radio-option"><input type="radio" name="hasMortgage" value="לא" onchange="toggleRefinance(false)" /> לא</label>
+          </div>
+          <div class="error-msg" id="err-mortgage">נא לענות על השאלה</div>
+
+          <div id="refinance-wrap" class="conditional-field">
+            <label>מעוניינת לבדוק מחזור משכנתא?</label>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="interestedInRefinance" value="כן" /> כן, בהחלט</label>
+              <label class="radio-option"><input type="radio" name="interestedInRefinance" value="לא" /> לא כרגע</label>
+              <label class="radio-option"><input type="radio" name="interestedInRefinance" value="לא יודעת" /> לא יודעת</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="field" id="field-childsavings">
+          <label>יש לך חסכון פתוח לילדים? <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="hasChildSavings" value="כן" /> כן</label>
+            <label class="radio-option"><input type="radio" name="hasChildSavings" value="לא" /> לא</label>
+          </div>
+          <div class="error-msg" id="err-childsavings">נא לענות על השאלה</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="field" id="field-tz">
+          <label>צילום תעודת זהות שלך <span class="required">*</span></label>
+          <div class="file-upload-area" id="tz-area">
+            <input type="file" id="tzFile" accept="image/*,.pdf" onchange="handleFile('tzFile','tz-area','tz-label')" />
+            <div class="upload-icon">🪪</div>
+            <div class="upload-label" id="tz-label">לחצי לבחירת קובץ</div>
+            <div class="upload-hint">jpg, png או pdf - עד 10MB</div>
+            <div class="required-badge">חובה לבדיקת התיק</div>
+          </div>
+          <div class="error-msg" id="err-tz">נא להעלות צילום ת"ז</div>
+        </div>
+
+        <div class="field" id="field-spousetz">
+          <label>צילום תעודת זהות של הבעל <span class="required">*</span></label>
+          <div class="file-upload-area" id="spousetz-area">
+            <input type="file" id="spouseTzFile" accept="image/*,.pdf" onchange="handleFile('spouseTzFile','spousetz-area','spousetz-label')" />
+            <div class="upload-icon">🪪</div>
+            <div class="upload-label" id="spousetz-label">לחצי לבחירת קובץ</div>
+            <div class="upload-hint">jpg, png או pdf - עד 10MB</div>
+            <div class="required-badge">חובה לבדיקת התיק</div>
+          </div>
+          <div class="error-msg" id="err-spousetz">נא להעלות צילום ת"ז של הבעל</div>
+        </div>
+
+        <div class="field">
+          <label>הערות - משהו שחשוב לך שאדע</label>
+          <textarea id="notes" placeholder="כל מידע נוסף שרוצה לשתף..."></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-back" onclick="goStep(2)">&rarr; חזרה</button>
+        </div>
+
+        <button class="btn-submit" id="submit-btn" onclick="submitForm()">
+          <span id="submit-text">שלחי את הפרטים</span>
+          <div class="spinner" id="spinner"></div>
+        </button>
+
+        <p style="font-size:12px;color:#aaa;text-align:center;margin-top:14px;line-height:1.6;">
+          המידע נשמר בצורה מאובטחת ומשמש רק לצורך הליווי האישי שלך.
+        </p>
+      </div>
+
+    </div><!-- end card -->
+
+    <!-- Thank you -->
+    <div class="card thankyou" id="thankyou">
+      <div class="icon">✅</div>
+      <h2>קיבלתי! תודה רבה</h2>
+      <p>
+        הפרטים שלך הגיעו אליי בשלום.<br />
+        אצור איתך קשר בקרוב כדי לקבוע את הפגישה הראשונה.<br /><br />
+        בעזרת השם - מתחילים לבנות לך תיק שעובד.
+      </p>
+      <p style="margin-top:20px;font-weight:700;color:var(--blue);">רבקי</p>
+    </div>
+
+  </div><!-- end wrapper -->
+
+  <script>
+    let currentStep = 1;
+
+    function updateProgress(step) {
+      for (let i = 1; i <= 3; i++) {
+        const dot = document.getElementById('dot' + i);
+        dot.classList.remove('active', 'done');
+        if (i < step) dot.classList.add('done');
+        else if (i === step) dot.classList.add('active');
+      }
+      for (let i = 1; i <= 2; i++) {
+        const line = document.getElementById('line' + i);
+        line.classList.toggle('done', i < step);
+      }
+    }
+
+    // Highlight selected radio
+    document.addEventListener('change', function(e) {
+      if (e.target.type === 'radio') {
+        const group = e.target.closest('.radio-group');
+        if (group) {
+          group.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+          e.target.closest('.radio-option').classList.add('selected');
+        }
+      }
+    });
+
+    function toggleChildrenAges() {
+      const val = document.getElementById('numChildren').value;
+      const wrap = document.getElementById('children-ages-wrap');
+      wrap.classList.toggle('visible', val !== '' && val !== '0');
+    }
+
+    function toggleRefinance(show) {
+      document.getElementById('refinance-wrap').classList.toggle('visible', show);
+    }
+
+    function handleFile(inputId, areaId, labelId) {
+      const file = document.getElementById(inputId).files[0];
+      const area = document.getElementById(areaId);
+      const label = document.getElementById(labelId);
+      if (file) {
+        area.classList.add('has-file');
+        label.textContent = '✓ ' + file.name;
+        label.classList.add('done');
+      }
+    }
+
+    function getRadioValue(name) {
+      const checked = document.querySelector(`input[name="${name}"]:checked`);
+      return checked ? checked.value : '';
+    }
+
+    function showError(fieldId, errId, show) {
+      const field = document.getElementById(fieldId);
+      const err = document.getElementById(errId);
+      if (field) field.classList.toggle('has-error', show);
+      if (err) err.style.display = show ? 'block' : 'none';
+    }
+
+    function validateStep1() {
+      let ok = true;
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const marital = getRadioValue('maritalStatus');
+
+      showError('field-name', 'err-name', !name);
+      showError('field-phone', 'err-phone', !phone);
+      const emailOk = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      showError('field-email', 'err-email', !emailOk);
+      showError(null, 'err-marital', !marital);
+
+      if (!name || !phone || !emailOk || !marital) ok = false;
+      return ok;
+    }
+
+    function validateStep2() {
+      let ok = true;
+      const children = document.getElementById('numChildren').value;
+      const employment = getRadioValue('employmentStatus');
+      const income = getRadioValue('income');
+
+      showError(null, 'err-children', !children);
+      showError('field-employment', 'err-employment', !employment);
+      showError('field-income', 'err-income', !income);
+
+      if (!children || !employment || !income) ok = false;
+      return ok;
+    }
+
+    function validateStep3() {
+      let ok = true;
+      const pension = getRadioValue('hasPension');
+      const hishtalmut = getRadioValue('hasHishtalmut');
+      const mortgage = getRadioValue('hasMortgage');
+      const childSavings = getRadioValue('hasChildSavings');
+      const tzFile = document.getElementById('tzFile').files[0];
+      const spouseTzFile = document.getElementById('spouseTzFile').files[0];
+
+      showError('field-pension', 'err-pension', !pension);
+      showError('field-hishtalmut', 'err-hishtalmut', !hishtalmut);
+      showError('field-mortgage', 'err-mortgage', !mortgage);
+      showError('field-childsavings', 'err-childsavings', !childSavings);
+      showError('field-tz', 'err-tz', !tzFile);
+      showError('field-spousetz', 'err-spousetz', !spouseTzFile);
+
+      if (!pension || !hishtalmut || !mortgage || !childSavings || !tzFile || !spouseTzFile) ok = false;
+      return ok;
+    }
+
+    function goStep(n) {
+      if (n === 2 && !validateStep1()) return;
+      if (n === 3 && !validateStep2()) return;
+
+      document.getElementById('step' + currentStep).style.display = 'none';
+      currentStep = n;
+      document.getElementById('step' + currentStep).style.display = 'block';
+      updateProgress(currentStep);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    async function submitForm() {
+      if (!validateStep3()) return;
+
+      const btn = document.getElementById('submit-btn');
+      const text = document.getElementById('submit-text');
+      const spinner = document.getElementById('spinner');
+      btn.disabled = true;
+      text.textContent = 'שולחת...';
+      spinner.style.display = 'block';
+
+      const fd = new FormData();
+      fd.append('name', document.getElementById('name').value.trim());
+      fd.append('phone', document.getElementById('phone').value.trim());
+      fd.append('email', document.getElementById('email').value.trim());
+      fd.append('maritalStatus', getRadioValue('maritalStatus'));
+      fd.append('numChildren', document.getElementById('numChildren').value);
+      fd.append('childrenAges', document.getElementById('childrenAges').value.trim());
+      fd.append('employmentStatus', getRadioValue('employmentStatus'));
+      fd.append('income', getRadioValue('income'));
+      fd.append('hasPension', getRadioValue('hasPension'));
+      fd.append('hasHishtalmut', getRadioValue('hasHishtalmut'));
+      fd.append('hasMortgage', getRadioValue('hasMortgage'));
+      fd.append('interestedInRefinance', getRadioValue('interestedInRefinance'));
+      fd.append('hasChildSavings', getRadioValue('hasChildSavings'));
+      fd.append('notes', document.getElementById('notes').value.trim());
+      fd.append('tzFile', document.getElementById('tzFile').files[0]);
+      fd.append('spouseTzFile', document.getElementById('spouseTzFile').files[0]);
+
+      try {
+        const res = await fetch('https://matzavtzvira.co.il/api/vip-onboarding', {
+          method: 'POST',
+          body: fd,
+        });
+        const data = await res.json();
+        if (data.ok) {
+          document.getElementById('form-card').style.display = 'none';
+          document.querySelector('.progress-wrap').style.display = 'none';
+          document.getElementById('thankyou').style.display = 'block';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          alert('שגיאה בשליחה: ' + (data.error || 'נסי שוב'));
+          btn.disabled = false;
+          text.textContent = 'שלחי את הפרטים';
+          spinner.style.display = 'none';
+        }
+      } catch {
+        alert('שגיאת חיבור - נא לנסות שוב');
+        btn.disabled = false;
+        text.textContent = 'שלחי את הפרטים';
+        spinner.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
