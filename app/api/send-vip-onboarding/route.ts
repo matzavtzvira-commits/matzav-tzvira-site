@@ -53,17 +53,6 @@ export async function POST(req: NextRequest) {
               </a>
             </div>
 
-            <!-- Note -->
-            <div style="background:#F4F7FF;border-radius:12px;padding:18px 20px;margin:28px 0;">
-              <p style="margin:0;font-size:14px;color:#555;line-height:1.7;">
-                <strong style="color:#292929;">שימי לב:</strong>
-                בטופס תתבקשי להעלות צילום ת"ז שלך ושל בעלך -
-                הם נדרשים לבדיקת התיק.
-                <br/>
-                אם אין לך אחד מהם בהישג יד, זה בסדר - תמלאי מה שיש ואצור איתך קשר.
-              </p>
-            </div>
-
             <p style="font-size:15px;color:#555;line-height:1.8;margin:24px 0 0;">
               לכל שאלה - תכתבי לי בחזרה למייל הזה.
             </p>
@@ -73,14 +62,6 @@ export async function POST(req: NextRequest) {
             </p>
           </div>
 
-          <!-- Footer -->
-          <div style="background:#F4F7FF;padding:20px 32px;border-top:1px solid #E8EDFF;text-align:center;">
-            <p style="font-size:12px;color:#aaa;margin:0;line-height:1.6;">
-              מצב צבירה | matzavtzvira.co.il
-              <br/>
-              ${phone ? `טלפון: ${phone}` : ""}
-            </p>
-          </div>
 
         </div>
       </body></html>`,
