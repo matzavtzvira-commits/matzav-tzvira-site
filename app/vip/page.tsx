@@ -162,7 +162,8 @@ function VipHero() {
           {[
             { t: "מחזור ראשון - SOLD OUT", sold: true },
             { t: "מחזור שני - SOLD OUT",   sold: true },
-            { t: "מחזור שלישי - הרשמה פתוחה", sold: false },
+            { t: "מחזור שלישי - SOLD OUT", sold: true },
+            { t: "מחזור רביעי - הרשמה פתוחה", sold: false },
           ].map(({ t, sold }, i) => (
             <span key={i} style={{ background: sold ? "rgba(250,92,92,0.12)" : "rgba(33,240,176,0.12)", border: `1px solid ${sold ? "rgba(250,92,92,0.35)" : "rgba(33,240,176,0.35)"}`, color: sold ? red : green, fontSize: "0.78rem", fontWeight: 700, padding: "5px 14px", borderRadius: 50 }}>
               {t}
@@ -671,8 +672,8 @@ function VipTestimonials() {
         <div style={{ textAlign: "center" }}>
           <div style={{ background: light, borderRadius: 16, padding: "16px 28px", display: "inline-block", marginBottom: 32 }}>
             <p style={{ color: blue, fontWeight: 700, fontSize: "0.95rem", margin: 0 }}>
-              2 מחזורים SOLD OUT לפני שנפתחה ההרשמה הרשמית.
-              <span style={{ color: "#555", fontWeight: 400 }}> המחזור השלישי - מקומות אחרונים.</span>
+              3 מחזורים SOLD OUT לפני שנפתחה ההרשמה הרשמית.
+              <span style={{ color: "#555", fontWeight: 400 }}> המחזור הרביעי - הרשמה פתוחה.</span>
             </p>
           </div>
           <br />
@@ -705,10 +706,10 @@ function UrgencyQuote() {
           </p>
           <div style={{ background: "rgba(33,240,176,0.1)", border: `1px solid rgba(33,240,176,0.3)`, borderRadius: 16, padding: "18px 28px", display: "inline-block" }}>
             <p style={{ color: green, fontWeight: 800, fontSize: "0.95rem", margin: "0 0 4px" }}>
-              מחזור שלישי - 20 מקומות בלבד.
+              מחזור רביעי - 20 מקומות בלבד.
             </p>
             <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.88rem", margin: 0 }}>
-              שני המחזורים הקודמים התמלאו לפני שנפתחה ההרשמה הרשמית.
+              שלושת המחזורים הקודמים SOLD OUT.
             </p>
           </div>
         </motion.div>
@@ -777,11 +778,11 @@ function WhyStory() {
 
         <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
           style={{ background: "rgba(33,240,176,0.1)", border: `2px solid ${green}`, borderRadius: 16, padding: "20px 28px", textAlign: "center" }}>
-          <p style={{ color: white, fontWeight: 800, fontSize: "1.05rem", marginBottom: 4 }}>המחזור השלישי נפתח עכשיו.</p>
+          <p style={{ color: white, fontWeight: 800, fontSize: "1.05rem", marginBottom: 4 }}>המחזור הרביעי נפתח עכשיו.</p>
           <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.9rem", marginBottom: 12 }}>
-            שני המחזורים הקודמים התמלאו לפני שנפתחה ההרשמה הרשמית.
+            שלושת המחזורים הקודמים SOLD OUT.
             <br />
-            20 מקומות בלבד. 50% מהמקומות כבר תפוסים.
+            20 מקומות בלבד.
           </p>
           <BrushBtn href="#contact-form" variant="green">את מוכנה? נתחיל.</BrushBtn>
         </motion.div>
