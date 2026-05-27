@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     const firstName = name.split(" ")[0];
 
     await resend.emails.send({
-      from: "רבקי - מצב צבירה <onboarding@resend.dev>",
+      from: "רבקי - מצב צבירה <rivky@matzavtzvira.co.il>",
       to: email,
       subject: "השלב הבא - טופס קבלת מידע VIP",
       html: `<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8"/></head><body>

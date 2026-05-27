@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     }
 
     await resend.emails.send({
-      from: "אתר מצב צבירה <onboarding@resend.dev>",
+      from: "אתר מצב צבירה <noreply@matzavtzvira.co.il>",
       to: "matzavtzvira@gmail.com",
       subject: `הזמנה חדשה: ${type} - ${org}`,
       html: `

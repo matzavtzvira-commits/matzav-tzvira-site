@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
       </div>`;
 
     await resend.emails.send({
-      from: "אתר מצב צבירה <onboarding@resend.dev>",
+      from: "אתר מצב צבירה <noreply@matzavtzvira.co.il>",
       to: "matzavtzvira@gmail.com",
       subject: `מסמכי החזר מס - ${clientName}`,
       html,
