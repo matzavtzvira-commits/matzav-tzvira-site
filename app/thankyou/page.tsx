@@ -1,7 +1,17 @@
 "use client";
+import { useEffect } from "react";
+import { usePostHog } from "posthog-js/react";
 import Navigation from "@/components/Navigation";
 
 export default function ThankYouPage() {
+  const posthog = usePostHog();
+
+  useEffect(() => {
+    posthog?.capture("purchase", {
+      product: "תוכנית דיגיטלית MUSTרית",
+    });
+  }, [posthog]);
+
   return (
     <>
       <Navigation />

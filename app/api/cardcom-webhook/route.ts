@@ -1,4 +1,5 @@
 ﻿import { NextRequest, NextResponse } from "next/server";
+import { PostHog } from "posthog-node";
 
 export async function POST(req: NextRequest) {
   try {
@@ -56,6 +57,24 @@ export async function POST(req: NextRequest) {
     } else {
       console.log("Rav Messer enrollment ok for:", email);
     }
+
+    const amount = data["SumToBill"] ?? data["Amount"] ?? data["TotalSum"] ?? "";
+    const ph = new PostHog("phc_CsXPYyAq63uNhaYutFcg6n7uzE2RpWFTZD9bNWS5L3d5", {
+      host: "https://us.i.posthog.com",
+      flushAt: 1,
+      flushInterval: 0,
+    });
+    ph.capture({
+      distinctId: email,
+      event: "purchase",
+      properties: {
+        product: "תוכנית דיגיטלית MUSTרית",
+        email,
+        ...(amount ? { value: Number(amount) } : {}),
+      },
+    });
+    await ph.shutdown();
+
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("Webhook error:", err);
