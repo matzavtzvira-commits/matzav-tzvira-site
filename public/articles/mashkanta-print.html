@@ -261,13 +261,36 @@
   }
 
   @media print {
+    @page { margin: 1.2cm 1.4cm; }
     body { background: #fff; }
-    .page { padding: 20px 32px; }
-    .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .box-blue, .box-gold, .tag, .step-num, .link-cta {
+    .page { padding: 0; }
+    .header {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .meta { break-inside: avoid; page-break-inside: avoid; }
+    .intro { break-inside: avoid; page-break-inside: avoid; }
+    .section {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section h2 { break-after: avoid; page-break-after: avoid; }
+    .box-blue, .box-gold {
+      break-inside: avoid;
+      page-break-inside: avoid;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
+    .tag, .step-num, .link-cta, .link-box {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .step { break-inside: avoid; page-break-inside: avoid; }
+    .steps { break-inside: avoid; }
+    .disclaimer { break-inside: avoid; page-break-inside: avoid; }
+    .signature { break-inside: avoid; page-break-inside: avoid; }
   }
 </style>
 </head>
