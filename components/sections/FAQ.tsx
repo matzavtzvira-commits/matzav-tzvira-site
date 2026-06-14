@@ -1,6 +1,8 @@
 ﻿"use client";
 import { useState } from "react";
 
+const PAYMENT_URL = "https://secure.cardcom.solutions/EA/EA5/dKoPGzcdZEqxgTyXuRf8lA/PaymentSP";
+
 const faqs = [
   {
     q: "בסוף התוכנית - מה יש לי שלא היה לפני?",
@@ -92,7 +94,7 @@ export default function FAQ() {
             329 נשים כבר קמו ואספו אותו.
           </p>
           <a
-            href="#pricing"
+            href={PAYMENT_URL}
             style={{ position: "relative", display: "inline-block", textDecoration: "none", transition: "transform 0.2s", maxWidth: "100%" }}
             onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-3px)")}
             onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}

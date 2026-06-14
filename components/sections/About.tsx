@@ -1,6 +1,8 @@
 ﻿"use client";
 import { motion } from "framer-motion";
 
+const PAYMENT_URL = "https://secure.cardcom.solutions/EA/EA5/dKoPGzcdZEqxgTyXuRf8lA/PaymentSP";
+
 export default function About() {
   return (
     <section id="about" style={{ background: "#FFFFFF", padding: "48px 1.5rem 64px" }}>
@@ -86,7 +88,7 @@ export default function About() {
             </p>
 
             <a
-              href="#pricing"
+              href={PAYMENT_URL}
               style={{ position: "relative", display: "inline-block", textDecoration: "none", transition: "transform 0.2s", maxWidth: "100%" }}
               onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-3px)")}
               onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
