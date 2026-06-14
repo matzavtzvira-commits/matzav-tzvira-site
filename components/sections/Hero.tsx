@@ -1,6 +1,8 @@
 ﻿"use client";
 import { motion } from "framer-motion";
 
+const PAYMENT_URL = "https://secure.cardcom.solutions/EA/EA5/dKoPGzcdZEqxgTyXuRf8lA/PaymentSP";
+
 export default function Hero() {
   return (
     <section style={{
@@ -101,7 +103,7 @@ export default function Hero() {
             {/* CTAs */}
             <div className="hero-cta" style={{ display: "flex", gap: 12, alignItems: "center", justifyContent: "flex-start", marginBottom: 28, transform: "translateX(40px)" }}>
               <a
-                href="#pricing"
+                href={PAYMENT_URL}
                 style={{ position: "relative", display: "inline-block", textDecoration: "none", transition: "transform 0.2s" }}
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-3px)")}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}

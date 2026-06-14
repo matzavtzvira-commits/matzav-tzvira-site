@@ -1,5 +1,7 @@
 ﻿"use client";
 
+const PAYMENT_URL = "https://secure.cardcom.solutions/EA/EA5/dKoPGzcdZEqxgTyXuRf8lA/PaymentSP";
+
 export default function MidCTA() {
   return (
     <div style={{ background: "#124AF0", padding: "56px 1.5rem", textAlign: "center" }}>
@@ -21,7 +23,7 @@ export default function MidCTA() {
         </p>
       </div>
       <a
-        href="#pricing"
+        href={PAYMENT_URL}
         style={{ position: "relative", display: "inline-block", textDecoration: "none", transition: "transform 0.2s", maxWidth: "100%" }}
         onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-3px)")}
         onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
