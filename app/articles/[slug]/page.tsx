@@ -791,7 +791,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                         loop
                         muted
                         playsInline
-                        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                        style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 20%", display: "block" }}
                       />
                       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 30%, #1535B5 0%, #060D3C 65%)", WebkitMaskImage: "linear-gradient(to right, black 0%, black 20%, transparent 28%, transparent 72%, black 80%, black 100%)", maskImage: "linear-gradient(to right, black 0%, black 20%, transparent 28%, transparent 72%, black 80%, black 100%)" }} />
                     </div>
