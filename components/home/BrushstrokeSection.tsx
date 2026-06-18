@@ -71,6 +71,13 @@ const cards = [
     cta: "למדריך",
     href: "/articles",
   },
+  {
+    letter: "ד",
+    title: "מדריך הר הכסף",
+    text: "מעל 8 מיליארד ש\"ח מחכים לבעליהם. בדיקה של 5 דקות שיכולה לגלות עשרות אלפי שקלים שלא ידעת שיש לך.",
+    cta: "למדריך",
+    href: "/articles/har-hakessef",
+  },
 ];
 
 export default function BrushstrokeSection() {
