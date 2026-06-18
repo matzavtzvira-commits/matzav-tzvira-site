@@ -16,7 +16,7 @@ const articles: Record<string, {
   heroVideo?: string;
   viewCount?: number;
   viewInc?: number;
-  sections: { heading: string; body: string; image?: string; imageAlt?: string; images?: { src: string; alt: string }[]; link?: string; linkLabel?: string; links?: { href: string; label: string }[]; tableData?: { headers: string[]; rows: string[][] }; embedUrl?: string }[];
+  sections: { heading: string; body: string; image?: string; imageAlt?: string; images?: { src: string; alt: string }[]; link?: string; linkLabel?: string; links?: { href: string; label: string }[]; tableData?: { headers: string[]; rows: string[][] }; embedUrl?: string; faq?: { q: string; a: string }[] }[];
 }> = {
   "pension-management-fees": {
     title: "איך לבדוק את דמי הניהול בפנסיה שלך",
@@ -407,7 +407,20 @@ const articles: Record<string, {
       },
       {
         heading: "שאלות שכולן שואלות",
-        body: "האם צריך ניסיון בשוק ההון כדי לפתוח חשבון?\nלא. בכלל. פתיחת חשבון היא פעולה טכנית - כמו פתיחת חשבון בנק. אחרי שנפתח, לומדים בקצב האישי.\n\nכמה זמן עד שהחשבון פעיל?\nבדרך כלל 1-3 ימי עסקים מרגע שהעברת את הכסף ונציג יצר קשר.\n\nהאם אפשר למשוך את הכסף מתי שרוצים?\nכן. בכל יום מסחר אפשר למכור ולמשוך. אין נעילה ואין קנסות.\n\nמה ההבדל בין חשבון מסחר לפנסיה?\nהפנסיה נועלת כסף עד גיל פרישה. חשבון מסחר עצמאי - הכסף נגיש בכל עת. זה לא במקום הפנסיה, זה בנוסף אליה.\n\nהאם בית ההשקעות מדווח למס הכנסה?\nכן. מיטב מוציאה דוח שנתי לרשות המיסים. לא צריך לעשות כלום בעצמך.\n\nמה זה אומר שמיטב נסחרת בבורסה - למה זה חשוב?\nזה אומר שהיא חברה ציבורית ומפוקחת. הדוחות שלה פומביים. אי אפשר להסתיר כלום.\n\nמה קורה לכסף שלי אם מיטב נסגרת?\nהכסף שלך מופרד משל החברה - זה חובה חוקית. במקרה קיצוני, הוא יועבר לבית השקעות אחר.\n\nהאם יש עמלות על כל קנייה?\nכן. בבתי השקעות ישראליים גובים בדרך כלל בין 0.07% ל-0.09% מסכום העסקה, עם מינימום של 2-5 ש\"ח לפעולה. על קנייה של 1,000 ש\"ח - זה בין 70 אגורות ל-5 ש\"ח. לא סכום שמשנה את התמונה הגדולה.\n\nמה ההבדל בין קרן סל לקרן נאמנות?\nקרן סל נסחרת כמו מניה לאורך היום, דמי ניהול נמוכים מאוד. קרן נאמנות נסחרת פעם ביום, לרוב יקרה יותר. לרוב קרן סל עדיפה למשקיע פאסיבי.\n\nיש מסלולים כשרים - איך מזהים?\nניתן לחפש לפי שם הקרן בחשבון ולוודא מול הגורם הרלוונטי. ברשימת הקרנות הפופולריות סימנתי את הכשרות בנפרד.\n\nכמה כסף צריך בשביל להתחיל?\nמינימום 5,000 ש\"ח להפעלת החשבון. אחרי זה אפשר לקנות קרן סל גם ב-500 ש\"ח.\n\nכמה זמן לוקח לפתוח?\n10-15 דקות. אם המסמכים מוכנים - אפילו פחות.",
+        body: "",
+        faq: [
+          { q: "האם צריך ניסיון בשוק ההון כדי לפתוח חשבון?", a: "לא. בכלל. פתיחת חשבון היא פעולה טכנית - כמו פתיחת חשבון בנק. אחרי שנפתח, לומדים בקצב האישי." },
+          { q: "כמה זמן עד שהחשבון פעיל?", a: "בדרך כלל 1-3 ימי עסקים מרגע שהעברת את הכסף ונציג יצר קשר." },
+          { q: "האם אפשר למשוך את הכסף מתי שרוצים?", a: "כן. בכל יום מסחר אפשר למכור ולמשוך. אין נעילה ואין קנסות." },
+          { q: "מה ההבדל בין חשבון מסחר לפנסיה?", a: "הפנסיה נועלת כסף עד גיל פרישה. חשבון מסחר עצמאי - הכסף נגיש בכל עת. זה לא במקום הפנסיה, זה בנוסף אליה." },
+          { q: "האם בית ההשקעות מדווח למס הכנסה?", a: "כן. כל הפלטפורמות מוציאות דוח שנתי לרשות המיסים. לא צריך לעשות כלום בעצמך." },
+          { q: "מה קורה לכסף שלי אם הפלטפורמה נסגרת?", a: "הכסף שלך מופרד משל החברה - זה חובה חוקית. במקרה קיצוני, הוא יועבר לבית השקעות אחר." },
+          { q: "האם יש עמלות על כל קנייה?", a: "כן. בבתי השקעות ישראליים גובים בדרך כלל בין 0.07% ל-0.09% מסכום העסקה, עם מינימום של 2-5 ₪ לפעולה. על קנייה של 1,000 ₪ - זה בין 70 אגורות ל-5 ₪. לא סכום שמשנה את התמונה הגדולה." },
+          { q: "מה ההבדל בין קרן סל לקרן נאמנות?", a: "קרן סל נסחרת כמו מניה לאורך היום, דמי ניהול נמוכים מאוד. קרן נאמנות נסחרת פעם ביום, לרוב יקרה יותר. לרוב קרן סל עדיפה למשקיע פאסיבי." },
+          { q: "יש מסלולים כשרים - איך מזהים?", a: "ניתן לחפש לפי שם הקרן בחשבון ולוודא מול הגורם הרלוונטי. ברשימת הקרנות הפופולריות סימנתי את הכשרות בנפרד." },
+          { q: "כמה כסף צריך בשביל להתחיל?", a: "תלוי בפלטפורמה: פייר - 250 ₪, מיטב ואלטשולר - 5,000 ₪, IBI - 15,000 ₪. אחרי פתיחת החשבון אפשר לקנות קרן סל גם ב-500 ₪." },
+          { q: "כמה זמן לוקח לפתוח?", a: "10-15 דקות. אם המסמכים מוכנים - אפילו פחות." },
+        ],
       },
       {
         heading: "מוכנה? זה הזמן.",
@@ -835,7 +848,31 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             {article.sections.map((s, i) => (
               <div key={i} className="art-card" style={{ background: "white", borderRadius: 20, padding: "32px 36px", border: "1px solid #E8EDFF", marginBottom: 20 }}>
                 <h2 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#124AF0", marginBottom: 16, lineHeight: 1.3 }}>{s.heading}</h2>
-                <p style={{ fontSize: "1rem", color: "#444", lineHeight: 2.0, margin: 0, whiteSpace: "pre-line" }}>{s.body}</p>
+                {s.body ? <p style={{ fontSize: "1rem", color: "#444", lineHeight: 2.0, margin: 0, whiteSpace: "pre-line" }}>{s.body}</p> : null}
+                {s.faq && (
+                  <>
+                    <style>{`
+                      .faq-item { border-bottom: 1px solid #E8EDFF; }
+                      .faq-item:last-child { border-bottom: none; }
+                      .faq-item summary { padding: 15px 0; cursor: pointer; font-weight: 600; color: #292929; font-size: 0.97rem; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; user-select: none; }
+                      .faq-item summary::-webkit-details-marker { display: none; }
+                      .faq-icon { color: #124AF0; font-size: 1.5rem; font-weight: 300; flex-shrink: 0; line-height: 1; transition: transform 0.25s ease; }
+                      .faq-item[open] .faq-icon { transform: rotate(45deg); }
+                      .faq-ans { color: #555; line-height: 1.85; font-size: 0.95rem; padding-bottom: 14px; margin: 0; }
+                    `}</style>
+                    <div style={{ marginTop: 4 }}>
+                      {s.faq.map((item, j) => (
+                        <details key={j} className="faq-item">
+                          <summary>
+                            <span>{item.q}</span>
+                            <span className="faq-icon">+</span>
+                          </summary>
+                          <p className="faq-ans">{item.a}</p>
+                        </details>
+                      ))}
+                    </div>
+                  </>
+                )}
                 {s.tableData && (
                   <div style={{ overflowX: "auto", marginTop: 16 }}>
                     <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.88rem" }}>
