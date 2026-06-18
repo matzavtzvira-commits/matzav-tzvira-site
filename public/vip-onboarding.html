@@ -366,6 +366,17 @@
           <div class="error-msg" id="err-email">נא להזין כתובת מייל תקינה</div>
         </div>
 
+        <div class="field" id="field-age">
+          <label>גיל <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="ageRange" value="עד 30" /> עד 30</label>
+            <label class="radio-option"><input type="radio" name="ageRange" value="30-40" /> 30-40</label>
+            <label class="radio-option"><input type="radio" name="ageRange" value="40-50" /> 40-50</label>
+            <label class="radio-option"><input type="radio" name="ageRange" value="50+" /> 50 ומעלה</label>
+          </div>
+          <div class="error-msg" id="err-age">נא לבחור גיל</div>
+        </div>
+
         <div class="field" id="field-marital">
           <label>מצב משפחתי <span class="required">*</span></label>
           <div class="radio-group" id="marital-group">
@@ -377,6 +388,18 @@
             </label>
           </div>
           <div class="error-msg" id="err-marital">נא לבחור מצב משפחתי</div>
+        </div>
+
+        <div class="field" id="field-goal">
+          <label>מה המטרה העיקרית שלך מהליווי? <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="mainGoal" value="בדיקת תיק פנסיוני" /> בדיקת תיק פנסיוני</label>
+            <label class="radio-option"><input type="radio" name="mainGoal" value="התחלת השקעות עצמאיות" /> התחלת השקעות עצמאיות</label>
+            <label class="radio-option"><input type="radio" name="mainGoal" value="החזר מס הכנסה" /> החזר מס הכנסה</label>
+            <label class="radio-option"><input type="radio" name="mainGoal" value="תכנון פיננסי כולל" /> תכנון פיננסי כולל</label>
+            <label class="radio-option"><input type="radio" name="mainGoal" value="עדיין לא בטוחה" /> עדיין לא בטוחה</label>
+          </div>
+          <div class="error-msg" id="err-goal">נא לבחור מטרה</div>
         </div>
 
         <div class="btn-row">
@@ -451,6 +474,34 @@
           <div class="error-msg" id="err-income">נא לבחור טווח הכנסה</div>
         </div>
 
+        <div id="spouse-work-wrap" style="display:none;">
+          <div class="divider"></div>
+          <p style="font-size:15px;font-weight:800;color:var(--dark);margin:4px 0 16px;">פרטי הבעל</p>
+
+          <div class="field" id="field-spouse-employment">
+            <label>סטטוס תעסוקה של הבעל <span class="required">*</span></label>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="spouseEmployment" value="שכיר" /> שכיר</label>
+              <label class="radio-option"><input type="radio" name="spouseEmployment" value="עצמאי" /> עצמאי</label>
+              <label class="radio-option"><input type="radio" name="spouseEmployment" value="שכיר ועצמאי" /> גם וגם</label>
+              <label class="radio-option"><input type="radio" name="spouseEmployment" value="לא עובד" /> לא עובד כרגע</label>
+            </div>
+            <div class="error-msg" id="err-spouse-employment">נא לבחור</div>
+          </div>
+
+          <div class="field" id="field-spouse-income">
+            <label>הכנסה חודשית של הבעל <span class="required">*</span></label>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="spouseIncome" value="עד 8,000 ש&quot;ח" /> עד 8,000 ש"ח</label>
+              <label class="radio-option"><input type="radio" name="spouseIncome" value="8,000-15,000 ש&quot;ח" /> 8,000-15,000 ש"ח</label>
+              <label class="radio-option"><input type="radio" name="spouseIncome" value="15,000-25,000 ש&quot;ח" /> 15,000-25,000 ש"ח</label>
+              <label class="radio-option"><input type="radio" name="spouseIncome" value="מעל 25,000 ש&quot;ח" /> מעל 25,000 ש"ח</label>
+              <label class="radio-option"><input type="radio" name="spouseIncome" value="מעדיפה לא לציין" /> מעדיפה לא לציין</label>
+            </div>
+            <div class="error-msg" id="err-spouse-income">נא לבחור</div>
+          </div>
+        </div>
+
         <div class="btn-row">
           <button class="btn-back" onclick="goStep(1)">&rarr; חזרה</button>
           <button class="btn-next" onclick="goStep(3)">הבאה &larr;</button>
@@ -472,6 +523,16 @@
           <div class="error-msg" id="err-pension">נא לענות על השאלה</div>
         </div>
 
+        <div class="field" id="field-spouse-pension" style="display:none;">
+          <label>לבעלך יש פנסיה פעילה? <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="spouseHasPension" value="כן" /> כן</label>
+            <label class="radio-option"><input type="radio" name="spouseHasPension" value="לא" /> לא</label>
+            <label class="radio-option"><input type="radio" name="spouseHasPension" value="לא יודעת" /> לא יודעת</label>
+          </div>
+          <div class="error-msg" id="err-spouse-pension">נא לענות על השאלה</div>
+        </div>
+
         <div class="field" id="field-hishtalmut">
           <label>יש לך קרן השתלמות? <span class="required">*</span></label>
           <div class="radio-group">
@@ -480,6 +541,26 @@
             <label class="radio-option"><input type="radio" name="hasHishtalmut" value="לא יודעת" /> לא יודעת</label>
           </div>
           <div class="error-msg" id="err-hishtalmut">נא לענות על השאלה</div>
+        </div>
+
+        <div class="field" id="field-loan">
+          <label>האם יש לך הלוואה על קרן הפנסיה או מוצר פיננסי אחר? <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="hasLoan" value="כן" /> כן</label>
+            <label class="radio-option"><input type="radio" name="hasLoan" value="לא" /> לא</label>
+            <label class="radio-option"><input type="radio" name="hasLoan" value="לא יודעת" /> לא יודעת</label>
+          </div>
+          <div class="error-msg" id="err-loan">נא לענות על השאלה</div>
+        </div>
+
+        <div class="field" id="field-spouse-loan" style="display:none;">
+          <label>האם לבעלך יש הלוואה על קרן הפנסיה או מוצר פיננסי אחר? <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="spouseHasLoan" value="כן" /> כן</label>
+            <label class="radio-option"><input type="radio" name="spouseHasLoan" value="לא" /> לא</label>
+            <label class="radio-option"><input type="radio" name="spouseHasLoan" value="לא יודעת" /> לא יודעת</label>
+          </div>
+          <div class="error-msg" id="err-spouse-loan">נא לענות על השאלה</div>
         </div>
 
         <div class="field" id="field-mortgage">
@@ -522,6 +603,26 @@
             <label class="radio-option"><input type="radio" name="hasChildSavings" value="לא" /> לא</label>
           </div>
           <div class="error-msg" id="err-childsavings">נא לענות על השאלה</div>
+        </div>
+
+        <div class="field" id="field-life-insurance">
+          <label>האם יש לך ביטוח חיים פרטי? <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="hasLifeInsurance" value="כן" /> כן</label>
+            <label class="radio-option"><input type="radio" name="hasLifeInsurance" value="לא" /> לא</label>
+            <label class="radio-option"><input type="radio" name="hasLifeInsurance" value="לא יודעת" /> לא יודעת</label>
+          </div>
+          <div class="error-msg" id="err-life-insurance">נא לענות על השאלה</div>
+        </div>
+
+        <div class="field" id="field-gemel">
+          <label>האם יש לך קרן גמל? <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="hasGemel" value="כן" /> כן</label>
+            <label class="radio-option"><input type="radio" name="hasGemel" value="לא" /> לא</label>
+            <label class="radio-option"><input type="radio" name="hasGemel" value="לא יודעת" /> לא יודעת</label>
+          </div>
+          <div class="error-msg" id="err-gemel">נא לענות על השאלה</div>
         </div>
 
         <div class="divider"></div>
@@ -972,15 +1073,19 @@
       const name = document.getElementById('name').value.trim();
       const phone = document.getElementById('phone').value.trim();
       const email = document.getElementById('email').value.trim();
+      const age = getRadioValue('ageRange');
       const marital = getRadioValue('maritalStatus');
+      const goal = getRadioValue('mainGoal');
 
       showError('field-name', 'err-name', !name);
       showError('field-phone', 'err-phone', !phone);
       const emailOk = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
       showError('field-email', 'err-email', !emailOk);
+      showError('field-age', 'err-age', !age);
       showError(null, 'err-marital', !marital);
+      showError('field-goal', 'err-goal', !goal);
 
-      if (!name || !phone || !emailOk || !marital) ok = false;
+      if (!name || !phone || !emailOk || !age || !marital || !goal) ok = false;
       return ok;
     }
 
@@ -989,32 +1094,58 @@
       const children = document.getElementById('numChildren').value;
       const employment = getRadioValue('employmentStatus');
       const income = getRadioValue('income');
+      const married = getRadioValue('maritalStatus') === 'נשואה';
 
       showError(null, 'err-children', !children);
       showError('field-employment', 'err-employment', !employment);
       showError('field-income', 'err-income', !income);
 
       if (!children || !employment || !income) ok = false;
+
+      if (married) {
+        const spouseEmp = getRadioValue('spouseEmployment');
+        const spouseIncome = getRadioValue('spouseIncome');
+        showError('field-spouse-employment', 'err-spouse-employment', !spouseEmp);
+        showError('field-spouse-income', 'err-spouse-income', !spouseIncome);
+        if (!spouseEmp || !spouseIncome) ok = false;
+      }
+
       return ok;
     }
 
     function validateStep3() {
       let ok = true;
+      const married = getRadioValue('maritalStatus') === 'נשואה';
       const pension = getRadioValue('hasPension');
       const hishtalmut = getRadioValue('hasHishtalmut');
+      const hasLoan = getRadioValue('hasLoan');
       const mortgage = getRadioValue('hasMortgage');
       const childSavings = getRadioValue('hasChildSavings');
+      const hasLifeInsurance = getRadioValue('hasLifeInsurance');
+      const hasGemel = getRadioValue('hasGemel');
       const tzFile = document.getElementById('tzFile').files[0];
-      const spouseTzFile = document.getElementById('spouseTzFile').files[0];
 
       showError('field-pension', 'err-pension', !pension);
       showError('field-hishtalmut', 'err-hishtalmut', !hishtalmut);
+      showError('field-loan', 'err-loan', !hasLoan);
       showError('field-mortgage', 'err-mortgage', !mortgage);
       showError('field-childsavings', 'err-childsavings', !childSavings);
+      showError('field-life-insurance', 'err-life-insurance', !hasLifeInsurance);
+      showError('field-gemel', 'err-gemel', !hasGemel);
       showError('field-tz', 'err-tz', !tzFile);
-      showError('field-spousetz', 'err-spousetz', !spouseTzFile);
 
-      if (!pension || !hishtalmut || !mortgage || !childSavings || !tzFile || !spouseTzFile) ok = false;
+      if (!pension || !hishtalmut || !hasLoan || !mortgage || !childSavings || !hasLifeInsurance || !hasGemel || !tzFile) ok = false;
+
+      if (married) {
+        const spousePension = getRadioValue('spouseHasPension');
+        const spouseLoan = getRadioValue('spouseHasLoan');
+        const spouseTzFile = document.getElementById('spouseTzFile').files[0];
+        showError('field-spouse-pension', 'err-spouse-pension', !spousePension);
+        showError('field-spouse-loan', 'err-spouse-loan', !spouseLoan);
+        showError('field-spousetz', 'err-spousetz', !spouseTzFile);
+        if (!spousePension || !spouseLoan || !spouseTzFile) ok = false;
+      }
+
       return ok;
     }
 
@@ -1026,7 +1157,21 @@
       currentStep = n;
       document.getElementById('step' + currentStep).style.display = 'block';
       updateProgress(currentStep);
+      if (n === 2) initStep2();
+      if (n === 3) initStep3();
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function initStep2() {
+      const married = getRadioValue('maritalStatus') === 'נשואה';
+      document.getElementById('spouse-work-wrap').style.display = married ? 'block' : 'none';
+    }
+
+    function initStep3() {
+      const married = getRadioValue('maritalStatus') === 'נשואה';
+      document.getElementById('field-spouse-pension').style.display = married ? 'block' : 'none';
+      document.getElementById('field-spouse-loan').style.display = married ? 'block' : 'none';
+      document.getElementById('field-spousetz').style.display = married ? 'block' : 'none';
     }
 
     // הצגת שדות בן/בת זוג בשלב 4 אם נשואה
@@ -1091,6 +1236,15 @@
       fd.append('hasMortgage', getRadioValue('hasMortgage'));
       fd.append('interestedInRefinance', getRadioValue('interestedInRefinance'));
       fd.append('hasChildSavings', getRadioValue('hasChildSavings'));
+      fd.append('ageRange', getRadioValue('ageRange'));
+      fd.append('mainGoal', getRadioValue('mainGoal'));
+      fd.append('spouseEmploymentStatus', getRadioValue('spouseEmployment'));
+      fd.append('spouseIncome', getRadioValue('spouseIncome'));
+      fd.append('spouseHasPension', getRadioValue('spouseHasPension'));
+      fd.append('hasLoan', getRadioValue('hasLoan'));
+      fd.append('spouseHasLoan', getRadioValue('spouseHasLoan'));
+      fd.append('hasLifeInsurance', getRadioValue('hasLifeInsurance'));
+      fd.append('hasGemel', getRadioValue('hasGemel'));
       fd.append('notes', document.getElementById('notes').value.trim());
       const tzFile = document.getElementById('tzFile').files[0];
       const spouseTzFile = document.getElementById('spouseTzFile').files[0];
