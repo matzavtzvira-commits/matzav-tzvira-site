@@ -148,9 +148,8 @@ export default function ArticlesPage() {
                         <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 40%, #1535B5 0%, #060D3C 80%)", WebkitMaskImage: "linear-gradient(to right, black 0%, black 20%, transparent 28%, transparent 72%, black 80%, black 100%)", maskImage: "linear-gradient(to right, black 0%, black 20%, transparent 28%, transparent 72%, black 80%, black 100%)" }} />
                       </div>
                     ) : a.slug === "mashkanta-check" ? (
-                      <div style={{ background: "radial-gradient(ellipse at 50% 40%, #1535B5 0%, #060D3C 80%)", height: 160, overflow: "hidden", position: "relative" }}>
-                        <video src="/guides/mashkanta-video.mp4" autoPlay loop muted playsInline style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 20%", display: "block" }} />
-                        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 40%, #1535B5 0%, #060D3C 80%)", WebkitMaskImage: "linear-gradient(to right, black 0%, black 15%, transparent 25%, transparent 75%, black 85%, black 100%)", maskImage: "linear-gradient(to right, black 0%, black 15%, transparent 25%, transparent 75%, black 85%, black 100%)" }} />
+                      <div style={{ background: "radial-gradient(ellipse at 50% 40%, #1535B5 0%, #060D3C 80%)", height: 160, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+                        <video src="/guides/mashkanta-video.mp4" autoPlay loop muted playsInline style={{ height: "100%", width: "100%", objectFit: "contain" }} />
                       </div>
                     ) : a.slug === "open-trading-account" ? (
                       <div style={{ background: "radial-gradient(ellipse at 50% 40%, #1535B5 0%, #060D3C 80%)", height: 160, overflow: "hidden", position: "relative" }}>
