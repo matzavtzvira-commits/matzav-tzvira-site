@@ -95,20 +95,24 @@ function StickyBtn() {
 function VipHero() {
   return (
     <section style={{ background: `radial-gradient(ellipse at 50% 30%, #1535B5 0%, ${navy} 65%)`, paddingTop: 100, paddingBottom: 110, position: "relative", overflow: "hidden" }}>
+      {/* Ambient glows */}
       <div style={{ position: "absolute", top: -80, right: -80, width: 400, height: 400, borderRadius: "50%", background: "rgba(33,240,176,0.07)", filter: "blur(90px)", pointerEvents: "none" }} />
       <div style={{ position: "absolute", bottom: -60, left: -60, width: 340, height: 340, borderRadius: "50%", background: "rgba(250,92,92,0.06)", filter: "blur(80px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: "40%", left: "15%", width: 200, height: 200, borderRadius: "50%", background: "rgba(18,74,240,0.12)", filter: "blur(60px)", pointerEvents: "none" }} />
+      {/* Mesh grid overlay */}
+      <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, rgba(33,240,176,0.055) 1px, transparent 1px)", backgroundSize: "44px 44px", pointerEvents: "none" }} />
 
       <div style={{ maxWidth: 820, margin: "0 auto", padding: "0 1.5rem", textAlign: "center", position: "relative" }}>
 
-        {/* Tagline */}
+        {/* Hook */}
         <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }} style={{ marginBottom: 28 }}>
-          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "1rem", lineHeight: 1.7, margin: "0 0 2px" }}>המזכירה שלך בונה לעצמה 2 מיליון ש"ח לפנסיה.</p>
-          <p style={{ color: white, fontSize: "1.1rem", fontWeight: 700, margin: 0 }}>את? את עדיין רצה.</p>
+          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "1rem", lineHeight: 1.7, margin: "0 0 2px" }}>יש לך מאות אלפי שקלים שמחכים לך.</p>
+          <p style={{ color: white, fontSize: "1.1rem", fontWeight: 700, margin: 0 }}>הם פשוט לא יודעים שאת קיימת.</p>
         </motion.div>
 
-        {/* Welcome */}
+        {/* Tagline */}
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.5 }} style={{ color: green, fontSize: "0.88rem", fontWeight: 700, letterSpacing: 2, margin: "0 0 24px" }}>
-          שיחת ספה. רק שתינו.
+          אנחנו נכנסות לנעליים שלך. ועושות.
         </motion.p>
 
         {/* VIP letters */}
@@ -126,27 +130,33 @@ function VipHero() {
 
         {/* H1 */}
         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.55 }}
-          style={{ fontSize: "clamp(1.5rem, 3.2vw, 2.1rem)", fontWeight: 800, lineHeight: 1.5, color: white, maxWidth: 680, margin: "0 auto 10px" }}>
-          מרוויחה טוב.
+          style={{ fontSize: "clamp(1.6rem, 3.4vw, 2.3rem)", fontWeight: 800, lineHeight: 1.5, color: white, maxWidth: 680, margin: "0 auto 10px" }}>
+          הכסף שמגיע לך?
           <br />
-          <span style={{ color: green }}>ועדיין הכל תלוי</span>
+          <span style={{ color: green }}>כבר שם.</span>
           <br />
-          שלא תפסיקי.
+          רק צריך מישהי
+          <br />
+          שתלך לקחת אותו.
         </motion.h1>
 
         {/* Sub */}
         <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.7 }}
-          style={{ color: "rgba(255,255,255,0.72)", fontSize: "1rem", lineHeight: 1.9, maxWidth: 560, margin: "0 auto 28px" }}>
-          מה אם מישהי פשוט עושה את כל העבודה -
+          style={{ color: "rgba(255,255,255,0.72)", fontSize: "1rem", lineHeight: 1.9, maxWidth: 560, margin: "0 auto 24px" }}>
+          אנחנו נכנסות לנעליים שלך, עושות את כל הביורוקרטיה המעצבנת -
           <br />
-          ואת סוף סוף מתחילה לנשום?
+          ואת יוצאת עם מאות אלפי שקלים שחיכו לך בשקט.
         </motion.p>
 
-        {/* Identity shift */}
-        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.82, duration: 0.5 }}
-          style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.92rem", marginBottom: 28, background: "rgba(33,240,176,0.1)", border: "1px solid rgba(33,240,176,0.25)", borderRadius: 50, display: "inline-block", padding: "6px 20px" }}>
-          מ-"מרוויחה ורצה" - לבעלת הון שגדל גם כשאת ישנה.
-        </motion.p>
+        {/* What we do chips */}
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.78, duration: 0.5 }}
+          style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginBottom: 32 }}>
+          {["בלי ללמוד", "בלי לחפור בדוחות", "בלי שעות על הטלפון"].map((t, i) => (
+            <span key={i} style={{ background: "rgba(33,240,176,0.1)", border: "1px solid rgba(33,240,176,0.28)", color: green, fontSize: "0.83rem", fontWeight: 700, padding: "6px 18px", borderRadius: 50 }}>
+              ✓ {t}
+            </span>
+          ))}
+        </motion.div>
 
         {/* CTA */}
         <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.9 }} style={{ marginBottom: 40 }}>
