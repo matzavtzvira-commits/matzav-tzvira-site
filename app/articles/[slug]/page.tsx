@@ -411,9 +411,13 @@ const articles: Record<string, {
       },
       {
         heading: "מוכנה? זה הזמן.",
-        body: "אל תדחי את זה לשבוע הבא. השבוע הבא הופך לחודש הבא, שהופך לשנה הבאה.\n\n10 דקות. מהבית. עם הטבה.\n\nגילוי נאות: לינק שותף - אני מרוויחה עמלה. ההטבה שלך נשמרת במלואה.\n\nכל האמור הוא למטרת העשרה והדרכה בלבד, ואינו מהווה ייעוץ פיננסי, המלצה להשקעה או תחליף לייעוץ מקצועי. כל פעולה בשוק ההון הינה על אחריותך בלבד.",
-        link: "https://landing.meitav.co.il/he-IL/landing/trade/tradeleadsfreinds?utm_medium=E9A9E949610ADFA60F7EA9A8D01A99C1",
-        linkLabel: "לחצי כאן - 100 ש\"ח מתנה + 2 שנות ניהול חינם",
+        body: "אל תדחי את זה לשבוע הבא. השבוע הבא הופך לחודש הבא, שהופך לשנה הבאה.\n\n10 דקות. מהבית. עם ההטבה שלך.\n\nגילוי נאות: לינקים שותפים - אני מרוויחה עמלה. ההטבות שלך נשמרות במלואן.\n\nכל האמור הוא למטרת העשרה והדרכה בלבד, ואינו מהווה ייעוץ פיננסי, המלצה להשקעה או תחליף לייעוץ מקצועי. כל פעולה בשוק ההון הינה על אחריותך בלבד.",
+        links: [
+          { href: "https://landing.meitav.co.il/he-IL/landing/trade/tradeleadsfreinds?utm_medium=E9A9E949610ADFA60F7EA9A8D01A99C1", label: "מיטב - 100 ₪ + 2 שנות ניהול חינם ←" },
+          { href: "https://www.fair.co.il/%D7%A4%D7%9C%D7%98%D7%A4%D7%95%D7%A8%D7%9E%D7%AA-%D7%94%D7%A9%D7%A7%D7%A2%D7%95%D7%AA-%D7%93%D7%99%D7%92%D7%99%D7%98%D7%9C%D7%99%D7%AA/?utm_source=nwsp_matzavtzvira", label: "פייר - מינימום 250 ₪ ←" },
+          { href: "https://onboarding.ibi.co.il/open-account?step=first_name&source__c=OB&UTM_Campaign_Source__c=OB&keyword__c=smart-feature-ob&Coupon__c=IBIWSOFM&referrer=%D7%9E%D7%A6%D7%91_%D7%A6%D7%91%D7%99%D7%A8%D7%94", label: "IBI - 300 ₪ + קורס מבוא ←" },
+          { href: "https://digitalsolutions.as-invest.co.il/trade_OnBoarding/?utm_source=Matzavtzvira&utm_medium=Link", label: "אלטשולר - 200 ₪ מתנה ←" },
+        ],
       },
     ],
   },
