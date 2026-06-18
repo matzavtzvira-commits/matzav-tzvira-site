@@ -479,26 +479,13 @@
           <p style="font-size:15px;font-weight:800;color:var(--dark);margin:4px 0 16px;">פרטי הבעל</p>
 
           <div class="field" id="field-spouse-employment">
-            <label>סטטוס תעסוקה של הבעל <span class="required">*</span></label>
+            <label>הבעל שכיר או עצמאי? <span class="required">*</span></label>
             <div class="radio-group">
               <label class="radio-option"><input type="radio" name="spouseEmployment" value="שכיר" /> שכיר</label>
               <label class="radio-option"><input type="radio" name="spouseEmployment" value="עצמאי" /> עצמאי</label>
-              <label class="radio-option"><input type="radio" name="spouseEmployment" value="שכיר ועצמאי" /> גם וגם</label>
-              <label class="radio-option"><input type="radio" name="spouseEmployment" value="לא עובד" /> לא עובד כרגע</label>
+              <label class="radio-option"><input type="radio" name="spouseEmployment" value="גם וגם" /> גם וגם</label>
             </div>
             <div class="error-msg" id="err-spouse-employment">נא לבחור</div>
-          </div>
-
-          <div class="field" id="field-spouse-income">
-            <label>הכנסה חודשית של הבעל <span class="required">*</span></label>
-            <div class="radio-group">
-              <label class="radio-option"><input type="radio" name="spouseIncome" value="עד 8,000 ש&quot;ח" /> עד 8,000 ש"ח</label>
-              <label class="radio-option"><input type="radio" name="spouseIncome" value="8,000-15,000 ש&quot;ח" /> 8,000-15,000 ש"ח</label>
-              <label class="radio-option"><input type="radio" name="spouseIncome" value="15,000-25,000 ש&quot;ח" /> 15,000-25,000 ש"ח</label>
-              <label class="radio-option"><input type="radio" name="spouseIncome" value="מעל 25,000 ש&quot;ח" /> מעל 25,000 ש"ח</label>
-              <label class="radio-option"><input type="radio" name="spouseIncome" value="מעדיפה לא לציין" /> מעדיפה לא לציין</label>
-            </div>
-            <div class="error-msg" id="err-spouse-income">נא לבחור</div>
           </div>
         </div>
 
@@ -1104,10 +1091,8 @@
 
       if (married) {
         const spouseEmp = getRadioValue('spouseEmployment');
-        const spouseIncome = getRadioValue('spouseIncome');
         showError('field-spouse-employment', 'err-spouse-employment', !spouseEmp);
-        showError('field-spouse-income', 'err-spouse-income', !spouseIncome);
-        if (!spouseEmp || !spouseIncome) ok = false;
+        if (!spouseEmp) ok = false;
       }
 
       return ok;
@@ -1239,7 +1224,6 @@
       fd.append('ageRange', getRadioValue('ageRange'));
       fd.append('mainGoal', getRadioValue('mainGoal'));
       fd.append('spouseEmploymentStatus', getRadioValue('spouseEmployment'));
-      fd.append('spouseIncome', getRadioValue('spouseIncome'));
       fd.append('spouseHasPension', getRadioValue('spouseHasPension'));
       fd.append('hasLoan', getRadioValue('hasLoan'));
       fd.append('spouseHasLoan', getRadioValue('spouseHasLoan'));
