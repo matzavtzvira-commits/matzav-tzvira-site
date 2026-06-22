@@ -74,7 +74,7 @@ export default function HomeHero() {
             transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
             style={{ color: "white", fontSize: "clamp(2.8rem, 5vw, 4.2rem)", fontWeight: 700, lineHeight: 1.2, marginBottom: 36 }}
           >
-            רבקי וייס נותנת לך מטריה פיננסית.
+            השקעות לנשים - בשפה פשוטה, בלי פחד.
           </motion.h1>
 
           <motion.div
