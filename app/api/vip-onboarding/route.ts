@@ -138,6 +138,39 @@ export async function POST(req: NextRequest) {
       attachments,
     });
 
+    // Sync the textual answers to the dashboard client (matched by email).
+    // Files (ID photos, mortgage report) are intentionally NOT sent — email only.
+    const onboarding = [
+      `מצב משפחתי: ${maritalStatus || "לא צוין"}`,
+      `מספר ילדים: ${numChildren || "לא צוין"}`,
+      `גילאי הילדים: ${childrenAges || "לא צוין"}`,
+      `סטטוס תעסוקה: ${employmentStatus || "לא צוין"}`,
+      `הכנסה חודשית: ${income || "לא צוין"}`,
+      `פנסיה: ${hasPension || "לא צוין"}`,
+      `קרן השתלמות: ${hasHishtalmut || "לא צוין"}`,
+      `משכנתא: ${hasMortgage || "לא צוין"}`,
+      ...(hasMortgage === "כן" ? [`מחזור משכנתא: ${interestedInRefinance || "לא צוין"}`] : []),
+      `חסכון לילדים: ${hasChildSavings || "לא צוין"}`,
+      ...(notes ? [`הערות: ${notes}`] : []),
+    ].join("\n");
+
+    const syncSecret = process.env.VIP_INTAKE_SECRET;
+    if (syncSecret) {
+      const syncUrl =
+        process.env.VIP_ONBOARDING_SYNC_URL ||
+        "https://tasks-dashboard-gamma.vercel.app/api/vip-onboarding-sync";
+      try {
+        await fetch(syncUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-intake-secret": syncSecret },
+          body: JSON.stringify({ email, onboarding, phone }),
+          signal: AbortSignal.timeout(5000),
+        });
+      } catch (e) {
+        console.error("VIP onboarding dashboard sync failed:", e);
+      }
+    }
+
     return NextResponse.json({ ok: true }, { headers: CORS_HEADERS });
   } catch (err) {
     console.error("VIP onboarding error:", err);
