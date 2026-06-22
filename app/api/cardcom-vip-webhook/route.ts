@@ -15,27 +15,49 @@ export async function POST(req: NextRequest) {
       form.forEach((val, key) => { data[key] = val.toString(); });
     }
 
-    console.log("Cardcom VIP webhook:", data);
+    console.log("Cardcom VIP webhook:", JSON.stringify(data));
 
-    // Only approved payments
-    const code = data["ResponseCode"] ?? data["responseCode"] ?? "-1";
-    if (code !== "0") {
+    // Tolerant field lookup: case-insensitive, tries many possible key names
+    // so it works with both the standard Cardcom indicator and the
+    // Wishlist Member integration (which uses different field names).
+    const lower: Record<string, string> = {};
+    for (const k of Object.keys(data)) lower[k.toLowerCase()] = data[k];
+    const pick = (...keys: string[]): string => {
+      for (const k of keys) {
+        const v = lower[k.toLowerCase()];
+        if (v != null && String(v).trim() !== "") return String(v).trim();
+      }
+      return "";
+    };
+    const scanEmail = (): string => {
+      for (const v of Object.values(data)) {
+        const m = String(v).match(/[\w.+-]+@[\w-]+\.[\w.-]+/);
+        if (m) return m[0];
+      }
+      return "";
+    };
+
+    // Only skip if a response-code field is present AND not approved.
+    // (The Wishlist Member POST fires only on success and may omit it.)
+    const code = pick("ResponseCode", "responseCode", "OperationResponse", "DealResponse");
+    if (code && code !== "0") {
       console.log("VIP payment not approved, code:", code);
       return NextResponse.json({ ok: false });
     }
 
-    const name =
-      data["CardOwnerName"] ?? data["Name"] ?? data["cardOwnerName"] ?? "";
-    const email =
-      data["CardOwnerEmail"] ?? data["Email"] ?? data["email"] ?? "";
-    const phone =
-      data["CardOwnerPhone"] ?? data["Phone"] ?? data["phone"] ?? "";
-    const amountStr =
-      data["SumToBill"] ?? data["Amount"] ?? data["TotalSum"] ?? "";
+    let name = pick("CardOwnerName", "Name", "FullName", "ClientName", "CustomerName", "fullname");
+    if (!name) {
+      const first = pick("FirstName", "first_name", "Firstname");
+      const last = pick("LastName", "last_name", "Lastname");
+      name = [first, last].filter(Boolean).join(" ").trim();
+    }
+    const email = pick("CardOwnerEmail", "Email", "ClientEmail", "CustomerEmail") || scanEmail();
+    const phone = pick("CardOwnerPhone", "Phone", "Mobile", "ClientPhone", "CustomerPhone");
+    const amountStr = pick("SumToBill", "Amount", "TotalSum", "Sum", "Price", "DealSum");
     const amount = amountStr ? Number(amountStr) : null;
 
     if (!name && !email && !phone) {
-      console.warn("Cardcom VIP webhook: no identifying fields received");
+      console.warn("Cardcom VIP webhook: no identifying fields received", JSON.stringify(data));
       return NextResponse.json({ ok: true });
     }
 
