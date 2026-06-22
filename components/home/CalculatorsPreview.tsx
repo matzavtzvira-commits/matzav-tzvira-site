@@ -4,7 +4,7 @@ import Link from "next/link";
 const calcs = [
   { icon: "", title: "חיסכון לכל ילד", desc: "כמה יהיה לילד שלך בגיל 18 לפי המסלול שתבחרי", href: "/calculators#kids", color: "#21F0B0" },
   { icon: "", title: "מחשבון דמי ניהול", desc: "כמה כסף תחסכי אם תורידי 0.5% דמי ניהול בפנסיה", href: "/calculators#fees", color: "#FA5C5C" },
-  { icon: "", title: "ריבית דריבית", desc: "ראי איך הכסף שלך גדל עם הזמן - גרף חי ותוצאה מיידית", href: "/calculators#compound", color: "#124AF0" },
+  { icon: "", title: "מחשבון ריבית דריבית", desc: "ראי איך הכסף שלך גדל עם הזמן - גרף חי ותוצאה מיידית", href: "/calculators/compound-interest", color: "#124AF0" },
 ];
 
 export default function CalculatorsPreview() {

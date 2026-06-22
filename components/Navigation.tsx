@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const links: { label: string; href: string; disabled?: boolean }[] = [
   { label: "מי אני?", href: "/about" },
@@ -14,6 +14,18 @@ const links: { label: string; href: string; disabled?: boolean }[] = [
 
 export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      setHidden(y > lastY.current && y > 80);
+      lastY.current = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <nav
@@ -24,6 +36,8 @@ export default function Navigation() {
         background: "#FFFFFF",
         borderBottom: "3px solid #FA5C5C",
         padding: "0 1.5rem",
+        transform: hidden ? "translateY(-100%)" : "translateY(0)",
+        transition: "transform 0.3s ease",
       }}
     >
       <div
