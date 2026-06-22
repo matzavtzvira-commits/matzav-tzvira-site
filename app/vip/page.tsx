@@ -918,7 +918,7 @@ function CtaForm() {
           <p style={{ textAlign: "center", fontWeight: 800, color: blue, fontSize: "1rem", marginBottom: 20 }}>כך זה עובד - פשוט מאוד:</p>
           <div className="steps-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
             {[
-              { n: "1", title: "שיחת היכרות", desc: "20 דקות. אני מבינה את התמונה שלך ואת בודקת אם הליווי מתאים לך." },
+              { n: "1", title: "שיחת היכרות", desc: "כמה דקות. אני מבינה את התמונה שלך ואת בודקת אם הליווי מתאים לך." },
               { n: "2", title: "אנחנו עושות", desc: "הצוות נכנס לעבודה. את מאשרת החלטות. בלי שעות ביורוקרטיה." },
               { n: "3", title: "כסף שחוזר", desc: "מקבלת דוח סיכום מלא - מה הורדנו, מה מצאנו, כמה חזר אלייך." },
             ].map((s, i) => (
