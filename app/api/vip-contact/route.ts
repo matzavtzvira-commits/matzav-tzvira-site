@@ -10,6 +10,27 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "חסרים שדות חובה" }, { status: 400 });
     }
 
+    // Best-effort: push the lead into the tasks dashboard for follow-up tracking.
+    // Never blocks or fails the customer-facing email if the dashboard is down.
+    const intakeUrl =
+      process.env.VIP_INTAKE_URL ||
+      "https://tasks-dashboard-gamma.vercel.app/api/vip-intake";
+    if (process.env.VIP_INTAKE_SECRET) {
+      try {
+        await fetch(intakeUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-intake-secret": process.env.VIP_INTAKE_SECRET,
+          },
+          body: JSON.stringify({ name, phone, email }),
+          signal: AbortSignal.timeout(5000),
+        });
+      } catch (e) {
+        console.error("VIP intake forward failed:", e);
+      }
+    }
+
     await resend.emails.send({
       from: "אתר מצב צבירה <noreply@matzavtzvira.co.il>",
       to: "matzavtzvira@gmail.com",
