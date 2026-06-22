@@ -70,35 +70,52 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true });
     }
 
+    // 1) Forward to the tasks dashboard (creates the in_progress VIP client).
     const secret = process.env.VIP_INTAKE_SECRET;
-    if (!secret) {
-      console.error("VIP_INTAKE_SECRET not set — cannot forward VIP payment to dashboard");
-      return NextResponse.json({ ok: true });
+    if (secret) {
+      const intakeUrl =
+        process.env.VIP_INTAKE_URL ||
+        "https://tasks-dashboard-gamma.vercel.app/api/vip-intake";
+      try {
+        const res = await fetch(intakeUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-intake-secret": secret },
+          body: JSON.stringify({
+            name: name || email || phone,
+            phone: phone || null,
+            email: email || null,
+            status: "in_progress",
+            source: "cardcom",
+            amount_paid: amount ? Number(amount) : null,
+          }),
+          signal: AbortSignal.timeout(5000),
+        });
+        if (!res.ok) {
+          console.error("VIP intake forward failed:", res.status, await res.text());
+        }
+      } catch (e) {
+        console.error("VIP intake forward error:", e);
+      }
+    } else {
+      console.error("VIP_INTAKE_SECRET not set — skipping dashboard forward");
     }
 
-    const intakeUrl =
-      process.env.VIP_INTAKE_URL ||
-      "https://tasks-dashboard-gamma.vercel.app/api/vip-intake";
-
-    try {
-      const res = await fetch(intakeUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "x-intake-secret": secret },
-        body: JSON.stringify({
-          name: name || email || phone,
-          phone: phone || null,
-          email: email || null,
-          status: "in_progress",
-          source: "cardcom",
-          amount_paid: amount ? Number(amount) : null,
-        }),
-        signal: AbortSignal.timeout(5000),
-      });
-      if (!res.ok) {
-        console.error("VIP intake forward failed:", res.status, await res.text());
+    // 2) Email the client the onboarding form (same mechanism as /vip/invite).
+    if (email) {
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://matzavtzvira.co.il";
+      try {
+        const r = await fetch(`${siteUrl}/api/send-vip-onboarding`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: name || "לקוחה", email, phone: phone || "" }),
+          signal: AbortSignal.timeout(8000),
+        });
+        if (!r.ok) {
+          console.error("VIP onboarding email failed:", r.status, await r.text());
+        }
+      } catch (e) {
+        console.error("VIP onboarding email error:", e);
       }
-    } catch (e) {
-      console.error("VIP intake forward error:", e);
     }
 
     return NextResponse.json({ ok: true });
