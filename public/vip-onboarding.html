@@ -959,6 +959,18 @@
           <textarea id="taxNotes" placeholder="כל מידע נוסף שחשוב שאדע..."></textarea>
         </div>
 
+        <!-- אישור העברת מידע -->
+        <div class="field" id="field-tax-consent" style="margin-top:8px;">
+          <label class="radio-option" style="cursor:pointer;align-items:flex-start;gap:12px;line-height:1.7;padding:14px 16px;">
+            <input type="checkbox" id="taxConsent" style="accent-color:var(--blue);width:20px;height:20px;flex-shrink:0;margin-top:2px;" onchange="showError('field-tax-consent','err-tax-consent',false)" />
+            <span style="font-size:13.5px;color:var(--black);">
+              אני מאשרת שרבקי וייס / מצב צבירה תעביר את הפרטים והמסמכים שמילאתי לחברת החזרי מס מקצועית שעמה היא עובדת, לצורך בדיקת זכאות וטיפול בהחזר.
+              ידוע לי שההתקשרות וייפוי הכוח לטיפול בפועל ייחתמו ישירות מולי ומול החברה, ושבדיקת הזכאות אינה כרוכה בתשלום.
+            </span>
+          </label>
+          <div class="error-msg" id="err-tax-consent">צריך לאשר את העברת המידע כדי שנוכל לבדוק לך החזר מס</div>
+        </div>
+
         <div class="btn-row">
           <button class="btn-back" onclick="goStep(3)">&rarr; חזרה</button>
         </div>
@@ -1354,6 +1366,13 @@
     }
 
     async function submitTaxForm() {
+      // אישור העברת מידע — חובה
+      if (!document.getElementById('taxConsent').checked) {
+        showError('field-tax-consent', 'err-tax-consent', true);
+        document.getElementById('field-tax-consent').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
       const btn = document.getElementById('submit-tax-btn');
       const text = document.getElementById('submit-tax-text');
       const sp = document.getElementById('spinner-tax');
@@ -1373,6 +1392,7 @@
       fd.append('familyBenefits', getCheckedValues('familyBenefit').join(', '));
       fd.append('financeItems', getCheckedValues('financeItem').join(', '));
       fd.append('taxNotes', document.getElementById('taxNotes').value.trim());
+      fd.append('taxConsent', document.getElementById('taxConsent').checked ? 'כן - הלקוחה אישרה העברת מידע לחברת החזרי מס' : 'לא');
 
       const multiIds = ['forms106','annualReportsDoc','lifeInsDoc','mortgageInsDoc','pensionDoc','form867Doc'];
       multiIds.forEach(id => {
