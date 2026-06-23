@@ -1409,10 +1409,11 @@
         const res = await fetch('https://matzavtzvira.co.il/api/vip-tax-documents', { method: 'POST', body: fd });
         const data = await res.json();
         if (data.ok) {
-          document.getElementById('form-card').style.display = 'none';
-          document.querySelector('.progress-wrap').style.display = 'none';
-          document.getElementById('thankyou').style.display = 'block';
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          // שלב אחרון - מעבר לחתימה על ייפוי כוח
+          var poaName = encodeURIComponent((document.getElementById('name') ? document.getElementById('name').value.trim() : ''));
+          var poaEmail = encodeURIComponent((document.getElementById('email') ? document.getElementById('email').value.trim() : ''));
+          window.location.href = 'https://matzavtzvira.co.il/vip/poa?name=' + poaName + '&email=' + poaEmail;
+          return;
         } else {
           alert('שגיאה בשליחה: ' + (data.error || 'נסי שוב'));
           btn.disabled = false; text.textContent = 'שלחי ← סיום'; sp.style.display = 'none';
