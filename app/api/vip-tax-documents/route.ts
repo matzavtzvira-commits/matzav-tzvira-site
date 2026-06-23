@@ -102,7 +102,7 @@ export async function POST(req: NextRequest) {
         ${taxNotes ? `<div style="background:#fff;border-radius:10px;padding:14px 18px;margin-bottom:18px;"><p style="color:#888;font-size:12px;margin:0 0 4px;">הערות</p><p style="color:#292929;font-size:14px;margin:0;">${taxNotes}</p></div>` : ""}
 
         <div style="background:${taxConsent && taxConsent.startsWith("כן") ? "#F0FDF4" : "#FFF1F1"};border-radius:10px;padding:14px 18px;margin-bottom:18px;border-right:3px solid ${taxConsent && taxConsent.startsWith("כן") ? "#21F0B0" : "#FA5C5C"};">
-          <p style="color:#888;font-size:12px;margin:0 0 4px;">אישור העברת מידע לחברת החזרי מס</p>
+          <p style="color:#888;font-size:12px;margin:0 0 4px;">אישור העברת מידע ליועצת מס</p>
           <p style="color:#292929;font-size:14px;font-weight:bold;margin:0;">${taxConsent || "לא התקבל אישור"}</p>
         </div>
 
