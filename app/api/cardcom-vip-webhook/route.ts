@@ -96,6 +96,27 @@ export async function POST(req: NextRequest) {
       } catch (e) {
         console.error("VIP intake forward error:", e);
       }
+
+      // Auto-stop the sales follow-up sequence for this person — she just paid,
+      // so she should never get another "send email N" / call-back reminder.
+      if (email || phone) {
+        const stopUrl =
+          process.env.VIP_STOP_FOLLOWUPS_URL ||
+          "https://tasks-dashboard-gamma.vercel.app/api/vip-stop-followups";
+        try {
+          const res = await fetch(stopUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "x-intake-secret": secret },
+            body: JSON.stringify({ email: email || null, phone: phone || null }),
+            signal: AbortSignal.timeout(5000),
+          });
+          if (!res.ok) {
+            console.error("VIP stop-followups failed:", res.status, await res.text());
+          }
+        } catch (e) {
+          console.error("VIP stop-followups error:", e);
+        }
+      }
     } else {
       console.error("VIP_INTAKE_SECRET not set — skipping dashboard forward");
     }

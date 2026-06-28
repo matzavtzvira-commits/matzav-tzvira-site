@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
     process.env.VIP_FOLLOWUPS_URL ||
     "https://tasks-dashboard-gamma.vercel.app/api/vip-followups-due";
 
-  let followups: { full_name: string; phone: string | null; email: string | null; follow_up_note: string | null }[] = [];
+  let followups: { full_name: string; phone: string | null; email: string | null; follow_up_note: string | null; follow_up_type?: string | null }[] = [];
   try {
     const res = await fetch(dueUrl, {
       method: "POST",
@@ -40,8 +40,12 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ ok: true, count: 0, message: "no followups today" });
   }
 
+  const actionLabel = (t?: string | null) =>
+    t === "call" ? "📞 להתקשר" : "✉️ לשלוח מייל";
+
   const rows = followups.map(f => `
     <tr>
+      <td style="padding:10px 14px;border-bottom:1px solid #E8EDFF;font-weight:bold;color:#060D3C;white-space:nowrap;">${actionLabel(f.follow_up_type)}</td>
       <td style="padding:10px 14px;border-bottom:1px solid #E8EDFF;font-weight:bold;color:#060D3C;">${f.full_name}</td>
       <td style="padding:10px 14px;border-bottom:1px solid #E8EDFF;color:#124AF0;">${f.phone ? `<a href="tel:${f.phone}" style="color:#124AF0;text-decoration:none;">${f.phone}</a>` : "—"}</td>
       <td style="padding:10px 14px;border-bottom:1px solid #E8EDFF;color:#666;">${f.follow_up_note || ""}</td>
@@ -55,6 +59,7 @@ export async function GET(req: NextRequest) {
       </div>
       <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;">
         <thead><tr>
+          <td style="padding:10px 14px;background:#060D3C;color:#fff;font-weight:bold;font-size:13px;">פעולה</td>
           <td style="padding:10px 14px;background:#060D3C;color:#fff;font-weight:bold;font-size:13px;">שם</td>
           <td style="padding:10px 14px;background:#060D3C;color:#fff;font-weight:bold;font-size:13px;">טלפון</td>
           <td style="padding:10px 14px;background:#060D3C;color:#fff;font-weight:bold;font-size:13px;">על מה</td>
