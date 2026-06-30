@@ -16,7 +16,7 @@ const articles: Record<string, {
   heroVideo?: string;
   viewCount?: number;
   viewInc?: number;
-  sections: { heading: string; body: string; image?: string; imageAlt?: string; images?: { src: string; alt: string }[]; link?: string; linkLabel?: string; links?: { href: string; label: string }[]; tableData?: { headers: string[]; rows: string[][] }; embedUrl?: string; faq?: { q: string; a: string }[]; platformCards?: { name: string; logo: string; bonus: string; bullets: string[]; link: string; linkLabel: string; note?: string }[] }[];
+  sections: { heading: string; body: string; image?: string; imageAlt?: string; images?: { src: string; alt: string }[]; link?: string; linkLabel?: string; links?: { href: string; label: string }[]; tableData?: { headers: string[]; rows: string[][] }; embedUrl?: string; faq?: { q: string; a: string }[]; platformCards?: { name: string; logo: string; bonus: string; bullets: string[]; link: string; linkLabel: string; note?: string; guideLink?: string; guideLabel?: string }[] }[];
 }> = {
   "pension-management-fees": {
     title: "איך לבדוק את דמי הניהול בפנסיה שלך",
@@ -386,6 +386,8 @@ const articles: Record<string, {
             bullets: ["מינימום פתיחה: 5,000 ₪", "פטור דמי משמרת לשנתיים", "מסלול הלכה זמין"],
             link: "https://landing.meitav.co.il/he-IL/landing/trade/tradeleadsfreinds?utm_medium=E9A9E949610ADFA60F7EA9A8D01A99C1",
             linkLabel: "לפתיחת חשבון במיטב ←",
+            guideLink: "https://drive.google.com/file/d/1ShyeKOHgwdI4Ip8dohUeHgjwOKI1rnVY/view?usp=drive_link",
+            guideLabel: "מדריך עם צילומי מסך",
           },
           {
             name: "פייר",
@@ -394,6 +396,8 @@ const articles: Record<string, {
             bullets: ["0 ₪ דמי משמרת לתמיד", "הוראת קבע אוטומטית", "מסלול הלכה זמין"],
             link: "https://www.fair.co.il/%D7%A4%D7%9C%D7%98%D7%A4%D7%95%D7%A8%D7%9E%D7%AA-%D7%94%D7%A9%D7%A7%D7%A2%D7%95%D7%AA-%D7%93%D7%99%D7%92%D7%99%D7%98%D7%9C%D7%99%D7%AA/?utm_source=nwsp_matzavtzvira",
             linkLabel: "לפתיחת חשבון בפייר ←",
+            guideLink: "https://drive.google.com/file/d/1bSq78A-ofMIia6bsdDwO9Crb5G8_laiK/view?usp=drive_link",
+            guideLabel: "מדריך עם צילומי מסך",
           },
           {
             name: "IBI",
@@ -993,11 +997,16 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                           ))}
                         </ul>
                         {p.note && <p style={{ fontSize: "0.78rem", color: "#999", margin: "0 0 14px", lineHeight: 1.5 }}>{p.note}</p>}
-                        {(p.link.startsWith("http") || p.link.startsWith("/")) ? (
-                          <a href={p.link} target="_blank" rel="noopener noreferrer" style={{ marginTop: "auto", display: "block", textAlign: "center", background: "#124AF0", color: "white", borderRadius: 50, padding: "11px 20px", fontWeight: 700, fontSize: "0.9rem", textDecoration: "none" }}>{p.linkLabel}</a>
-                        ) : (
-                          <span style={{ marginTop: "auto", display: "block", textAlign: "center", background: "#E8EDFF", color: "#9aa3c4", borderRadius: 50, padding: "11px 20px", fontWeight: 700, fontSize: "0.9rem", cursor: "default" }}>{p.linkLabel}</span>
-                        )}
+                        <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: 8 }}>
+                          {(p.link.startsWith("http") || p.link.startsWith("/")) ? (
+                            <a href={p.link} target="_blank" rel="noopener noreferrer" style={{ display: "block", textAlign: "center", background: "#124AF0", color: "white", borderRadius: 50, padding: "11px 20px", fontWeight: 700, fontSize: "0.9rem", textDecoration: "none" }}>{p.linkLabel}</a>
+                          ) : (
+                            <span style={{ display: "block", textAlign: "center", background: "#E8EDFF", color: "#9aa3c4", borderRadius: 50, padding: "11px 20px", fontWeight: 700, fontSize: "0.9rem", cursor: "default" }}>{p.linkLabel}</span>
+                          )}
+                          {p.guideLink && (
+                            <a href={p.guideLink} target="_blank" rel="noopener noreferrer" style={{ display: "block", textAlign: "center", background: "#EEF2FF", color: "#124AF0", borderRadius: 50, padding: "9px 20px", fontWeight: 700, fontSize: "0.82rem", textDecoration: "none" }}>{p.guideLabel || "מדריך עם צילומי מסך"}</a>
+                          )}
+                        </div>
                       </div>
                     ))}
                   </div>
