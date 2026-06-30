@@ -621,6 +621,26 @@
           <div class="error-msg" id="err-gemel">נא לענות על השאלה</div>
         </div>
 
+        <div class="field" id="field-uscitizen">
+          <label>האם יש לך אזרחות אמריקאית או גרין קארד? <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="usCitizen" value="כן" /> כן</label>
+            <label class="radio-option"><input type="radio" name="usCitizen" value="לא" /> לא</label>
+            <label class="radio-option"><input type="radio" name="usCitizen" value="לא יודעת" /> לא יודעת</label>
+          </div>
+          <div class="error-msg" id="err-uscitizen">נא לענות על השאלה</div>
+        </div>
+
+        <div class="field" id="field-spouse-uscitizen" style="display:none;">
+          <label>האם לבעלך יש אזרחות אמריקאית או גרין קארד? <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="spouseUsCitizen" value="כן" /> כן</label>
+            <label class="radio-option"><input type="radio" name="spouseUsCitizen" value="לא" /> לא</label>
+            <label class="radio-option"><input type="radio" name="spouseUsCitizen" value="לא יודעת" /> לא יודעת</label>
+          </div>
+          <div class="error-msg" id="err-spouse-uscitizen">נא לענות על השאלה</div>
+        </div>
+
         <div class="divider"></div>
 
         <div class="field" id="field-tz">
@@ -1131,6 +1151,7 @@
       const childSavings = getRadioValue('hasChildSavings');
       const hasLifeInsurance = getRadioValue('hasLifeInsurance');
       const hasGemel = getRadioValue('hasGemel');
+      const usCitizen = getRadioValue('usCitizen');
       const tzFile = document.getElementById('tzFile').files[0];
 
       showError('field-pension', 'err-pension', !pension);
@@ -1140,18 +1161,21 @@
       showError('field-childsavings', 'err-childsavings', !childSavings);
       showError('field-life-insurance', 'err-life-insurance', !hasLifeInsurance);
       showError('field-gemel', 'err-gemel', !hasGemel);
+      showError('field-uscitizen', 'err-uscitizen', !usCitizen);
       showError('field-tz', 'err-tz', !tzFile);
 
-      if (!pension || !hishtalmut || !hasLoan || !mortgage || !childSavings || !hasLifeInsurance || !hasGemel || !tzFile) ok = false;
+      if (!pension || !hishtalmut || !hasLoan || !mortgage || !childSavings || !hasLifeInsurance || !hasGemel || !usCitizen || !tzFile) ok = false;
 
       if (married) {
         const spousePension = getRadioValue('spouseHasPension');
         const spouseLoan = getRadioValue('spouseHasLoan');
+        const spouseUsCitizen = getRadioValue('spouseUsCitizen');
         const spouseTzFile = document.getElementById('spouseTzFile').files[0];
         showError('field-spouse-pension', 'err-spouse-pension', !spousePension);
         showError('field-spouse-loan', 'err-spouse-loan', !spouseLoan);
+        showError('field-spouse-uscitizen', 'err-spouse-uscitizen', !spouseUsCitizen);
         showError('field-spousetz', 'err-spousetz', !spouseTzFile);
-        if (!spousePension || !spouseLoan || !spouseTzFile) ok = false;
+        if (!spousePension || !spouseLoan || !spouseUsCitizen || !spouseTzFile) ok = false;
       }
 
       return ok;
@@ -1179,6 +1203,7 @@
       const married = getRadioValue('maritalStatus') === 'נשואה';
       document.getElementById('field-spouse-pension').style.display = married ? 'block' : 'none';
       document.getElementById('field-spouse-loan').style.display = married ? 'block' : 'none';
+      document.getElementById('field-spouse-uscitizen').style.display = married ? 'block' : 'none';
       document.getElementById('field-spousetz').style.display = married ? 'block' : 'none';
     }
 
@@ -1253,6 +1278,8 @@
       fd.append('spouseHasLoan', getRadioValue('spouseHasLoan'));
       fd.append('hasLifeInsurance', getRadioValue('hasLifeInsurance'));
       fd.append('hasGemel', getRadioValue('hasGemel'));
+      fd.append('usCitizen', getRadioValue('usCitizen'));
+      fd.append('spouseUsCitizen', getRadioValue('spouseUsCitizen'));
       fd.append('notes', document.getElementById('notes').value.trim());
       const tzFile = document.getElementById('tzFile').files[0];
       const spouseTzFile = document.getElementById('spouseTzFile').files[0];

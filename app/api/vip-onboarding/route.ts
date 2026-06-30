@@ -30,6 +30,8 @@ export async function POST(req: NextRequest) {
     const hasMortgage = formData.get("hasMortgage") as string;
     const interestedInRefinance = formData.get("interestedInRefinance") as string;
     const hasChildSavings = formData.get("hasChildSavings") as string;
+    const usCitizen = formData.get("usCitizen") as string;
+    const spouseUsCitizen = formData.get("spouseUsCitizen") as string;
     const notes = formData.get("notes") as string;
 
     const tzFile = formData.get("tzFile") as File | null;
@@ -114,6 +116,8 @@ export async function POST(req: NextRequest) {
             ${row("יש משכנתא?", hasMortgage)}
             ${mortgageRow}
             ${row("יש חסכון לילדים?", hasChildSavings)}
+            ${row("אזרחות אמריקאית / גרין קארד?", usCitizen)}
+            ${maritalStatus === "נשואה" ? row("לבעלך אזרחות אמריקאית / גרין קארד?", spouseUsCitizen) : ""}
           </tbody>
         </table>
 
@@ -151,6 +155,8 @@ export async function POST(req: NextRequest) {
       `משכנתא: ${hasMortgage || "לא צוין"}`,
       ...(hasMortgage === "כן" ? [`מחזור משכנתא: ${interestedInRefinance || "לא צוין"}`] : []),
       `חסכון לילדים: ${hasChildSavings || "לא צוין"}`,
+      `אזרחות אמריקאית / גרין קארד: ${usCitizen || "לא צוין"}`,
+      ...(maritalStatus === "נשואה" ? [`אזרחות אמריקאית של הבעל: ${spouseUsCitizen || "לא צוין"}`] : []),
       ...(notes ? [`הערות: ${notes}`] : []),
     ].join("\n");
 
