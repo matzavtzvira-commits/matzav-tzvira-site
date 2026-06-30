@@ -16,7 +16,7 @@ const articles: Record<string, {
   heroVideo?: string;
   viewCount?: number;
   viewInc?: number;
-  sections: { heading: string; body: string; image?: string; imageAlt?: string; images?: { src: string; alt: string }[]; link?: string; linkLabel?: string; links?: { href: string; label: string }[]; tableData?: { headers: string[]; rows: string[][] }; embedUrl?: string; faq?: { q: string; a: string }[] }[];
+  sections: { heading: string; body: string; image?: string; imageAlt?: string; images?: { src: string; alt: string }[]; link?: string; linkLabel?: string; links?: { href: string; label: string }[]; tableData?: { headers: string[]; rows: string[][] }; embedUrl?: string; faq?: { q: string; a: string }[]; platformCards?: { name: string; logo: string; bonus: string; bullets: string[]; link: string; linkLabel: string; note?: string }[] }[];
 }> = {
   "pension-management-fees": {
     title: "איך לבדוק את דמי הניהול בפנסיה שלך",
@@ -389,6 +389,53 @@ const articles: Record<string, {
             ["בונוס פתיחה דרך הלינק שלי", "100 ₪ מתנה", "-", "300 ₪ + קורס מבוא + פטור דמי טיפול לשנתיים", "200 ₪ מתנה"],
           ],
         },
+      },
+      {
+        heading: "בחרי פלטפורמה ופתחי חשבון - ההטבות שלך מחכות",
+        body: "ההטבות זמינות דרך הקישורים, תחת המטריה הפיננסית.\nגילוי נאות: אני מרוויחה עמלה מפתיחת חשבון דרך הלינקים. ההטבות שלך נשמרות במלואן.",
+        platformCards: [
+          {
+            name: "מיטב",
+            logo: "/platform-logos/meitav.svg",
+            bonus: "100 ₪ מתנה",
+            bullets: ["מינימום פתיחה: 5,000 ₪", "פטור דמי משמרת לשנתיים", "מסלול הלכה זמין"],
+            link: "https://landing.meitav.co.il/he-IL/landing/trade/tradeleadsfreinds?utm_medium=E9A9E949610ADFA60F7EA9A8D01A99C1",
+            linkLabel: "לפתיחת חשבון במיטב ←",
+          },
+          {
+            name: "פייר",
+            logo: "/platform-logos/fair.svg",
+            bonus: "מינימום 250 ₪ בלבד",
+            bullets: ["0 ₪ דמי משמרת לתמיד", "הוראת קבע אוטומטית", "מסלול הלכה זמין"],
+            link: "https://www.fair.co.il/%D7%A4%D7%9C%D7%98%D7%A4%D7%95%D7%A8%D7%9E%D7%AA-%D7%94%D7%A9%D7%A7%D7%A2%D7%95%D7%AA-%D7%93%D7%99%D7%92%D7%99%D7%98%D7%9C%D7%99%D7%AA/?utm_source=nwsp_matzavtzvira",
+            linkLabel: "לפתיחת חשבון בפייר ←",
+          },
+          {
+            name: "IBI",
+            logo: "/platform-logos/ibi.svg",
+            bonus: "300 ₪ + קורס מבוא",
+            bullets: ["פטור דמי טיפול לשנתיים", "הוראת קבע אוטומטית", "פלטפורמה ותיקה ושירות אישי"],
+            link: "https://onboarding.ibi.co.il/open-account?step=first_name&source__c=OB&UTM_Campaign_Source__c=OB&keyword__c=smart-feature-ob&Coupon__c=IBIWSOFM&referrer=%D7%9E%D7%A6%D7%91_%D7%A6%D7%91%D7%99%D7%A8%D7%94",
+            linkLabel: "לפתיחת חשבון ב-IBI ←",
+          },
+          {
+            name: "אלטשולר שחם",
+            logo: "/platform-logos/altshuler.png",
+            bonus: "200 ₪ מתנה",
+            bullets: ["עמלה מהנמוכות בשוק (0.07%)", "0 ₪ דמי משמרת לתמיד", "מסלול הלכה זמין"],
+            link: "https://digitalsolutions.as-invest.co.il/trade_OnBoarding/?utm_source=Matzavtzvira&utm_medium=Link",
+            linkLabel: "לפתיחת חשבון באלטשולר ←",
+          },
+          {
+            name: "פסגות",
+            logo: "/platform-logos/psagot.svg",
+            bonus: "הטבה בקרוב",
+            bullets: ["בית השקעות ותיק ומוסדר", "מסלול הלכה זמין", "הפרטים המלאים יתעדכנו בקרוב"],
+            note: "הלינק וההטבה של פסגות יתעדכנו בקרוב.",
+            link: "PSAGOT_LINK_PLACEHOLDER",
+            linkLabel: "בקרוב ←",
+          },
+        ],
       },
       {
         heading: "מה מתאים לך?",
@@ -869,6 +916,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               .art-card { padding: 22px 18px !important; }
               .art-cta { padding: 28px 18px !important; }
               .art-btn { display: block !important; text-align: center !important; box-sizing: border-box; width: 100%; }
+              .platform-grid { grid-template-columns: 1fr !important; }
             }
           `}</style>
           <div style={{ maxWidth: 740, margin: "0 auto" }}>
@@ -926,6 +974,32 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                         ))}
                       </tbody>
                     </table>
+                  </div>
+                )}
+                {s.platformCards && (
+                  <div className="platform-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16, marginTop: 18 }}>
+                    {s.platformCards.map((p, j) => (
+                      <div key={j} style={{ display: "flex", flexDirection: "column", border: "1px solid #E8EDFF", borderRadius: 16, padding: "22px 20px", background: "#FFFFFF", boxShadow: "0 3px 14px rgba(18,74,240,0.06)" }}>
+                        <div style={{ height: 50, display: "flex", alignItems: "center", justifyContent: "flex-start", marginBottom: 14 }}>
+                          <img src={p.logo} alt={p.name} style={{ maxHeight: 42, maxWidth: 155, width: "auto", height: "auto", objectFit: "contain" }} />
+                        </div>
+                        <span style={{ alignSelf: "flex-start", background: "#EAFBF4", color: "#0B8F63", fontWeight: 700, fontSize: "0.82rem", borderRadius: 8, padding: "5px 12px", marginBottom: 14 }}>{p.bonus}</span>
+                        <ul style={{ listStyle: "none", padding: 0, margin: "0 0 16px", display: "flex", flexDirection: "column", gap: 8 }}>
+                          {p.bullets.map((b, k) => (
+                            <li key={k} style={{ fontSize: "0.9rem", color: "#444", display: "flex", gap: 8, lineHeight: 1.5 }}>
+                              <span style={{ color: "#21C28A", fontWeight: 800, flexShrink: 0 }}>✓</span>
+                              <span>{b}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        {p.note && <p style={{ fontSize: "0.78rem", color: "#999", margin: "0 0 14px", lineHeight: 1.5 }}>{p.note}</p>}
+                        {(p.link.startsWith("http") || p.link.startsWith("/")) ? (
+                          <a href={p.link} target="_blank" rel="noopener noreferrer" style={{ marginTop: "auto", display: "block", textAlign: "center", background: "#124AF0", color: "white", borderRadius: 50, padding: "11px 20px", fontWeight: 700, fontSize: "0.9rem", textDecoration: "none" }}>{p.linkLabel}</a>
+                        ) : (
+                          <span style={{ marginTop: "auto", display: "block", textAlign: "center", background: "#E8EDFF", color: "#9aa3c4", borderRadius: 50, padding: "11px 20px", fontWeight: 700, fontSize: "0.9rem", cursor: "default" }}>{p.linkLabel}</span>
+                        )}
+                      </div>
+                    ))}
                   </div>
                 )}
                 {s.images && s.images.map((img, j) => (
