@@ -1028,10 +1028,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <div className="umbrella-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20 }}>
                 {/* Program */}
                 <div style={{ display: "flex", flexDirection: "column", background: "#fff", borderRadius: 20, overflow: "hidden", border: "1px solid #E8EDFF", boxShadow: "0 4px 18px rgba(18,74,240,0.08)" }}>
-                  <div style={{ height: 148, background: "linear-gradient(135deg, #124AF0, #21C28A)", display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
-                    <div style={{ background: "#fff", borderRadius: 14, padding: "16px 22px", boxShadow: "0 4px 14px rgba(0,0,0,0.12)" }}>
-                      <img src="/logo-trimmed.png" alt="מצב צבירה" style={{ height: 44, width: "auto", display: "block" }} />
-                    </div>
+                  <div style={{ overflow: "hidden", lineHeight: 0 }}>
+                    <video autoPlay loop muted playsInline style={{ width: "100%", height: "auto", display: "block" }}>
+                      <source src="/must-video.mp4" type="video/mp4" />
+                    </video>
                   </div>
                   <div style={{ padding: "22px 24px", display: "flex", flexDirection: "column", flex: 1 }}>
                     <span style={{ alignSelf: "flex-start", background: "#EAFBF4", color: "#0B8F63", fontWeight: 700, fontSize: "0.78rem", borderRadius: 8, padding: "5px 12px", marginBottom: 12 }}>חובה לכל אישה עם נעלי בית</span>
@@ -1042,10 +1042,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 </div>
                 {/* VIP */}
                 <div style={{ display: "flex", flexDirection: "column", background: "#fff", borderRadius: 20, overflow: "hidden", border: "1px solid #E8EDFF", boxShadow: "0 4px 18px rgba(18,74,240,0.08)" }}>
-                  <div style={{ height: 148, background: "linear-gradient(135deg, #0B1B54, #C8973A)", display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
-                    <div style={{ background: "#fff", borderRadius: 14, padding: "16px 22px", boxShadow: "0 4px 14px rgba(0,0,0,0.12)" }}>
-                      <img src="/logo-trimmed.png" alt="מצב צבירה" style={{ height: 44, width: "auto", display: "block" }} />
-                    </div>
+                  <div style={{ overflow: "hidden", lineHeight: 0 }}>
+                    <video autoPlay loop muted playsInline style={{ width: "100%", height: "auto", display: "block" }}>
+                      <source src="/vip-video.mp4" type="video/mp4" />
+                    </video>
                   </div>
                   <div style={{ padding: "22px 24px", display: "flex", flexDirection: "column", flex: 1 }}>
                     <span style={{ alignSelf: "flex-start", background: "#FBF3E3", color: "#B07C1E", fontWeight: 700, fontSize: "0.78rem", borderRadius: 8, padding: "5px 12px", marginBottom: 12 }}>ליווי אישי - עושָה במקומך</span>
