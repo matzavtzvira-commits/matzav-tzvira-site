@@ -116,8 +116,8 @@ export async function POST(req: NextRequest) {
             ${row("יש משכנתא?", hasMortgage)}
             ${mortgageRow}
             ${row("יש חסכון לילדים?", hasChildSavings)}
-            ${row("אזרחות אמריקאית / גרין קארד?", usCitizen)}
-            ${maritalStatus === "נשואה" ? row("לבעלך אזרחות אמריקאית / גרין קארד?", spouseUsCitizen) : ""}
+            ${row("אזרחות אמריקאית?", usCitizen)}
+            ${maritalStatus === "נשואה" ? row("לבעלך אזרחות אמריקאית?", spouseUsCitizen) : ""}
           </tbody>
         </table>
 
@@ -155,7 +155,7 @@ export async function POST(req: NextRequest) {
       `משכנתא: ${hasMortgage || "לא צוין"}`,
       ...(hasMortgage === "כן" ? [`מחזור משכנתא: ${interestedInRefinance || "לא צוין"}`] : []),
       `חסכון לילדים: ${hasChildSavings || "לא צוין"}`,
-      `אזרחות אמריקאית / גרין קארד: ${usCitizen || "לא צוין"}`,
+      `אזרחות אמריקאית: ${usCitizen || "לא צוין"}`,
       ...(maritalStatus === "נשואה" ? [`אזרחות אמריקאית של הבעל: ${spouseUsCitizen || "לא צוין"}`] : []),
       ...(notes ? [`הערות: ${notes}`] : []),
     ].join("\n");
