@@ -11,7 +11,7 @@ const products = [
     title: "שוק ההון בנעלי בית",
     desc: "התוכנית הדיגיטלית שמלמדת אותך להשקיע - בשפה קלילה ונשית, בלי ז'רגון ובלי פחד. בקצב שלך, מהבית, בכוס קפה.",
     href: "/course",
-    variant: "outline" as const,
+    btnLabel: "MUSTרית",
   },
   {
     video: "/vip-video.mp4",
@@ -21,7 +21,7 @@ const products = [
     title: "ליווי VIP",
     desc: "אני נכנסת לנעליים שלך ונותנת את כל המקצועיות שלי לתיק שלך. עושה במקומך - לא מלמדת אותך לעשות לבד.",
     href: "/vip",
-    variant: "solid" as const,
+    btnLabel: "ליווי VIP",
   },
 ];
 
@@ -123,14 +123,7 @@ export default function UmbrellaProducts() {
                 <span style={{ alignSelf: "flex-start", background: p.badgeBg, color: p.badgeColor, fontWeight: 700, fontSize: "0.78rem", borderRadius: 8, padding: "5px 12px", marginBottom: 12 }}>{p.badge}</span>
                 <h3 style={{ color: "#124AF0", fontSize: "1.22rem", fontWeight: 800, margin: "0 0 8px" }}>{p.title}</h3>
                 <p style={{ color: "#555", fontSize: "0.95rem", lineHeight: 1.7, margin: "0 0 18px", flex: 1 }}>{p.desc}</p>
-                {p.variant === "solid" ? (
-                  <Link href={p.href} style={{ display: "block", textAlign: "center", background: "#124AF0", color: "#fff", borderRadius: 50, padding: "14px 24px", fontWeight: 800, fontSize: "1.05rem", textDecoration: "none", boxShadow: "0 6px 18px rgba(18,74,240,0.3)" }}>ליווי VIP</Link>
-                ) : (
-                  <Link href={p.href} style={{ display: "block", textAlign: "center", background: "#fff", border: "2px solid #124AF0", borderRadius: 50, padding: "12px 24px", fontWeight: 800, fontSize: "1.05rem", textDecoration: "none" }}>
-                    <span style={{ color: "#124AF0" }}>MUST</span>
-                    <span style={{ color: "#151515" }}>רית</span>
-                  </Link>
-                )}
+                <Link href={p.href} style={{ display: "block", textAlign: "center", background: "#124AF0", color: "#fff", borderRadius: 50, padding: "14px 24px", fontWeight: 800, fontSize: "1.05rem", textDecoration: "none", boxShadow: "0 6px 18px rgba(18,74,240,0.3)" }}>{p.btnLabel}</Link>
               </div>
             </motion.div>
           ))}
