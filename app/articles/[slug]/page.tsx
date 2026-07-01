@@ -881,6 +881,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               .art-cta { padding: 28px 18px !important; }
               .art-btn { display: block !important; text-align: center !important; box-sizing: border-box; width: 100%; }
               .platform-grid { grid-template-columns: 1fr !important; }
+              .umbrella-grid { grid-template-columns: 1fr !important; }
             }
           `}</style>
           <div style={{ maxWidth: 740, margin: "0 auto" }}>
@@ -1015,27 +1016,45 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               </div>
             ))}
 
-            {/* CTA */}
-            <div className="art-cta" style={{ background: "linear-gradient(135deg, #124AF0, #0a38c4)", borderRadius: 20, padding: "40px 36px", textAlign: "center", marginTop: 12 }}>
-              <p style={{ color: "#21F0B0", fontWeight: 700, fontSize: "0.88rem", marginBottom: 12 }}>רוצה ללמוד יותר?</p>
-              <h3 style={{ color: "white", fontSize: "1.4rem", fontWeight: 700, marginBottom: 20 }}>
-                הצטרפי לתוכנית MUSTרית
-              </h3>
-              <Link
-                href="/course"
-                style={{
-                  display: "inline-block",
-                  background: "#21F0B0",
-                  color: "#124AF0",
-                  borderRadius: 50,
-                  padding: "14px 36px",
-                  fontWeight: 700,
-                  fontSize: "1rem",
-                  transition: "transform 0.15s",
-                }}
-              >
-                לפרטי הקורס ←
-              </Link>
+            {/* Products under the financial umbrella */}
+            <div style={{ marginTop: 40 }}>
+              <div style={{ textAlign: "center", marginBottom: 26 }}>
+                <div style={{ fontSize: "1.9rem", lineHeight: 1, marginBottom: 8, color: "#124AF0" }}>☂</div>
+                <h3 style={{ color: "#124AF0", fontSize: "1.55rem", fontWeight: 800, margin: "0 0 8px" }}>תחת המטריה הפיננסית</h3>
+                <p style={{ color: "#555", fontSize: "1.02rem", fontWeight: 500, maxWidth: 460, margin: "0 auto", lineHeight: 1.6 }}>
+                  כי הגיע הזמן שגם הכסף שלך יעשה השתדלות - לא רק את.
+                </p>
+              </div>
+              <div className="umbrella-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20 }}>
+                {/* Program */}
+                <div style={{ display: "flex", flexDirection: "column", background: "#fff", borderRadius: 20, overflow: "hidden", border: "1px solid #E8EDFF", boxShadow: "0 4px 18px rgba(18,74,240,0.08)" }}>
+                  <div style={{ height: 148, background: "linear-gradient(135deg, #124AF0, #21C28A)", display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
+                    <div style={{ background: "#fff", borderRadius: 14, padding: "16px 22px", boxShadow: "0 4px 14px rgba(0,0,0,0.12)" }}>
+                      <img src="/logo-trimmed.png" alt="מצב צבירה" style={{ height: 44, width: "auto", display: "block" }} />
+                    </div>
+                  </div>
+                  <div style={{ padding: "22px 24px", display: "flex", flexDirection: "column", flex: 1 }}>
+                    <span style={{ alignSelf: "flex-start", background: "#EAFBF4", color: "#0B8F63", fontWeight: 700, fontSize: "0.78rem", borderRadius: 8, padding: "5px 12px", marginBottom: 12 }}>חובה לכל אישה עם נעלי בית</span>
+                    <h4 style={{ color: "#124AF0", fontSize: "1.2rem", fontWeight: 800, margin: "0 0 8px" }}>שוק ההון בנעלי בית</h4>
+                    <p style={{ color: "#555", fontSize: "0.95rem", lineHeight: 1.7, margin: "0 0 18px", flex: 1 }}>התוכנית הדיגיטלית שמלמדת אותך להשקיע - בשפה קלילה ונשית, בלי ז'רגון ובלי פחד. בקצב שלך, מהבית, בכוס קפה.</p>
+                    <Link href="/course" style={{ display: "block", textAlign: "center", background: "#124AF0", color: "#fff", borderRadius: 50, padding: "12px 24px", fontWeight: 700, fontSize: "0.95rem", textDecoration: "none" }}>לעמוד התוכנית ←</Link>
+                  </div>
+                </div>
+                {/* VIP */}
+                <div style={{ display: "flex", flexDirection: "column", background: "#fff", borderRadius: 20, overflow: "hidden", border: "1px solid #E8EDFF", boxShadow: "0 4px 18px rgba(18,74,240,0.08)" }}>
+                  <div style={{ height: 148, background: "linear-gradient(135deg, #0B1B54, #C8973A)", display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
+                    <div style={{ background: "#fff", borderRadius: 14, padding: "16px 22px", boxShadow: "0 4px 14px rgba(0,0,0,0.12)" }}>
+                      <img src="/logo-trimmed.png" alt="מצב צבירה" style={{ height: 44, width: "auto", display: "block" }} />
+                    </div>
+                  </div>
+                  <div style={{ padding: "22px 24px", display: "flex", flexDirection: "column", flex: 1 }}>
+                    <span style={{ alignSelf: "flex-start", background: "#FBF3E3", color: "#B07C1E", fontWeight: 700, fontSize: "0.78rem", borderRadius: 8, padding: "5px 12px", marginBottom: 12 }}>ליווי אישי - עושָה במקומך</span>
+                    <h4 style={{ color: "#124AF0", fontSize: "1.2rem", fontWeight: 800, margin: "0 0 8px" }}>ליווי VIP</h4>
+                    <p style={{ color: "#555", fontSize: "0.95rem", lineHeight: 1.7, margin: "0 0 18px", flex: 1 }}>אני נכנסת לנעליים שלך ונותנת את כל המקצועיות שלי לתיק שלך. עושה במקומך - לא מלמדת אותך לעשות לבד.</p>
+                    <Link href="/vip" style={{ display: "block", textAlign: "center", background: "#124AF0", color: "#fff", borderRadius: 50, padding: "12px 24px", fontWeight: 700, fontSize: "0.95rem", textDecoration: "none" }}>לפרטי הליווי ←</Link>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Back link */}
