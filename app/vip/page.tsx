@@ -219,7 +219,7 @@ function ProblemStats() {
         <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 40, textAlign: "right" }}>
           {[
             { num: "1", title: "לסמוך על הסוכן הפנסיוני", desc: "הוא 'מסדר לך' - ואת לא שואלת שאלות. מה שאת לא יודעת: בכל שנה שעוברת, דמי הניהול גוזרים ממך עשרות אלפי שקלים בשקט מוחלט.", tag: "ביטחון מדומה" },
-            { num: "2", title: "לנסות לנהל לבד", desc: "לפתוח טאב, להיתקע בביורוקרטיה, לא להבין את הז'רגון, ולסגור את הטאב אחרי 20 דקות מתוסכלות.", tag: "עוני בזמן" },
+            { num: "2", title: "לנסות לנהל לבד", desc: "לפתוח טאב, להיתקע בביורוקרטיה, לא להבין את המושגים, ולסגור את הטאב אחרי 20 דקות מתוסכלות.", tag: "עוני בזמן" },
           ].map((opt, i) => (
             <motion.div key={i} initial={{ opacity: 0, x: i === 0 ? 30 : -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.55, delay: i * 0.12 }}
               style={{ background: "rgba(0,0,0,0.25)", borderRadius: 16, padding: "24px 28px", borderRight: `4px solid ${red}`, boxShadow: "0 8px 32px rgba(0,0,0,0.2)" }}>

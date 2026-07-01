@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "מי אני - רבקי וייס, מתכננת פיננסית | מצב צבירה",
-  description: "רבקי וייס - מתכננת פיננסית לנשים חרדיות. עוזרת לנשים עסוקות ללמוד להשקיע בשוק ההון בשפה פשוטה, בלי פחד ובלי ז'רגון. הכירי אותי.",
+  description: "רבקי וייס - מתכננת פיננסית לנשים חרדיות. עוזרת לנשים עסוקות ללמוד להשקיע בשוק ההון בשפה פשוטה, בלי פחד. הכירי אותי.",
   alternates: { canonical: "https://matzavtzvira.co.il/about" },
   openGraph: {
     title: "מי אני - רבקי וייס, מתכננת פיננסית",
