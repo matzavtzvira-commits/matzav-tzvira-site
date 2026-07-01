@@ -120,7 +120,7 @@ export default function UmbrellaProducts() {
                 </video>
               </div>
               <div style={{ padding: "22px 24px", display: "flex", flexDirection: "column", flex: 1 }}>
-                <span style={{ alignSelf: "flex-start", background: p.badgeBg, color: p.badgeColor, fontWeight: 700, fontSize: "0.78rem", borderRadius: 8, padding: "5px 12px", marginBottom: 12 }}>{p.badge}</span>
+                <span style={{ alignSelf: "flex-start", background: "#0A1440", color: "#21F0B0", border: "1px solid rgba(33,240,176,0.45)", fontWeight: 700, fontSize: "0.78rem", borderRadius: 50, padding: "6px 16px", marginBottom: 14, letterSpacing: 0.3 }}>{p.badge}</span>
                 <h3 style={{ color: "#124AF0", fontSize: "1.22rem", fontWeight: 800, margin: "0 0 8px" }}>{p.title}</h3>
                 <p style={{ color: "#555", fontSize: "0.95rem", lineHeight: 1.7, margin: "0 0 18px", flex: 1 }}>{p.desc}</p>
                 <Link href={p.href} style={{ display: "block", textAlign: "center", background: "#124AF0", color: "#fff", borderRadius: 50, padding: "14px 24px", fontWeight: 800, fontSize: "1.05rem", textDecoration: "none", boxShadow: "0 6px 18px rgba(18,74,240,0.3)" }}>{p.btnLabel}</Link>
