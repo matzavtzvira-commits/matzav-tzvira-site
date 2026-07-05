@@ -27,12 +27,24 @@ export async function POST(req: NextRequest) {
     const income = formData.get("income") as string;
     const hasPension = formData.get("hasPension") as string;
     const hasHishtalmut = formData.get("hasHishtalmut") as string;
+    const hasLoan = formData.get("hasLoan") as string;
+    const hasLifeInsurance = formData.get("hasLifeInsurance") as string;
+    const hasGemel = formData.get("hasGemel") as string;
     const hasMortgage = formData.get("hasMortgage") as string;
     const interestedInRefinance = formData.get("interestedInRefinance") as string;
     const hasChildSavings = formData.get("hasChildSavings") as string;
     const usCitizen = formData.get("usCitizen") as string;
-    const spouseUsCitizen = formData.get("spouseUsCitizen") as string;
     const notes = formData.get("notes") as string;
+
+    // Spouse (husband) answers - collected only when married
+    const spouseEmploymentStatus = formData.get("spouseEmploymentStatus") as string;
+    const spouseIncome = formData.get("spouseIncome") as string;
+    const spouseHasPension = formData.get("spouseHasPension") as string;
+    const spouseHasHishtalmut = formData.get("spouseHasHishtalmut") as string;
+    const spouseHasLoan = formData.get("spouseHasLoan") as string;
+    const spouseHasLifeInsurance = formData.get("spouseHasLifeInsurance") as string;
+    const spouseHasGemel = formData.get("spouseHasGemel") as string;
+    const spouseUsCitizen = formData.get("spouseUsCitizen") as string;
 
     const tzFile = formData.get("tzFile") as File | null;
     const spouseTzFile = formData.get("spouseTzFile") as File | null;
@@ -71,6 +83,9 @@ export async function POST(req: NextRequest) {
         <td style="padding:10px 12px;border-bottom:1px solid #E8EDFF;color:#292929;font-size:14px;">${value || "לא צוין"}</td>
       </tr>`;
 
+    const married = maritalStatus === "נשואה";
+    const spouseRow = (label: string, value: string) => (married ? row(label, value) : "");
+
     const mortgageRow = hasMortgage === "כן"
       ? row("מעוניינת במחזור משכנתא?", interestedInRefinance || "לא צוין")
       : "";
@@ -103,21 +118,31 @@ export async function POST(req: NextRequest) {
           <tbody>
             ${row("מספר ילדים", numChildren)}
             ${row("גילאי הילדים", childrenAges)}
-            ${row("סטטוס תעסוקה", employmentStatus)}
-            ${row("הכנסה חודשית", income)}
+            ${row("סטטוס תעסוקה שלה", employmentStatus)}
+            ${spouseRow("סטטוס תעסוקה של הבעל", spouseEmploymentStatus)}
+            ${row("הכנסה חודשית שלה", income)}
+            ${spouseRow("הכנסה חודשית של הבעל", spouseIncome)}
           </tbody>
         </table>
 
         <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;margin-bottom:20px;">
           <thead><tr><td colspan="2" style="padding:12px 16px;background:#060D3C;color:#fff;font-weight:bold;font-size:15px;">מצב פיננסי</td></tr></thead>
           <tbody>
-            ${row("יש פנסיה?", hasPension)}
-            ${row("יש קרן השתלמות?", hasHishtalmut)}
+            ${row("יש לה פנסיה?", hasPension)}
+            ${spouseRow("לבעל יש פנסיה?", spouseHasPension)}
+            ${row("יש לה קרן השתלמות?", hasHishtalmut)}
+            ${spouseRow("לבעל יש קרן השתלמות?", spouseHasHishtalmut)}
+            ${row("יש לה קרן גמל?", hasGemel)}
+            ${spouseRow("לבעל יש קרן גמל?", spouseHasGemel)}
+            ${row("יש לה ביטוח חיים פרטי?", hasLifeInsurance)}
+            ${spouseRow("לבעל יש ביטוח חיים פרטי?", spouseHasLifeInsurance)}
+            ${row("יש לה הלוואה על מוצר פיננסי?", hasLoan)}
+            ${spouseRow("לבעל יש הלוואה על מוצר פיננסי?", spouseHasLoan)}
             ${row("יש משכנתא?", hasMortgage)}
             ${mortgageRow}
             ${row("יש חסכון לילדים?", hasChildSavings)}
-            ${row("אזרחות אמריקאית?", usCitizen)}
-            ${maritalStatus === "נשואה" ? row("לבעלך אזרחות אמריקאית?", spouseUsCitizen) : ""}
+            ${row("אזרחות אמריקאית שלה?", usCitizen)}
+            ${spouseRow("לבעל אזרחות אמריקאית?", spouseUsCitizen)}
           </tbody>
         </table>
 
@@ -149,14 +174,24 @@ export async function POST(req: NextRequest) {
       `מספר ילדים: ${numChildren || "לא צוין"}`,
       `גילאי הילדים: ${childrenAges || "לא צוין"}`,
       `סטטוס תעסוקה: ${employmentStatus || "לא צוין"}`,
+      ...(married ? [`סטטוס תעסוקה של הבעל: ${spouseEmploymentStatus || "לא צוין"}`] : []),
       `הכנסה חודשית: ${income || "לא צוין"}`,
+      ...(married ? [`הכנסה חודשית של הבעל: ${spouseIncome || "לא צוין"}`] : []),
       `פנסיה: ${hasPension || "לא צוין"}`,
+      ...(married ? [`פנסיה של הבעל: ${spouseHasPension || "לא צוין"}`] : []),
       `קרן השתלמות: ${hasHishtalmut || "לא צוין"}`,
+      ...(married ? [`קרן השתלמות של הבעל: ${spouseHasHishtalmut || "לא צוין"}`] : []),
+      `קרן גמל: ${hasGemel || "לא צוין"}`,
+      ...(married ? [`קרן גמל של הבעל: ${spouseHasGemel || "לא צוין"}`] : []),
+      `ביטוח חיים פרטי: ${hasLifeInsurance || "לא צוין"}`,
+      ...(married ? [`ביטוח חיים פרטי של הבעל: ${spouseHasLifeInsurance || "לא צוין"}`] : []),
+      `הלוואה על מוצר פיננסי: ${hasLoan || "לא צוין"}`,
+      ...(married ? [`הלוואה על מוצר פיננסי של הבעל: ${spouseHasLoan || "לא צוין"}`] : []),
       `משכנתא: ${hasMortgage || "לא צוין"}`,
       ...(hasMortgage === "כן" ? [`מחזור משכנתא: ${interestedInRefinance || "לא צוין"}`] : []),
       `חסכון לילדים: ${hasChildSavings || "לא צוין"}`,
       `אזרחות אמריקאית: ${usCitizen || "לא צוין"}`,
-      ...(maritalStatus === "נשואה" ? [`אזרחות אמריקאית של הבעל: ${spouseUsCitizen || "לא צוין"}`] : []),
+      ...(married ? [`אזרחות אמריקאית של הבעל: ${spouseUsCitizen || "לא צוין"}`] : []),
       ...(notes ? [`הערות: ${notes}`] : []),
     ].join("\n");
 
