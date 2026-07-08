@@ -84,6 +84,11 @@
   .footer { position: absolute; bottom: 0; right: 0; left: 0; padding: 3.5mm 13mm 4mm; background: var(--navy); color: rgba(255,255,255,.85); font-size: 8px; line-height: 1.6; text-align: center; }
   .footer b { color: var(--mint); }
   .pageno { position: absolute; bottom: 1.2mm; left: 5mm; color: rgba(255,255,255,.5); font-size: 8px; }
+
+  /* ב-PDF משתמשים ב-Arial בלבד: גופנים משתנים של גוגל נשברים בחלק מתוכנות הצפייה (כותרות חצויות, מספרים נעלמים) */
+  @media print {
+    body, h1, h2, h3, .section-title h2, .hero h1, .hero .total { font-family: Arial, 'Segoe UI', sans-serif !important; }
+  }
 </style>
 <meta name="viewport" content="width=820"><style>@media screen { body { background: #E9EEFB; } .page { margin: 10px auto; box-shadow: 0 4px 24px rgba(6,13,60,.14); height: auto !important; min-height: 297mm; overflow: visible !important; } } .dlbar { background: #060D3C; padding: 10px 16px; display: flex; justify-content: center; gap: 14px; align-items: center; flex-wrap: wrap; } .dlbar a { background: #21F0B0; color: #060D3C; font-weight: 800; text-decoration: none; padding: 8px 22px; border-radius: 999px; font-size: 15px; font-family: 'Heebo', Arial, sans-serif; } .dlbar span { color: #fff; font-size: 13px; font-family: 'Heebo', Arial, sans-serif; } @media print { .dlbar { display: none; } }</style></head>
 <body><div class="dlbar"><span>הדוח האישי שלך מ<b>מצב צבירה</b></span><a href="r-014fe465f25d.pdf" download="דוח-רוחמה כהן.pdf">להורדת הדוח (PDF)</a></div>
