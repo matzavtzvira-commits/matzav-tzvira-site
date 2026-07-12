@@ -57,9 +57,19 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (!tzFile || tzFile.size === 0 || !spouseTzFile || spouseTzFile.size === 0) {
+    const married = maritalStatus === "נשואה";
+
+    // ת"ז שלה תמיד חובה. ת"ז בן זוג נדרשת רק כשנשואה - אחרת רווקה / חד הורית נחסמות.
+    if (!tzFile || tzFile.size === 0) {
       return NextResponse.json(
-        { error: "יש להעלות צילום ת\"ז שלך ושל בעלך" },
+        { error: "יש להעלות צילום ת\"ז" },
+        { status: 400, headers: CORS_HEADERS }
+      );
+    }
+
+    if (married && (!spouseTzFile || spouseTzFile.size === 0)) {
+      return NextResponse.json(
+        { error: "יש להעלות צילום ת\"ז של בעלך" },
         { status: 400, headers: CORS_HEADERS }
       );
     }
@@ -69,12 +79,16 @@ export async function POST(req: NextRequest) {
     const tzBuffer = Buffer.from(await tzFile.arrayBuffer());
     attachments.push({ filename: `tz-${name}-${tzFile.name}`, content: tzBuffer });
 
-    const spouseBuffer = Buffer.from(await spouseTzFile.arrayBuffer());
-    attachments.push({ filename: `tz-spouse-${spouseTzFile.name}`, content: spouseBuffer });
+    if (spouseTzFile && spouseTzFile.size > 0) {
+      const spouseBuffer = Buffer.from(await spouseTzFile.arrayBuffer());
+      attachments.push({ filename: `tz-spouse-${spouseTzFile.name}`, content: spouseBuffer });
+    }
 
+    let hasMortgageReport = false;
     if (mortgageReportFile && mortgageReportFile.size > 0) {
       const mortgageBuffer = Buffer.from(await mortgageReportFile.arrayBuffer());
       attachments.push({ filename: `mortgage-report-${mortgageReportFile.name}`, content: mortgageBuffer });
+      hasMortgageReport = true;
     }
 
     const row = (label: string, value: string) => `
@@ -83,7 +97,6 @@ export async function POST(req: NextRequest) {
         <td style="padding:10px 12px;border-bottom:1px solid #E8EDFF;color:#292929;font-size:14px;">${value || "לא צוין"}</td>
       </tr>`;
 
-    const married = maritalStatus === "נשואה";
     const spouseRow = (label: string, value: string) => (married ? row(label, value) : "");
 
     const mortgageRow = hasMortgage === "כן"
@@ -153,7 +166,7 @@ export async function POST(req: NextRequest) {
         </div>` : ""}
 
         <div style="background:#21F0B0;border-radius:10px;padding:14px 20px;">
-          <p style="margin:0;color:#060D3C;font-weight:bold;font-size:14px;">✓ ${attachments.length} קבצים מצורפים (ת"ז${attachments.length > 2 ? " + דוח משכנתא" : ""})</p>
+          <p style="margin:0;color:#060D3C;font-weight:bold;font-size:14px;">✓ ${attachments.length} קבצים מצורפים (ת"ז${hasMortgageReport ? " + דוח משכנתא" : ""})</p>
         </div>
 
         <p style="color:#aaa;font-size:12px;margin-top:20px;text-align:center;">נשלח מטופס קבלת מידע VIP - matzavtzvira.co.il</p>
