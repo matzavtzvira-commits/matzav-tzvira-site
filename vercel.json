@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/vip-followups",
       "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cron/vip-payment-sync",
+      "schedule": "0 7 * * *"
     }
   ]
 }
