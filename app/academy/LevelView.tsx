@@ -118,8 +118,6 @@ function VideoCard({ video, index, accent }: { video: AcademyVideo; index: numbe
 }
 
 export default function LevelView({ level }: { level: AcademyLevel }) {
-  const bridge = level.videos.find((v) => v.isBridge);
-  const rest = level.videos.filter((v) => !v.isBridge);
   const accent = level.accent;
 
   return (
@@ -172,37 +170,10 @@ export default function LevelView({ level }: { level: AcademyLevel }) {
         </div>
       </section>
 
-      {/* ── סרטון מעבר מודגש (לרמות 2-3) ── */}
-      {bridge && (
-        <section style={{ maxWidth: 1100, margin: "0 auto", padding: "8px 1.5rem 0" }}>
-          <div className="acad-bridge">
-            <div className="acad-bridge-video">
-              <VideoCard video={bridge} index={0} accent={accent} />
-            </div>
-            <div className="acad-bridge-text">
-              <span style={{ display: "inline-block", padding: "6px 14px", borderRadius: 50, background: accent, color: accent === "#21F0B0" ? "#060D3C" : "#fff", fontWeight: 800, fontSize: "0.8rem", marginBottom: 16 }}>
-                נתחיל מכאן
-              </span>
-              <h2 style={{ color: "#fff", fontSize: "clamp(1.6rem, 3.5vw, 2.3rem)", fontWeight: 800, lineHeight: 1.2, margin: "0 0 14px" }}>
-                {bridge.title}
-              </h2>
-              <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1.08rem", lineHeight: 1.7, margin: 0, maxWidth: 460 }}>
-                {bridge.blurb}
-              </p>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ── גלריית הסרטונים ── */}
+      {/* ── גלריית הסרטונים (כל 6, ממוספרים 1-6, אחיד בכל הרמות) ── */}
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "44px 1.5rem 20px" }}>
-        {bridge && (
-          <p style={{ color: accent, fontWeight: 700, fontSize: "0.95rem", margin: "0 0 22px", letterSpacing: 0.3 }}>
-            וממשיכות הלאה ↓
-          </p>
-        )}
         <div className="acad-grid">
-          {rest.map((v, i) => (
+          {level.videos.map((v, i) => (
             <VideoCard key={v.slug} video={v} index={i} accent={accent} />
           ))}
         </div>
