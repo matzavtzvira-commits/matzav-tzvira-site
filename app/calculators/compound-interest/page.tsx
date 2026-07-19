@@ -144,6 +144,20 @@ function CompoundCalculator() {
     marginBottom: 8,
     fontSize: "0.88rem",
   };
+  const stepBtnStyle: React.CSSProperties = {
+    width: 46,
+    height: 46,
+    borderRadius: 12,
+    border: "2px solid #E8EDFF",
+    background: "#FAFBFF",
+    color: "#124AF0",
+    fontSize: "1.35rem",
+    fontWeight: 800,
+    cursor: "pointer",
+    flexShrink: 0,
+    lineHeight: 1,
+    fontFamily: "inherit",
+  };
 
   return (
     <motion.div
@@ -170,11 +184,23 @@ function CompoundCalculator() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24, marginBottom: 32 }}>
         <div>
           <label style={labelStyle}>סכום התחלתי (₪)</label>
-          <input type="number" value={initial} min={0} onChange={e => setInitial(+e.target.value)} style={inputStyle} />
+          <div style={{ display: "flex", gap: 8, direction: "ltr" }}>
+            <button type="button" aria-label="פחות 1,000 ₪" onClick={() => setInitial(v => Math.max(0, v - 1000))} style={stepBtnStyle}>−</button>
+            <input type="number" inputMode="numeric" className="no-spin" value={initial} min={0} step={1000}
+              onChange={e => setInitial(Math.max(0, +e.target.value || 0))} style={inputStyle} />
+            <button type="button" aria-label="עוד 1,000 ₪" onClick={() => setInitial(v => v + 1000)} style={stepBtnStyle}>+</button>
+          </div>
+          <div style={{ fontSize: "0.72rem", color: "#777", marginTop: 4, textAlign: "center" }}>קפיצות של 1,000 ₪</div>
         </div>
         <div>
           <label style={labelStyle}>הפקדה חודשית (₪)</label>
-          <input type="number" value={monthly} min={0} onChange={e => setMonthly(+e.target.value)} style={inputStyle} />
+          <div style={{ display: "flex", gap: 8, direction: "ltr" }}>
+            <button type="button" aria-label="פחות 100 ₪" onClick={() => setMonthly(v => Math.max(0, v - 100))} style={stepBtnStyle}>−</button>
+            <input type="number" inputMode="numeric" className="no-spin" value={monthly} min={0} step={100}
+              onChange={e => setMonthly(Math.max(0, +e.target.value || 0))} style={inputStyle} />
+            <button type="button" aria-label="עוד 100 ₪" onClick={() => setMonthly(v => v + 100)} style={stepBtnStyle}>+</button>
+          </div>
+          <div style={{ fontSize: "0.72rem", color: "#777", marginTop: 4, textAlign: "center" }}>קפיצות של 100 ₪</div>
         </div>
         <div>
           <label style={labelStyle}>
@@ -1061,6 +1087,8 @@ export default function CompoundInterestPage() {
         לחישוב מהיר <span className="arrow-anim">←</span>
       </a>
       <style>{`
+        .no-spin::-webkit-outer-spin-button, .no-spin::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .no-spin { -moz-appearance: textfield; appearance: textfield; }
         @keyframes floatBtn { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
         @keyframes slippersFloat {
           0%   { transform: translateY(0px) rotate(-4deg); }
