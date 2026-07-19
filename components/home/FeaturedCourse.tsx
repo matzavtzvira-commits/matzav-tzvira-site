@@ -77,26 +77,14 @@ export default function FeaturedCourse() {
               zIndex: 1,
             }}
           >
-            <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.9rem", marginBottom: 8 }}>מסלול בסיסי</div>
-            <div style={{ fontSize: "3rem", fontWeight: 700, color: "white", lineHeight: 1 }}>597 ₪</div>
-            <div style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem", marginTop: 6, marginBottom: 20 }}>או 3 × 199 ₪</div>
+            <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.9rem", marginBottom: 8 }}>התוכנית הדיגיטלית המלאה</div>
+            <div style={{ fontSize: "3rem", fontWeight: 700, color: "white", lineHeight: 1 }}>297 ₪</div>
+            <div style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem", marginTop: 6, marginBottom: 20 }}>או 3 תשלומים נוחים של 99 ₪</div>
             <div style={{ borderTop: "1px solid rgba(255,255,255,0.15)", paddingTop: 20 }}>
-              <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.9rem", marginBottom: 8 }}>מסלול מלא + פגישה</div>
-              <div style={{ fontSize: "2rem", fontWeight: 700, color: "#21F0B0", lineHeight: 1 }}>1,190 ₪</div>
-              <div style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem", marginTop: 6 }}>או 5 × 238 ₪</div>
-              <div
-                style={{
-                  background: "#21F0B0",
-                  color: "#124AF0",
-                  borderRadius: 50,
-                  padding: "4px 14px",
-                  fontWeight: 700,
-                  fontSize: "0.78rem",
-                  display: "inline-block",
-                  marginTop: 10,
-                }}
-              >
-                הכי פופולרי
+              <div style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.9rem", lineHeight: 1.6 }}>
+                פגישה אחת עם יועץ פיננסי עולה 600 ₪.
+                <br />
+                כאן את מקבלת 32 שיעורים ב-297 ₪.
               </div>
             </div>
           </div>

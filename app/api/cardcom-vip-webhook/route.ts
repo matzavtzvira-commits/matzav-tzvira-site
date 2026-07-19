@@ -62,9 +62,10 @@ export async function POST(req: NextRequest) {
     }
 
     // Safety guard for when this runs as the account-level (global) webhook:
-    // never create a VIP client for the digital-program prices (597 / 1190).
+    // never create a VIP client for the digital-program prices (297 / 99 installment,
+    // plus the legacy 597 / 1190 links that may still be circulating).
     // The ליווי is priced 790 (or 590 with the 200 coupon).
-    const DIGITAL_PROGRAM_AMOUNTS = [597, 1190];
+    const DIGITAL_PROGRAM_AMOUNTS = [297, 99, 597, 1190];
     if (amount != null && DIGITAL_PROGRAM_AMOUNTS.includes(amount)) {
       console.log("Skipping non-VIP (digital program) payment, amount:", amount);
       return NextResponse.json({ ok: true });

@@ -37,15 +37,7 @@ const courseSchema = {
         {
           "@type": "Offer",
           "name": "תוכנית דיגיטלית",
-          "price": "597",
-          "priceCurrency": "ILS",
-          "availability": "https://schema.org/InStock",
-          "url": "https://matzavtzvira.co.il/course"
-        },
-        {
-          "@type": "Offer",
-          "name": "תוכנית דיגיטלית + פגישה אישית",
-          "price": "1190",
+          "price": "297",
           "priceCurrency": "ILS",
           "availability": "https://schema.org/InStock",
           "url": "https://matzavtzvira.co.il/course"
@@ -136,7 +128,7 @@ const courseSchema = {
 
 export const metadata = {
   title: "תוכנית השקעות לנשים | שוק ההון בנעלי בית | מצב צבירה",
-  description: "32 שיעורים, 14 דשבורדים ובדיקת תיק אישית. ללמוד להשקיע בשוק ההון מאפס - בתוכנית הדיגיטלית של רבקי וייס. מתאימה לנשים עם אפס ניסיון. 597 ש\"ח בלבד.",
+  description: "32 שיעורים, 14 דשבורדים ובדיקת תיק אישית. ללמוד להשקיע בשוק ההון מאפס - בתוכנית הדיגיטלית של רבקי וייס. מתאימה לנשים עם אפס ניסיון. 297 ש\"ח בלבד.",
 };
 
 export default function CoursePage() {

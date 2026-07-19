@@ -3,7 +3,7 @@ import Navigation from "@/components/Navigation";
 
 export const metadata: Metadata = {
   title: "מצב צבירה | השקעות לנשים בשפה פשוטה - רבקי וייס",
-  description: "מתכננת פיננסית לנשים חרדיות. לומדות להשקיע בשוק ההון בלי פחד. 329 נשים כבר בנו תיק השקעות. תוכנית דיגיטלית - 597 ש\"ח בלבד.",
+  description: "מתכננת פיננסית לנשים חרדיות. לומדות להשקיע בשוק ההון בלי פחד. 329 נשים כבר בנו תיק השקעות. תוכנית דיגיטלית - 297 ש\"ח בלבד.",
 };
 import HomeHero from "@/components/home/HomeHero";
 import SocialProof from "@/components/home/SocialProof";

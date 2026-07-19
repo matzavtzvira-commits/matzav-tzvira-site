@@ -9,7 +9,7 @@ const CARDCOM_LIST = "https://secure.cardcom.solutions/api/v11/Transactions/List
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://matzavtzvira.co.il";
 const SYNC_URL = process.env.VIP_CARDCOM_SYNC_URL || "https://tasks-dashboard-gamma.vercel.app/api/vip-cardcom-sync";
 
-// ליווי is 790, or 590 with the 200 coupon. (Course/digital = 597/1190, excluded.)
+// ליווי is 790, or 590 with the 200 coupon. (Course/digital = 297, legacy 597/1190 - excluded.)
 const LIVUY_AMOUNTS = [790, 590];
 
 function ddmmyyyy(d: Date): string {
