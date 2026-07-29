@@ -1,5 +1,6 @@
 ﻿"use client";
 import { useState } from "react";
+import posthog from "posthog-js";
 
 const PAYMENT_URL = "https://secure.cardcom.solutions/EA/EA5/dKoPGzcdZEqxgTyXuRf8lA/PaymentSP";
 
@@ -34,7 +35,7 @@ const faqs = [
   },
   {
     q: "המחשב שלי חסום - אני מפחדת שלא יפתח את התוכנית.",
-    a: "חשבנו על הכל. ב\"ה כל ההכשרים פתחו את התוכנית - כל בעיה שלא תהיה, אנחנו פה ויש פתרון לכל.",
+    a: "חשבנו על הכל. ב\"ה התוכנית נפתחת בכל המחשבים המסוננים, בכל רמות הסינון - ולכל בעיה שתהיה, אנחנו פה עם פתרון.",
   },
   {
     q: "מה אם לא התאים לי?",
@@ -95,6 +96,7 @@ export default function FAQ() {
           </p>
           <a
             href={PAYMENT_URL}
+            onClick={() => posthog.capture("checkout_click", { location: "faq" }, { transport: "sendBeacon" })}
             style={{ position: "relative", display: "inline-block", textDecoration: "none", transition: "transform 0.2s", maxWidth: "100%" }}
             onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-3px)")}
             onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}

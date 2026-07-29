@@ -1,5 +1,6 @@
 ﻿"use client";
 import { motion } from "framer-motion";
+import posthog from "posthog-js";
 
 const PAYMENT_URL = "https://secure.cardcom.solutions/EA/EA5/dKoPGzcdZEqxgTyXuRf8lA/PaymentSP";
 
@@ -33,17 +34,8 @@ export default function About() {
               כותבת טור &quot;שוות הון&quot; במגזין &quot;בתוך המשפחה&quot;
             </p>
 
-            <div style={{ borderRight: "4px solid #21F0B0", paddingRight: 20, marginBottom: 24 }}>
-              <p style={{ fontSize: "1.05rem", lineHeight: 1.9, color: "#292929" }}>
-                לפני 6 שנים הייתי בדיוק כמוך <span style={{ fontSize: "0.75em" }}>-</span> פאנית מצליחה,
-                <br />
-                על הגז כל הזמן.
-                ואז הגיע הרגע ששבר אותי, בצורה הכי טובה שיש.
-              </p>
-            </div>
-
             <div style={{ background: "#124AF0", color: "white", borderRadius: 16, padding: "20px 24px", marginBottom: 20, fontSize: "1rem", lineHeight: 1.8 }}>
-              הסתכלתי על מזכירה שמרוויחה רבע ממה שאני הרווחתי.
+              לפני 6 שנים הסתכלתי על מזכירה שמרוויחה רבע ממה שאני הרווחתי.
               <br />
               וראיתי שהיא תגיע לחתונות הילדים ברווחה, לפנסיה בשלווה <span style={{ fontSize: "0.75em" }}>-</span>
               <br />
@@ -73,14 +65,7 @@ export default function About() {
             </div>
 
             <p style={{ fontSize: "1rem", lineHeight: 1.9, color: "#292929", marginBottom: 20 }}>
-              החלטתי לצאת למסע <span style={{ fontSize: "0.75em" }}>-</span> לחקור, ללמוד, לאסוף <span style={{ fontSize: "0.75em" }}>-</span>
-              ופשוט לחלוק את הכל עם כל נשות עמ&quot;י.
-              שידעו. שיבינו. שלא תצא עוד אישה לחיים בלי זה.
-            </p>
-
-            <p style={{ fontSize: "1rem", lineHeight: 1.9, color: "#292929", marginBottom: 24 }}>
-              זכיתי ללוות עשרות משפחות לשלווה.
-              מאות נשים שהיום מבינות, יודעות <span style={{ fontSize: "0.75em" }}>-</span> <strong>וחלק מהמהפכה.</strong>
+              מאז זו השליחות שלי <span style={{ fontSize: "0.75em" }}>-</span> שלא תצא עוד אישה לחיים בלי הידע הזה.
             </p>
 
             <p style={{ fontSize: "1.05rem", fontWeight: 700, color: "#124AF0", lineHeight: 1.8, marginBottom: 28, borderRight: "3px solid #21F0B0", paddingRight: 16 }}>
@@ -89,6 +74,7 @@ export default function About() {
 
             <a
               href={PAYMENT_URL}
+              onClick={() => posthog.capture("checkout_click", { location: "about" }, { transport: "sendBeacon" })}
               style={{ position: "relative", display: "inline-block", textDecoration: "none", transition: "transform 0.2s", maxWidth: "100%" }}
               onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-3px)")}
               onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}

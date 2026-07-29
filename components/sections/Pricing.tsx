@@ -1,4 +1,7 @@
 ﻿"use client";
+import { useEffect, useRef } from "react";
+import posthog from "posthog-js";
+
 const PAYMENT_URL = "https://secure.cardcom.solutions/EA/EA5/dKoPGzcdZEqxgTyXuRf8lA/PaymentSP";
 
 const includes = [
@@ -13,10 +16,31 @@ const includes = [
 ];
 
 export default function Pricing() {
-  const handleBuy = () => { window.location.href = PAYMENT_URL; };
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          posthog.capture("pricing_view");
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const handleBuy = () => {
+    posthog.capture("checkout_click", { location: "pricing" }, { transport: "sendBeacon" });
+    window.location.href = PAYMENT_URL;
+  };
 
   return (
-    <section id="pricing" style={{ background: "#F4F7FF", padding: "48px 1.5rem" }}>
+    <section ref={sectionRef} id="pricing" style={{ background: "#F4F7FF", padding: "48px 1.5rem", scrollMarginTop: 80 }}>
       <div style={{ maxWidth: 680, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 40 }}>
           <p style={{ color: "#21F0B0", fontWeight: 700, fontSize: "0.9rem", letterSpacing: 1, marginBottom: 8, background: "#124AF0", display: "inline-block", padding: "4px 16px", borderRadius: 50 }}>
@@ -33,8 +57,8 @@ export default function Pricing() {
         {/* Scarcity banner */}
         <div style={{ background: "#FFF3CD", border: "1.5px solid #F5A623", borderRadius: 14, padding: "14px 20px", marginBottom: 16, display: "flex", alignItems: "center", gap: 12, textAlign: "right" }}>
           <p style={{ margin: 0, fontSize: "0.95rem", color: "#7A4F00", fontWeight: 700, lineHeight: 1.6 }}>
-            בגלל בדיקת התיק האישית שכלולה בתוכנית — אנחנו מגבילות מקומות.
-            <span style={{ fontWeight: 400, display: "block", fontSize: "0.88rem", marginTop: 2 }}>לא נוכל לתת ליווי אישי לכמות בלתי מוגבלת. ברגע שהמקומות מלאים — הדלת נסגרת.</span>
+            בגלל בדיקת התיק האישית שכלולה בתוכנית - אנחנו מגבילות מקומות.
+            <span style={{ fontWeight: 400, display: "block", fontSize: "0.88rem", marginTop: 2 }}>לא נוכל לתת ליווי אישי לכמות בלתי מוגבלת. ברגע שהמקומות מלאים - הדלת נסגרת.</span>
           </p>
         </div>
 
@@ -103,13 +127,13 @@ export default function Pricing() {
           </button>
 
           <p style={{ fontSize: "0.9rem", color: "#FA5C5C", fontWeight: 700, marginTop: 16, marginBottom: 4 }}>
-            כל חודש שעובר בלי הידע הזה — הזדמנות שאי אפשר להחזיר.
+            כל חודש שעובר בלי הידע הזה - הזדמנות שאי אפשר להחזיר.
           </p>
           <p style={{ opacity: 0.7, fontSize: "0.88rem", marginTop: 8 }}>
             תשלום מאובטח | אחריות 14 יום <span style={{ fontSize: "0.75em" }}>-</span> לא מרוצה? מחזירים הכל בלי שאלות
           </p>
           <p style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.55)", marginTop: 8, fontStyle: "italic" }}>
-            המקומות מוגבלים בגלל הבדיקה האישית. כשהם מלאים — הטופס נסגר.
+            המקומות מוגבלים בגלל הבדיקה האישית. כשהם מלאים - הטופס נסגר.
           </p>
           <p style={{ fontSize: "0.9rem", color: "#21F0B0", marginTop: 10, fontWeight: 600, opacity: 0.9 }}>
             המחיר נגיש בכוונה. כי מגיעה לכל אישה לדעת.

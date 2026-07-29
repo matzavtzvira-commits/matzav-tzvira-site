@@ -2,7 +2,6 @@
 import Hero from "@/components/sections/Hero";
 import SocialProof from "@/components/home/SocialProof";
 import Hook from "@/components/sections/Hook";
-import ContrastCard from "@/components/sections/ContrastCard";
 import About from "@/components/sections/About";
 import Testimonials from "@/components/sections/Testimonials";
 import WhatsIncluded from "@/components/sections/WhatsIncluded";
@@ -151,34 +150,24 @@ export default function CoursePage() {
           </svg>
         </div>
         <SocialProof />
-        <Hook />
         {/* blue → dark navy */}
         <div style={{ height: 56, background: "#060D3C", overflow: "hidden", lineHeight: 0 }}>
           <svg viewBox="0 0 1440 56" preserveAspectRatio="none" width="100%" height="100%" style={{ display: "block" }}>
-            <polygon points="0,0 1440,0 1440,56" fill="#124AF0"/>
+            <polygon points="0,0 1440,0 0,56" fill="#124AF0"/>
           </svg>
         </div>
-        <ContrastCard />
+        <WhatsIncluded />
         {/* dark navy → white */}
         <div style={{ height: 56, background: "#FFFFFF", overflow: "hidden", lineHeight: 0 }}>
           <svg viewBox="0 0 1440 56" preserveAspectRatio="none" width="100%" height="100%" style={{ display: "block" }}>
             <polygon points="0,0 1440,0 1440,56" fill="#060D3C"/>
           </svg>
         </div>
-        <About />
-        {/* white → white: no divider needed */}
-        <Testimonials />
-        {/* white → dark navy */}
-        <div style={{ height: 56, background: "#060D3C", overflow: "hidden", lineHeight: 0 }}>
-          <svg viewBox="0 0 1440 56" preserveAspectRatio="none" width="100%" height="100%" style={{ display: "block" }}>
-            <polygon points="0,0 1440,0 1440,56" fill="#FFFFFF"/>
-          </svg>
-        </div>
-        <WhatsIncluded />
-        {/* dark navy → light */}
-        <div style={{ height: 56, background: "#F4F7FF", overflow: "hidden", lineHeight: 0 }}>
-          <svg viewBox="0 0 1440 56" preserveAspectRatio="none" width="100%" height="100%" style={{ display: "block" }}>
-            <polygon points="0,0 1440,0 0,56" fill="#060D3C"/>
+        <Syllabus />
+        {/* white → light */}
+        <div style={{ height: 40, background: "#F4F7FF", overflow: "hidden", lineHeight: 0 }}>
+          <svg viewBox="0 0 1440 40" preserveAspectRatio="none" width="100%" height="100%" style={{ display: "block" }}>
+            <polygon points="0,0 1440,0 0,40" fill="#FFFFFF"/>
           </svg>
         </div>
         <DashboardShowcase />
@@ -188,8 +177,30 @@ export default function CoursePage() {
             <polygon points="0,0 1440,0 0,40" fill="#F4F7FF"/>
           </svg>
         </div>
-        <Syllabus />
         <Bonus />
+        {/* white → white: no divider needed */}
+        <Testimonials />
+        {/* white → light */}
+        <div style={{ height: 40, background: "#F4F7FF", overflow: "hidden", lineHeight: 0 }}>
+          <svg viewBox="0 0 1440 40" preserveAspectRatio="none" width="100%" height="100%" style={{ display: "block" }}>
+            <polygon points="0,0 1440,0 1440,40" fill="#FFFFFF"/>
+          </svg>
+        </div>
+        <Pricing />
+        {/* light → blue (story) */}
+        <div style={{ height: 56, background: "#124AF0", overflow: "hidden", lineHeight: 0 }}>
+          <svg viewBox="0 0 1440 56" preserveAspectRatio="none" width="100%" height="100%" style={{ display: "block" }}>
+            <polygon points="0,0 1440,0 1440,56" fill="#F4F7FF"/>
+          </svg>
+        </div>
+        <Hook />
+        {/* blue → white */}
+        <div style={{ height: 56, background: "#FFFFFF", overflow: "hidden", lineHeight: 0 }}>
+          <svg viewBox="0 0 1440 56" preserveAspectRatio="none" width="100%" height="100%" style={{ display: "block" }}>
+            <polygon points="0,0 1440,0 0,56" fill="#124AF0"/>
+          </svg>
+        </div>
+        <About />
         {/* white → blue (MidCTA) */}
         <div style={{ height: 56, background: "#124AF0", overflow: "hidden", lineHeight: 0 }}>
           <svg viewBox="0 0 1440 56" preserveAspectRatio="none" width="100%" height="100%" style={{ display: "block" }}>
@@ -203,7 +214,6 @@ export default function CoursePage() {
             <polygon points="0,0 1440,0 1440,40" fill="#124AF0"/>
           </svg>
         </div>
-        <Pricing />
         <FAQ />
       </main>
       <Footer />

@@ -1,4 +1,5 @@
 ﻿"use client";
+import posthog from "posthog-js";
 
 const PAYMENT_URL = "https://secure.cardcom.solutions/EA/EA5/dKoPGzcdZEqxgTyXuRf8lA/PaymentSP";
 
@@ -24,6 +25,7 @@ export default function MidCTA() {
       </div>
       <a
         href={PAYMENT_URL}
+        onClick={() => posthog.capture("checkout_click", { location: "midcta" }, { transport: "sendBeacon" })}
         style={{ position: "relative", display: "inline-block", textDecoration: "none", transition: "transform 0.2s", maxWidth: "100%" }}
         onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-3px)")}
         onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}

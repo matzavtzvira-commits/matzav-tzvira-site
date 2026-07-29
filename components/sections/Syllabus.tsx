@@ -1,6 +1,7 @@
 ﻿"use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import posthog from "posthog-js";
 
 const chapters = [
   {
@@ -74,14 +75,14 @@ const methodSteps = [
   {
     num: "1",
     title: "גלי",
-    desc: "את כבר מושקעת בשוק ההון — פנסיה, קרן השתלמות, חסכון לכל ילד. רוב הנשים לא יודעות את זה.",
+    desc: "את כבר מושקעת בשוק ההון - פנסיה, קרן השתלמות, חסכון לכל ילד. רוב הנשים לא יודעות את זה.",
     source: "פנסיה נט - רשות שוק ההון",
     href: "https://pensyanet.cma.gov.il",
   },
   {
     num: "2",
     title: "נקי",
-    desc: "הפרש של 0.5% בדמי ניהול שווה מאות אלפי שקלים לאורך 30 שנה. זה לא שיווק — זה מחשבון ממשלתי.",
+    desc: "הפרש של 0.5% בדמי ניהול שווה מאות אלפי שקלים לאורך 30 שנה. זה לא שיווק - זה מחשבון ממשלתי.",
     source: "מחשבון דמי ניהול - nihul.cma.gov.il",
     href: "https://nihul.cma.gov.il",
   },
@@ -129,7 +130,15 @@ function MethodStrip() {
 }
 
 export default function Syllabus() {
-  const [open, setOpen] = useState<number | null>(null);
+  const [open, setOpen] = useState<number | null>(0);
+
+  const toggle = (i: number) => {
+    const next = open === i ? null : i;
+    setOpen(next);
+    if (next !== null) {
+      posthog.capture("syllabus_chapter_open", { chapter: chapters[i].title, chapter_index: i + 1 });
+    }
+  };
 
   return (
     <section style={{ background: "white", padding: "48px 1.5rem" }}>
@@ -150,7 +159,7 @@ export default function Syllabus() {
           {chapters.map((ch, i) => (
             <div key={i} style={{ border: open === i ? "2px solid #124AF0" : "2px solid #E8EDFF", borderRadius: 16, overflow: "hidden", transition: "border-color 0.2s" }}>
               <button
-                onClick={() => setOpen(open === i ? null : i)}
+                onClick={() => toggle(i)}
                 style={{ width: "100%", padding: "20px 24px", background: open === i ? "#F4F7FF" : "white", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 16, textAlign: "right", transition: "background 0.2s" }}
               >
                 <div style={{ width: 64, height: 64, flexShrink: 0, borderRadius: "50%", overflow: "hidden", filter: "contrast(1.15) saturate(1.3)" }}>

@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-
-const PAYMENT_URL = "https://secure.cardcom.solutions/EA/EA5/dKoPGzcdZEqxgTyXuRf8lA/PaymentSP";
+import posthog from "posthog-js";
 
 export default function FloatingCTA() {
   const [visible, setVisible] = useState(false);
@@ -18,8 +17,9 @@ export default function FloatingCTA() {
   return (
     <>
       <a
-        href={PAYMENT_URL}
-        aria-label="עבור לרכישת התוכנית"
+        href="#pricing"
+        onClick={() => posthog.capture("floating_cta_click")}
+        aria-label="מעבר לפרטי ההצטרפות והמחיר"
         className="floating-cta"
         style={{
           position: "fixed",

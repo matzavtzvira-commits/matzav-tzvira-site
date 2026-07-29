@@ -63,7 +63,7 @@ function Icon({ index }: { index: number }) {
 
 export default function WhatsIncluded() {
   return (
-    <section style={{ background: "radial-gradient(ellipse at 50% 20%, #1535B5 0%, #060D3C 70%)", padding: "72px 1.5rem" }}>
+    <section id="included" style={{ background: "radial-gradient(ellipse at 50% 20%, #1535B5 0%, #060D3C 70%)", padding: "72px 1.5rem", scrollMarginTop: 80 }}>
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
 
         <motion.div

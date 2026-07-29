@@ -1,5 +1,6 @@
 ﻿"use client";
 import { motion } from "framer-motion";
+import posthog from "posthog-js";
 
 const PAYMENT_URL = "https://secure.cardcom.solutions/EA/EA5/dKoPGzcdZEqxgTyXuRf8lA/PaymentSP";
 
@@ -101,9 +102,10 @@ export default function Hero() {
             </span>
 
             {/* CTAs */}
-            <div className="hero-cta" style={{ display: "flex", gap: 12, alignItems: "center", justifyContent: "flex-start", marginBottom: 28, transform: "translateX(40px)" }}>
+            <div className="hero-cta" style={{ display: "flex", gap: 14, alignItems: "center", justifyContent: "flex-start", marginBottom: 28, flexWrap: "wrap" }}>
               <a
                 href={PAYMENT_URL}
+                onClick={() => posthog.capture("checkout_click", { location: "hero" }, { transport: "sendBeacon" })}
                 style={{ position: "relative", display: "inline-block", textDecoration: "none", transition: "transform 0.2s" }}
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-3px)")}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
@@ -112,6 +114,25 @@ export default function Hero() {
                 <span style={{ position: "relative", zIndex: 1, color: "#FFFFFF", padding: "14px 40px", fontWeight: 800, fontSize: "0.95rem", display: "block" }}>
                   אני רוצה להפסיק לעבוד לבד ←
                 </span>
+              </a>
+              <a
+                href="#included"
+                onClick={() => posthog.capture("program_details_click", { location: "hero" })}
+                style={{
+                  display: "inline-block",
+                  textDecoration: "none",
+                  color: "#FFFFFF",
+                  border: "1.5px solid rgba(255,255,255,0.45)",
+                  borderRadius: 50,
+                  padding: "12px 28px",
+                  fontWeight: 700,
+                  fontSize: "0.9rem",
+                  transition: "transform 0.2s, background 0.2s",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.background = "rgba(255,255,255,0.1)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.background = "transparent"; }}
+              >
+                מה כוללת התוכנית? ↓
               </a>
             </div>
 
