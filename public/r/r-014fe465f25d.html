@@ -2,6 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=794">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700;800;900&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -88,6 +89,12 @@
   /* ב-PDF משתמשים ב-Arial בלבד: גופנים משתנים של גוגל נשברים בחלק מתוכנות הצפייה (כותרות חצויות, מספרים נעלמים) */
   @media print {
     body, h1, h2, h3, .section-title h2, .hero h1, .hero .total { font-family: Arial, 'Segoe UI', sans-serif !important; }
+  }
+
+  /* בצפייה בדפדפן: הדוח נמתח לכל רוחב המסך (ובטלפון מתכווץ לרוחב). לא משפיע על ה-PDF - שם חל @media print */
+  @media screen {
+    body { zoom: var(--screen-zoom, 1); background: #E9EEF9; }
+    .page { margin: 0 auto 14px; box-shadow: 0 3px 18px rgba(6,13,60,.14); }
   }
 </style>
 </head>
@@ -320,5 +327,18 @@
     · הריבית מחושבת בריבית דריבית חודשית. כל הסכומים מעוגלים והם הערכה בקירוב בלבד.
   </div>
   <div class="footer">שום דבר מהאמור במסמך זה אינו מהווה המלצה, ייעוץ פיננסי, ייעוץ השקעות או תחליף לייעוץ אישי המתחשב בנתונים שלך. כל התחזיות מבוססות על תשואות עבר בלבד, ותשואות העבר אינן מבטיחות ואינן מעידות על תשואות העתיד. הסכומים הם הערכה בקירוב בלבד. כל פעולה בשוק ההון הינה על אחריותך בלבד. <b>מצב צבירה</b><span class="pageno">עמוד 7</span></div>
-</div></body>
+</div>
+<script>
+// מסך רחב: מגדילים את הדוח לכל רוחב החלון (עמוד A4 = 794px). בטלפון ההתאמה נעשית דרך תג ה-viewport,
+// כי כיווץ עם zoom נשבר בדפי RTL. ה-PDF לא מושפע - הכלל חל רק ב-media screen
+(function () {
+  function fit() {
+    var z = document.documentElement.clientWidth / 794;
+    document.documentElement.style.setProperty('--screen-zoom', z > 1 ? z : 1);
+  }
+  fit();
+  window.addEventListener('resize', fit);
+})();
+</script>
+</body>
 </html>
