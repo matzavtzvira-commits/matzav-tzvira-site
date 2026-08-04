@@ -95,7 +95,12 @@
   @media screen {
     body { zoom: var(--screen-zoom, 1); background: #E9EEF9; }
     .page { margin: 0 auto 14px; box-shadow: 0 3px 18px rgba(6,13,60,.14); }
+    .pdf-btn { position: fixed; top: 12px; left: 12px; z-index: 99; display: flex; align-items: center; gap: 7px;
+      background: var(--blue); color: #fff; border-radius: 999px; padding: 10px 20px;
+      font-size: 14px; font-weight: 700; text-decoration: none; box-shadow: 0 4px 14px rgba(18,74,240,.35); }
+    .pdf-btn:hover { background: var(--navy); }
   }
+  @media print { .pdf-btn { display: none; } }
 </style>
 </head>
 <body>
@@ -328,6 +333,11 @@
   </div>
   <div class="footer">שום דבר מהאמור במסמך זה אינו מהווה המלצה, ייעוץ פיננסי, ייעוץ השקעות או תחליף לייעוץ אישי המתחשב בנתונים שלך. כל התחזיות מבוססות על תשואות עבר בלבד, ותשואות העבר אינן מבטיחות ואינן מעידות על תשואות העתיד. הסכומים הם הערכה בקירוב בלבד. כל פעולה בשוק ההון הינה על אחריותך בלבד. <b>מצב צבירה</b><span class="pageno">עמוד 7</span></div>
 </div>
+<a class="pdf-btn" id="pdf-btn" download>&#11015;&#65039; להורדת הדוח כ-PDF</a>
+<script>
+// כפתור ההורדה מצביע על קובץ ה-PDF שיושב לצד ה-HTML באותו שם (מחושב בזמן טעינה, כי שם הקובץ באתר שונה משם הקובץ המקומי)
+document.getElementById('pdf-btn').href = location.pathname.replace(/.html?$/i, '.pdf');
+</script>
 <script>
 // מסך רחב: מגדילים את הדוח לכל רוחב החלון (עמוד A4 = 794px). בטלפון ההתאמה נעשית דרך תג ה-viewport,
 // כי כיווץ עם zoom נשבר בדפי RTL. ה-PDF לא מושפע - הכלל חל רק ב-media screen
