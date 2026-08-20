@@ -33,6 +33,7 @@ export async function POST(req: NextRequest) {
     const hasMortgage = formData.get("hasMortgage") as string;
     const interestedInRefinance = formData.get("interestedInRefinance") as string;
     const hasChildSavings = formData.get("hasChildSavings") as string;
+    const kosherTracks = formData.get("kosherTracks") as string;
     const usCitizen = formData.get("usCitizen") as string;
     const notes = formData.get("notes") as string;
 
@@ -154,6 +155,7 @@ export async function POST(req: NextRequest) {
             ${row("יש משכנתא?", hasMortgage)}
             ${mortgageRow}
             ${row("יש חסכון לילדים?", hasChildSavings)}
+            ${row("חשוב להם מסלולים כשרים?", kosherTracks)}
             ${row("אזרחות אמריקאית שלה?", usCitizen)}
             ${spouseRow("לבעל אזרחות אמריקאית?", spouseUsCitizen)}
           </tbody>
@@ -203,6 +205,7 @@ export async function POST(req: NextRequest) {
       `משכנתא: ${hasMortgage || "לא צוין"}`,
       ...(hasMortgage === "כן" ? [`מחזור משכנתא: ${interestedInRefinance || "לא צוין"}`] : []),
       `חסכון לילדים: ${hasChildSavings || "לא צוין"}`,
+      `מסלולים כשרים חשובים: ${kosherTracks || "לא צוין"}`,
       `אזרחות אמריקאית: ${usCitizen || "לא צוין"}`,
       ...(married ? [`אזרחות אמריקאית של הבעל: ${spouseUsCitizen || "לא צוין"}`] : []),
       ...(notes ? [`הערות: ${notes}`] : []),

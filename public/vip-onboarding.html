@@ -656,6 +656,15 @@
           <div class="error-msg" id="err-spouse-gemel">נא לענות על השאלה</div>
         </div>
 
+        <div class="field" id="field-kosher">
+          <label>האם חשוב לכם מסלולים כשרים? <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="kosherTracks" value="כן" /> כן</label>
+            <label class="radio-option"><input type="radio" name="kosherTracks" value="לא" /> לא</label>
+          </div>
+          <div class="error-msg" id="err-kosher">נא לענות על השאלה</div>
+        </div>
+
         <div class="field" id="field-uscitizen">
           <label>האם יש לך אזרחות אמריקאית? <span class="required">*</span></label>
           <div class="radio-group">
@@ -1186,6 +1195,7 @@
       const childSavings = getRadioValue('hasChildSavings');
       const hasLifeInsurance = getRadioValue('hasLifeInsurance');
       const hasGemel = getRadioValue('hasGemel');
+      const kosherTracks = getRadioValue('kosherTracks');
       const usCitizen = getRadioValue('usCitizen');
       const tzFile = document.getElementById('tzFile').files[0];
 
@@ -1196,10 +1206,11 @@
       showError('field-childsavings', 'err-childsavings', !childSavings);
       showError('field-life-insurance', 'err-life-insurance', !hasLifeInsurance);
       showError('field-gemel', 'err-gemel', !hasGemel);
+      showError('field-kosher', 'err-kosher', !kosherTracks);
       showError('field-uscitizen', 'err-uscitizen', !usCitizen);
       showError('field-tz', 'err-tz', !tzFile);
 
-      if (!pension || !hishtalmut || !hasLoan || !mortgage || !childSavings || !hasLifeInsurance || !hasGemel || !usCitizen || !tzFile) ok = false;
+      if (!pension || !hishtalmut || !hasLoan || !mortgage || !childSavings || !hasLifeInsurance || !hasGemel || !kosherTracks || !usCitizen || !tzFile) ok = false;
 
       if (married) {
         const spousePension = getRadioValue('spouseHasPension');
@@ -1326,6 +1337,7 @@
       fd.append('spouseHasLifeInsurance', getRadioValue('spouseHasLifeInsurance'));
       fd.append('hasGemel', getRadioValue('hasGemel'));
       fd.append('spouseHasGemel', getRadioValue('spouseHasGemel'));
+      fd.append('kosherTracks', getRadioValue('kosherTracks'));
       fd.append('usCitizen', getRadioValue('usCitizen'));
       fd.append('spouseUsCitizen', getRadioValue('spouseUsCitizen'));
       fd.append('notes', document.getElementById('notes').value.trim());
