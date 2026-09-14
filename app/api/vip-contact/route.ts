@@ -4,11 +4,16 @@ import { Resend } from "resend";
 export async function POST(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY);
   try {
-    const { name, phone, email } = await req.json();
+    const { name, phone, email, source } = await req.json();
 
     if (!name || !phone || !email) {
       return NextResponse.json({ error: "חסרים שדות חובה" }, { status: 400 });
     }
+
+    // Waitlist leads come from /vip/waitlist and need a different follow-up than
+    // leads who read the whole sales page. Anything else stays the old "website".
+    const isWaitlist = source === "waitlist";
+    const leadSource = isWaitlist ? "waitlist" : "website";
 
     // Best-effort: push the lead into the tasks dashboard for follow-up tracking.
     // Never blocks or fails the customer-facing email if the dashboard is down.
@@ -23,7 +28,7 @@ export async function POST(req: NextRequest) {
             "Content-Type": "application/json",
             "x-intake-secret": process.env.VIP_INTAKE_SECRET,
           },
-          body: JSON.stringify({ name, phone, email }),
+          body: JSON.stringify({ name, phone, email, source: leadSource }),
           signal: AbortSignal.timeout(5000),
         });
       } catch (e) {
@@ -34,11 +39,13 @@ export async function POST(req: NextRequest) {
     await resend.emails.send({
       from: "אתר מצב צבירה <noreply@matzavtzvira.co.il>",
       to: "matzavtzvira@gmail.com",
-      subject: `פנייה חדשה - מצב צבירה VIP - ${name}`,
+      subject: isWaitlist
+        ? `רשימת המתנה VIP - ${name}`
+        : `פנייה חדשה - מצב צבירה VIP - ${name}`,
       html: `
         <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px; background: #F4F7FF; border-radius: 16px;">
-          <h2 style="color: #060D3C; margin-bottom: 8px;">פנייה חדשה - מצב צבירה VIP</h2>
-          <p style="color: #888; font-size: 14px; margin-bottom: 28px;">הגיעה מהדף הנחיתה</p>
+          <h2 style="color: #060D3C; margin-bottom: 8px;">${isWaitlist ? "הצטרפות לרשימת המתנה - ליווי VIP" : "פנייה חדשה - מצב צבירה VIP"}</h2>
+          <p style="color: #888; font-size: 14px; margin-bottom: 28px;">${isWaitlist ? "נרשמה דרך דף רשימת ההמתנה" : "הגיעה מהדף הנחיתה"}</p>
 
           <table style="width: 100%; border-collapse: collapse;">
             <tr>
@@ -60,7 +67,7 @@ export async function POST(req: NextRequest) {
           </table>
 
           <div style="margin-top: 28px; background: #124AF0; border-radius: 12px; padding: 16px 20px; text-align: center;">
-            <p style="color: #21F0B0; font-weight: bold; margin: 0;">מחזור שלישי - לחזור תוך 24 שעות לשיחת היכרות</p>
+            <p style="color: #21F0B0; font-weight: bold; margin: 0;">${isWaitlist ? "רישום מוקדם - לחזור אחרי החגים לשיחת התאמה" : "מחזור שלישי - לחזור תוך 24 שעות לשיחת היכרות"}</p>
           </div>
         </div>
       `,
