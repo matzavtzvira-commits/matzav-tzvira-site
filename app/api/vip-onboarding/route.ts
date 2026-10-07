@@ -115,7 +115,7 @@ export async function POST(req: NextRequest) {
       <div dir="rtl" style="font-family:Arial,sans-serif;max-width:620px;margin:0 auto;padding:32px;background:#F4F7FF;border-radius:16px;">
         <div style="background:#124AF0;border-radius:12px;padding:20px 24px;margin-bottom:28px;">
           <h2 style="color:#21F0B0;margin:0 0 4px;">לקוחת VIP חדשה - טופס קבלת מידע</h2>
-          <p style="color:rgba(255,255,255,0.7);font-size:13px;margin:0;">${new Date().toLocaleDateString("he-IL", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" })}</p>
+          <p style="color:rgba(255,255,255,0.7);font-size:13px;margin:0;">${new Date().toLocaleDateString("he-IL", { timeZone: "Asia/Jerusalem", day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" })}</p>
         </div>
 
         <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;margin-bottom:20px;">
