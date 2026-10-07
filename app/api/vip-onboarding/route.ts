@@ -51,6 +51,11 @@ export async function POST(req: NextRequest) {
     const spouseTzFile = formData.get("spouseTzFile") as File | null;
     const mortgageReportFile = formData.get("mortgageReportFile") as File | null;
 
+    // הטופס החדש שולח את הקבצים בנפרד (/api/vip-onboarding-files) כדי לא לעבור
+    // את מגבלת 4.5MB של Vercel. כאן מגיעות רק התשובות + רשימת הקבצים שבדרך.
+    const filesSeparate = formData.get("filesSeparate") === "1";
+    const expectedFiles = (formData.get("expectedFiles") as string) || "";
+
     if (!name || !phone || !email) {
       return NextResponse.json(
         { error: "חסרים שדות חובה" },
@@ -61,14 +66,14 @@ export async function POST(req: NextRequest) {
     const married = maritalStatus === "נשואה";
 
     // ת"ז שלה תמיד חובה. ת"ז בן זוג נדרשת רק כשנשואה - אחרת רווקה / חד הורית נחסמות.
-    if (!tzFile || tzFile.size === 0) {
+    if (!filesSeparate && (!tzFile || tzFile.size === 0)) {
       return NextResponse.json(
         { error: "יש להעלות צילום ת\"ז" },
         { status: 400, headers: CORS_HEADERS }
       );
     }
 
-    if (married && (!spouseTzFile || spouseTzFile.size === 0)) {
+    if (!filesSeparate && married && (!spouseTzFile || spouseTzFile.size === 0)) {
       return NextResponse.json(
         { error: "יש להעלות צילום ת\"ז של בעלך" },
         { status: 400, headers: CORS_HEADERS }
@@ -77,8 +82,10 @@ export async function POST(req: NextRequest) {
 
     const attachments: { filename: string; content: Buffer }[] = [];
 
-    const tzBuffer = Buffer.from(await tzFile.arrayBuffer());
-    attachments.push({ filename: `tz-${name}-${tzFile.name}`, content: tzBuffer });
+    if (tzFile && tzFile.size > 0) {
+      const tzBuffer = Buffer.from(await tzFile.arrayBuffer());
+      attachments.push({ filename: `tz-${name}-${tzFile.name}`, content: tzBuffer });
+    }
 
     if (spouseTzFile && spouseTzFile.size > 0) {
       const spouseBuffer = Buffer.from(await spouseTzFile.arrayBuffer());
@@ -167,20 +174,33 @@ export async function POST(req: NextRequest) {
           <p style="color:#292929;margin:0;font-size:15px;">${notes}</p>
         </div>` : ""}
 
+        ${filesSeparate ? `
+        <div style="background:#E8EDFF;border-radius:10px;padding:14px 20px;">
+          <p style="margin:0;color:#060D3C;font-weight:bold;font-size:14px;">📎 הקבצים מגיעים במייל נפרד: ${expectedFiles || "לא הועלו קבצים"}</p>
+          <p style="margin:6px 0 0;color:#555;font-size:13px;">אם לא הגיע מייל "קבצי VIP - ${name}" תוך כמה דקות, או שהגיע מייל "חסרים קבצים" - צריך לבקש ממנה את הקבצים.</p>
+        </div>` : `
         <div style="background:#21F0B0;border-radius:10px;padding:14px 20px;">
           <p style="margin:0;color:#060D3C;font-weight:bold;font-size:14px;">✓ ${attachments.length} קבצים מצורפים (ת"ז${hasMortgageReport ? " + דוח משכנתא" : ""})</p>
-        </div>
+        </div>`}
 
         <p style="color:#aaa;font-size:12px;margin-top:20px;text-align:center;">נשלח מטופס קבלת מידע VIP - matzavtzvira.co.il</p>
       </div>`;
 
-    await resend.emails.send({
+    const { error: sendError } = await resend.emails.send({
       from: "אתר מצב צבירה <noreply@matzavtzvira.co.il>",
       to: "matzavtzvira@gmail.com",
       subject: `לקוחת VIP חדשה - ${name}`,
       html,
       attachments,
     });
+    // Resend לא זורק שגיאה - מחזיר אותה. בלי הבדיקה הלקוחה הייתה מקבלת "נשלח" על מייל שלא יצא.
+    if (sendError) {
+      console.error("VIP onboarding email failed:", sendError);
+      return NextResponse.json(
+        { error: "שליחת המייל נכשלה" },
+        { status: 502, headers: CORS_HEADERS }
+      );
+    }
 
     // Sync the textual answers to the dashboard client (matched by email).
     // Files (ID photos, mortgage report) are intentionally NOT sent — email only.

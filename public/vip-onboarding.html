@@ -716,6 +716,11 @@
           <textarea id="notes" placeholder="כל מידע נוסף שרוצה לשתף..."></textarea>
         </div>
 
+        <div id="send-problem" style="display:none;background:#FFF1F1;border:1px solid #FCA5A5;border-radius:10px;padding:14px 16px;margin-bottom:16px;font-size:14px;color:#991B1B;line-height:1.7;">
+          <p id="send-problem-text" style="margin:0 0 10px;"></p>
+          <button type="button" id="skip-files-btn" onclick="continueWithoutFiles()" style="display:none;background:none;border:none;color:#124AF0;font-size:13px;font-weight:700;text-decoration:underline;cursor:pointer;padding:0;font-family:inherit;">להמשיך בלי הקבצים האלה - נשלים אותם אחר כך</button>
+        </div>
+
         <div class="btn-row">
           <button class="btn-back" onclick="goStep(2)">&rarr; חזרה</button>
           <button class="btn-next" id="to-step4-btn" onclick="submitVipAndNext()">
@@ -1293,15 +1298,141 @@
       text.style.display = 'none';
       sp.style.display = 'inline-block';
 
+      hideSendProblem();
+      const API = 'https://matzavtzvira.co.il/api/';
+
+      // שלב 1: התשובות הכתובות, בלי קבצים - שליחה קטנה שתמיד עוברת.
+      // נשלחות פעם אחת בלבד, גם אם לוחצים שוב בגלל קובץ שנתקע.
+      if (!vipAnswersSent) {
+        const ok = await postForm(API + 'vip-onboarding', buildVipFormData());
+        if (!ok) {
+          stopStep3Spinner();
+          showSendProblem('לא הצלחנו לשלוח את הטופס. כל מה שמילאת נשמר כאן - בדקי שיש חיבור לאינטרנט ולחצי שוב על "הבאה".', false);
+          return;
+        }
+        vipAnswersSent = true;
+      }
+
+      // שלב 2: הקבצים - מוקטנים ונשלחים בנפרד מהתשובות.
+      const failed = await sendVipFiles(API + 'vip-onboarding-files');
+      stopStep3Spinner();
+
+      if (failed.length) {
+        showSendProblem('התשובות שלך נשלחו ✓ אבל ' + (failed.length === 1 ? 'הקובץ הזה לא נשלח: ' : 'הקבצים האלה לא נשלחו: ') + failed.join(', ') + '. לחצי שוב על "הבאה" כדי לנסות שוב.', true);
+        return;
+      }
+
+      goToStep4();
+    }
+
+    let vipAnswersSent = false;
+    let vipFilesSent = {};
+
+    const VIP_FILE_FIELDS = [
+      { id: 'tzFile', label: 'צילום ת"ז' },
+      { id: 'spouseTzFile', label: 'צילום ת"ז של הבעל' },
+      { id: 'mortgageReportFile', label: 'דוח יתרת משכנתא' },
+    ];
+    const MAX_REQUEST_BYTES = 4 * 1024 * 1024; // השרת חוסם מעל 4.5MB לשליחה
+
+    async function postForm(url, fd) {
       try {
-        const fd = buildVipFormData();
-        await fetch('https://matzavtzvira.co.il/api/vip-onboarding', { method: 'POST', body: fd });
-      } catch(e) { console.warn('VIP submit error', e); }
+        const res = await fetch(url, { method: 'POST', body: fd });
+        return res.ok;
+      } catch (e) {
+        console.warn('submit error', url, e);
+        return false;
+      }
+    }
 
-      btn.disabled = false;
-      text.style.display = 'inline';
-      sp.style.display = 'none';
+    // מקטין תמונה בדפדפן (גם במחשב וגם בטלפון). PDF או תמונה שהדפדפן לא מצליח לפתוח - נשארים כמו שהם.
+    async function compressImage(file) {
+      if (!file || !file.type || !file.type.startsWith('image/') || file.size < 400 * 1024) return file;
+      try {
+        const bitmap = await createImageBitmap(file);
+        const MAX_SIDE = 2000;
+        const scale = Math.min(1, MAX_SIDE / Math.max(bitmap.width, bitmap.height));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(bitmap.width * scale);
+        canvas.height = Math.round(bitmap.height * scale);
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+        const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.82));
+        if (!blob || blob.size >= file.size) return file;
+        const baseName = file.name.replace(/\.[^.]+$/, '');
+        return new File([blob], baseName + '.jpg', { type: 'image/jpeg' });
+      } catch (e) {
+        console.warn('compress failed, sending original', e);
+        return file;
+      }
+    }
 
+    // שולח את הקבצים שעוד לא נשלחו. מחזיר רשימת שמות של מה שנכשל.
+    async function sendVipFiles(url) {
+      const pending = [];
+      for (const f of VIP_FILE_FIELDS) {
+        const el = document.getElementById(f.id);
+        const file = el && el.files && el.files[0];
+        if (file && !vipFilesSent[f.id]) pending.push({ ...f, file: await compressImage(file) });
+      }
+      if (!pending.length) return [];
+
+      // אם הכל נכנס בשליחה אחת - מייל אחד. אחרת כל קובץ לבד.
+      const total = pending.reduce((s, p) => s + p.file.size, 0);
+      const groups = total <= MAX_REQUEST_BYTES ? [pending] : pending.map(p => [p]);
+
+      const failed = [];
+      for (const group of groups) {
+        if (group.length === 1 && group[0].file.size > MAX_REQUEST_BYTES) {
+          failed.push(group[0].label + ' (הקובץ גדול מדי)');
+          continue;
+        }
+        const fd = new FormData();
+        fd.append('name', document.getElementById('name').value.trim());
+        fd.append('email', document.getElementById('email').value.trim());
+        group.forEach(p => fd.append(p.id, p.file));
+        if (await postForm(url, fd)) group.forEach(p => { vipFilesSent[p.id] = true; });
+        else group.forEach(p => failed.push(p.label));
+      }
+      return failed;
+    }
+
+    // הלקוחה בחרה להמשיך בלי קבצים שנתקעו - מודיעים לרבקי מה חסר, וממשיכים.
+    async function continueWithoutFiles() {
+      const missing = VIP_FILE_FIELDS
+        .filter(f => { const el = document.getElementById(f.id); return el && el.files && el.files[0] && !vipFilesSent[f.id]; })
+        .map(f => f.label);
+      const fd = new FormData();
+      fd.append('name', document.getElementById('name').value.trim());
+      fd.append('email', document.getElementById('email').value.trim());
+      fd.append('phone', document.getElementById('phone').value.trim());
+      fd.append('missing', missing.join(', '));
+      await postForm('https://matzavtzvira.co.il/api/vip-onboarding-files', fd);
+      hideSendProblem();
+      goToStep4();
+    }
+
+    function stopStep3Spinner() {
+      document.getElementById('to-step4-btn').disabled = false;
+      document.getElementById('to-step4-text').style.display = 'inline';
+      document.getElementById('spinner-step3').style.display = 'none';
+    }
+
+    function showSendProblem(msg, allowSkip) {
+      document.getElementById('send-problem-text').textContent = msg;
+      document.getElementById('skip-files-btn').style.display = allowSkip ? 'inline' : 'none';
+      const box = document.getElementById('send-problem');
+      box.style.display = 'block';
+      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function hideSendProblem() {
+      document.getElementById('send-problem').style.display = 'none';
+    }
+
+    function goToStep4() {
       initStep4();
       document.getElementById('step3').style.display = 'none';
       currentStep = 4;
@@ -1341,12 +1472,12 @@
       fd.append('usCitizen', getRadioValue('usCitizen'));
       fd.append('spouseUsCitizen', getRadioValue('spouseUsCitizen'));
       fd.append('notes', document.getElementById('notes').value.trim());
-      const tzFile = document.getElementById('tzFile').files[0];
-      const spouseTzFile = document.getElementById('spouseTzFile').files[0];
-      if (tzFile) fd.append('tzFile', tzFile);
-      if (spouseTzFile) fd.append('spouseTzFile', spouseTzFile);
-      const mrf = document.getElementById('mortgageReportFile').files[0];
-      if (mrf) fd.append('mortgageReportFile', mrf);
+      // הקבצים נשלחים בנפרד (sendVipFiles). כאן רק אומרים לשרת אילו קבצים בדרך.
+      fd.append('filesSeparate', '1');
+      const expected = VIP_FILE_FIELDS
+        .filter(f => { const el = document.getElementById(f.id); return el && el.files && el.files[0]; })
+        .map(f => f.label);
+      fd.append('expectedFiles', expected.join(', '));
       return fd;
     }
 
@@ -1485,18 +1616,23 @@
       fd.append('taxConsent', document.getElementById('taxConsent').checked ? 'כן - הלקוחה אישרה העברת מידע ליועצת מס' : 'לא');
 
       const multiIds = ['forms106','annualReportsDoc','lifeInsDoc','mortgageInsDoc','pensionDoc','form867Doc'];
-      multiIds.forEach(id => {
+      for (const id of multiIds) {
         const el = document.getElementById(id);
-        if (el && el.files) for (const f of el.files) fd.append(id, f);
-      });
+        if (el && el.files) for (const f of el.files) fd.append(id, await compressImage(f));
+      }
       const singleIds = ['bituachLeumiDoc','birthCertDoc','degreeDoc','settlementDoc','specialEdDoc','disabilityDoc','propertyTaxDoc'];
-      singleIds.forEach(id => {
+      for (const id of singleIds) {
         const el = document.getElementById(id);
-        if (el && el.files && el.files[0]) fd.append(id, el.files[0]);
-      });
+        if (el && el.files && el.files[0]) fd.append(id, await compressImage(el.files[0]));
+      }
 
       try {
         const res = await fetch('https://matzavtzvira.co.il/api/vip-tax-documents', { method: 'POST', body: fd });
+        if (res.status === 413) {
+          alert('הקבצים שבחרת גדולים מדי לשליחה אחת. הורידי חלק מהקבצים ולחצי שוב - את השאר נשלים אחר כך.');
+          btn.disabled = false; text.textContent = 'שלחי ← סיום'; sp.style.display = 'none';
+          return;
+        }
         const data = await res.json();
         if (data.ok) {
           // שלב אחרון - מעבר לחתימה על ייפוי כוח
