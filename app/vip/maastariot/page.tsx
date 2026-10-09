@@ -201,7 +201,7 @@ export default function VipMaastariotPage() {
                 )}
               </form>
 
-              <div style={{ borderTop: "1px solid rgba(255,255,255,0.14)", marginTop: 26, paddingTop: 20, textAlign: "right" }}>
+              <div style={{ borderTop: "1px solid rgba(255,255,255,0.14)", marginTop: 26, paddingTop: 20, textAlign: "center" }}>
                 <p style={{ color: green, fontWeight: 700, fontSize: "0.92rem", marginBottom: 10 }}>
                   השיחה לא מחייבת אותך בכלום.
                 </p>
