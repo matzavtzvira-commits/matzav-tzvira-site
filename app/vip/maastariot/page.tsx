@@ -9,11 +9,6 @@ const green = "#21F0B0";
 const gold  = "#E7C66B";
 const white = "#FFFFFF";
 
-const points = [
-  { icon: "🤝", text: "אני נכנסת לנעליים שלך ועושה איתך את הסדר בפועל. לא עוד תאוריה." },
-  { icon: "☂️", text: "פנסיה, השתלמות, גמל, חיסכון לכל ילד - הכל במקום אחד." },
-  { icon: "🔍", text: "בודקות גם החזרי מס וכספים אבודים שאף אחד לא סיפר לך עליהם." },
-];
 
 export default function VipMaastariotPage() {
   const posthog = usePostHog();
@@ -108,10 +103,6 @@ export default function VipMaastariotPage() {
           </div>
         ) : (
           <>
-            <div className="ms-rise ms-d1" style={{ display: "inline-block", background: gold, color: navy, borderRadius: 50, padding: "6px 22px", fontSize: "0.85rem", fontWeight: 800, marginBottom: 16 }}>
-              רק למאסטריות
-            </div>
-
             <h1 className="ms-rise ms-d2" style={{ color: white, fontSize: "clamp(1.6rem, 5vw, 2.2rem)", fontWeight: 800, lineHeight: 1.35, marginBottom: 14 }}>
               <span style={{ display: "block", color: gold, fontSize: "0.7em", marginBottom: 6 }}>מאסטרית יקרה,</span>
               את כבר עשית את הצעד הראשון.
@@ -130,16 +121,6 @@ export default function VipMaastariotPage() {
               <br />
               <strong style={{ color: white }}>וזה בסדר גמור. בשביל זה אני כאן.</strong>
             </p>
-
-            {/* מה קורה בליווי */}
-            <div className="ms-rise ms-d4" style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 22, textAlign: "right" }}>
-              {points.map(p => (
-                <div key={p.text} style={{ display: "flex", gap: 12, alignItems: "flex-start", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 14, padding: "12px 16px" }}>
-                  <span style={{ fontSize: "1.2rem", lineHeight: 1.5 }}>{p.icon}</span>
-                  <span style={{ color: "rgba(255,255,255,0.88)", fontSize: "0.97rem", lineHeight: 1.7 }}>{p.text}</span>
-                </div>
-              ))}
-            </div>
 
             <p className="ms-rise ms-d4" style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.97rem", lineHeight: 1.8, marginBottom: 26 }}>
               דווקא כשהכל מרגיש בסדר, הכסף נשחק בשקט.
@@ -232,8 +213,6 @@ export default function VipMaastariotPage() {
                   במקרה הגרוע - עם כמה תובנות שלא היו לך קודם.
                 </p>
                 <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.85rem", lineHeight: 1.8, margin: "14px 0 0" }}>
-                  אני לא יכולה ללוות הרבה נשים במקביל, כי כל אחת מקבלת אותי באמת.
-                  <br />
                   רבקי
                 </p>
               </div>
