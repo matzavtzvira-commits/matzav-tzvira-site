@@ -67,6 +67,31 @@ export default function VipMaastariotPage() {
         .ms-rise { opacity:0; animation: msRise 0.6s ease forwards; }
         .ms-d1 { animation-delay: 0.1s; } .ms-d2 { animation-delay: 0.22s; }
         .ms-d3 { animation-delay: 0.34s; } .ms-d4 { animation-delay: 0.46s; } .ms-d5 { animation-delay: 0.58s; }
+        @keyframes msLogoIn {
+          0%   { opacity:0; transform: translateY(14px) scale(0.72) rotate(-6deg); filter: blur(6px); }
+          60%  { opacity:1; transform: translateY(-3px) scale(1.06) rotate(1deg); filter: blur(0); }
+          100% { opacity:1; transform: translateY(0) scale(1) rotate(0); filter: blur(0); }
+        }
+        @keyframes msFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        @keyframes msGlow {
+          0%,100% { box-shadow: 0 10px 30px rgba(0,0,0,0.35), 0 0 0 1px rgba(231,198,107,0.35), 0 0 22px rgba(33,240,176,0.18); }
+          50%     { box-shadow: 0 14px 34px rgba(0,0,0,0.35), 0 0 0 1px rgba(231,198,107,0.6),  0 0 34px rgba(33,240,176,0.32); }
+        }
+        @keyframes msShine { 0%, 62% { transform: translateX(-160%) skewX(-20deg); } 82%, 100% { transform: translateX(260%) skewX(-20deg); } }
+        @keyframes msRing { 0% { opacity:0.55; transform: translate(-50%,-50%) scale(0.85); } 100% { opacity:0; transform: translate(-50%,-50%) scale(1.55); } }
+        .ms-logo-wrap { position: relative; width: 84px; height: 84px; margin: 0 auto 28px; animation: msFloat 5s ease-in-out 1.1s infinite; }
+        .ms-logo { position: relative; width: 100%; height: 100%; border-radius: 22px; overflow: hidden; background: #fff;
+          opacity: 0; animation: msLogoIn 0.95s cubic-bezier(.2,.8,.2,1) 0.05s forwards, msGlow 4s ease-in-out 1.1s infinite; }
+        .ms-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+        .ms-logo::after { content: ""; position: absolute; top: -20%; bottom: -20%; left: 0; width: 45%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.85), transparent);
+          mix-blend-mode: overlay; animation: msShine 4.5s ease-in-out 1.2s infinite; transform: translateX(-160%) skewX(-20deg); }
+        .ms-logo-ring { position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; border-radius: 26px;
+          border: 1.5px solid rgba(231,198,107,0.7); opacity: 0; animation: msRing 3s ease-out 1.1s infinite; pointer-events: none; }
+        @media (prefers-reduced-motion: reduce) {
+          .ms-logo-wrap, .ms-logo, .ms-logo::after, .ms-logo-ring { animation: none !important; }
+          .ms-logo { opacity: 1; }
+        }
         .ms-card input::placeholder { color: rgba(255,255,255,0.65); }
         @media(max-width:520px){ .ms-card{ padding:32px 20px!important; border-radius:20px!important; } }
       `}</style>
@@ -74,13 +99,13 @@ export default function VipMaastariotPage() {
       <div style={{ maxWidth: 540, width: "100%", margin: "0 auto", textAlign: "center" }}>
 
         {/* לוגו */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/vip-logo.png"
-          alt="מצב צבירה - ליווי VIP"
-          className="ms-rise"
-          style={{ height: 64, width: "auto", margin: "0 auto 26px", display: "block" }}
-        />
+        <div className="ms-logo-wrap">
+          <span className="ms-logo-ring" />
+          <div className="ms-logo">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/vip-logo.png" alt="מצב צבירה - ליווי VIP" />
+          </div>
+        </div>
 
         {submitted ? (
           /* ─── אחרי שליחה ─────────────────────────────────────────────── */
