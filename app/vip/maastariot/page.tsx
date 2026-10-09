@@ -79,31 +79,39 @@ export default function VipMaastariotPage() {
         }
         @keyframes msShine { 0%, 62% { transform: translateX(-160%) skewX(-20deg); } 82%, 100% { transform: translateX(260%) skewX(-20deg); } }
         @keyframes msRing { 0% { opacity:0.55; transform: translate(-50%,-50%) scale(0.85); } 100% { opacity:0; transform: translate(-50%,-50%) scale(1.55); } }
-        .ms-logo-wrap { position: relative; width: 84px; height: 84px; margin: 0 auto 28px; animation: msFloat 5s ease-in-out 1.1s infinite; }
-        .ms-logo { position: relative; width: 100%; height: 100%; border-radius: 22px; overflow: hidden; background: #fff;
+        .ms-logo-wrap { position: relative; width: 132px; height: 132px; margin: 8px auto 38px; animation: msFloat 5s ease-in-out 1.1s infinite; }
+        .ms-logo { position: relative; width: 100%; height: 100%; border-radius: 32px; overflow: hidden; background: #fff;
           opacity: 0; animation: msLogoIn 0.95s cubic-bezier(.2,.8,.2,1) 0.05s forwards, msGlow 4s ease-in-out 1.1s infinite; }
         .ms-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
         .ms-logo::after { content: ""; position: absolute; top: -20%; bottom: -20%; left: 0; width: 45%;
           background: linear-gradient(90deg, transparent, rgba(255,255,255,0.85), transparent);
           mix-blend-mode: overlay; animation: msShine 4.5s ease-in-out 1.2s infinite; transform: translateX(-160%) skewX(-20deg); }
-        .ms-logo-ring { position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; border-radius: 26px;
-          border: 1.5px solid rgba(231,198,107,0.7); opacity: 0; animation: msRing 3s ease-out 1.1s infinite; pointer-events: none; }
+        @keyframes msHalo { 0%,100% { opacity:0.55; transform: translate(-50%,-50%) scale(1); } 50% { opacity:0.85; transform: translate(-50%,-50%) scale(1.08); } }
+        .ms-logo-halo { position: absolute; top: 50%; left: 50%; width: 230%; height: 230%; border-radius: 50%; pointer-events: none;
+          background: radial-gradient(circle, rgba(231,198,107,0.28) 0%, rgba(33,240,176,0.12) 38%, rgba(18,74,240,0) 68%);
+          transform: translate(-50%,-50%); opacity: 0; animation: msHalo 6s ease-in-out 0.6s infinite; }
+        .ms-logo-ring2 { animation-delay: 2.6s !important; }
+        .ms-logo-ring { position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; border-radius: 36px;
+          border: 1.5px solid rgba(231,198,107,0.7); opacity: 0; animation: msRing 3s ease-out 1.1s infinite; animation-duration: 3s; pointer-events: none; }
         @media (prefers-reduced-motion: reduce) {
-          .ms-logo-wrap, .ms-logo, .ms-logo::after, .ms-logo-ring { animation: none !important; }
+          .ms-logo-wrap, .ms-logo, .ms-logo::after, .ms-logo-ring, .ms-logo-halo { animation: none !important; }
+          .ms-logo-halo { opacity: 0.6; }
           .ms-logo { opacity: 1; }
         }
         .ms-card input::placeholder { color: rgba(255,255,255,0.65); }
-        @media(max-width:520px){ .ms-card{ padding:32px 20px!important; border-radius:20px!important; } }
+        @media(max-width:520px){ .ms-logo-wrap{ width:116px!important; height:116px!important; margin-bottom:32px!important; } .ms-card{ padding:32px 20px!important; border-radius:20px!important; } }
       `}</style>
 
       <div style={{ maxWidth: 540, width: "100%", margin: "0 auto", textAlign: "center" }}>
 
         {/* לוגו */}
         <div className="ms-logo-wrap">
+          <span className="ms-logo-halo" />
           <span className="ms-logo-ring" />
+          <span className="ms-logo-ring ms-logo-ring2" />
           <div className="ms-logo">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/vip-logo.png" alt="מצב צבירה - ליווי VIP" />
+            <img src="/vip-logo-tile.png" alt="מצב צבירה - ליווי VIP" />
           </div>
         </div>
 
