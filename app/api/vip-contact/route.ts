@@ -12,8 +12,10 @@ export async function POST(req: NextRequest) {
 
     // Waitlist leads come from /vip/waitlist and need a different follow-up than
     // leads who read the whole sales page. Anything else stays the old "website".
+    // Maastariot leads come from /vip/maastariot - program graduates, the warmest leads.
     const isWaitlist = source === "waitlist";
-    const leadSource = isWaitlist ? "waitlist" : "website";
+    const isMaastariot = source === "maastariot";
+    const leadSource = isWaitlist ? "waitlist" : isMaastariot ? "maastariot" : "website";
 
     // Best-effort: push the lead into the tasks dashboard for follow-up tracking.
     // Never blocks or fails the customer-facing email if the dashboard is down.
@@ -41,11 +43,13 @@ export async function POST(req: NextRequest) {
       to: "matzavtzvira@gmail.com",
       subject: isWaitlist
         ? `רשימת המתנה VIP - ${name}`
+        : isMaastariot
+        ? `מאסטרית מבקשת שיחת ליווי VIP - ${name}`
         : `פנייה חדשה - מצב צבירה VIP - ${name}`,
       html: `
         <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px; background: #F4F7FF; border-radius: 16px;">
-          <h2 style="color: #060D3C; margin-bottom: 8px;">${isWaitlist ? "הצטרפות לרשימת המתנה - ליווי VIP" : "פנייה חדשה - מצב צבירה VIP"}</h2>
-          <p style="color: #888; font-size: 14px; margin-bottom: 28px;">${isWaitlist ? "נרשמה דרך דף רשימת ההמתנה" : "הגיעה מהדף הנחיתה"}</p>
+          <h2 style="color: #060D3C; margin-bottom: 8px;">${isWaitlist ? "הצטרפות לרשימת המתנה - ליווי VIP" : isMaastariot ? "מאסטרית מבקשת שיחה - ליווי VIP" : "פנייה חדשה - מצב צבירה VIP"}</h2>
+          <p style="color: #888; font-size: 14px; margin-bottom: 28px;">${isWaitlist ? "נרשמה דרך דף רשימת ההמתנה" : isMaastariot ? "בוגרת התוכנית - נרשמה דרך דף המאסטריות" : "הגיעה מהדף הנחיתה"}</p>
 
           <table style="width: 100%; border-collapse: collapse;">
             <tr>
@@ -67,7 +71,7 @@ export async function POST(req: NextRequest) {
           </table>
 
           <div style="margin-top: 28px; background: #124AF0; border-radius: 12px; padding: 16px 20px; text-align: center;">
-            <p style="color: #21F0B0; font-weight: bold; margin: 0;">${isWaitlist ? "רישום מוקדם - לחזור אחרי החגים לשיחת התאמה" : "מחזור שלישי - לחזור תוך 24 שעות לשיחת היכרות"}</p>
+            <p style="color: #21F0B0; font-weight: bold; margin: 0;">${isWaitlist ? "רישום מוקדם - לחזור אחרי החגים לשיחת התאמה" : isMaastariot ? "מאסטרית - מחיר מיוחד לבוגרות, לחזור בימים הקרובים לשיחת טלפון" : "מחזור שלישי - לחזור תוך 24 שעות לשיחת היכרות"}</p>
           </div>
         </div>
       `,
