@@ -113,6 +113,7 @@ export default function VipMaastariotPage() {
             </div>
 
             <h1 className="ms-rise ms-d2" style={{ color: white, fontSize: "clamp(1.6rem, 5vw, 2.2rem)", fontWeight: 800, lineHeight: 1.35, marginBottom: 14 }}>
+              <span style={{ display: "block", color: gold, fontSize: "0.7em", marginBottom: 6 }}>מאסטרית יקרה,</span>
               את כבר עשית את הצעד הראשון.
               <br />
               <span style={{ color: green }}>עכשיו נעשה את הסדר - ביחד.</span>
@@ -121,9 +122,13 @@ export default function VipMaastariotPage() {
             <p className="ms-rise ms-d3" style={{ color: "rgba(255,255,255,0.8)", fontSize: "1.02rem", lineHeight: 1.85, marginBottom: 26 }}>
               למדת, הבנת, ואת יודעת מה צריך לעשות.
               <br />
-              ואם משהו נתקע בדרך ליישום -
+              ואז הגיע היום-יום.
               <br />
-              <strong style={{ color: white }}>זה לא את. זו הביורוקרטיה.</strong>
+              הבית, העבודה, הילדים, הסידורים -
+              <br />
+              והסדר בכסף נדחה שוב לשבוע הבא.
+              <br />
+              <strong style={{ color: white }}>וזה בסדר גמור. בשביל זה אני כאן.</strong>
             </p>
 
             {/* מה קורה בליווי */}
