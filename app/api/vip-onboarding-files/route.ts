@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { forwardFilesToDashboard } from "@/lib/dashboard-files";
 
 // קבצי טופס קבלת המידע VIP (ת"ז, ת"ז בעל, דוח משכנתא) - נשלחים בנפרד מהתשובות
 // כדי שקובץ גדול לא יפיל את כל הטופס (מגבלת 4.5MB לבקשה ב-Vercel).
@@ -38,16 +39,17 @@ export async function POST(req: NextRequest) {
 
     const attachments: { filename: string; content: Buffer }[] = [];
     const labels: string[] = [];
+    const dashboardFiles: { label: string; filename: string; content: Buffer; contentType: string }[] = [];
     for (const f of FILE_FIELDS) {
       const file = formData.get(f.id) as File | null;
       if (file && typeof file !== "string" && file.size > 0) {
-        attachments.push({
-          filename: `${f.prefix}-${name}-${file.name}`,
-          content: Buffer.from(await file.arrayBuffer()),
-        });
+        const content = Buffer.from(await file.arrayBuffer());
+        attachments.push({ filename: `${f.prefix}-${name}-${file.name}`, content });
         labels.push(f.label);
+        dashboardFiles.push({ label: f.label, filename: file.name, content, contentType: file.type });
       }
     }
+    const dashboardForward = forwardFilesToDashboard({ email, phone }, dashboardFiles);
 
     if (!attachments.length && !missing) {
       return NextResponse.json({ error: "לא התקבלו קבצים" }, { status: 400, headers: CORS_HEADERS });
@@ -83,6 +85,7 @@ export async function POST(req: NextRequest) {
       html,
       ...(attachments.length ? { attachments } : {}),
     });
+    await dashboardForward;
     if (sendError) {
       console.error("VIP onboarding files email failed:", sendError);
       return NextResponse.json({ error: "שליחת המייל נכשלה" }, { status: 502, headers: CORS_HEADERS });

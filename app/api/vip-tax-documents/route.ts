@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { forwardFilesToDashboard } from "@/lib/dashboard-files";
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "https://matzavtzvira.co.il",
@@ -46,6 +47,7 @@ export async function POST(req: NextRequest) {
 
     const attachments: { filename: string; content: Buffer }[] = [];
     const attachedSummary: string[] = [];
+    const dashboardFiles: { label: string; filename: string; content: Buffer; contentType: string }[] = [];
 
     for (const field of fileFields) {
       const files = formData.getAll(field) as File[];
@@ -54,6 +56,7 @@ export async function POST(req: NextRequest) {
           const buf = Buffer.from(await file.arrayBuffer());
           attachments.push({ filename: `${field}-${file.name}`, content: buf });
           attachedSummary.push(labelMap[field] || field);
+          dashboardFiles.push({ label: `החזר מס - ${labelMap[field] || field}`, filename: file.name, content: buf, contentType: file.type });
         }
       }
     }
@@ -122,6 +125,8 @@ export async function POST(req: NextRequest) {
       html,
       attachments,
     });
+
+    await forwardFilesToDashboard({ email: clientEmail }, dashboardFiles);
 
     return NextResponse.json({ ok: true }, { headers: CORS_HEADERS });
   } catch (err) {

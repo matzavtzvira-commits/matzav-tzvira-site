@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { forwardFilesToDashboard } from "@/lib/dashboard-files";
 
 // דוח יתרות משכנתא מטופסי הליד של VIP (/vip, /vip/waitlist, /vip/maastariot).
 // נשלח בנפרד מהליד עצמו (/api/vip-contact) כדי שקובץ גדול לא יפיל את הפנייה
@@ -31,13 +32,17 @@ export async function POST(req: NextRequest) {
         </div>
       </div>`;
 
-    const { error: sendError } = await resend.emails.send({
-      from: "אתר מצב צבירה <noreply@matzavtzvira.co.il>",
-      to: "matzavtzvira@gmail.com",
-      subject: `דוח יתרות משכנתא - ${name}`,
-      html,
-      attachments: [{ filename: `mortgage-report-${name}-${file.name}`, content: Buffer.from(await file.arrayBuffer()) }],
-    });
+    const content = Buffer.from(await file.arrayBuffer());
+    const [{ error: sendError }] = await Promise.all([
+      resend.emails.send({
+        from: "אתר מצב צבירה <noreply@matzavtzvira.co.il>",
+        to: "matzavtzvira@gmail.com",
+        subject: `דוח יתרות משכנתא - ${name}`,
+        html,
+        attachments: [{ filename: `mortgage-report-${name}-${file.name}`, content }],
+      }),
+      forwardFilesToDashboard({ email, phone }, [{ label: "דוח יתרות משכנתא", filename: file.name, content, contentType: file.type }]),
+    ]);
     if (sendError) {
       console.error("VIP mortgage report email failed:", sendError);
       return NextResponse.json({ error: "שליחת המייל נכשלה" }, { status: 502 });
