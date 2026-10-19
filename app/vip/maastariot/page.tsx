@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { usePostHog } from "posthog-js/react";
 import KosherChoice from "@/components/KosherChoice";
+import MortgageCheck, { sendMortgageReport, canUpload } from "@/components/MortgageCheck";
 
 // ─── Colors ───────────────────────────────────────────────────────────────────
 const navy  = "#060D3C";
@@ -16,19 +17,26 @@ export default function VipMaastariotPage() {
   const [form, setForm] = useState({ name: "", phone: "", email: "", kosher: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [wantsMortgage, setWantsMortgage] = useState(false);
+  const [mortgageFile, setMortgageFile] = useState<File | null>(null);
   const [error, setError] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    const uploadReport = wantsMortgage && canUpload(mortgageFile);
+    const mortgageStatus = !wantsMortgage ? "no" : uploadReport ? "report" : "yes";
     setError(false);
     try {
       const res = await fetch("/api/vip-contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, source: "maastariot" }),
+        body: JSON.stringify({ ...form, source: "maastariot", mortgage: mortgageStatus }),
       });
       if (!res.ok) throw new Error(String(res.status));
+      if (uploadReport && mortgageFile) {
+        try { await sendMortgageReport(mortgageFile, form); } catch (err) { console.error("mortgage report upload failed", err); }
+      }
       try { posthog?.capture("vip_maastariot_signup"); } catch { /* silent */ }
       setSubmitted(true);
     } catch {
@@ -205,6 +213,8 @@ export default function VipMaastariotPage() {
                 ))}
 
                 <KosherChoice value={form.kosher} onChange={v => setForm(prev => ({ ...prev, kosher: v }))} />
+
+                <MortgageCheck wants={wantsMortgage} onWantsChange={setWantsMortgage} file={mortgageFile} onFileChange={setMortgageFile} />
 
                 <button
                   type="submit"
