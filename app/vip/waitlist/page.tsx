@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { usePostHog } from "posthog-js/react";
+import KosherChoice from "@/components/KosherChoice";
 
 // ─── Colors ───────────────────────────────────────────────────────────────────
 const navy  = "#060D3C";
@@ -10,7 +11,7 @@ const white = "#FFFFFF";
 
 export default function VipWaitlistPage() {
   const posthog = usePostHog();
-  const [form, setForm] = useState({ name: "", phone: "", email: "" });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", kosher: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -149,6 +150,8 @@ export default function VipWaitlistPage() {
                     onBlur={e => { e.target.style.borderColor = "rgba(255,255,255,0.25)"; }}
                   />
                 ))}
+
+                <KosherChoice value={form.kosher} onChange={v => setForm(prev => ({ ...prev, kosher: v }))} />
 
                 <button
                   type="submit"

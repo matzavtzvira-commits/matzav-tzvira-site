@@ -2,6 +2,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
+import KosherChoice from "@/components/KosherChoice";
 
 // ─── Colors ───────────────────────────────────────────────────────────────────
 const navy  = "#060D3C";
@@ -854,7 +855,7 @@ function Faq() {
 
 // ─── SECTION 12: CTA FORM ─────────────────────────────────────────────────────
 function CtaForm() {
-  const [form, setForm] = useState({ name: "", phone: "", email: "" });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", kosher: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -971,6 +972,8 @@ function CtaForm() {
                     onBlur={e => { (e.target as HTMLInputElement).style.borderColor = "rgba(255,255,255,0.25)"; }}
                   />
                 ))}
+
+                <KosherChoice value={form.kosher} onChange={v => setForm(prev => ({ ...prev, kosher: v }))} />
 
                 <button type="submit" disabled={loading}
                   style={{ position: "relative", background: "transparent", border: "none", cursor: loading ? "not-allowed" : "pointer", fontFamily: "inherit", display: "inline-block", padding: 0, transition: "transform 0.2s", opacity: loading ? 0.7 : 1 }}
