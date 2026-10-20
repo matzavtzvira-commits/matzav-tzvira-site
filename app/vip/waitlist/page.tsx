@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
 import { usePostHog } from "posthog-js/react";
-import KosherChoice from "@/components/KosherChoice";
-import MortgageCheck, { sendMortgageReport, canUpload } from "@/components/MortgageCheck";
 
 // ─── Colors ───────────────────────────────────────────────────────────────────
 const navy  = "#060D3C";
@@ -12,26 +10,19 @@ const white = "#FFFFFF";
 
 export default function VipWaitlistPage() {
   const posthog = usePostHog();
-  const [form, setForm] = useState({ name: "", phone: "", email: "", kosher: "" });
+  const [form, setForm] = useState({ name: "", phone: "", email: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [wantsMortgage, setWantsMortgage] = useState(false);
-  const [mortgageFile, setMortgageFile] = useState<File | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const uploadReport = wantsMortgage && canUpload(mortgageFile);
-    const mortgageStatus = !wantsMortgage ? "no" : uploadReport ? "report" : "yes";
     try {
       await fetch("/api/vip-contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, source: "waitlist", mortgage: mortgageStatus }),
+        body: JSON.stringify({ ...form, source: "waitlist" }),
       });
-      if (uploadReport && mortgageFile) {
-        try { await sendMortgageReport(mortgageFile, form); } catch (err) { console.error("mortgage report upload failed", err); }
-      }
     } catch { /* silent */ }
     try { posthog?.capture("vip_waitlist_signup"); } catch { /* silent */ }
     setLoading(false);
@@ -158,10 +149,6 @@ export default function VipWaitlistPage() {
                     onBlur={e => { e.target.style.borderColor = "rgba(255,255,255,0.25)"; }}
                   />
                 ))}
-
-                <KosherChoice value={form.kosher} onChange={v => setForm(prev => ({ ...prev, kosher: v }))} />
-
-                <MortgageCheck wants={wantsMortgage} onWantsChange={setWantsMortgage} file={mortgageFile} onFileChange={setMortgageFile} />
 
                 <button
                   type="submit"

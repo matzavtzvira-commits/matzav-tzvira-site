@@ -2,8 +2,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
-import KosherChoice from "@/components/KosherChoice";
-import MortgageCheck, { sendMortgageReport, canUpload } from "@/components/MortgageCheck";
 
 // ─── Colors ───────────────────────────────────────────────────────────────────
 const navy  = "#060D3C";
@@ -856,26 +854,19 @@ function Faq() {
 
 // ─── SECTION 12: CTA FORM ─────────────────────────────────────────────────────
 function CtaForm() {
-  const [form, setForm] = useState({ name: "", phone: "", email: "", kosher: "" });
+  const [form, setForm] = useState({ name: "", phone: "", email: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [wantsMortgage, setWantsMortgage] = useState(false);
-  const [mortgageFile, setMortgageFile] = useState<File | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const uploadReport = wantsMortgage && canUpload(mortgageFile);
-    const mortgageStatus = !wantsMortgage ? "no" : uploadReport ? "report" : "yes";
     try {
       await fetch("/api/vip-contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, mortgage: mortgageStatus }),
+        body: JSON.stringify(form),
       });
-      if (uploadReport && mortgageFile) {
-        try { await sendMortgageReport(mortgageFile, form); } catch (err) { console.error("mortgage report upload failed", err); }
-      }
     } catch { /* silent */ }
     setLoading(false);
     setSubmitted(true);
@@ -980,10 +971,6 @@ function CtaForm() {
                     onBlur={e => { (e.target as HTMLInputElement).style.borderColor = "rgba(255,255,255,0.25)"; }}
                   />
                 ))}
-
-                <KosherChoice value={form.kosher} onChange={v => setForm(prev => ({ ...prev, kosher: v }))} />
-
-                <MortgageCheck wants={wantsMortgage} onWantsChange={setWantsMortgage} file={mortgageFile} onFileChange={setMortgageFile} />
 
                 <button type="submit" disabled={loading}
                   style={{ position: "relative", background: "transparent", border: "none", cursor: loading ? "not-allowed" : "pointer", fontFamily: "inherit", display: "inline-block", padding: 0, transition: "transform 0.2s", opacity: loading ? 0.7 : 1 }}

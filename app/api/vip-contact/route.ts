@@ -4,16 +4,11 @@ import { Resend } from "resend";
 export async function POST(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY);
   try {
-    const { name, phone, email, source, kosher, mortgage } = await req.json();
+    const { name, phone, email, source } = await req.json();
 
     if (!name || !phone || !email) {
       return NextResponse.json({ error: "חסרים שדות חובה" }, { status: 400 });
     }
-
-    const kosherLabel =
-      kosher === "required" ? "כן, חשוב לה מסלול כשר" : kosher === "not-required" ? "לא מחייב" : "לא צוין";
-    const mortgageLabel =
-      mortgage === "report" ? "כן - דוח היתרות מגיע במייל נפרד" : mortgage === "yes" ? "כן - עוד לא העלתה דוח יתרות" : "לא";
 
     // Waitlist leads come from /vip/waitlist and need a different follow-up than
     // leads who read the whole sales page. Anything else stays the old "website".
@@ -35,7 +30,7 @@ export async function POST(req: NextRequest) {
             "Content-Type": "application/json",
             "x-intake-secret": process.env.VIP_INTAKE_SECRET,
           },
-          body: JSON.stringify({ name, phone, email, source: leadSource, kosher: kosher || null, mortgage: mortgage || null }),
+          body: JSON.stringify({ name, phone, email, source: leadSource }),
           signal: AbortSignal.timeout(5000),
         });
       } catch (e) {
@@ -68,18 +63,10 @@ export async function POST(req: NextRequest) {
               </td>
             </tr>
             <tr>
-              <td style="padding: 12px 0; border-bottom: 1px solid #E8EDFF; color: #888;">מייל</td>
-              <td style="padding: 12px 0; border-bottom: 1px solid #E8EDFF; font-weight: bold; color: #124AF0;">
+              <td style="padding: 12px 0; color: #888;">מייל</td>
+              <td style="padding: 12px 0; font-weight: bold; color: #124AF0;">
                 <a href="mailto:${email}" style="color: #124AF0; text-decoration: none;">${email}</a>
               </td>
-            </tr>
-            <tr>
-              <td style="padding: 12px 0; border-bottom: 1px solid #E8EDFF; color: #888;">מסלולים כשרים</td>
-              <td style="padding: 12px 0; border-bottom: 1px solid #E8EDFF; font-weight: bold; color: #060D3C;">${kosherLabel}</td>
-            </tr>
-            <tr>
-              <td style="padding: 12px 0; color: #888;">בדיקת משכנתא</td>
-              <td style="padding: 12px 0; font-weight: bold; color: #060D3C;">${mortgageLabel}</td>
             </tr>
           </table>
 
