@@ -7,6 +7,10 @@
     {
       "path": "/api/cron/vip-payment-sync",
       "schedule": "0 7 * * *"
+    },
+    {
+      "path": "/api/cron/vip-call-queue",
+      "schedule": "0 5 * * 0"
     }
   ]
 }
