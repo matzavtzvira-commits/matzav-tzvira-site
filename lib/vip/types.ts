@@ -170,6 +170,7 @@ export interface TokenPayload {
   m: boolean; // married
   it: TokenItem[];
   fu: string; // follow-up email id (Resend) to cancel when everything arrived
+  rm?: string[]; // later reminders still scheduled (two-reminder case) - cancelled too
   st: "part1" | "tax";
   x: number; // expiry, epoch seconds
 }

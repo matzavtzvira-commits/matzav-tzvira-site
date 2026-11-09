@@ -63,7 +63,7 @@ export function renderPart1Email(input: Part1EmailInput): RenderedEmail {
         listHtml(input.pendingItems) +
           (r.kind === "scheduled"
             ? `<p style="margin:8px 0 0;">${esc(
-                `תזכורת תצא ללקוחה ב${r.dayLabel} בשעה 09:00, עם קישור להעלאה. אם לא תעלה, יגיע אלייך מייל מעקב יום אחרי.`,
+                `תזכורת תצא ללקוחה ב${r.dayLabel} בשעה 09:00, עם קישור להעלאה. אם לא תעלה, יגיע אלייך אחר כך מייל מעקב.`,
               )}</p>`
             : redLine(reminderProblemText(r))),
       )

@@ -688,12 +688,26 @@
       var d = new Date();
       return new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
     }
-    function addBusinessDays(date, n) { // ימי עסקים: ראשון-חמישי
+    // חגים (כולל חול המועד): ראש השנה, יום כיפור, סוכות עד שמחת תורה, פסח, שבועות
+    var HEB_FMT = null;
+    try { HEB_FMT = new Intl.DateTimeFormat('en-u-ca-hebrew', { timeZone: 'UTC', day: 'numeric', month: 'long' }); } catch (e) { HEB_FMT = null; }
+    function isHoliday(date) {
+      if (!HEB_FMT) return false;
+      try {
+        var parts = HEB_FMT.formatToParts(date), mo = '', dy = 0;
+        parts.forEach(function (p) { if (p.type === 'month') mo = p.value; if (p.type === 'day') dy = Number(p.value); });
+        if (mo === 'Tishri') return dy === 1 || dy === 2 || dy === 10 || (dy >= 15 && dy <= 22);
+        if (mo === 'Nisan') return dy >= 15 && dy <= 21;
+        if (mo === 'Sivan') return dy === 6;
+      } catch (e) { /* בלי לוח עברי - רק שבת */ }
+      return false;
+    }
+    function addBusinessDays(date, n) { // ימי עסקים: ראשון-חמישי, בלי חגים
       var d = new Date(date.getTime()), added = 0;
       while (added < n) {
         d.setUTCDate(d.getUTCDate() + 1);
         var wd = d.getUTCDay();
-        if (wd !== 5 && wd !== 6) added++;
+        if (wd !== 5 && wd !== 6 && !isHoliday(d)) added++;
       }
       return d;
     }

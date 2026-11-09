@@ -122,7 +122,12 @@ export async function POST(req: NextRequest) {
       files.map(f => ({ label: f.label, filename: f.originalName, content: f.content, contentType: f.contentType })),
     );
 
-    if (complete && payload.fu) await cancelMail(resend, payload.fu, "follow-up (all received)");
+    if (complete) {
+      // Everything arrived: the follow-up and any reminder still scheduled are not needed.
+      if (payload.fu) await cancelMail(resend, payload.fu, "follow-up (all received)");
+      const later = Array.isArray(payload.rm) ? payload.rm.filter(id => typeof id === "string" && id).slice(0, 5) : [];
+      for (const id of later) await cancelMail(resend, id, "reminder (all received)");
+    }
 
     return json({ ok: true, received: [...received], complete });
   } catch (err) {

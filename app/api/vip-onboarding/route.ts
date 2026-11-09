@@ -6,7 +6,7 @@ import { part1Sections, finalSections, sectionsToText } from "@/lib/vip/answers-
 import { renderFinalEmail, renderPart1Email } from "@/lib/vip/render-business";
 import { ogenSubject, renderOgenEmail, renderOgenNotice } from "@/lib/vip/render-ogen";
 import { businessItemLabel, employerCounts, part1PendingItems } from "@/lib/vip/pending";
-import { cancelScheduled, scheduleReminders, type ScheduleResult } from "@/lib/vip/reminders";
+import { cancelScheduled, scheduleReminders, scheduledLabel, type ScheduleResult } from "@/lib/vip/reminders";
 import { callDay, formatDayLabel } from "@/lib/vip/dates";
 import { syncOnboardingText } from "@/lib/vip/dashboard";
 import { OGEN_LABEL_PREFIXES, fetchOgenFiles } from "@/lib/vip/files";
@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
             employerCounts: employerCounts(answers),
             submissionId: sid,
           });
-          reminder = scheduled.ok ? { kind: "scheduled", dayLabel: formatDayLabel(scheduled.reminderDay) } : { kind: "error" };
+          reminder = scheduled.ok ? { kind: "scheduled", dayLabel: scheduledLabel(scheduled) } : { kind: "error" };
         } catch (e) {
           console.error("[vip] part1 reminders failed:", e);
           reminder = { kind: "error" };

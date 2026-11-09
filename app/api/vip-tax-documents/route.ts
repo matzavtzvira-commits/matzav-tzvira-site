@@ -4,8 +4,7 @@ import { createResend, idemKey, requestId, sendMail } from "@/lib/vip/mail";
 import { isMarried, isValidEmail, normalizeTaxRequest } from "@/lib/vip/normalize";
 import { renderTaxEmail } from "@/lib/vip/render-business";
 import { canonicalTaxDocs, employerCountsFromItems, taxPendingItems } from "@/lib/vip/pending";
-import { cancelScheduled, scheduleReminders, type ScheduleResult } from "@/lib/vip/reminders";
-import { formatDayLabel } from "@/lib/vip/dates";
+import { cancelScheduled, scheduleReminders, scheduledLabel, type ScheduleResult } from "@/lib/vip/reminders";
 import { lookupClient } from "@/lib/vip/dashboard";
 import type { ReminderStatus } from "@/lib/vip/reminder-status";
 
@@ -59,7 +58,7 @@ export async function POST(req: NextRequest) {
             employerCounts: employerCountsFromItems(pending),
             submissionId: sid,
           });
-          reminder = scheduled.ok ? { kind: "scheduled", dayLabel: formatDayLabel(scheduled.reminderDay) } : { kind: "error" };
+          reminder = scheduled.ok ? { kind: "scheduled", dayLabel: scheduledLabel(scheduled) } : { kind: "error" };
         } catch (e) {
           console.error("[vip] tax reminders failed:", e);
           reminder = { kind: "error" };
