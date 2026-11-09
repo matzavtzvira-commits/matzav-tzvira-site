@@ -1,259 +1,181 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
+import { BUSINESS_EMAIL, CORS_HEADERS, FROM_SITE } from "@/lib/vip/config";
+import { createResend, idemKey, requestId, sendMail } from "@/lib/vip/mail";
+import { fullName, isValidEmail, normalizeAnswers, strArr } from "@/lib/vip/normalize";
+import { part1Sections, finalSections, sectionsToText } from "@/lib/vip/answers-view";
+import { renderFinalEmail, renderPart1Email } from "@/lib/vip/render-business";
+import { ogenSubject, renderOgenEmail, renderOgenNotice } from "@/lib/vip/render-ogen";
+import { businessItemLabel, employerCounts, part1PendingItems } from "@/lib/vip/pending";
+import { cancelScheduled, scheduleReminders, type ScheduleResult } from "@/lib/vip/reminders";
+import { callDay, formatDayLabel } from "@/lib/vip/dates";
+import { syncOnboardingText } from "@/lib/vip/dashboard";
+import { OGEN_LABEL_PREFIXES, fetchOgenFiles } from "@/lib/vip/files";
+import type { ReminderStatus } from "@/lib/vip/reminder-status";
+import type { Answers } from "@/lib/vip/types";
 
-const CORS_HEADERS = {
-  "Access-Control-Allow-Origin": "https://matzavtzvira.co.il",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
-};
+// VIP onboarding form v2 answers (JSON).
+// stage "part1" (after page 3): dashboard text (tells whether she is known there) ->
+//   reminders for "send later" items (only when she is known) -> business email with the
+//   real outcome -> forward-ready Ogen email + notification.
+// stage "final" (after page 6): business email with all answers + dashboard text.
+// Files travel separately through /api/vip-onboarding-files.
+// Every send carries an idempotency key from the browser's submissionId.
+export const maxDuration = 60;
 
 export async function OPTIONS() {
   return new NextResponse(null, { status: 204, headers: CORS_HEADERS });
 }
 
+const json = (body: unknown, status = 200) => NextResponse.json(body, { status, headers: CORS_HEADERS });
+
+/** Dashboard text tail: what will come later and which files did not get through. */
+function pendingAndMissingText(answers: Answers, missingFiles: string[]): string {
+  const names = { fn: answers.her.firstName, sp: answers.spouse?.firstName || "" };
+  const pending = part1PendingItems(answers).map(i => businessItemLabel(i, names));
+  return (
+    (pending.length ? `\n\n== יגיע בהמשך ==\n${pending.join("\n")}` : "") +
+    (missingFiles.length ? `\n\n== קבצים שלא עברו ==\n${missingFiles.join("\n")}` : "")
+  );
+}
+
 export async function POST(req: NextRequest) {
-  const resend = new Resend(process.env.RESEND_API_KEY);
-
   try {
-    const formData = await req.formData();
+    let body: { stage?: unknown; answers?: unknown; missingFiles?: unknown; submissionId?: unknown };
+    try {
+      body = await req.json();
+    } catch {
+      return json({ error: "בקשה לא תקינה" }, 400);
+    }
+    if (!body || typeof body !== "object") return json({ error: "בקשה לא תקינה" }, 400);
 
-    const name = formData.get("name") as string;
-    const phone = formData.get("phone") as string;
-    const email = formData.get("email") as string;
-    const maritalStatus = formData.get("maritalStatus") as string;
-    const numChildren = formData.get("numChildren") as string;
-    const childrenAges = formData.get("childrenAges") as string;
-    const employmentStatus = formData.get("employmentStatus") as string;
-    const income = formData.get("income") as string;
-    const hasPension = formData.get("hasPension") as string;
-    const hasHishtalmut = formData.get("hasHishtalmut") as string;
-    const hasLoan = formData.get("hasLoan") as string;
-    const hasLifeInsurance = formData.get("hasLifeInsurance") as string;
-    const hasGemel = formData.get("hasGemel") as string;
-    const hasMortgage = formData.get("hasMortgage") as string;
-    const interestedInRefinance = formData.get("interestedInRefinance") as string;
-    const hasChildSavings = formData.get("hasChildSavings") as string;
-    const kosherTracks = formData.get("kosherTracks") as string;
-    const usCitizen = formData.get("usCitizen") as string;
-    const notes = formData.get("notes") as string;
+    const stage = body.stage === "final" ? "final" : body.stage === "part1" ? "part1" : null;
+    if (!stage) return json({ error: "שלב לא תקין" }, 400);
 
-    // Spouse (husband) answers - collected only when married
-    const spouseEmploymentStatus = formData.get("spouseEmploymentStatus") as string;
-    const spouseIncome = formData.get("spouseIncome") as string;
-    const spouseHasPension = formData.get("spouseHasPension") as string;
-    const spouseHasHishtalmut = formData.get("spouseHasHishtalmut") as string;
-    const spouseHasLoan = formData.get("spouseHasLoan") as string;
-    const spouseHasLifeInsurance = formData.get("spouseHasLifeInsurance") as string;
-    const spouseHasGemel = formData.get("spouseHasGemel") as string;
-    const spouseUsCitizen = formData.get("spouseUsCitizen") as string;
+    const answers = normalizeAnswers(body.answers);
+    const { her } = answers;
+    if (!her.firstName || !her.lastName || !her.phone || !her.email || !isValidEmail(her.email)) {
+      return json({ error: "חסרים שדות חובה" }, 400);
+    }
 
-    const tzFile = formData.get("tzFile") as File | null;
-    const spouseTzFile = formData.get("spouseTzFile") as File | null;
-    const mortgageReportFile = formData.get("mortgageReportFile") as File | null;
+    const resend = createResend();
+    const sid = requestId(body.submissionId);
+    const key = (kind: string) => idemKey(sid, `${stage}-${kind}`);
+    const name = fullName(her.firstName, her.lastName);
+    const client = { email: her.email, phone: her.phone };
+    const missingFiles = strArr(body.missingFiles, 40, 200);
 
-    // הטופס החדש שולח את הקבצים בנפרד (/api/vip-onboarding-files) כדי לא לעבור
-    // את מגבלת 4.5MB של Vercel. כאן מגיעות רק התשובות + רשימת הקבצים שבדרך.
-    const filesSeparate = formData.get("filesSeparate") === "1";
-    const expectedFiles = (formData.get("expectedFiles") as string) || "";
-
-    if (!name || !phone || !email) {
-      return NextResponse.json(
-        { error: "חסרים שדות חובה" },
-        { status: 400, headers: CORS_HEADERS }
+    if (stage === "final") {
+      const mail = renderFinalEmail(answers, missingFiles);
+      const sent = await sendMail(resend, { from: FROM_SITE, to: BUSINESS_EMAIL, subject: mail.subject, html: mail.html }, "final", key("business"));
+      if (!sent.ok) return json({ error: "שליחת המייל נכשלה" }, 502);
+      // Overwrites the part1 text, so the pending / missing lines are added again.
+      await syncOnboardingText(
+        client,
+        sectionsToText([...finalSections(answers), ...part1Sections(answers, missingFiles)]) + pendingAndMissingText(answers, missingFiles),
       );
+      return json({ ok: true });
     }
 
-    const married = maritalStatus === "נשואה";
+    // ---- part1 ----
+    const pending = part1PendingItems(answers);
+    const names = { fn: her.firstName, sp: answers.spouse?.firstName || "" };
+    const pendingLabels = pending.map(i => businessItemLabel(i, names));
+    const ogenFilesP = fetchOgenFiles(client); // independent, runs alongside
 
-    // ת"ז שלה תמיד חובה. ת"ז בן זוג נדרשת רק כשנשואה - אחרת רווקה / חד הורית נחסמות.
-    if (!filesSeparate && (!tzFile || tzFile.size === 0)) {
-      return NextResponse.json(
-        { error: "יש להעלות צילום ת\"ז" },
-        { status: 400, headers: CORS_HEADERS }
-      );
-    }
+    // 1. Dashboard text. Its `matched` decides whether reminders are scheduled.
+    const sync = await syncOnboardingText(client, sectionsToText(part1Sections(answers, missingFiles)) + pendingAndMissingText(answers, missingFiles));
 
-    if (!filesSeparate && married && (!spouseTzFile || spouseTzFile.size === 0)) {
-      return NextResponse.json(
-        { error: "יש להעלות צילום ת\"ז של בעלך" },
-        { status: 400, headers: CORS_HEADERS }
-      );
-    }
-
-    const attachments: { filename: string; content: Buffer }[] = [];
-
-    if (tzFile && tzFile.size > 0) {
-      const tzBuffer = Buffer.from(await tzFile.arrayBuffer());
-      attachments.push({ filename: `tz-${name}-${tzFile.name}`, content: tzBuffer });
-    }
-
-    if (spouseTzFile && spouseTzFile.size > 0) {
-      const spouseBuffer = Buffer.from(await spouseTzFile.arrayBuffer());
-      attachments.push({ filename: `tz-spouse-${spouseTzFile.name}`, content: spouseBuffer });
-    }
-
-    let hasMortgageReport = false;
-    if (mortgageReportFile && mortgageReportFile.size > 0) {
-      const mortgageBuffer = Buffer.from(await mortgageReportFile.arrayBuffer());
-      attachments.push({ filename: `mortgage-report-${mortgageReportFile.name}`, content: mortgageBuffer });
-      hasMortgageReport = true;
-    }
-
-    const row = (label: string, value: string) => `
-      <tr>
-        <td style="padding:10px 12px;border-bottom:1px solid #E8EDFF;color:#888;width:38%;font-size:14px;">${label}</td>
-        <td style="padding:10px 12px;border-bottom:1px solid #E8EDFF;color:#292929;font-size:14px;">${value || "לא צוין"}</td>
-      </tr>`;
-
-    const spouseRow = (label: string, value: string) => (married ? row(label, value) : "");
-
-    const mortgageRow = hasMortgage === "כן"
-      ? row("מעוניינת במחזור משכנתא?", interestedInRefinance || "לא צוין")
-      : "";
-
-    const html = `
-      <div dir="rtl" style="font-family:Arial,sans-serif;max-width:620px;margin:0 auto;padding:32px;background:#F4F7FF;border-radius:16px;">
-        <div style="background:#124AF0;border-radius:12px;padding:20px 24px;margin-bottom:28px;">
-          <h2 style="color:#21F0B0;margin:0 0 4px;">לקוחת VIP חדשה - טופס קבלת מידע</h2>
-          <p style="color:rgba(255,255,255,0.7);font-size:13px;margin:0;">${new Date().toLocaleDateString("he-IL", { timeZone: "Asia/Jerusalem", day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" })}</p>
-        </div>
-
-        <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;margin-bottom:20px;">
-          <thead><tr><td colspan="2" style="padding:12px 16px;background:#060D3C;color:#fff;font-weight:bold;font-size:15px;">פרטים אישיים</td></tr></thead>
-          <tbody>
-            ${row("שם מלא", name)}
-            <tr>
-              <td style="padding:10px 12px;border-bottom:1px solid #E8EDFF;color:#888;width:38%;font-size:14px;">טלפון</td>
-              <td style="padding:10px 12px;border-bottom:1px solid #E8EDFF;font-size:14px;"><a href="tel:${phone}" style="color:#124AF0;text-decoration:none;font-weight:bold;">${phone}</a></td>
-            </tr>
-            <tr>
-              <td style="padding:10px 12px;border-bottom:1px solid #E8EDFF;color:#888;font-size:14px;">מייל</td>
-              <td style="padding:10px 12px;border-bottom:1px solid #E8EDFF;font-size:14px;"><a href="mailto:${email}" style="color:#124AF0;text-decoration:none;">${email}</a></td>
-            </tr>
-            ${row("מצב משפחתי", maritalStatus)}
-          </tbody>
-        </table>
-
-        <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;margin-bottom:20px;">
-          <thead><tr><td colspan="2" style="padding:12px 16px;background:#060D3C;color:#fff;font-weight:bold;font-size:15px;">משפחה ועבודה</td></tr></thead>
-          <tbody>
-            ${row("מספר ילדים", numChildren)}
-            ${row("גילאי הילדים", childrenAges)}
-            ${row("סטטוס תעסוקה שלה", employmentStatus)}
-            ${spouseRow("סטטוס תעסוקה של הבעל", spouseEmploymentStatus)}
-            ${row("הכנסה חודשית שלה", income)}
-            ${spouseRow("הכנסה חודשית של הבעל", spouseIncome)}
-          </tbody>
-        </table>
-
-        <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;margin-bottom:20px;">
-          <thead><tr><td colspan="2" style="padding:12px 16px;background:#060D3C;color:#fff;font-weight:bold;font-size:15px;">מצב פיננסי</td></tr></thead>
-          <tbody>
-            ${row("יש לה פנסיה?", hasPension)}
-            ${spouseRow("לבעל יש פנסיה?", spouseHasPension)}
-            ${row("יש לה קרן השתלמות?", hasHishtalmut)}
-            ${spouseRow("לבעל יש קרן השתלמות?", spouseHasHishtalmut)}
-            ${row("יש לה קרן גמל?", hasGemel)}
-            ${spouseRow("לבעל יש קרן גמל?", spouseHasGemel)}
-            ${row("יש לה ביטוח חיים פרטי?", hasLifeInsurance)}
-            ${spouseRow("לבעל יש ביטוח חיים פרטי?", spouseHasLifeInsurance)}
-            ${row("יש לה הלוואה על מוצר פיננסי?", hasLoan)}
-            ${spouseRow("לבעל יש הלוואה על מוצר פיננסי?", spouseHasLoan)}
-            ${row("יש משכנתא?", hasMortgage)}
-            ${mortgageRow}
-            ${row("יש חסכון לילדים?", hasChildSavings)}
-            ${row("חשוב להם מסלולים כשרים?", kosherTracks)}
-            ${row("אזרחות אמריקאית שלה?", usCitizen)}
-            ${spouseRow("לבעל אזרחות אמריקאית?", spouseUsCitizen)}
-          </tbody>
-        </table>
-
-        ${notes ? `
-        <div style="background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:20px;">
-          <p style="color:#888;font-size:13px;margin:0 0 6px;">הערות</p>
-          <p style="color:#292929;margin:0;font-size:15px;">${notes}</p>
-        </div>` : ""}
-
-        ${filesSeparate ? `
-        <div style="background:#E8EDFF;border-radius:10px;padding:14px 20px;">
-          <p style="margin:0;color:#060D3C;font-weight:bold;font-size:14px;">📎 הקבצים מגיעים במייל נפרד: ${expectedFiles || "לא הועלו קבצים"}</p>
-          <p style="margin:6px 0 0;color:#555;font-size:13px;">אם לא הגיע מייל "קבצי VIP - ${name}" תוך כמה דקות, או שהגיע מייל "חסרים קבצים" - צריך לבקש ממנה את הקבצים.</p>
-        </div>` : `
-        <div style="background:#21F0B0;border-radius:10px;padding:14px 20px;">
-          <p style="margin:0;color:#060D3C;font-weight:bold;font-size:14px;">✓ ${attachments.length} קבצים מצורפים (ת"ז${hasMortgageReport ? " + דוח משכנתא" : ""})</p>
-        </div>`}
-
-        <p style="color:#aaa;font-size:12px;margin-top:20px;text-align:center;">נשלח מטופס קבלת מידע VIP - matzavtzvira.co.il</p>
-      </div>`;
-
-    const { error: sendError } = await resend.emails.send({
-      from: "אתר מצב צבירה <noreply@matzavtzvira.co.il>",
-      to: "matzavtzvira@gmail.com",
-      subject: `לקוחת VIP חדשה - ${name}`,
-      html,
-      attachments,
-    });
-    // Resend לא זורק שגיאה - מחזיר אותה. בלי הבדיקה הלקוחה הייתה מקבלת "נשלח" על מייל שלא יצא.
-    if (sendError) {
-      console.error("VIP onboarding email failed:", sendError);
-      return NextResponse.json(
-        { error: "שליחת המייל נכשלה" },
-        { status: 502, headers: CORS_HEADERS }
-      );
-    }
-
-    // Sync the textual answers to the dashboard client (matched by email).
-    // Files (ID photos, mortgage report) are intentionally NOT sent — email only.
-    const onboarding = [
-      `מצב משפחתי: ${maritalStatus || "לא צוין"}`,
-      `מספר ילדים: ${numChildren || "לא צוין"}`,
-      `גילאי הילדים: ${childrenAges || "לא צוין"}`,
-      `סטטוס תעסוקה: ${employmentStatus || "לא צוין"}`,
-      ...(married ? [`סטטוס תעסוקה של הבעל: ${spouseEmploymentStatus || "לא צוין"}`] : []),
-      `הכנסה חודשית: ${income || "לא צוין"}`,
-      ...(married ? [`הכנסה חודשית של הבעל: ${spouseIncome || "לא צוין"}`] : []),
-      `פנסיה: ${hasPension || "לא צוין"}`,
-      ...(married ? [`פנסיה של הבעל: ${spouseHasPension || "לא צוין"}`] : []),
-      `קרן השתלמות: ${hasHishtalmut || "לא צוין"}`,
-      ...(married ? [`קרן השתלמות של הבעל: ${spouseHasHishtalmut || "לא צוין"}`] : []),
-      `קרן גמל: ${hasGemel || "לא צוין"}`,
-      ...(married ? [`קרן גמל של הבעל: ${spouseHasGemel || "לא צוין"}`] : []),
-      `ביטוח חיים פרטי: ${hasLifeInsurance || "לא צוין"}`,
-      ...(married ? [`ביטוח חיים פרטי של הבעל: ${spouseHasLifeInsurance || "לא צוין"}`] : []),
-      `הלוואה על מוצר פיננסי: ${hasLoan || "לא צוין"}`,
-      ...(married ? [`הלוואה על מוצר פיננסי של הבעל: ${spouseHasLoan || "לא צוין"}`] : []),
-      `משכנתא: ${hasMortgage || "לא צוין"}`,
-      ...(hasMortgage === "כן" ? [`מחזור משכנתא: ${interestedInRefinance || "לא צוין"}`] : []),
-      `חסכון לילדים: ${hasChildSavings || "לא צוין"}`,
-      `מסלולים כשרים חשובים: ${kosherTracks || "לא צוין"}`,
-      `אזרחות אמריקאית: ${usCitizen || "לא צוין"}`,
-      ...(married ? [`אזרחות אמריקאית של הבעל: ${spouseUsCitizen || "לא צוין"}`] : []),
-      ...(notes ? [`הערות: ${notes}`] : []),
-    ].join("\n");
-
-    const syncSecret = process.env.VIP_INTAKE_SECRET;
-    if (syncSecret) {
-      const syncUrl =
-        process.env.VIP_ONBOARDING_SYNC_URL ||
-        "https://tasks-dashboard-gamma.vercel.app/api/vip-onboarding-sync";
-      try {
-        await fetch(syncUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "x-intake-secret": syncSecret },
-          body: JSON.stringify({ email, onboarding, phone }),
-          signal: AbortSignal.timeout(5000),
-        });
-      } catch (e) {
-        console.error("VIP onboarding dashboard sync failed:", e);
+    // 2. Reminder + follow-up, only for a client the dashboard knows.
+    let reminder: ReminderStatus = { kind: "none" };
+    let scheduled: ScheduleResult | null = null;
+    if (pending.length) {
+      if (sync.ok && !sync.matched) reminder = { kind: "nomatch" };
+      else if (!sync.ok) reminder = { kind: "error" };
+      else {
+        try {
+          scheduled = await scheduleReminders(resend, {
+            stage: "part1",
+            email: her.email,
+            phone: her.phone,
+            firstName: her.firstName,
+            lastName: her.lastName,
+            spouseFirstName: answers.spouse?.firstName || "",
+            married: !!answers.spouse,
+            items: pending,
+            employerCounts: employerCounts(answers),
+            submissionId: sid,
+          });
+          reminder = scheduled.ok ? { kind: "scheduled", dayLabel: formatDayLabel(scheduled.reminderDay) } : { kind: "error" };
+        } catch (e) {
+          console.error("[vip] part1 reminders failed:", e);
+          reminder = { kind: "error" };
+        }
       }
     }
 
-    return NextResponse.json({ ok: true }, { headers: CORS_HEADERS });
+    // 3. Business email with the real outcome - the only step that must succeed.
+    const mail = renderPart1Email({ answers, missingFiles, pendingItems: pendingLabels, reminder });
+    const sent = await sendMail(resend, { from: FROM_SITE, to: BUSINESS_EMAIL, subject: mail.subject, html: mail.html }, "part1", key("business"));
+    if (!sent.ok) {
+      // Without a submissionId the browser's retry would schedule the reminder again.
+      if (!sid && scheduled) await cancelScheduled(resend, scheduled, "part1");
+      await ogenFilesP.catch(() => null);
+      return json({ error: "שליחת המייל נכשלה" }, 502);
+    }
+
+    // From here on everything is best-effort (logged, never fails the request).
+    // 4a. Forward-ready Ogen email; if it fails, once more without attachments.
+    let ogenSent = false;
+    try {
+      const ogenFiles = await ogenFilesP;
+      const ogen = renderOgenEmail({ answers, missingFiles, attachedNames: ogenFiles.attachedNames });
+      const first = await sendMail(
+        resend,
+        {
+          from: FROM_SITE,
+          to: BUSINESS_EMAIL,
+          subject: `מייל לעוגן - ${name}`,
+          html: ogen.html,
+          ...(ogenFiles.attachments.length ? { attachments: ogenFiles.attachments } : {}),
+        },
+        "ogen email",
+        key("ogen"),
+      );
+      ogenSent = first.ok;
+      if (!first.ok) {
+        const bare = renderOgenEmail({ answers, missingFiles, attachedNames: [] });
+        const second = await sendMail(
+          resend,
+          { from: FROM_SITE, to: BUSINESS_EMAIL, subject: `מייל לעוגן - ${name}`, html: bare.html },
+          "ogen email (no attachments)",
+          key("ogen-noatt"),
+        );
+        ogenSent = second.ok;
+      }
+    } catch (e) {
+      console.error("[vip] ogen email failed:", e);
+    }
+
+    // 4b. Notification: forward instructions (or the Ogen failure) + call reminder.
+    try {
+      const notice = renderOgenNotice({
+        fullName: name,
+        phone: her.phone,
+        pendingOgenItems: pending.filter(i => i.kind === "payslip").map(i => businessItemLabel(i, names)),
+        reminder,
+        ogenSent,
+        missingFiles: missingFiles.filter(m => OGEN_LABEL_PREFIXES.some(p => m.startsWith(p))),
+        callDayLabel: formatDayLabel(callDay()),
+        ogenSubject: ogenSubject(answers),
+      });
+      await sendMail(resend, { from: FROM_SITE, to: BUSINESS_EMAIL, subject: notice.subject, html: notice.html }, "ogen notice", key("notice"));
+    } catch (e) {
+      console.error("[vip] ogen notice failed:", e);
+    }
+
+    return json({ ok: true });
   } catch (err) {
     console.error("VIP onboarding error:", err);
-    return NextResponse.json(
-      { error: "שגיאת שרת" },
-      { status: 500, headers: CORS_HEADERS }
-    );
+    return json({ error: "שגיאת שרת" }, 500);
   }
 }

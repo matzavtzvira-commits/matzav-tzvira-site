@@ -16,8 +16,10 @@ export async function POST(req: NextRequest) {
 
     const firstName = name.split(" ")[0];
 
-    await resend.emails.send({
+    const { error: sendError } = await resend.emails.send({
       from: "רבקי - מצב צבירה <rivky@matzavtzvira.co.il>",
+      // matzavtzvira.co.il has no MX - replies must reach the Gmail inbox.
+      replyTo: "matzavtzvira@gmail.com",
       to: email,
       subject: "השלב הבא - טופס קבלת מידע VIP",
       html: `<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8"/></head><body>
@@ -42,8 +44,18 @@ export async function POST(req: NextRequest) {
               כדי שנוכל להתחיל לעבוד על התיק שלך ביעילות -
               אני צריכה כמה פרטים.
               <br/>
-              זה לוקח כ-5 דקות, ואפשר לעשות את זה עם כוס קפה.
+              זה לוקח כ-10 דקות, ואפשר לעשות את זה עם כוס קפה.
             </p>
+
+            <!-- What to have at hand -->
+            <div style="background:#F4F7FF;border-radius:14px;padding:16px 20px;margin:0 0 28px;">
+              <p style="font-size:15px;color:#060D3C;font-weight:800;margin:0 0 8px;">מה כדאי שיהיה לידך:</p>
+              <ol style="font-size:15px;color:#292929;line-height:1.9;margin:0;padding-right:20px;">
+                <li>תעודת זהות, שני הצדדים (גם של בעלך, אם את נשואה)</li>
+                <li>ספח תעודת זהות עם כל הילדים</li>
+                <li>תלוש שכר מהחודשים האחרונים, מכל מקום עבודה<br/><span style="color:#666;font-size:13px;">אין כרגע? אפשר לשלוח גם אחר כך</span></li>
+              </ol>
+            </div>
 
             <!-- CTA Button -->
             <div style="text-align:center;margin:32px 0;">
@@ -66,6 +78,11 @@ export async function POST(req: NextRequest) {
         </div>
       </body></html>`,
     });
+    // Resend returns errors instead of throwing - without this check a failed invite looked "sent".
+    if (sendError) {
+      console.error("Send VIP onboarding email failed:", sendError);
+      return NextResponse.json({ error: "שליחת המייל נכשלה" }, { status: 502 });
+    }
 
     return NextResponse.json({ ok: true });
   } catch (err) {

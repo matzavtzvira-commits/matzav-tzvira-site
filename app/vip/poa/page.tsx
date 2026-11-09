@@ -108,9 +108,9 @@ export default function VipPoaPage() {
       <main style={{ minHeight: "100vh", background: "#F4F7FF", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "Heebo, Arial, sans-serif", direction: "rtl" }}>
         <div style={{ ...card, maxWidth: 460, width: "100%", padding: "44px 28px", textAlign: "center" }}>
           <div style={{ fontSize: 52, marginBottom: 14 }}>✅</div>
-          <h2 style={{ fontSize: 22, fontWeight: 900, color: "#060D3C", marginBottom: 10 }}>ייפוי הכוח נחתם, תודה!</h2>
-          <p style={{ fontSize: 15, color: "#555", lineHeight: 1.7 }}>סיימת את כל התהליך. מכאן אני לוקחת מכאן את הביורוקרטיה על עצמי. בהצלחה רבה!</p>
-          <p style={{ fontSize: 16, color: "#124AF0", fontWeight: 800, marginTop: 18 }}>רבקי</p>
+          <h2 style={{ fontSize: 22, fontWeight: 900, color: "#060D3C", marginBottom: 10 }}>מעולה, אנחנו כבר עובדות על התיק שלך</h2>
+          <p style={{ fontSize: 15, color: "#555", lineHeight: 1.7 }}>ייפוי הכוח נחתם, וכל הפרטים אצלנו. נעבור על הכל וניצור איתך קשר.</p>
+          <p style={{ fontSize: 16, color: "#124AF0", fontWeight: 800, marginTop: 18 }}>רבקי וצוות מצב צבירה</p>
         </div>
       </main>
     );
