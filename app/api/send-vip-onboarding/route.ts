@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
               שלום,
             </p>
             <p style="font-size:16px;color:#292929;line-height:1.8;margin:0 0 20px;">
-              שמחה לקבל אותך לתהליך!
+              הצעד הראשון כבר מאחורייך. מכאן אנחנו לוקחות את זה הלאה.
             </p>
             <p style="font-size:15px;color:#555;line-height:1.8;margin:0 0 28px;">
               כדי שנוכל להתחיל לעבוד על התיק שלך ביעילות -
