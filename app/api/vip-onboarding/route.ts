@@ -4,7 +4,8 @@ import { createResend, idemKey, requestId, sendMail } from "@/lib/vip/mail";
 import { fullName, isValidEmail, normalizeAnswers, strArr } from "@/lib/vip/normalize";
 import { part1Sections, finalSections, sectionsToText } from "@/lib/vip/answers-view";
 import { renderFinalEmail, renderPart1Email } from "@/lib/vip/render-business";
-import { ogenSubject, renderOgenEmail, renderOgenNotice } from "@/lib/vip/render-ogen";
+import { ogenFilesPointer, ogenSubject, renderOgenEmail, renderOgenNotice } from "@/lib/vip/render-ogen";
+import { createOgenDraft, gmailDraftConfigured } from "@/lib/vip/gmail-draft";
 import { businessItemLabel, employerCounts, part1PendingItems } from "@/lib/vip/pending";
 import { cancelScheduled, scheduleReminders, scheduledLabel, type ScheduleResult } from "@/lib/vip/reminders";
 import { callDay, formatDayLabel } from "@/lib/vip/dates";
@@ -16,7 +17,7 @@ import type { Answers } from "@/lib/vip/types";
 // VIP onboarding form v2 answers (JSON).
 // stage "part1" (after page 3): dashboard text (tells whether she is known there) ->
 //   reminders for "send later" items (only when she is known) -> business email with the
-//   real outcome -> forward-ready Ogen email + notification.
+//   real outcome -> Gmail draft to Ogen (fallback: forward-ready Ogen email) + notification.
 // stage "final" (after page 6): business email with all answers + dashboard text.
 // Files travel separately through /api/vip-onboarding-files.
 // Every send carries an idempotency key from the browser's submissionId.
@@ -124,46 +125,69 @@ export async function POST(req: NextRequest) {
     }
 
     // From here on everything is best-effort (logged, never fails the request).
-    // 4a. Forward-ready Ogen email; if it fails, once more without attachments.
-    let ogenSent = false;
+    // 4a. A Gmail draft to Ogen in the business account. When it cannot be created,
+    //     the forward-ready Ogen email; if that fails, once more without attachments.
+    let ogenOutcome: "draft" | "email" | "failed" = "failed";
+    let filesPointer = "";
     try {
       const ogenFiles = await ogenFilesP;
-      const ogen = renderOgenEmail({ answers, missingFiles, attachedNames: ogenFiles.attachedNames });
-      const first = await sendMail(
-        resend,
-        {
-          from: FROM_SITE,
-          to: BUSINESS_EMAIL,
-          subject: `מייל לעוגן - ${name}`,
-          html: ogen.html,
-          ...(ogenFiles.attachments.length ? { attachments: ogenFiles.attachments } : {}),
-        },
-        "ogen email",
-        key("ogen"),
-      );
-      ogenSent = first.ok;
-      if (!first.ok) {
-        const bare = renderOgenEmail({ answers, missingFiles, attachedNames: [] });
-        const second = await sendMail(
-          resend,
-          { from: FROM_SITE, to: BUSINESS_EMAIL, subject: `מייל לעוגן - ${name}`, html: bare.html },
-          "ogen email (no attachments)",
-          key("ogen-noatt"),
-        );
-        ogenSent = second.ok;
+      if (gmailDraftConfigured()) {
+        const draftMail = renderOgenEmail({ answers, missingFiles, attachedNames: ogenFiles.attachedNames, forDraft: true });
+        const draft = await createOgenDraft({
+          subject: draftMail.subject,
+          html: draftMail.html,
+          attachments: ogenFiles.attachments,
+          submissionId: sid,
+        });
+        if (draft.ok) {
+          ogenOutcome = "draft";
+          filesPointer = ogenFilesPointer(answers, missingFiles, ogenFiles.attachedNames);
+        }
       }
     } catch (e) {
-      console.error("[vip] ogen email failed:", e);
+      console.error("[vip] ogen draft failed:", e);
+    }
+    if (ogenOutcome !== "draft") {
+      try {
+        const ogenFiles = await ogenFilesP;
+        const ogen = renderOgenEmail({ answers, missingFiles, attachedNames: ogenFiles.attachedNames });
+        const first = await sendMail(
+          resend,
+          {
+            from: FROM_SITE,
+            to: BUSINESS_EMAIL,
+            subject: `מייל לעוגן - ${name}`,
+            html: ogen.html,
+            ...(ogenFiles.attachments.length ? { attachments: ogenFiles.attachments } : {}),
+          },
+          "ogen email",
+          key("ogen"),
+        );
+        if (first.ok) ogenOutcome = "email";
+        else {
+          const bare = renderOgenEmail({ answers, missingFiles, attachedNames: [] });
+          const second = await sendMail(
+            resend,
+            { from: FROM_SITE, to: BUSINESS_EMAIL, subject: `מייל לעוגן - ${name}`, html: bare.html },
+            "ogen email (no attachments)",
+            key("ogen-noatt"),
+          );
+          if (second.ok) ogenOutcome = "email";
+        }
+      } catch (e) {
+        console.error("[vip] ogen email failed:", e);
+      }
     }
 
-    // 4b. Notification: forward instructions (or the Ogen failure) + call reminder.
+    // 4b. Notification: the draft is waiting (or forward instructions / the Ogen failure) + call reminder.
     try {
       const notice = renderOgenNotice({
         fullName: name,
         phone: her.phone,
         pendingOgenItems: pending.filter(i => i.kind === "payslip").map(i => businessItemLabel(i, names)),
         reminder,
-        ogenSent,
+        ogen: ogenOutcome,
+        filesPointer,
         missingFiles: missingFiles.filter(m => OGEN_LABEL_PREFIXES.some(p => m.startsWith(p))),
         callDayLabel: formatDayLabel(callDay()),
         ogenSubject: ogenSubject(answers),

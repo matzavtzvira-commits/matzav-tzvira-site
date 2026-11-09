@@ -114,6 +114,18 @@ export interface OgenEmailInput {
   missingFiles: string[];
   /** Dashboard names of the files attached to this email ([] = sent without attachments). */
   attachedNames: string[];
+  /** The Gmail draft goes to Ogen as is: no note for the business inside the body (it goes in the notice). */
+  forDraft?: boolean;
+}
+
+/** Where the files that are not attached can be found ("" when everything uploaded is attached). */
+export function ogenFilesPointer(a: Answers, missingFiles: string[], attachedNames: string[]): string {
+  const files = ogenFiles(a, missingFiles, attachedNames);
+  if (!files.some(f => f.state === "notFetched")) return "";
+  const herFull = fullName(a.her.firstName, a.her.lastName);
+  return files.some(f => f.state === "attached")
+    ? `חלק מהקבצים נמצאים במייל 'קבצי VIP - ${herFull}'`
+    : `הקבצים נמצאים במייל 'קבצי VIP - ${herFull}'`;
 }
 
 export function ogenSubject(a: Answers): string {
@@ -153,13 +165,7 @@ export function renderOgenEmail(input: OgenEmailInput): RenderedEmail {
   lines.push("אשמח בהקדם למסלקות + המלצות שלך.");
   lines.push("תודה רבה!");
 
-  const notFetched = files.some(f => f.state === "notFetched");
-  const noneAttached = !files.some(f => f.state === "attached");
-  const pointer = !notFetched
-    ? ""
-    : noneAttached
-      ? `הקבצים נמצאים במייל 'קבצי VIP - ${herFull}'`
-      : `חלק מהקבצים נמצאים במייל 'קבצי VIP - ${herFull}'`;
+  const pointer = input.forDraft ? "" : ogenFilesPointer(a, input.missingFiles, input.attachedNames);
   const note = pointer
     ? `<p style="background:#FFF8E1;border-right:4px solid #F5B400;padding:10px 14px;margin:0 0 16px;color:#7A4F00;">${esc(pointer)}</p>`
     : "";
@@ -179,8 +185,14 @@ export interface OgenNoticeInput {
   pendingOgenItems: string[];
   /** What happened to the client reminder (all pending items, not only Ogen ones). */
   reminder: ReminderStatus;
-  /** false when the forward-ready "מייל לעוגן" could not be sent at all */
-  ogenSent: boolean;
+  /**
+   * draft: a Gmail draft to Ogen is waiting in the business account;
+   * email: no draft, the forward-ready "מייל לעוגן" was sent instead;
+   * failed: neither got through.
+   */
+  ogen: "draft" | "email" | "failed";
+  /** For a draft: where the uploaded files that are not attached to it are ("" = none). */
+  filesPointer: string;
   /** Files that did not get through in the form (she continued without them). */
   missingFiles: string[];
   callDayLabel: string; // "יום רביעי 11.11"
@@ -192,7 +204,13 @@ export interface OgenNoticeInput {
 export function renderOgenNotice(input: OgenNoticeInput): RenderedEmail {
   const p = (html: string) => `<p style="margin:0 0 10px;">${html}</p>`;
   const parts: string[] = [];
-  if (input.ogenSent) {
+  if (input.ogen === "draft") {
+    parts.push(p(esc(`שימי לב, יש טיוטה מוכנה לעוגן - ${input.fullName}. היא מחכה בטיוטות בג'ימייל.`)));
+    if (input.filesPointer) {
+      parts.push(p(`<b>${esc(`${input.filesPointer}. לצרף אותם לטיוטה לפני השליחה.`)}</b>`));
+    }
+    parts.push(p(esc("תאשרי ותשלחי בהקדם. בהצלחה!")));
+  } else if (input.ogen === "email") {
     parts.push(p(esc(`שימי לב, הפרטים לעוגן מוכנים במייל 'מייל לעוגן - ${input.fullName}'.`)));
     parts.push(p(esc(`להעביר (Forward) ל-${OGEN_TO}, עם עותק ל-${OGEN_CC}, ולשלוח בהקדם. בהצלחה!`)));
     if (input.ogenSubject) parts.push(p(`<span style="color:#666;font-size:13px;">${esc(`נושא להעברה: ${input.ogenSubject}`)}</span>`));

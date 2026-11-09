@@ -23,6 +23,8 @@ const lovablePaths = [
 ];
 
 const nextConfig: NextConfig = {
+  // The VIP Ogen draft (lib/vip/gmail-draft.ts) talks IMAP from Node; keep these unbundled.
+  serverExternalPackages: ["imapflow", "nodemailer"],
   async redirects() {
     return lovablePaths.map((path) => ({
       source: path,

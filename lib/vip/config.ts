@@ -8,6 +8,8 @@ export const FROM_RIVKY = "רבקי - מצב צבירה <rivky@matzavtzvira.co.i
 
 export const OGEN_TO = "ogeninsurence@gmail.com";
 export const OGEN_CC = "sg@ogen-sm.co.il";
+/** The Ogen draft goes out from this "send as" address of the business Gmail, like the hand-sent ones. */
+export const OGEN_FROM = { name: "מצב צבירה", address: "office@matzavtzvira.com" };
 
 export const MORTGAGE_GUIDE_URL = "https://matzavtzvira.co.il/guides/mashkanta-guide.pdf";
 
