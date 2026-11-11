@@ -358,6 +358,12 @@
         <div class="error-msg" id="err-tzSpouse"></div>
       </div>
 
+      <div class="field" id="field-kidsStage">
+        <label><span id="kidsStage-label">הילדים שלכם</span> <span class="required">*</span></label>
+        <div class="radio-group" data-radio="kidsStage" data-opts="kidsStage"></div>
+        <div class="error-msg" id="err-kidsStage"></div>
+      </div>
+
       <div class="field" id="field-sefach">
         <label>ספח תעודת זהות עם כל הילדים <span class="required">*</span></label>
         <div class="hint-top">אם הספח בכמה עמודים, אפשר להעלות כמה תמונות.</div>
@@ -365,7 +371,7 @@
         <div class="error-msg" id="err-sefach"></div>
       </div>
 
-      <div class="field">
+      <div class="field" id="field-childAfterSefach" hidden>
         <label>נולד ילד אחרי שהספח הונפק? <span class="required">*</span></label>
         <div class="inline-group" data-radio="childAfterSefach" data-opts="yesNo"></div>
         <div class="error-msg" id="err-childAfterSefach"></div>
@@ -391,7 +397,7 @@
         </div>
       </div>
 
-      <div class="field">
+      <div class="field" id="field-childrenUsCitizen" hidden>
         <label>לילדים יש אזרחות אמריקאית? <span class="required">*</span></label>
         <div class="radio-group" data-radio="childrenUsCitizen" data-opts="childrenUs"></div>
         <div class="error-msg" id="err-childrenUsCitizen"></div>
@@ -476,32 +482,32 @@
 
       <div class="card-title">שמחות ויעדים</div>
 
-      <div class="field">
+      <div class="field" id="field-weddingBudgetSon">
         <label>תקציב משוער לחתונה של בן <span class="required">*</span></label>
         <div class="radio-group" data-radio="weddingBudgetSon" data-opts="weddingBudget"></div>
         <div class="error-msg" id="err-weddingBudgetSon"></div>
       </div>
-      <div class="field">
+      <div class="field" id="field-weddingAgeSons">
         <label>באיזה גיל בערך מתחתנים הבנים אצלכם? <span class="required">*</span></label>
         <div class="radio-group" data-radio="weddingAgeSons" data-opts="weddingAge"></div>
         <div class="error-msg" id="err-weddingAgeSons"></div>
       </div>
-      <div class="field">
+      <div class="field" id="field-weddingBudgetDaughter">
         <label>תקציב משוער לחתונה של בת <span class="required">*</span></label>
         <div class="radio-group" data-radio="weddingBudgetDaughter" data-opts="weddingBudget"></div>
         <div class="error-msg" id="err-weddingBudgetDaughter"></div>
       </div>
-      <div class="field">
+      <div class="field" id="field-weddingAgeDaughters">
         <label>באיזה גיל בערך מתחתנות הבנות אצלכם? <span class="required">*</span></label>
         <div class="radio-group" data-radio="weddingAgeDaughters" data-opts="weddingAge"></div>
         <div class="error-msg" id="err-weddingAgeDaughters"></div>
       </div>
-      <div class="field">
+      <div class="field" id="field-barMitzvahBudget">
         <label>תקציב משוער לבר/בת מצווה <span class="required">*</span></label>
         <div class="radio-group" data-radio="barMitzvahBudget" data-opts="barMitzvah"></div>
         <div class="error-msg" id="err-barMitzvahBudget"></div>
       </div>
-      <div class="field">
+      <div class="field" id="field-hishtalmutForSimchas">
         <label>קרן ההשתלמות מיועדת לשמחות? <span class="required">*</span></label>
         <div class="radio-group" data-radio="hishtalmutForSimchas" data-opts="hishtalmutSimchas"></div>
         <div class="error-msg" id="err-hishtalmutForSimchas"></div>
@@ -723,6 +729,7 @@
       marital: ['נשואה', 'רווקה', 'חד הורית'],
       refinance: ['כן, בהחלט', 'לא כרגע', 'לא יודעת'],
       childrenUs: ['כן', 'לא', 'לחלק מהם', 'לא יודעת'],
+      kidsStage: ['יש ילדים מתחת לגיל 18', 'כל הילדים מעל 18, חלק עוד לא התחתנו', 'כל הילדים נשואים, או שאין ילדים'],
       statusHer: ['שכירה', 'עצמאית', 'שכירה ועצמאית', 'לא עובדת כרגע'],
       statusSpouse: ['שכיר', 'עצמאי', 'שכיר ועצמאי', 'לא עובד כרגע (למשל אברך)'],
       idMode: [{ v: 'hp', t: 'אקליד ח"פ' }, { v: 'payslip', t: 'אעלה תלוש שכר מהחודשים האחרונים' }, { v: 'later', t: 'אשלח בהמשך, תזכירו לי' }],
@@ -900,6 +907,13 @@
       return d.length >= 9 && d.length <= 10;
     }
     function isMarried() { return radioVal('maritalStatus') === 'נשואה'; }
+    // מצב הילדים (עמוד 2) קובע אילו שאלות על ילדים נשאלות. בלי תשובה = שואלים הכל.
+    var KIDS_YOUNG = OPT.kidsStage[0], KIDS_ADULT = OPT.kidsStage[1], KIDS_NONE = OPT.kidsStage[2];
+    function kidsStage() { return radioVal('kidsStage'); }
+    // ילד שנולד אחרי הספח, בר/בת מצווה, חיסכון לילדים בבנק: רק כשיש ילדים מתחת לגיל 18
+    function askYoungKids() { var s = kidsStage(); return s !== KIDS_ADULT && s !== KIDS_NONE; }
+    // חתונות, השתלמות לשמחות, אזרחות אמריקאית של הילדים: כל עוד יש ילדים שעוד לא התחתנו
+    function askUnmarriedKids() { return kidsStage() !== KIDS_NONE; }
     function herFull() { return (val('firstName') + ' ' + val('lastName')).trim(); }
     function spouseFull() { return (val('spouseFirstName') + ' ' + val('spouseLastName')).trim(); }
     function herSelfEmployed() { return radioVal('statusHer').indexOf('עצמאית') >= 0; }
@@ -1195,7 +1209,11 @@
 
       // עמוד 2
       show('field-tzSpouse', married);
-      show('newchild-block', radioVal('childAfterSefach') === 'כן');
+      $('kidsStage-label').textContent = married ? 'הילדים שלכם' : 'הילדים שלך';
+      var stage = kidsStage();
+      show('field-childAfterSefach', stage === KIDS_YOUNG);
+      show('newchild-block', stage === KIDS_YOUNG && radioVal('childAfterSefach') === 'כן');
+      show('field-childrenUsCitizen', !!stage && askUnmarriedKids());
       var noFile = checked('birthCertNoFile');
       $('birthcert-box').classList.toggle('is-later', noFile);
       var bc = $('birthCert'); if (bc) bc.disabled = noFile;
@@ -1212,6 +1230,12 @@
         $(it.k + '_amount').disabled = checked(it.k + '_amountUnknown');
       });
       show('field-pensionLoanSpouse', married);
+      show('field-kidsBank', askYoungKids());
+
+      // עמוד 5
+      ['weddingBudgetSon', 'weddingAgeSons', 'weddingBudgetDaughter', 'weddingAgeDaughters', 'hishtalmutForSimchas']
+        .forEach(function (k) { show('field-' + k, askUnmarriedKids()); });
+      show('field-barMitzvahBudget', askYoungKids());
 
       // עמוד 7
       refreshTax();
@@ -1251,7 +1275,7 @@
       return d.when.some(function (v) { return vals.indexOf(v) >= 0; });
     }
     function birthCertAlready() {
-      return radioVal('childAfterSefach') === 'כן' && !checked('birthCertNoFile') && filesOf('birthCert').some(function (e) { return e.sent; });
+      return askYoungKids() && radioVal('childAfterSefach') === 'כן' && !checked('birthCertNoFile') && filesOf('birthCert').some(function (e) { return e.sent; });
     }
 
     function refreshTax() {
@@ -1362,9 +1386,10 @@
       if (n === 2) {
         need(filesOf('tzHer').length > 0, 'tzHer', 'נא להעלות צילום תעודת זהות (שני הצדדים)');
         if (married) need(filesOf('tzSpouse').length > 0, 'tzSpouse', 'נא להעלות צילום תעודת זהות של בעלך (שני הצדדים)');
+        need(kidsStage(), 'kidsStage');
         need(filesOf('sefach').length > 0, 'sefach', 'נא להעלות צילום ספח');
-        var cas = radioVal('childAfterSefach');
-        need(cas, 'childAfterSefach');
+        var cas = askYoungKids() ? radioVal('childAfterSefach') : '';
+        if (askYoungKids()) need(cas, 'childAfterSefach');
         if (cas === 'כן') {
           if (checked('birthCertNoFile')) {
             need(val('childName'), 'childName', 'נא להזין שם');
@@ -1374,7 +1399,7 @@
             need(filesOf('birthCert').length > 0, 'birthCert', 'נא להעלות תעודת לידה, או לסמן "אין לי תעודת לידה" ולהקליד את הפרטים');
           }
         }
-        need(radioVal('childrenUsCitizen'), 'childrenUsCitizen');
+        if (askUnmarriedKids()) need(radioVal('childrenUsCitizen'), 'childrenUsCitizen');
       }
 
       if (n === 3) {
@@ -1405,6 +1430,7 @@
       if (n === 4) {
         need(radioVal('checking'), 'checking');
         ITEMS.concat(LOANS).forEach(function (it) {
+          if (it.k === 'kidsBank' && !askYoungKids()) return;
           var has = radioVal(it.k + '_has');
           need(has, it.k + '_has');
           if (has === 'יש') {
@@ -1417,8 +1443,10 @@
       }
 
       if (n === 5) {
-        ['weddingBudgetSon', 'weddingAgeSons', 'weddingBudgetDaughter', 'weddingAgeDaughters', 'barMitzvahBudget', 'hishtalmutForSimchas', 'monthlyInvest']
-          .forEach(function (k) { need(radioVal(k), k); });
+        var p5 = ['monthlyInvest'];
+        if (askUnmarriedKids()) p5 = p5.concat(['weddingBudgetSon', 'weddingAgeSons', 'weddingBudgetDaughter', 'weddingAgeDaughters', 'hishtalmutForSimchas']);
+        if (askYoungKids()) p5.push('barMitzvahBudget');
+        p5.forEach(function (k) { need(radioVal(k), k); });
       }
 
       if (n === 6) {
@@ -1501,25 +1529,31 @@
         else if (filesOf('mortgageReport').length) report = 'uploaded';
       }
       a.mortgage = { has: mHas, refinance: refinance, report: report, reportRemind: reportRemind };
-      var cas = radioVal('childAfterSefach'), newChild = null;
+      var young = askYoungKids(), unmarried = askUnmarriedKids();
+      var cas = young ? radioVal('childAfterSefach') : '', newChild = null;
       if (cas === 'כן') {
         newChild = checked('birthCertNoFile')
           ? { mode: 'details', name: val('childName'), idNumber: digits(val('childId')), dob: val('childDob') }
           : { mode: 'file' };
       }
-      a.documents = { childAfterSefach: cas, newChild: newChild, childrenUsCitizen: radioVal('childrenUsCitizen') };
+      a.documents = { kidsStage: kidsStage(), childAfterSefach: cas, newChild: newChild, childrenUsCitizen: unmarried ? radioVal('childrenUsCitizen') : '' };
       a.work = { her: buildWork('her') };
       if (married) a.work.spouse = buildWork('spouse');
 
       if (full) {
         a.savings = { checking: radioVal('checking') };
-        ITEMS.forEach(function (it) { a.savings[it.k] = buildItem(it); });
+        ITEMS.forEach(function (it) {
+          a.savings[it.k] = it.k === 'kidsBank' && !young
+            ? { has: '', amount: '', amountUnknown: false, monthly: '', until: '', where: '', purpose: '' }
+            : buildItem(it);
+        });
         a.loans = { bank: buildItem(itemDef('loanBank')), gemach: buildItem(itemDef('loanGemach')), pensionLoanHer: radioVal('pensionLoanHer') };
         if (married) a.loans.pensionLoanSpouse = radioVal('pensionLoanSpouse');
+        var ifU = function (k) { return unmarried ? radioVal(k) : ''; };
         a.simchas = {
-          weddingBudgetSon: radioVal('weddingBudgetSon'), weddingAgeSons: radioVal('weddingAgeSons'),
-          weddingBudgetDaughter: radioVal('weddingBudgetDaughter'), weddingAgeDaughters: radioVal('weddingAgeDaughters'),
-          barMitzvahBudget: radioVal('barMitzvahBudget'), hishtalmutForSimchas: radioVal('hishtalmutForSimchas'),
+          weddingBudgetSon: ifU('weddingBudgetSon'), weddingAgeSons: ifU('weddingAgeSons'),
+          weddingBudgetDaughter: ifU('weddingBudgetDaughter'), weddingAgeDaughters: ifU('weddingAgeDaughters'),
+          barMitzvahBudget: young ? radioVal('barMitzvahBudget') : '', hishtalmutForSimchas: ifU('hishtalmutForSimchas'),
           monthlyInvest: radioVal('monthlyInvest')
         };
         a.prefs = { kosher: radioVal('kosher'), risk: radioVal('risk'), goal: val('goal'), notes: val('notes'), declaration: checked('declaration'), cutoffDate: cutoffDate() };
@@ -1565,7 +1599,7 @@
       add('tzHer', 'tzHer', 'ת"ז - ' + herFull());
       if (married) add('tzSpouse', 'tzSpouse', 'ת"ז בעל - ' + spouseFull());
       add('sefach', 'sefach', 'ספח');
-      if (radioVal('childAfterSefach') === 'כן' && !checked('birthCertNoFile')) add('birthCert', 'birthCert', 'תעודת לידה');
+      if (askYoungKids() && radioVal('childAfterSefach') === 'כן' && !checked('birthCertNoFile')) add('birthCert', 'birthCert', 'תעודת לידה');
       if (radioVal('mortgageHas') === 'כן' && radioVal('refinance') === 'כן, בהחלט' && !checked('mortgageReport_later')) add('mortgageReport', 'mortgageReport', 'דוח יתרות משכנתא');
       persons().forEach(function (p) {
         if (SALARIED.indexOf(radioVal('status' + cap(p))) < 0) return;

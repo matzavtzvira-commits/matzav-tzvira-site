@@ -37,8 +37,15 @@ export type NewChild =
   | { mode: "file" }
   | { mode: "details"; name: string; idNumber: string; dob: string };
 
+/** The kids question at the top of the documents page (exact option texts). */
+export const KIDS_YOUNG = "יש ילדים מתחת לגיל 18";
+export const KIDS_ADULT = "כל הילדים מעל 18, חלק עוד לא התחתנו";
+export const KIDS_NONE = "כל הילדים נשואים, או שאין ילדים";
+
 export interface Documents {
-  childAfterSefach: string; // "כן" | "לא"
+  /** "" in forms sent before the question existed (then every kids question was asked). */
+  kidsStage: string;
+  childAfterSefach: string; // "כן" | "לא" | "" (not asked)
   newChild: NewChild;
   childrenUsCitizen: string;
 }

@@ -3,6 +3,7 @@
 import type {
   Answers, Employer, Item, NewChild, Person, RemindChoice, TaxDoc, TaxRequest, Work,
 } from "./types";
+import { KIDS_ADULT, KIDS_NONE } from "./types";
 
 type Obj = Record<string, unknown>;
 
@@ -94,6 +95,17 @@ export function isMarried(maritalStatus: string): boolean {
   return maritalStatus === "נשואה";
 }
 
+/** Were the young-kids questions asked (new child after the ספח, bar mitzvah, kids' bank savings)? */
+export function askedYoungKids(a: Answers): boolean {
+  const s = a.documents.kidsStage;
+  return s !== KIDS_ADULT && s !== KIDS_NONE;
+}
+
+/** Were the unmarried-kids questions asked (weddings, hishtalmut for simchas, kids' US citizenship)? */
+export function askedUnmarriedKids(a: Answers): boolean {
+  return a.documents.kidsStage !== KIDS_NONE;
+}
+
 export function fullName(first: string, last: string): string {
   return [first, last].map(s => (s || "").trim()).filter(Boolean).join(" ");
 }
@@ -135,6 +147,7 @@ export function normalizeAnswers(raw: unknown): Answers {
       reportRemind: remind(mortgage.reportRemind),
     },
     documents: {
+      kidsStage: str(documents.kidsStage, 60),
       childAfterSefach: str(documents.childAfterSefach, 10),
       newChild: newChild(documents.newChild),
       childrenUsCitizen: str(documents.childrenUsCitizen, 40),

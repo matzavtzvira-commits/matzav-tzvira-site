@@ -1,7 +1,7 @@
 // The questionnaire as labeled sections, shared by the HTML emails and the plain
 // text that goes to the dashboard client file. Values are raw text here.
 import type { Answers, Item, Work } from "./types";
-import { fullName, isSalaried } from "./normalize";
+import { askedUnmarriedKids, askedYoungKids, fullName, isSalaried } from "./normalize";
 import { money } from "./html";
 import { payslipLabel } from "./pending";
 
@@ -115,15 +115,19 @@ export function part1Sections(a: Answers, missingFiles: string[] = []): ViewSect
   }
   sections.push({ title: "משכנתא", rows: mortgageRows });
 
-  const docRows: ViewRow[] = [r("נולד ילד אחרי שהספח הונפק?", a.documents.childAfterSefach)];
-  const nc = a.documents.newChild;
-  if (a.documents.childAfterSefach === "כן") {
-    if (nc && nc.mode === "file") docRows.push(r("תעודת לידה", missing("תעודת לידה") ? "לא עברה (חסר)" : "הועלתה"));
-    else if (nc && nc.mode === "details") {
-      docRows.push(r("שם הילד/ה", nc.name), r("ת\"ז הילד/ה", nc.idNumber), r("תאריך לידה", nc.dob));
-    } else docRows.push(r("תעודת לידה / פרטים", ""));
+  const docRows: ViewRow[] = [];
+  if (a.documents.kidsStage) docRows.push(r("ילדים", a.documents.kidsStage));
+  if (askedYoungKids(a)) {
+    docRows.push(r("נולד ילד אחרי שהספח הונפק?", a.documents.childAfterSefach));
+    const nc = a.documents.newChild;
+    if (a.documents.childAfterSefach === "כן") {
+      if (nc && nc.mode === "file") docRows.push(r("תעודת לידה", missing("תעודת לידה") ? "לא עברה (חסר)" : "הועלתה"));
+      else if (nc && nc.mode === "details") {
+        docRows.push(r("שם הילד/ה", nc.name), r("ת\"ז הילד/ה", nc.idNumber), r("תאריך לידה", nc.dob));
+      } else docRows.push(r("תעודת לידה / פרטים", ""));
+    }
   }
-  docRows.push(r("לילדים יש אזרחות אמריקאית?", a.documents.childrenUsCitizen));
+  if (askedUnmarriedKids(a)) docRows.push(r("לילדים יש אזרחות אמריקאית?", a.documents.childrenUsCitizen));
   sections.push({ title: "מסמכים", rows: docRows });
 
   sections.push(workSection(`עבודה - ${a.her.firstName || "הלקוחה"}`, a.work.her, herFull, missing, false));
@@ -150,6 +154,7 @@ function itemValue(it: Item, opts: { amountLabel?: string; untilLabel?: string }
 /** Pages 4-6 (empty when the stage-final fields are missing). */
 export function finalSections(a: Answers): ViewSection[] {
   const sections: ViewSection[] = [];
+  const young = askedYoungKids(a), unmarried = askedUnmarriedKids(a);
   if (a.savings) {
     const s = a.savings;
     sections.push({
@@ -158,7 +163,7 @@ export function finalSections(a: Answers): ViewSection[] {
         r("יתרה ממוצעת בעו\"ש", s.checking),
         r("פיקדון או פק\"מ בבנק", itemValue(s.deposit, { untilLabel: "משתחרר" })),
         r("תוכנית חיסכון בבנק", itemValue(s.savingsPlan, { untilLabel: "מסתיימת" })),
-        r("חיסכון לילדים בבנק (לא \"חיסכון לכל ילד\")", itemValue(s.kidsBank)),
+        ...(young ? [r("חיסכון לילדים בבנק (לא \"חיסכון לכל ילד\")", itemValue(s.kidsBank))] : []),
         r("חשבון מסחר, תיק השקעות או קרן כספית", itemValue(s.trading)),
         r("קופה בקהילה, גמ\"ח או קופת שמחות", itemValue(s.community)),
         r("כסף בצד - מזומן או מט\"ח", itemValue(s.cash)),
@@ -178,18 +183,21 @@ export function finalSections(a: Answers): ViewSection[] {
   }
   if (a.simchas) {
     const s = a.simchas;
-    sections.push({
-      title: "שמחות ויעדים",
-      rows: [
+    const rows: ViewRow[] = [];
+    // Say why questions are missing, so nobody plans weddings that aren't coming.
+    if (!young) rows.push(r("ילדים", a.documents.kidsStage));
+    if (unmarried) {
+      rows.push(
         r("תקציב משוער לחתונה של בן", s.weddingBudgetSon),
         r("גיל חתונה של הבנים", s.weddingAgeSons),
         r("תקציב משוער לחתונה של בת", s.weddingBudgetDaughter),
         r("גיל חתונה של הבנות", s.weddingAgeDaughters),
-        r("תקציב משוער לבר/בת מצווה", s.barMitzvahBudget),
-        r("קרן ההשתלמות מיועדת לשמחות?", s.hishtalmutForSimchas),
-        r("כמה אפשר להפריש בחודש להשקעה", s.monthlyInvest),
-      ],
-    });
+      );
+    }
+    if (young) rows.push(r("תקציב משוער לבר/בת מצווה", s.barMitzvahBudget));
+    if (unmarried) rows.push(r("קרן ההשתלמות מיועדת לשמחות?", s.hishtalmutForSimchas));
+    rows.push(r("כמה אפשר להפריש בחודש להשקעה", s.monthlyInvest));
+    sections.push({ title: "שמחות ויעדים", rows });
   }
   if (a.prefs) {
     const p = a.prefs;
