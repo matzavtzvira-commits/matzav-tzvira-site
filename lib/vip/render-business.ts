@@ -139,8 +139,12 @@ export function renderTaxEmail(t: TaxRequest, reminder: ReminderStatus, now?: Da
     };
   }
 
+  const propertyRows =
+    t.propertySaleYear || t.propertySalePaid
+      ? row("שנת המכירה", t.propertySaleYear) + row("שולם מס שבח?", t.propertySalePaid)
+      : "";
   const groups = TAX_GROUP_TITLES.map(([key, title]) =>
-    table(title, rowHtml("", t[key].length ? listHtml(t[key]) : "לא סומן")),
+    table(title, rowHtml("", t[key].length ? listHtml(t[key]) : "לא סומן") + (key === "finance" ? propertyRows : "")),
   ).join("");
 
   const statusText = (s: string) =>
@@ -149,9 +153,10 @@ export function renderTaxEmail(t: TaxRequest, reminder: ReminderStatus, now?: Da
       : s === "already"
         ? "כבר אצלנו מעמוד המסמכים"
         : `תשלח בהמשך${reminderDayLabel ? ` (תזכורת ב${reminderDayLabel})` : ""}`;
+  // New forms ask no documents: the tax advisor asks the client directly if there's a case.
   const docs = t.docs.length
     ? table("מסמכים", t.docs.map(d => row(d.label, statusText(d.status))).join(""))
-    : boxHtml("blue", "", "לא סומנו מסמכים.");
+    : "";
 
   const notes = t.notes
     ? `<div style="background:#fff;border-radius:10px;padding:14px 18px;margin-bottom:18px;"><p style="color:#888;font-size:12px;margin:0 0 4px;">הערות</p><p style="color:#292929;font-size:14px;margin:0;">${escMultiline(t.notes)}</p></div>`

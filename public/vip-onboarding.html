@@ -148,6 +148,7 @@
     .doc-title { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 8px; line-height: 1.5; }
     .later { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--dark); margin-top: 8px; cursor: pointer; }
     .later input { accent-color: var(--blue); width: 16px; height: 16px; }
+    .tax-no-docs { font-size: 14px; line-height: 1.6; color: var(--dark); background: #F0F5FF; border-radius: 12px; padding: 12px 14px; margin: 0 0 18px; }
     .already { font-size: 14px; font-weight: 700; color: #059669; background: #f0fdf8; border: 1.5px solid var(--mint); border-radius: 12px; padding: 12px 14px; }
 
     /* Buttons */
@@ -593,7 +594,7 @@
 
         <div class="freelance" id="freelance-banner" hidden>
           <div class="freelance-title">💼 כעצמאית - הבדיקה שלנו קצת שונה</div>
-          <div class="freelance-text">הבדיקה תתמקד בעיקר באופטימיזציה של הוצאות מוכרות, ניכויים, והפקדות לפנסיה וקרן השתלמות כעצמאית.<br />לשם כך נצטרך את <strong>הדוחות השנתיים של העסק שלך</strong> (במקום טפסי 106 / בנוסף אליהם).</div>
+          <div class="freelance-text">הבדיקה תתמקד בעיקר באופטימיזציה של הוצאות מוכרות, ניכויים, והפקדות לפנסיה וקרן השתלמות כעצמאית.<br />אם יש התכנות להחזר, יועצת המס תבקש ממך ישירות את <strong>הדוחות השנתיים של העסק</strong>.</div>
         </div>
 
         <div class="section-title">שינויי תעסוקה ושכר</div>
@@ -602,7 +603,6 @@
           <div class="radio-group" data-check="emp" data-opts="taxEmp"></div>
           <div class="error-msg" id="err-emp"></div>
         </div>
-        <div class="docs" id="docs-emp" hidden></div>
 
         <div class="divider"></div>
 
@@ -612,17 +612,27 @@
           <div class="radio-group" data-check="family" data-opts="taxFamily"></div>
           <div class="error-msg" id="err-family"></div>
         </div>
-        <div class="docs" id="docs-family" hidden></div>
 
         <div class="divider"></div>
 
         <div class="section-title">פיננסים והשקעות</div>
-        <div class="section-sub">האם אחד מאלה קיים אצלך? (אפשר לסמן כמה) <span class="required">*</span></div>
+        <div class="section-sub">בשנים <span class="yrs"></span>, האם אחד מאלה היה קיים אצלך? (אפשר לסמן כמה) <span class="required">*</span></div>
         <div class="field">
           <div class="radio-group" data-check="finance" data-opts="taxFinance"></div>
           <div class="error-msg" id="err-finance"></div>
         </div>
-        <div class="docs" id="docs-finance" hidden></div>
+        <div class="docs" id="property-block" hidden>
+          <div class="field">
+            <label>באיזו שנה הייתה המכירה? <span class="required">*</span></label>
+            <div class="inline-group" data-radio="propertySaleYear" data-opts="propertyYear"></div>
+            <div class="error-msg" id="err-propertySaleYear"></div>
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label>שולם מס שבח על המכירה? <span class="required">*</span></label>
+            <div class="radio-group" data-radio="propertySalePaid" data-opts="propertyPaid"></div>
+            <div class="error-msg" id="err-propertySalePaid"></div>
+          </div>
+        </div>
 
         <div class="divider"></div>
 
@@ -631,6 +641,7 @@
           <textarea id="taxNotes" placeholder="כל מידע נוסף שחשוב שנדע..."></textarea>
         </div>
 
+        <p class="tax-no-docs">לא צריך להעלות מסמכים. אם יועצת המס תראה שיש התכנות להחזר, היא תפנה אלייך ישירות ותגיד בדיוק אילו מסמכים צריך.</p>
         <div class="field">
           <label class="consent">
             <input type="checkbox" id="taxConsent" />
@@ -644,7 +655,6 @@
         <p id="send-problem-text-7"></p>
         <div class="send-problem-actions">
           <button type="button" class="problem-btn" id="btn-retry-7">לחצי שוב</button>
-          <button type="button" class="problem-link" id="btn-skip-files-7" hidden>להמשיך בלי הקבצים האלה</button>
         </div>
       </div>
 
@@ -776,7 +786,9 @@
         { v: 'תיק השקעות (867)', t: 'תיק השקעות / מניות (טופס 867)' },
         { v: 'מכירת נכס', t: 'מכרתי נכס (מס שבח)' },
         { v: 'לא רלוונטי', t: 'לא רלוונטי אף אחד', none: true }
-      ]
+      ],
+      propertyYear: (function () { var a = []; for (var y = CUR_YEAR - 6; y <= CUR_YEAR - 1; y++) a.push(String(y)); return a; })(),
+      propertyPaid: ['כן, שולם מס שבח', 'לא, המכירה הייתה פטורה', 'לא יודעת']
     };
 
     // חסכונות והלוואות (עמוד 4)
@@ -794,24 +806,7 @@
       { k: 'loanGemach', label: 'הלוואות גמ"ח', opts: 'hasNo', fields: ['amount', 'monthly'], amountLabel: 'יתרה', monthly: 'החזר חודשי' }
     ];
 
-    // מסמכי החזר מס (עמוד 7)
-    var TAX_DOCS = [
-      { key: 'forms106', group: 'emp', when: ['החלפת מקום עבודה', 'חל"ת', 'חופשת לידה מוארכת'], title: 'טפסי 106 (אפשר כמה קבצים)', label: 'טופס 106', multi: true },
-      { key: 'annualReports', group: 'emp', selfEmployed: true, title: 'דוחות שנתיים של העסק, {YRS} (אפשר כמה קבצים)', label: 'דוח שנתי של העסק', multi: true },
-      { key: 'bituachLeumi', group: 'emp', when: ['קצבה מביטוח לאומי'], title: 'ריכוז תשלומים מביטוח לאומי', label: 'ריכוז תשלומים מביטוח לאומי' },
-      { key: 'birthCertTax', group: 'family', when: ['נולד ילד'], title: 'תעודת לידה', label: 'תעודת לידה' },
-      { key: 'degree', group: 'family', when: ['תואר אקדמי'], title: 'תעודת סיום / אישור ממוסד הלימוד', label: 'תעודת תואר' },
-      { key: 'settlement', group: 'family', when: ['ישוב מזכה'], title: 'אישור תושב מהמועצה המקומית', label: 'אישור תושב מהמועצה' },
-      { key: 'specialEd', group: 'family', when: ['ועדת השמה'], title: 'החלטת ועדת ההשמה / חינוך מיוחד', label: 'החלטת ועדת השמה' },
-      { key: 'disability', group: 'family', when: ['מוגבלות או מחלה כרונית'], title: 'אישור רפואי / ועדה רפואית', label: 'אישור רפואי' },
-      { key: 'lifeIns', group: 'finance', when: ['ביטוח חיים פרטי'], title: 'אישור שנתי מחברת הביטוח - ביטוח חיים פרטי', label: 'אישור שנתי ביטוח חיים פרטי', multi: true },
-      { key: 'mortgageIns', group: 'finance', when: ['ביטוח חיים למשכנתא'], title: 'אישור שנתי מחברת הביטוח - ביטוח חיים למשכנתא', label: 'אישור שנתי ביטוח חיים למשכנתא', multi: true },
-      { key: 'pension', group: 'finance', when: ['הפקדות עצמאיות לפנסיה'], title: 'אישור שנתי מקרן הפנסיה / הגמל', label: 'אישור שנתי פנסיה/גמל', multi: true },
-      { key: 'form867', group: 'finance', when: ['תיק השקעות (867)'], title: 'טופס 867 מהבנק / בית ההשקעות', label: 'טופס 867', multi: true },
-      { key: 'propertyTax', group: 'finance', when: ['מכירת נכס'], title: 'שומת מס שבח', label: 'שומת מס שבח' }
-    ];
-    var TAX_DOC_BY_KEY = {};
-    TAX_DOCS.forEach(function (d) { TAX_DOC_BY_KEY[d.key] = d; });
+    // החזר מס (עמוד 7): רק שאלות סינון, בלי מסמכים. אם יש התכנות, יועצת המס מבקשת מסמכים ישירות מהלקוחה.
 
     // שדות קבצים (עמודים 1-3)
     var HINT_FILES = 'jpg, png או pdf - עד 4MB';
@@ -826,8 +821,6 @@
     function fileCfg(key) {
       if (FILE_CFG[key]) return FILE_CFG[key];
       if (key.indexOf('payslip@') === 0) return PAYSLIP_CFG;
-      var d = TAX_DOC_BY_KEY[key];
-      if (d) return { multi: !!d.multi, max: d.multi ? 6 : 1, icon: '', label: d.multi ? 'לחצי לבחירת קבצים' : 'לחצי לבחירת קובץ', hint: 'pdf, jpg, png' };
       return { multi: false, max: 1, icon: '', label: 'לחצי לבחירת קובץ', hint: '' };
     }
 
@@ -845,7 +838,6 @@
     var pendingMissing = [];   // קבצים שהלקוחה בחרה להמשיך בלעדיהם (חלק 1)
     var finalSentJson = null;  // התשובות המלאות האחרונות שנשלחו בהצלחה
     var taxSent = false;
-    var taxMissing = [];
     var redirecting = false;
     var currentPage = 'intro';
 
@@ -1043,18 +1035,6 @@
       return h + '</div></div>';
     }
 
-    function docHtml(d) {
-      var cfg = fileCfg(d.key);
-      var inner = uploadHtml(d.key, d.key, cfg) +
-        '<label class="later"><input type="checkbox" id="' + d.key + '_later" /> אשלח בהמשך, תזכירו לי</label>' +
-        '<div class="error-msg" id="err-' + d.key + '"></div>';
-      var optional = '<span class="optional" id="' + d.key + '-optional">(לא חובה עכשיו)</span>';
-      if (d.key === 'birthCertTax') {
-        inner = '<div class="already" id="birthCertTax-already" hidden>✓ תעודת הלידה כבר אצלנו מעמוד המסמכים</div>' +
-          '<div id="birthCertTax-upload">' + inner + '</div>';
-      }
-      return '<div class="doc" id="doc-' + d.key + '" hidden><div class="doc-title">' + esc(d.title.replace('{YRS}', YRS)) + ' ' + optional + '</div>' + inner + '</div>';
-    }
 
     // ================= קבצים =================
     // מקטין תמונה בדפדפן (גם במחשב וגם בטלפון). PDF או תמונה שהדפדפן לא מצליח לפתוח - נשארים כמו שהם.
@@ -1268,35 +1248,13 @@
       show('btn-add-employer-' + p, state.employers[p].length < MAX_EMPLOYERS);
     }
 
-    function docVisible(d) {
-      if (radioVal('wantTax') !== 'כן') return false;
-      if (d.selfEmployed) return herSelfEmployed();
-      var vals = checkVals(d.group);
-      return d.when.some(function (v) { return vals.indexOf(v) >= 0; });
-    }
-    function birthCertAlready() {
-      return askYoungKids() && radioVal('childAfterSefach') === 'כן' && !checked('birthCertNoFile') && filesOf('birthCert').some(function (e) { return e.sent; });
-    }
+    // מכירת נכס: שאלות ההמשך (שנה + שולם מס שבח) הן מה שיועצת המס צריכה כדי לדעת אם יש בכלל מה לבדוק
+    function soldProperty() { return radioVal('wantTax') === 'כן' && checkVals('finance').indexOf('מכירת נכס') >= 0; }
 
     function refreshTax() {
       show('tax-body', radioVal('wantTax') === 'כן');
       show('freelance-banner', herSelfEmployed());
-      var any = { emp: false, family: false, finance: false };
-      TAX_DOCS.forEach(function (d) {
-        var vis = docVisible(d);
-        show('doc-' + d.key, vis);
-        if (vis) any[d.group] = true;
-        var later = checked(d.key + '_later');
-        $('doc-' + d.key).classList.toggle('is-later', later);
-        var inp = $(d.key); if (inp) inp.disabled = later;
-      });
-      show('docs-emp', any.emp);
-      show('docs-family', any.family);
-      show('docs-finance', any.finance);
-      var already = birthCertAlready();
-      show('birthCertTax-already', already);
-      show('birthCertTax-upload', !already);
-      show('birthCertTax-optional', !already);
+      show('property-block', soldProperty());
     }
 
     function syncSelected() {
@@ -1462,6 +1420,10 @@
           need(checkVals('emp').length > 0, 'emp', 'נא לסמן לפחות אפשרות אחת');
           need(checkVals('family').length > 0, 'family', 'נא לסמן לפחות אפשרות אחת');
           need(checkVals('finance').length > 0, 'finance', 'נא לסמן לפחות אפשרות אחת');
+          if (soldProperty()) {
+            need(radioVal('propertySaleYear'), 'propertySaleYear');
+            need(radioVal('propertySalePaid'), 'propertySalePaid');
+          }
           need(checked('taxConsent'), 'taxConsent', 'צריך לאשר את העברת המידע כדי שנוכל לבדוק לך החזר מס');
         }
       }
@@ -1574,15 +1536,12 @@
         p.emp = checkVals('emp');
         p.family = checkVals('family');
         p.finance = checkVals('finance');
-        TAX_DOCS.forEach(function (d) {
-          if (!docVisible(d)) return;
-          if (d.key === 'birthCertTax' && birthCertAlready()) { p.docs.push({ key: d.key, label: d.label, status: 'already' }); return; }
-          if (checked(d.key + '_later')) p.docs.push({ key: d.key, label: d.label, status: 'later' });
-          else if (filesOf(d.key).length) p.docs.push({ key: d.key, label: d.label, status: 'uploaded' });
-        });
+        if (soldProperty()) {
+          p.propertySaleYear = radioVal('propertySaleYear');
+          p.propertySalePaid = radioVal('propertySalePaid');
+        }
         p.notes = val('taxNotes');
         p.consent = checked('taxConsent');
-        p.missingFiles = taxMissing.slice();
       }
       return p;
     }
@@ -1607,20 +1566,6 @@
         state.employers[p].forEach(function (e, i) {
           if (e.idMode !== 'payslip') return;
           add('payslip@' + e.uid, 'payslip_' + p + '_' + (i + 1), 'תלוש שכר - ' + full + ' - ' + e.name.trim());
-        });
-      });
-      return items;
-    }
-
-    function taxFileItems() {
-      var items = [];
-      if (radioVal('wantTax') !== 'כן') return items;
-      TAX_DOCS.forEach(function (d) {
-        if (!docVisible(d)) return;
-        if (d.key === 'birthCertTax' && birthCertAlready()) return;
-        if (checked(d.key + '_later')) return;
-        filesOf(d.key).forEach(function (e, idx) {
-          items.push({ entry: e, fileId: d.multi ? d.key + '_' + (idx + 1) : d.key, label: ('החזר מס - ' + d.label).slice(0, 120) });
         });
       });
       return items;
@@ -1774,7 +1719,7 @@
       }
     }
 
-    // ---- החזר מס: אחרי עמוד 7 (קבצים קודם, אחר כך הבקשה) ----
+    // ---- החזר מס: אחרי עמוד 7 (רק תשובות, בלי קבצים) ----
     async function onFinish() {
       if (busy[7] || redirecting) return;
       busy[7] = true;
@@ -1784,11 +1729,6 @@
         if (taxSent) { redirectToPoa(); return; }
         setBusy(7, true);
         hideProblem(7);
-        var items = taxFileItems().filter(function (x) { return !x.entry.sent && !x.entry.skipped; });
-        if (items.length) {
-          var failed = await sendFiles('tax', items, 7);
-          if (failed.length) { showFileProblem(7, failed); return; }
-        }
         await finishTax();
       } finally {
         busy[7] = false;
@@ -1809,7 +1749,7 @@
       window.location.href = '/vip/poa?name=' + encodeURIComponent(herFull()) + '&email=' + encodeURIComponent(val('email'));
     }
 
-    // הלקוחה בחרה להמשיך בלי הקבצים שנתקעו: הם נרשמים ב-missingFiles של הבקשה הבאה.
+    // הלקוחה בחרה להמשיך בלי הקבצים שנתקעו (עמוד 3): הם נרשמים ב-missingFiles של הבקשה הבאה.
     async function skipFiles(n) {
       if (busy[n]) return;
       busy[n] = true;
@@ -1817,15 +1757,15 @@
         (lastFailed[n] || []).forEach(function (x) {
           if (x.entry.sent || x.entry.skipped) return;
           x.entry.skipped = true;
-          (n === 3 ? pendingMissing : taxMissing).push(missingName(x));
+          pendingMissing.push(missingName(x));
         });
         lastFailed[n] = [];
         hideProblem(n);
         setBusy(n, true);
-        if (n === 3) await finishPart1(); else await finishTax();
+        await finishPart1();
       } finally {
         busy[n] = false;
-        if (!(n === 7 && redirecting)) setBusy(n, false);
+        setBusy(n, false);
       }
     }
 
@@ -1918,9 +1858,6 @@
       $('work-spouse').innerHTML = workBlockHtml('spouse');
       $('savings-items').innerHTML = ITEMS.map(itemHtml).join('');
       $('loan-items').innerHTML = LOANS.map(itemHtml).join('');
-      ['emp', 'family', 'finance'].forEach(function (g) {
-        $('docs-' + g).innerHTML = TAX_DOCS.filter(function (d) { return d.group === g; }).map(docHtml).join('');
-      });
       fillGroups(document);
       document.querySelectorAll('[data-upload]').forEach(function (m) {
         var key = m.getAttribute('data-upload');
@@ -1946,7 +1883,6 @@
       $('btn-retry-6').addEventListener('click', onNext6);
       $('btn-retry-7').addEventListener('click', onFinish);
       $('btn-skip-files-3').addEventListener('click', function () { skipFiles(3); });
-      $('btn-skip-files-7').addEventListener('click', function () { skipFiles(7); });
 
       refresh();
     }
@@ -1958,7 +1894,6 @@
       buildAnswers: buildAnswers,
       buildTaxPayload: buildTaxPayload,
       part1FileItems: part1FileItems,
-      taxFileItems: taxFileItems,
       showPage: showPage,
       cutoffDate: cutoffDate,
       currentPage: function () { return currentPage; },

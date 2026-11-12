@@ -150,6 +150,10 @@ export interface TaxRequest {
   emp: string[];
   family: string[];
   finance: string[];
+  /** Only when "מכירת נכס" was ticked (forms from 12.11.2026 on). */
+  propertySaleYear: string;
+  propertySalePaid: string;
+  /** Forms from 12.11.2026 on send no documents (screening questions only). */
   docs: TaxDoc[];
   notes: string;
   consent: boolean;

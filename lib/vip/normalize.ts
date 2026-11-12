@@ -234,6 +234,8 @@ export function normalizeTaxRequest(raw: unknown): TaxRequest {
     emp: strArr(o.emp),
     family: strArr(o.family),
     finance: strArr(o.finance),
+    propertySaleYear: str(o.propertySaleYear, 10),
+    propertySalePaid: str(o.propertySalePaid, 60),
     docs,
     notes: str(o.notes),
     consent: o.consent === true,
