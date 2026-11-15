@@ -59,6 +59,7 @@ function work(v: unknown): Work {
     teacherHishtalmut: yesNoEmpty(o.teacherHishtalmut),
     teachingYears: str(o.teachingYears, 10),
     sabbaticalTaken: yesNoEmpty(o.sabbaticalTaken),
+    hishtalmutWithdrawn: yesNoEmpty(o.hishtalmutWithdrawn),
     plannedChange: strArr(o.plannedChange, 10, 60),
     income: str(o.income, 60),
   };

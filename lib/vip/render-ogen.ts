@@ -102,7 +102,7 @@ function workLines(first: string, personFull: string, w: Work, stateOf: StateOf)
   main += `; הכנסה: ${esc(w.income || "לא צוין")}`;
   const lines = [main];
   if (w.teacherHishtalmut === "כן") {
-    lines.push(`&nbsp;&nbsp;קרן השתלמות מורים: ${esc(w.teachingYears || "?")} שנים בהוראה, שבתון: ${esc(w.sabbaticalTaken || "לא צוין")}`);
+    lines.push(`&nbsp;&nbsp;קרן השתלמות מורים: ${esc(w.teachingYears || "?")} שנים בהוראה, שבתון: ${esc(w.sabbaticalTaken || "לא צוין")}${w.hishtalmutWithdrawn ? `, משיכה מהקרן בעבר: ${esc(w.hishtalmutWithdrawn)}` : ""}`);
   }
   const changes = w.plannedChange.filter(c => c !== "אין");
   if (changes.length) lines.push(`&nbsp;&nbsp;שינוי מתוכנן: ${esc(changes.join(", "))}`);

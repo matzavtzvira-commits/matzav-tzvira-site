@@ -948,8 +948,8 @@
     function workBlockHtml(p) {
       var P = cap(p), her = p === 'her';
       var L = her
-        ? { status: 'סטטוס תעסוקה', teacher: 'יש לך קרן השתלמות למורים?', sabbatical: 'לקחת בעבר שנת שבתון בפועל?', income: 'הכנסה חודשית נטו' }
-        : { status: 'סטטוס תעסוקה של בעלך', teacher: 'יש לבעלך קרן השתלמות למורים?', sabbatical: 'לקח בעבר שנת שבתון בפועל?', income: 'הכנסה חודשית נטו של בעלך' };
+        ? { status: 'סטטוס תעסוקה', teacher: 'יש לך קרן השתלמות למורים?', sabbatical: 'לקחת בעבר שנת שבתון בפועל?', withdrew: 'משכת בעבר כסף מקרן ההשתלמות?', income: 'הכנסה חודשית נטו' }
+        : { status: 'סטטוס תעסוקה של בעלך', teacher: 'יש לבעלך קרן השתלמות למורים?', sabbatical: 'לקח בעבר שנת שבתון בפועל?', withdrew: 'משך בעבר כסף מקרן ההשתלמות?', income: 'הכנסה חודשית נטו של בעלך' };
       var req = ' <span class="required">*</span>';
       return '' +
         '<div class="field"><label>' + L.status + req + '</label><div class="radio-group" data-radio="status' + P + '" data-opts="status' + P + '"></div><div class="error-msg" id="err-status' + P + '"></div></div>' +
@@ -962,6 +962,7 @@
           '<div class="cond" id="teacher-details-' + p + '" hidden>' +
             '<div class="field"><label for="teachingYears' + P + '">כמה שנים בהוראה?' + req + '</label><input type="text" inputmode="numeric" maxlength="2" id="teachingYears' + P + '" autocomplete="off" /><div class="error-msg" id="err-teachingYears' + P + '"></div></div>' +
             '<div class="field"><label>' + L.sabbatical + req + '</label><div class="inline-group" data-radio="sabbatical' + P + '" data-opts="yesNo"></div><div class="error-msg" id="err-sabbatical' + P + '"></div></div>' +
+            '<div class="field"><label>' + L.withdrew + req + '</label><div class="inline-group" data-radio="withdrew' + P + '" data-opts="yesNo"></div><div class="error-msg" id="err-withdrew' + P + '"></div></div>' +
           '</div>' +
         '</div>' +
         '<div class="field" id="field-plannedChange' + P + '" hidden><label>שינוי מתוכנן בשנה הקרובה?' + req + ' <span class="optional">(אפשר לסמן כמה)</span></label>' +
@@ -1378,6 +1379,7 @@
             if (t === 'כן') {
               need(/^\d{1,2}$/.test(val('teachingYears' + P)), 'teachingYears' + P, 'נא להזין מספר שנים');
               need(radioVal('sabbatical' + P), 'sabbatical' + P);
+              need(radioVal('withdrew' + P), 'withdrew' + P);
             }
           }
           if (status) need(checkVals('plannedChange' + P).length > 0, 'plannedChange' + P, 'נא לסמן לפחות אפשרות אחת');
@@ -1466,6 +1468,7 @@
         teacherHishtalmut: teacher,
         teachingYears: teacher === 'כן' ? val('teachingYears' + P) : '',
         sabbaticalTaken: teacher === 'כן' ? radioVal('sabbatical' + P) : '',
+        hishtalmutWithdrawn: teacher === 'כן' ? radioVal('withdrew' + P) : '',
         plannedChange: status ? checkVals('plannedChange' + P) : [],
         income: radioVal('income' + P)
       };

@@ -63,6 +63,7 @@ export interface Work {
   teacherHishtalmut: "" | "כן" | "לא";
   teachingYears: string;
   sabbaticalTaken: "" | "כן" | "לא";
+  hishtalmutWithdrawn: "" | "כן" | "לא";
   plannedChange: string[];
   income: string;
 }

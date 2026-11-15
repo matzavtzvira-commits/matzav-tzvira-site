@@ -60,6 +60,7 @@ function workSection(title: string, w: Work, personFull: string, missing: IsMiss
     if (w.teacherHishtalmut === "כן") {
       rows.push(r("שנים בהוראה", w.teachingYears));
       rows.push(r(male ? "לקח בעבר שנת שבתון בפועל?" : "לקחה בעבר שנת שבתון בפועל?", w.sabbaticalTaken));
+      if (w.hishtalmutWithdrawn) rows.push(r(male ? "משך בעבר כסף מקרן ההשתלמות?" : "משכה בעבר כסף מקרן ההשתלמות?", w.hishtalmutWithdrawn));
     }
   }
   rows.push(r("שינוי מתוכנן בשנה הקרובה", w.plannedChange.join(", ")));
