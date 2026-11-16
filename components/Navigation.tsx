@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 const links: { label: string; href: string; disabled?: boolean }[] = [
   { label: "מי אני?", href: "/about" },
   { label: "מדריכים", href: "/articles" },
+  { label: "מהמיילים", href: "/blog" },
   { label: "מחשבונים", href: "/calculators" },
   { label: "הרצאות וסדנאות", href: "/workshop" },
   { label: "הקהילה", href: "/#community" },

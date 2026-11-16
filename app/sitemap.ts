@@ -1,8 +1,19 @@
 import type { MetadataRoute } from "next";
+import { getPublishedPosts } from "@/lib/blog";
+
+// Blog posts go live daily; refresh the sitemap hourly.
+export const revalidate = 3600;
 
 const SITE_URL = "https://matzavtzvira.co.il";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const blogPosts: MetadataRoute.Sitemap = getPublishedPosts().map((p) => ({
+    url: `${SITE_URL}/blog/${p.slug}`,
+    lastModified: new Date(p.publishDate),
+    changeFrequency: "yearly",
+    priority: 0.7,
+  }));
+
   return [
     { url: SITE_URL,                                                   lastModified: new Date(), changeFrequency: "weekly",  priority: 1.0 },
     { url: `${SITE_URL}/course`,                                       lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
@@ -15,6 +26,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/articles/bitcoin-guide`,                       lastModified: new Date("2026-05-01"), changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE_URL}/articles/mashkanta-check`,                     lastModified: new Date("2026-06-01"), changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE_URL}/articles/pension-management-fees`,             lastModified: new Date("2025-01-01"), changeFrequency: "monthly", priority: 0.75 },
+    { url: `${SITE_URL}/blog`,                                         lastModified: new Date(), changeFrequency: "daily",   priority: 0.8 },
+    ...blogPosts,
     { url: `${SITE_URL}/vip`,                                          lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE_URL}/workshop`,                                     lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
   ];
