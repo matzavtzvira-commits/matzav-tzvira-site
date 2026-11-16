@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>השלמת מסמכים - ליווי VIP | מצב צבירה</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #124AF0; --mint: #21F0B0; --dark: #060D3C; --black: #292929;
+      --bg: #F4F7FF; --border: #E8EDFF; --text-sec: #666; --red: #FA5C5C;
+    }
+    body { font-family: 'Heebo', sans-serif; background: var(--bg); color: var(--black); min-height: 100vh; padding: 24px 16px 60px; }
+    .wrapper { max-width: 560px; margin: 0 auto; }
+    .header { text-align: center; margin-bottom: 28px; }
+    .logo { font-size: 13px; font-weight: 700; color: var(--blue); letter-spacing: 1px; margin-bottom: 8px; }
+    .header h1 { font-size: 26px; font-weight: 900; color: var(--dark); line-height: 1.3; }
+    .header p { font-size: 15px; color: var(--text-sec); margin-top: 8px; line-height: 1.6; }
+    .card { background: #fff; border-radius: 20px; padding: 28px 24px; box-shadow: 0 4px 24px rgba(18,74,240,0.07); }
+    .item { padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .item:last-of-type { border-bottom: none; margin-bottom: 4px; padding-bottom: 4px; }
+    .item-title { font-size: 15px; font-weight: 800; color: var(--dark); margin-bottom: 10px; line-height: 1.5; }
+    .item.done-item .item-title { color: #059669; font-weight: 700; margin-bottom: 0; }
+    .upload { border: 2px dashed #C9D5FF; border-radius: 14px; padding: 16px; text-align: center; cursor: pointer; position: relative; transition: all 0.2s; }
+    .upload:hover { border-color: var(--blue); background: #f5f8ff; }
+    .upload.has-file { border-color: var(--mint); background: #f0fdf8; border-style: solid; }
+    .upload input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .upload-icon { font-size: 26px; margin-bottom: 4px; }
+    .upload-label { font-size: 14px; font-weight: 700; color: var(--blue); }
+    .upload-hint { font-size: 12px; color: var(--text-sec); margin-top: 3px; }
+    .chosen { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    .chosen-row { display: flex; align-items: center; gap: 10px; background: #F4F7FF; border-radius: 10px; padding: 6px 10px; font-size: 13px; }
+    .chosen-row img { width: 54px; height: 54px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); flex-shrink: 0; }
+    .chosen-row .pdf { width: 54px; height: 54px; border-radius: 8px; background: #fff; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .chosen-row .fname { flex: 1; word-break: break-all; color: var(--black); }
+    .chosen-row button { background: none; border: none; color: var(--text-sec); font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; text-decoration: underline; }
+    .actions { display: flex; gap: 9px; margin-top: 10px; flex-wrap: wrap; }
+    .pill { flex: 1; min-width: 150px; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 14px; font-weight: 600; color: var(--dark); background: #fff; cursor: pointer; text-decoration: none; text-align: center; font-family: inherit; }
+    .pill.link { color: var(--blue); }
+    .pill.on { border-color: var(--blue); background: #EEF3FF; }
+    .hp-box { display: none; margin-top: 10px; padding: 14px; background: #F0F5FF; border-radius: 12px; border-right: 3px solid var(--blue); }
+    .hp-box.visible { display: block; }
+    .hp-box label { display: block; font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 7px; }
+    .hp-box input { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 12px; font-family: inherit; font-size: 15px; background: #fff; direction: ltr; text-align: right; }
+    .hp-box input:focus { outline: none; border-color: var(--blue); }
+    .hint { font-size: 13px; color: var(--text-sec); margin-top: 6px; line-height: 1.6; }
+    .error-msg { color: var(--red); font-size: 13px; margin-top: 6px; display: none; }
+    .error-msg.visible { display: block; }
+    .problem { display: none; background: #FFF1F1; border: 1px solid #FCA5A5; border-radius: 10px; padding: 14px 16px; margin: 16px 0 0; font-size: 14px; color: #991B1B; line-height: 1.7; }
+    .problem.visible { display: block; }
+    .problem button { margin-top: 8px; background: none; border: none; color: var(--blue); font-size: 14px; font-weight: 700; text-decoration: underline; cursor: pointer; padding: 0; font-family: inherit; }
+    .btn-submit { width: 100%; padding: 16px; background: var(--blue); color: #fff; border: none; border-radius: 14px; font-family: inherit; font-size: 17px; font-weight: 800; cursor: pointer; margin-top: 24px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s; }
+    .btn-submit:hover { background: #0f3fd6; }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .secure { font-size: 12px; color: #aaa; text-align: center; margin-top: 14px; line-height: 1.6; }
+    .msg { text-align: center; padding: 40px 24px; display: none; }
+    .msg.visible { display: block; }
+    .msg .icon { font-size: 52px; margin-bottom: 14px; }
+    .msg h2 { font-size: 23px; font-weight: 900; color: var(--dark); margin-bottom: 10px; }
+    .msg p { font-size: 16px; color: var(--text-sec); line-height: 1.7; }
+    .msg .sig { color: var(--blue); font-weight: 800; margin-top: 16px; }
+    #main { display: none; }
+    #main.visible { display: block; }
+    @media (max-width: 480px) {
+      .card { padding: 22px 16px; }
+      .header h1 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <div class="logo">מצב צבירה</div>
+      <h1 id="hello">היי,</h1>
+      <p id="sub">כאן אפשר להעלות את מה שנשאר לתיק.</p>
+    </div>
+
+    <div class="card" id="main">
+      <div id="items"></div>
+
+      <div class="problem" id="problem">
+        <p id="problem-text"></p>
+        <button type="button" id="retry-btn">לחצי שוב</button>
+      </div>
+
+      <button class="btn-submit" id="submit-btn" type="button">
+        <span id="submit-text">שליחה</span>
+        <div class="spinner" id="spinner"></div>
+      </button>
+      <p class="secure" id="secure">המידע נשמר בצורה מאובטחת ומשמש רק לצורך הליווי האישי שלך.</p>
+    </div>
+
+    <div class="card msg" id="done">
+      <div class="icon">✅</div>
+      <h2>תודה! קיבלנו.</h2>
+      <p id="done-text">אנחנו ממשיכות לעבוד על התיק שלך.</p>
+      <p id="done-rest" style="display:none;margin-top:8px;font-size:14px;">את השאר אפשר להעלות מאותו קישור.</p>
+      <p class="sig">הניה</p>
+    </div>
+
+    <div class="card msg" id="invalid">
+      <div class="icon">⏳</div>
+      <p>הקישור כבר לא בתוקף. אפשר פשוט להשיב למייל עם הקובץ.</p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var API = '/api/vip-pending-upload';
+      var MAX_FILE_BYTES = 4 * 1024 * 1024;      // per file, after compression
+      var MAX_BATCH_BYTES = 3.5 * 1024 * 1024;   // per request (server caps at 4.5MB)
+      var MAX_BATCH_FILES = 6;
+      var RETRY_DELAYS = [1000, 3000];
+
+      // Idempotency: the same batch (same files / ח"פ) keeps the same batchId in this page
+      // session, also when it is sent again after a failure, so the server never emails it twice.
+      var SESSION_ID = 'up' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+      function hashStr(s) {
+        var h = 5381;
+        for (var i = 0; i < s.length; i++) h = ((h * 33) ^ s.charCodeAt(i)) >>> 0;
+        return h.toString(36);
+      }
+      function batchId(batch) {
+        var sig = batch.files.map(function (f) { return f.field + '|' + f.entry.file.name + '|' + f.entry.file.size; })
+          .concat(batch.hp.map(function (h) { return 'hp_' + h.id + '|' + h.value; })).join(';');
+        return SESSION_ID + ':' + hashStr(sig);
+      }
+      var TAX_PREFIX = 'החזר מס - ';
+
+      // Same list as lib/vip/greeting.ts (keep in sync).
+      var MALE_NAMES = ["אברהם","אברומי","אהרון","אהרן","אורי","אליהו","אלי","אליעזר","אלימלך","אלחנן","אלעזר","אפרים",
+        "אריה","אשר","ארי","בנימין","בן ציון","בצלאל","ברוך","גבריאל","גדליה","גד","דב","דוד","דודי",
+        "הלל","הערשי","הרשי","זאב","זבולון","זלמן","חזקיהו","חיים","חנוך","חנניה","טוביה",
+        "יואל","יוחנן","יונתן","יוסי","יוסף","יחזקאל","יחיאל","יהודה","יהושע","יענקי","יעקב","יצחק",
+        "ירמיהו","ישעיהו","ישראל","יששכר","לוי","מאיר","מוטי","מוישי","מיכאל","מנדי","מנחם","מנשה",
+        "מרדכי","משה","נחום","נחמן","נפתלי","נתן","נתנאל","עזריאל","עמרם","פנחס","צבי","ראובן",
+        "רפאל","שאול","שלום","שלמה","שמואל","שמוליק","שמעון","שמשון","שניאור","שרגא"];
+
+      function $(id) { return document.getElementById(id); }
+      function show(id) { $(id).classList.add('visible'); }
+      function hide(id) { $(id).classList.remove('visible'); }
+      function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+      function normName(s) { return String(s || '').replace(/["'״׳`.,\-]/g, ' ').replace(/\s+/g, ' ').trim(); }
+      var MALE = {};
+      MALE_NAMES.forEach(function (n) { MALE[normName(n)] = true; });
+      function isPlural(first, spouse) {
+        var a = normName(first), b = normName(spouse);
+        if (a && (MALE[a] || MALE[a.split(' ')[0]])) return true;
+        return !!a && !!b && a === b;
+      }
+
+      function decodePayload(t) {
+        var body = String(t || '').split('.')[0];
+        if (!body) return null;
+        var b64 = body.replace(/-/g, '+').replace(/_/g, '/');
+        while (b64.length % 4) b64 += '=';
+        var bin = atob(b64);
+        var bytes = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        return JSON.parse(new TextDecoder('utf-8').decode(bytes));
+      }
+
+      function showInvalid() {
+        hide('main'); hide('done'); show('invalid');
+        $('hello').textContent = 'היי,';
+        $('sub').style.display = 'none';
+      }
+
+      var token = new URLSearchParams(window.location.search).get('t') || '';
+      var payload = null;
+      try { payload = decodePayload(token); } catch (e) { payload = null; }
+      if (!payload || !Array.isArray(payload.it) || !payload.it.length) { showInvalid(); return; }
+      var expMs = payload.x > 1e12 ? payload.x : payload.x * 1000;
+      if (!expMs || Date.now() > expMs) { showInvalid(); return; }
+
+      var plural = isPlural(payload.fn, payload.sp) || (!payload.fn && !!payload.ln);
+      function t2(singular, pluralText) { return plural ? pluralText : singular; }
+
+      $('hello').textContent = plural ? ('היי משפחת ' + (payload.ln || '') + ',') : ('היי ' + (payload.fn || '') + ',');
+      $('done-text').textContent = 'אנחנו ממשיכות לעבוד על התיק ' + t2('שלך', 'שלכם') + '.';
+      $('secure').textContent = 'המידע נשמר בצורה מאובטחת ומשמש רק לצורך הליווי האישי ' + t2('שלך', 'שלכם') + '.';
+      $('retry-btn').textContent = t2('לחצי שוב', 'לחצו שוב');
+
+      // What already arrived from this device (if she comes back to the same link).
+      var storeKey = 'vipUpload:' + token.slice(-24);
+      function loadReceived() {
+        try { var v = JSON.parse(localStorage.getItem(storeKey) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; }
+      }
+      function saveReceived(ids) {
+        try { localStorage.setItem(storeKey, JSON.stringify(ids)); } catch (e) { /* private mode */ }
+      }
+      var received = loadReceived();
+      function markReceived(ids) {
+        ids.forEach(function (id) { if (received.indexOf(id) < 0) received.push(id); });
+        saveReceived(received);
+      }
+
+      function counts() {
+        var c = { her: 0, spouse: 0 };
+        payload.it.forEach(function (i) { if (i.kind === 'payslip') c[i.person === 'spouse' ? 'spouse' : 'her']++; });
+        return c;
+      }
+
+      function itemTitle(item) {
+        if (item.kind === 'payslip') {
+          var spouse = item.person === 'spouse';
+          var who = plural ? (spouse ? 'של הבעל' : 'של האישה') : (spouse ? 'של בעלך' : 'שלך');
+          return 'תלוש שכר מהחודשים האחרונים ' + who + (item.employer ? ' (' + item.employer + ')' : '');
+        }
+        var l = String(item.label || '');
+        return l.indexOf(TAX_PREFIX) === 0 ? l.slice(TAX_PREFIX.length) : l;
+      }
+
+      // מקטין תמונה בדפדפן (גם במחשב וגם בטלפון). PDF או תמונה שהדפדפן לא מצליח לפתוח - נשארים כמו שהם.
+      async function compressImage(file) {
+        if (!file || !file.type || !file.type.startsWith('image/') || file.size < 400 * 1024) return file;
+        try {
+          const bitmap = await createImageBitmap(file);
+          const MAX_SIDE = 2000;
+          const scale = Math.min(1, MAX_SIDE / Math.max(bitmap.width, bitmap.height));
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.round(bitmap.width * scale);
+          canvas.height = Math.round(bitmap.height * scale);
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+          const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.82));
+          if (!blob || blob.size >= file.size) return file;
+          const baseName = file.name.replace(/\.[^.]+$/, '');
+          return new File([blob], baseName + '.jpg', { type: 'image/jpeg' });
+        } catch (e) {
+          console.warn('compress failed, sending original', e);
+          return file;
+        }
+      }
+
+      // ---- build the item boxes ----
+      var state = {}; // id -> { item, files: [{file, url}], hpOpen, el... }
+      var open = payload.it.filter(function (i) { return received.indexOf(i.id) < 0; });
+      if (!open.length) {
+        $('sub').style.display = 'none';
+        hide('main'); show('done');
+        return;
+      }
+
+      function el(tag, cls, text) {
+        var e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (text !== undefined) e.textContent = text;
+        return e;
+      }
+
+      function renderChosen(s) {
+        s.chosenEl.innerHTML = '';
+        s.files.forEach(function (f, idx) {
+          var row = el('div', 'chosen-row');
+          if (f.url) { var img = el('img'); img.src = f.url; img.alt = ''; row.appendChild(img); }
+          else row.appendChild(el('div', 'pdf', '📄'));
+          row.appendChild(el('span', 'fname', f.file.name + ' (' + (f.file.size / 1024 / 1024).toFixed(1) + 'MB)'));
+          var rm = el('button', '', 'הסרה');
+          rm.type = 'button';
+          rm.onclick = function () {
+            if (f.url) URL.revokeObjectURL(f.url);
+            s.files.splice(idx, 1);
+            renderChosen(s);
+          };
+          row.appendChild(rm);
+          s.chosenEl.appendChild(row);
+        });
+        s.uploadEl.classList.toggle('has-file', s.files.length > 0);
+        s.uploadLabel.textContent = s.files.length
+          ? (s.files.length === 1 ? 'נבחר קובץ אחד ✓ אפשר להוסיף עוד' : 'נבחרו ' + s.files.length + ' קבצים ✓ אפשר להוסיף עוד')
+          : t2('לחצי לבחירת קובץ', 'לחצו לבחירת קובץ');
+      }
+
+      function setError(s, msg) {
+        s.errEl.textContent = msg || '';
+        s.errEl.classList.toggle('visible', !!msg);
+      }
+
+      var itemsEl = $('items');
+      payload.it.forEach(function (item) {
+        var box = el('div', 'item');
+        if (received.indexOf(item.id) >= 0) {
+          box.classList.add('done-item');
+          box.appendChild(el('div', 'item-title', '✓ ' + itemTitle(item) + ' - כבר התקבל'));
+          itemsEl.appendChild(box);
+          return;
+        }
+        var s = { item: item, files: [], seq: 0 };
+        state[item.id] = s;
+        box.appendChild(el('div', 'item-title', itemTitle(item)));
+
+        var up = el('div', 'upload');
+        var input = el('input');
+        input.type = 'file';
+        input.multiple = true;
+        input.accept = 'image/*,.pdf';
+        up.appendChild(input);
+        up.appendChild(el('div', 'upload-icon', '📎'));
+        s.uploadLabel = el('div', 'upload-label', '');
+        up.appendChild(s.uploadLabel);
+        up.appendChild(el('div', 'upload-hint', 'אפשר כמה קבצים: תמונה או PDF'));
+        box.appendChild(up);
+        s.uploadEl = up;
+
+        s.chosenEl = el('div', 'chosen');
+        box.appendChild(s.chosenEl);
+
+        input.addEventListener('change', async function () {
+          setError(s, '');
+          var picked = Array.prototype.slice.call(input.files || []);
+          input.value = '';
+          var tooBig = false;
+          for (var i = 0; i < picked.length; i++) {
+            var f = await compressImage(picked[i]);
+            if (f.size > MAX_FILE_BYTES) { tooBig = true; continue; }
+            s.files.push({ file: f, url: f.type && f.type.startsWith('image/') ? URL.createObjectURL(f) : '' });
+          }
+          if (tooBig) setError(s, 'הקובץ גדול מדי. אפשר לצלם שוב או לשלוח PDF קטן יותר.');
+          renderChosen(s);
+        });
+
+        var actions = el('div', 'actions');
+        if (item.kind === 'payslip') {
+          var hpBtn = el('button', 'pill', 'או להקליד מספר ח"פ');
+          hpBtn.type = 'button';
+          actions.appendChild(hpBtn);
+          var hpBox = el('div', 'hp-box');
+          var lab = el('label', '', 'מספר ח"פ של המעסיק');
+          var hpInput = el('input');
+          hpInput.type = 'text';
+          hpInput.inputMode = 'numeric';
+          hpInput.placeholder = 'למשל 512345678';
+          hpBox.appendChild(lab);
+          hpBox.appendChild(hpInput);
+          hpBox.appendChild(el('div', 'hint', 'אפשר לבקש מהנהלת החשבונות במקום העבודה'));
+          s.hpInput = hpInput;
+          hpBtn.onclick = function () {
+            var on = !hpBox.classList.contains('visible');
+            hpBox.classList.toggle('visible', on);
+            hpBtn.classList.toggle('on', on);
+            if (on) hpInput.focus(); else { hpInput.value = ''; setError(s, ''); }
+          };
+          hpInput.addEventListener('input', function () { setError(s, ''); });
+          box.appendChild(actions);
+          box.appendChild(hpBox);
+        }
+        if (item.id === 'mortgageReport') {
+          var guide = el('a', 'pill link', 'איך מוציאים את הדוח?');
+          guide.href = '/guides/mashkanta-guide.pdf';
+          guide.target = '_blank';
+          guide.rel = 'noopener';
+          actions.appendChild(guide);
+          box.appendChild(actions);
+        }
+        s.errEl = el('div', 'error-msg');
+        box.appendChild(s.errEl);
+        itemsEl.appendChild(box);
+        renderChosen(s);
+      });
+
+      show('main');
+
+      // Ask the server once whether the link is still valid.
+      (function check() {
+        var fd = new FormData();
+        fd.append('t', token);
+        fd.append('check', '1');
+        fetch(API, { method: 'POST', body: fd }).then(function (res) {
+          if (res.status === 401) showInvalid();
+        }).catch(function () { /* offline - she can still try */ });
+      })();
+
+      // ---- sending ----
+
+      function buildBatches() {
+        var batches = [];
+        var hp = [];
+        var errors = false;
+        var provided = 0;
+        var firstOpen = null;
+        Object.keys(state).forEach(function (id) {
+          var s = state[id];
+          setError(s, '');
+          if (s.sentAll) return;
+          if (!firstOpen) firstOpen = s;
+          var hpVal = s.hpInput && !s.hpSent ? s.hpInput.value.trim() : '';
+          if (hpVal) {
+            if (!/^\d{5,12}$/.test(hpVal.replace(/[\s-]/g, ''))) { setError(s, 'נא להקליד מספר ח"פ תקין (ספרות בלבד)'); errors = true; return; }
+            hp.push({ id: id, value: hpVal });
+          }
+          if (s.files.some(function (f) { return !f.sent; }) || hpVal) provided++;
+        });
+        if (errors) return null;
+        if (!provided) {
+          var first = firstOpen || state[Object.keys(state)[0]];
+          setError(first, 'נא להעלות קובץ' + (first.hpInput ? ' או להקליד ח"פ' : ''));
+          first.errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return null;
+        }
+
+        var current = { files: [], bytes: 0, hp: [], ids: [] };
+        function push() { if (current.files.length || current.hp.length) batches.push(current); current = { files: [], bytes: 0, hp: [], ids: [] }; }
+        Object.keys(state).forEach(function (id) {
+          var s = state[id];
+          s.files.forEach(function (f, i) {
+            if (f.sent) return;
+            if (current.files.length && (current.bytes + f.file.size > MAX_BATCH_BYTES || current.files.length >= MAX_BATCH_FILES)) push();
+            if (!f.seq) f.seq = ++s.seq;
+            current.files.push({ field: 'file_' + id + (f.seq === 1 ? '' : '_' + f.seq), entry: f, id: id });
+            current.bytes += f.file.size;
+            if (current.ids.indexOf(id) < 0) current.ids.push(id);
+          });
+        });
+        push();
+        // ח"פ values go with the first request.
+        if (!batches.length) batches.push({ files: [], bytes: 0, hp: [], ids: [] });
+        hp.forEach(function (h) {
+          batches[0].hp.push(h);
+          if (batches[0].ids.indexOf(h.id) < 0) batches[0].ids.push(h.id);
+        });
+        return batches;
+      }
+
+      function markBatchSent(batch) {
+        batch.files.forEach(function (f) { f.entry.sent = true; });
+        batch.hp.forEach(function (h) { state[h.id].hpSent = true; });
+        Object.keys(state).forEach(function (id) {
+          var s = state[id];
+          var filesDone = s.files.every(function (f) { return f.sent; });
+          if (filesDone && (s.files.length || s.hpSent)) s.sentAll = true;
+        });
+      }
+
+      async function postBatch(batch, isLast, doneIds) {
+        var fd = new FormData();
+        fd.append('t', token);
+        batch.files.forEach(function (f) { fd.append(f.field, f.entry.file); });
+        batch.hp.forEach(function (h) { fd.append('hp_' + h.id, h.value); });
+        fd.append('batchId', batchId(batch));
+        if (isLast) {
+          fd.append('complete', '1');
+          fd.append('received', doneIds.concat(batch.ids).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(','));
+        }
+        for (var attempt = 0; attempt <= RETRY_DELAYS.length; attempt++) {
+          try {
+            var res = await fetch(API, { method: 'POST', body: fd });
+            if (res.ok) return { ok: true };
+            if (res.status === 401) return { ok: false, invalid: true };
+            if (res.status === 400 || res.status === 413) {
+              var data = {};
+              try { data = await res.json(); } catch (e) { /* ignore */ }
+              return { ok: false, fatal: true, message: data.error || '' };
+            }
+          } catch (e) {
+            console.warn('upload error', e);
+          }
+          if (attempt < RETRY_DELAYS.length) await sleep(RETRY_DELAYS[attempt]);
+        }
+        return { ok: false };
+      }
+
+      function setBusy(busy) {
+        $('submit-btn').disabled = busy;
+        $('submit-text').textContent = busy ? 'שולחת...' : 'שליחה';
+        $('spinner').style.display = busy ? 'block' : 'none';
+      }
+
+      function showProblem(msg) {
+        $('problem-text').textContent = msg;
+        show('problem');
+        $('problem').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      async function send() {
+        hide('problem');
+        var batches = buildBatches();
+        if (!batches) return;
+        setBusy(true);
+        var doneIds = received.slice();
+        while (batches.length) {
+          var batch = batches[0];
+          var r = await postBatch(batch, batches.length === 1, doneIds);
+          if (r.invalid) { setBusy(false); showInvalid(); return; }
+          if (!r.ok) {
+            setBusy(false);
+            var names = [];
+            batch.ids.forEach(function (id) { if (state[id]) names.push(itemTitle(state[id].item)); });
+            showProblem(r.fatal
+              ? ('משהו בקבצים לא תקין' + (r.message ? ' (' + r.message + ')' : '') + '. אפשר לבחור קובץ אחר, או פשוט להשיב למייל עם הקובץ.')
+              : ('לא הצלחנו לשלוח: ' + names.join(', ') + '. ' + t2('בדקי שיש חיבור לאינטרנט ולחצי שוב.', 'בדקו שיש חיבור לאינטרנט ולחצו שוב.')));
+            return;
+          }
+          batch.ids.forEach(function (id) { if (doneIds.indexOf(id) < 0) doneIds.push(id); });
+          markBatchSent(batch);
+          markReceived(batch.ids);
+          batches.shift();
+        }
+        setBusy(false);
+        var left = payload.it.some(function (i) { return received.indexOf(i.id) < 0; });
+        $('done-rest').style.display = left ? 'block' : 'none';
+        $('sub').style.display = 'none';
+        hide('main');
+        show('done');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      $('submit-btn').addEventListener('click', send);
+      $('retry-btn').addEventListener('click', send);
+    })();
+  </script>
+</body>
+</html>

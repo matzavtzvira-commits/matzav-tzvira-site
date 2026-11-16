@@ -1,96 +1,74 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
 import { forwardFilesToDashboard } from "@/lib/dashboard-files";
+import { BUSINESS_EMAIL, CORS_HEADERS, FROM_SITE } from "@/lib/vip/config";
+import { FileRequestError, filesToAttachments, readFormFiles } from "@/lib/vip/files";
+import { createResend, idemKey, requestId, sendMail } from "@/lib/vip/mail";
+import { renderFilesEmail } from "@/lib/vip/render-business";
+import { str } from "@/lib/vip/normalize";
 
-// קבצי טופס קבלת המידע VIP (ת"ז, ת"ז בעל, דוח משכנתא) - נשלחים בנפרד מהתשובות
-// כדי שקובץ גדול לא יפיל את כל הטופס (מגבלת 4.5MB לבקשה ב-Vercel).
-// כשהלקוחה ממשיכה בלי קבצים שנתקעו, מגיע לכאן שדה missing במקום קבצים
-// ורבקי מקבלת מייל "חסרים קבצים".
-
-const CORS_HEADERS = {
-  "Access-Control-Allow-Origin": "https://matzavtzvira.co.il",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
-};
-
-const FILE_FIELDS: { id: string; label: string; prefix: string }[] = [
-  { id: "tzFile", label: 'צילום ת"ז', prefix: "tz" },
-  { id: "spouseTzFile", label: 'צילום ת"ז של הבעל', prefix: "tz-spouse" },
-  { id: "mortgageReportFile", label: "דוח יתרת משכנתא", prefix: "mortgage-report" },
-];
+// Files of the VIP onboarding form (part 1: IDs, ספח, birth certificate, mortgage
+// report, payslips; tax: the tax-refund documents). The browser sends them in
+// batches (each request <= 4.5MB, Vercel's cap): name, email, phone, stage and per
+// file `file_<fileId>` + `label_<fileId>`. One email per request with everything
+// attached, and every file is copied into her dashboard client file. The browser sends
+// a batchId per batch: the email carries an idempotency key from it, so a retried batch
+// is not emailed twice. Only photos and PDFs are accepted (415 otherwise).
+export const maxDuration = 60;
 
 export async function OPTIONS() {
   return new NextResponse(null, { status: 204, headers: CORS_HEADERS });
 }
 
 export async function POST(req: NextRequest) {
-  const resend = new Resend(process.env.RESEND_API_KEY);
-
   try {
-    const formData = await req.formData();
-    const name = ((formData.get("name") as string) || "").trim();
-    const email = ((formData.get("email") as string) || "").trim();
-    const phone = ((formData.get("phone") as string) || "").trim();
-    const missing = ((formData.get("missing") as string) || "").trim();
+    const resend = createResend();
+    let form: FormData;
+    try {
+      form = await req.formData();
+    } catch {
+      return NextResponse.json({ error: "בקשה לא תקינה" }, { status: 400, headers: CORS_HEADERS });
+    }
+    const name = str(form.get("name"), 160);
+    const email = str(form.get("email"), 200);
+    const phone = str(form.get("phone"), 40);
+    const stage = str(form.get("stage")) === "tax" ? "tax" : "part1";
 
     if (!name || !email) {
       return NextResponse.json({ error: "חסרים שדות חובה" }, { status: 400, headers: CORS_HEADERS });
     }
 
-    const attachments: { filename: string; content: Buffer }[] = [];
-    const labels: string[] = [];
-    const dashboardFiles: { label: string; filename: string; content: Buffer; contentType: string }[] = [];
-    for (const f of FILE_FIELDS) {
-      const file = formData.get(f.id) as File | null;
-      if (file && typeof file !== "string" && file.size > 0) {
-        const content = Buffer.from(await file.arrayBuffer());
-        attachments.push({ filename: `${f.prefix}-${name}-${file.name}`, content });
-        labels.push(f.label);
-        dashboardFiles.push({ label: f.label, filename: file.name, content, contentType: file.type });
+    let files;
+    try {
+      files = await readFormFiles(form, fileId => str(form.get(`label_${fileId}`), 500) || "");
+    } catch (e) {
+      if (e instanceof FileRequestError) {
+        return NextResponse.json({ error: e.message }, { status: e.status, headers: CORS_HEADERS });
       }
+      throw e;
     }
-    const dashboardForward = forwardFilesToDashboard({ email, phone }, dashboardFiles);
-
-    if (!attachments.length && !missing) {
+    if (!files.length) {
       return NextResponse.json({ error: "לא התקבלו קבצים" }, { status: 400, headers: CORS_HEADERS });
     }
 
-    const date = new Date().toLocaleDateString("he-IL", {
-      timeZone: "Asia/Jerusalem", day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit",
-    });
+    const { attachments, names } = filesToAttachments(files);
+    const mail = renderFilesEmail({ stage, name, email, phone, attachedNames: names });
+    const sent = await sendMail(
+      resend,
+      { from: FROM_SITE, to: BUSINESS_EMAIL, subject: mail.subject, html: mail.html, attachments },
+      `files ${stage}`,
+      idemKey(requestId(form.get("batchId")), "files"),
+    );
 
-    const isMissing = !attachments.length;
-    const subject = isMissing ? `⚠️ חסרים קבצים - ${name}` : `קבצי VIP - ${name}`;
-    const body = isMissing
-      ? `<p style="color:#991B1B;font-size:15px;font-weight:bold;margin:0 0 10px;">הלקוחה מילאה את הטופס, אבל הקבצים האלה לא עברו והיא בחרה להמשיך בלעדיהם:</p>
-         <p style="color:#292929;font-size:15px;margin:0 0 14px;">${missing}</p>
-         <p style="color:#555;font-size:14px;margin:0;">צריך לבקש ממנה אותם.${phone ? ` טלפון: <a href="tel:${phone}" style="color:#124AF0;">${phone}</a>` : ""} · מייל: <a href="mailto:${email}" style="color:#124AF0;">${email}</a></p>`
-      : `<p style="color:#292929;font-size:15px;margin:0 0 8px;">✓ מצורפים: ${labels.join(", ")}</p>
-         <p style="color:#555;font-size:14px;margin:0;">שייך למייל "לקוחת VIP חדשה - ${name}" · ${email}</p>`;
-
-    const html = `
-      <div dir="rtl" style="font-family:Arial,sans-serif;max-width:620px;margin:0 auto;padding:32px;background:#F4F7FF;border-radius:16px;">
-        <div style="background:${isMissing ? "#991B1B" : "#124AF0"};border-radius:12px;padding:20px 24px;margin-bottom:20px;">
-          <h2 style="color:#fff;margin:0 0 4px;">${isMissing ? "חסרים קבצים בטופס VIP" : "קבצים מטופס קבלת מידע VIP"}</h2>
-          <p style="color:rgba(255,255,255,0.75);font-size:13px;margin:0;">${name} · ${date}</p>
-        </div>
-        <div style="background:#fff;border-radius:10px;padding:18px 20px;">${body}</div>
-        <p style="color:#aaa;font-size:12px;margin-top:20px;text-align:center;">נשלח מטופס קבלת מידע VIP - matzavtzvira.co.il</p>
-      </div>`;
-
-    const { error: sendError } = await resend.emails.send({
-      from: "אתר מצב צבירה <noreply@matzavtzvira.co.il>",
-      to: "matzavtzvira@gmail.com",
-      subject,
-      html,
-      ...(attachments.length ? { attachments } : {}),
-    });
-    await dashboardForward;
-    if (sendError) {
-      console.error("VIP onboarding files email failed:", sendError);
+    if (!sent.ok) {
+      // Not forwarded either: the browser retries this batch, and forwarding now
+      // would store the same file twice in the dashboard.
       return NextResponse.json({ error: "שליחת המייל נכשלה" }, { status: 502, headers: CORS_HEADERS });
     }
 
+    await forwardFilesToDashboard(
+      { email, phone },
+      files.map(f => ({ label: f.label, filename: f.originalName, content: f.content, contentType: f.contentType })),
+    );
     return NextResponse.json({ ok: true }, { headers: CORS_HEADERS });
   } catch (err) {
     console.error("VIP onboarding files error:", err);
