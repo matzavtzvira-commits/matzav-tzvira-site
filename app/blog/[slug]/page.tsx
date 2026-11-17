@@ -82,7 +82,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         <section style={{ background: "#F4F7FF", padding: "48px 1.5rem 72px" }}>
           <div style={{ maxWidth: 700, margin: "0 auto" }}>
-            <Link href="/blog" style={{ color: "#124AF0", fontWeight: 700, fontSize: "0.9rem", textDecoration: "none" }}>→ לכל המיילים</Link>
+            <Link href="/blog" style={{ color: "#124AF0", fontWeight: 700, fontSize: "0.9rem", textDecoration: "none" }}>→ לכל המאמרים</Link>
 
             <article className="blog-article" style={{ background: "white", borderRadius: 24, padding: "40px 44px", border: "1px solid #E8EDFF", marginTop: 16 }}>
               <p style={{ fontSize: "0.85rem", color: "#888", margin: "0 0 26px", borderBottom: "1px solid #EEF1FA", paddingBottom: 16 }}>

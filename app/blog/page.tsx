@@ -14,7 +14,7 @@ export default function BlogIndexPage() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: "מהמיילים של רבקי - מצב צבירה",
+    name: "מאמרים - מצב צבירה",
     url: `${SITE_URL}/blog`,
     inLanguage: "he",
     author: { "@type": "Person", name: "רבקי וייס", url: `${SITE_URL}/about` },
@@ -35,7 +35,7 @@ export default function BlogIndexPage() {
           <div style={{ maxWidth: 760, margin: "0 auto" }}>
             <p style={{ color: "#21F0B0", fontWeight: 700, fontSize: "0.9rem", letterSpacing: 1, margin: "0 0 14px" }}>פעמיים בשבוע, ישר מהתיבה</p>
             <h1 style={{ fontSize: "clamp(1.9rem, 4vw, 2.8rem)", fontWeight: 800, color: "white", lineHeight: 1.3, margin: "0 0 16px" }}>
-              מהמיילים של רבקי
+              מאמרים
             </h1>
             <p style={{ fontSize: "1.05rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.9, margin: 0 }}>
               בשני: מושג אחד על הכסף שלך. בחמישי: חלון קטן למה שקורה בעולם.
