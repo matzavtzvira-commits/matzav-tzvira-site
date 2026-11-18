@@ -224,7 +224,7 @@
         <div class="prep-title">מה כדאי שיהיה לידך:</div>
         <ol>
           <li>תעודת זהות, שני הצדדים (גם של בעלך, אם את נשואה)</li>
-          <li>ספח תעודת זהות עם כל הילדים</li>
+          <li>ספח תעודת זהות עם כל הילדים<br /><span class="soft">רווקה? לא צריך</span></li>
           <li>תלוש שכר מהחודשים האחרונים, מכל מקום עבודה<br /><span class="soft">אין כרגע? אפשר לשלוח גם אחר כך</span></li>
         </ol>
       </div>
@@ -513,6 +513,15 @@
         <div class="radio-group" data-radio="hishtalmutForSimchas" data-opts="hishtalmutSimchas"></div>
         <div class="error-msg" id="err-hishtalmutForSimchas"></div>
       </div>
+      <div class="field" id="field-futureGoals" hidden>
+        <label>על מה תרצי לחסוך בשנים הקרובות? <span class="required">*</span> <span class="optional">(אפשר לסמן כמה)</span></label>
+        <div class="radio-group" data-check="futureGoals" data-opts="futureGoals"></div>
+        <div class="error-msg" id="err-futureGoals"></div>
+      </div>
+      <div class="field" id="field-futureGoalsText" hidden>
+        <label for="futureGoalsText">ספרי לנו במילים שלך: על מה, בערך כמה ועד מתי <span class="optional">(לא חובה)</span></label>
+        <textarea id="futureGoalsText" placeholder="למשל: רכב, בערך 60,000 ש&quot;ח, בעוד שנתיים"></textarea>
+      </div>
       <div class="field">
         <label>כמה אפשר להפריש בחודש להשקעה? <span class="required">*</span></label>
         <div class="radio-group" data-radio="monthlyInvest" data-opts="monthlyInvest"></div>
@@ -530,7 +539,7 @@
       <div class="card-title">העדפות וסיום</div>
 
       <div class="field">
-        <label>חשוב לכם שהמסלולים יהיו כשרים? <span class="required">*</span></label>
+        <label><span id="kosher-label">חשוב לכם שהמסלולים יהיו כשרים?</span> <span class="required">*</span></label>
         <div class="radio-group" data-radio="kosher" data-opts="kosher"></div>
         <div class="error-msg" id="err-kosher"></div>
       </div>
@@ -745,7 +754,7 @@
       idMode: [{ v: 'hp', t: 'אקליד ח"פ' }, { v: 'payslip', t: 'אעלה תלוש שכר מהחודשים האחרונים' }, { v: 'later', t: 'אשלח בהמשך, תזכירו לי' }],
       remind: ['מחר', 'בעוד יומיים'],
       plannedHer: [
-        { v: 'חופשת לידה', show: 'working' }, { v: 'הפסקת עבודה', show: 'working' }, { v: 'שנת שבתון', show: 'working' },
+        { v: 'חופשת לידה', show: 'working', nosingle: true }, { v: 'הפסקת עבודה', show: 'working' }, { v: 'שנת שבתון', show: 'working' },
         { v: 'מעבר עבודה', show: 'working' }, { v: 'התחלת עבודה', show: 'notworking' }, { v: 'אין', show: 'both', none: true }
       ],
       plannedSpouse: [
@@ -760,6 +769,7 @@
       weddingAge: ['18-19', '20-21', '22 ומעלה'],
       barMitzvah: ['עד 10,000 ש"ח', '10,000-25,000 ש"ח', 'מעל 25,000 ש"ח', 'לא משמעותי, לא מעוניינים לתכנן'],
       hishtalmutSimchas: ['כן', 'לא', 'עוד לא החלטנו'],
+      futureGoals: ['חתונה', 'דירה', 'רכב', 'לימודים', 'טיול חו"ל', 'כרית ביטחון לימים לא צפויים', 'העתיד שלי לטווח הארוך', 'משהו אחר'],
       monthlyInvest: ['כרגע לא', 'עד 500 ש"ח', '500-1,000 ש"ח', '1,000-2,500 ש"ח', 'מעל 2,500 ש"ח'],
       kosher: ['כן', 'לא מחייב'],
       risk: ['אלחץ, וארצה להוציא את הכסף', 'אדאג, אבל אחכה שזה יעלה', 'זה בסדר, הכסף הזה לטווח ארוך'],
@@ -767,15 +777,15 @@
       taxEmp: [
         { v: 'החלפת מקום עבודה' },
         { v: 'חל"ת', t: 'חל"ת (חופשה ללא תשלום)' },
-        { v: 'חופשת לידה מוארכת', t: 'חופשת לידה מוארכת (מעל 15 שבועות)' },
+        { v: 'חופשת לידה מוארכת', t: 'חופשת לידה מוארכת (מעל 15 שבועות)', nosingle: true },
         { v: 'קצבה מביטוח לאומי', t: 'קיבלתי קצבה מביטוח לאומי (מחלה / נכות / אחר)' },
         { v: 'לא קרה אף אחד מאלה', none: true }
       ],
       taxFamily: [
-        { v: 'נולד ילד', t: 'נולד לי ילד בשנים {YRS}' },
+        { v: 'נולד ילד', t: 'נולד לי ילד בשנים {YRS}', nosingle: true },
         { v: 'תואר אקדמי', t: 'סיימתי תואר אקדמי' },
         { v: 'ישוב מזכה', t: 'אני גרה בישוב מזכה (ספר / עדיפות לאומית)' },
-        { v: 'ועדת השמה', t: 'לילד/ה שלי יש ועדת השמה / חינוך מיוחד' },
+        { v: 'ועדת השמה', t: 'לילד/ה שלי יש ועדת השמה / חינוך מיוחד', nosingle: true },
         { v: 'מוגבלות או מחלה כרונית', t: 'יש לי מוגבלות או מחלה כרונית מוכרת' },
         { v: 'לא רלוונטי', t: 'לא רלוונטי אף אחד', none: true }
       ],
@@ -899,9 +909,11 @@
       return d.length >= 9 && d.length <= 10;
     }
     function isMarried() { return radioVal('maritalStatus') === 'נשואה'; }
+    // רווקה: לא נשאלת על ילדים ולא מעלה ספח, ובמקום החתונות של הילדים נשאלת על מה היא רוצה לחסוך
+    function isSingle() { return radioVal('maritalStatus') === 'רווקה'; }
     // מצב הילדים (עמוד 2) קובע אילו שאלות על ילדים נשאלות. בלי תשובה = שואלים הכל.
     var KIDS_YOUNG = OPT.kidsStage[0], KIDS_ADULT = OPT.kidsStage[1], KIDS_NONE = OPT.kidsStage[2];
-    function kidsStage() { return radioVal('kidsStage'); }
+    function kidsStage() { return isSingle() ? KIDS_NONE : radioVal('kidsStage'); }
     // ילד שנולד אחרי הספח, בר/בת מצווה, חיסכון לילדים בבנק: רק כשיש ילדים מתחת לגיל 18
     function askYoungKids() { var s = kidsStage(); return s !== KIDS_ADULT && s !== KIDS_NONE; }
     // חתונות, השתלמות לשמחות, אזרחות אמריקאית של הילדים: כל עוד יש ילדים שעוד לא התחתנו
@@ -915,10 +927,10 @@
 
     function normOpt(o) {
       if (typeof o === 'string') o = { v: o };
-      return { v: o.v, t: String(o.t || o.v).replace('{YRS}', YRS), none: !!o.none, show: o.show || '' };
+      return { v: o.v, t: String(o.t || o.v).replace('{YRS}', YRS), none: !!o.none, show: o.show || '', nosingle: !!o.nosingle };
     }
     function optionHtml(type, name, o, i, isChecked, extra) {
-      return '<label class="radio-option' + (o.none ? ' none' : '') + '"' + (o.show ? ' data-show="' + o.show + '"' : '') + '>' +
+      return '<label class="radio-option' + (o.none ? ' none' : '') + '"' + (o.show ? ' data-show="' + o.show + '"' : '') + (o.nosingle ? ' data-nosingle="1"' : '') + '>' +
         '<input type="' + type + '" name="' + esc(name) + '" id="' + esc(name + '_' + (i + 1)) + '" value="' + esc(o.v) + '"' +
         ' data-testid="' + esc(name + '-' + o.v) + '"' + (o.none ? ' data-exclusive="1"' : '') + (isChecked ? ' checked' : '') + (extra || '') + ' /> ' +
         esc(o.t) + '</label>';
@@ -1177,7 +1189,7 @@
 
     // ================= הצגה מותנית =================
     function refresh() {
-      var married = isMarried();
+      var married = isMarried(), single = isSingle();
 
       // עמוד 1
       show('spouse-block', married);
@@ -1190,6 +1202,8 @@
 
       // עמוד 2
       show('field-tzSpouse', married);
+      show('field-kidsStage', !single);
+      show('field-sefach', !single);
       $('kidsStage-label').textContent = married ? 'הילדים שלכם' : 'הילדים שלך';
       var stage = kidsStage();
       show('field-childAfterSefach', stage === KIDS_YOUNG);
@@ -1217,6 +1231,21 @@
       ['weddingBudgetSon', 'weddingAgeSons', 'weddingBudgetDaughter', 'weddingAgeDaughters', 'hishtalmutForSimchas']
         .forEach(function (k) { show('field-' + k, askUnmarriedKids()); });
       show('field-barMitzvahBudget', askYoungKids());
+      show('field-futureGoals', single);
+      show('field-futureGoalsText', single);
+
+      // עמוד 6
+      $('kosher-label').textContent = single ? 'חשוב לך שהמסלולים יהיו כשרים?' : 'חשוב לכם שהמסלולים יהיו כשרים?';
+
+      // אפשרויות שלא שייכות לרווקה (חופשת לידה, ילד שנולד, ועדת השמה). רץ אחרי refreshWork שקובע את data-show.
+      document.querySelectorAll('.radio-option[data-nosingle]').forEach(function (lab) {
+        if (single) {
+          lab.hidden = true;
+          var inp = lab.querySelector('input'); if (inp) inp.checked = false;
+        } else if (!lab.hasAttribute('data-show')) {
+          lab.hidden = false;
+        }
+      });
 
       // עמוד 7
       refreshTax();
@@ -1346,7 +1375,7 @@
         need(filesOf('tzHer').length > 0, 'tzHer', 'נא להעלות צילום תעודת זהות (שני הצדדים)');
         if (married) need(filesOf('tzSpouse').length > 0, 'tzSpouse', 'נא להעלות צילום תעודת זהות של בעלך (שני הצדדים)');
         need(kidsStage(), 'kidsStage');
-        need(filesOf('sefach').length > 0, 'sefach', 'נא להעלות צילום ספח');
+        if (!isSingle()) need(filesOf('sefach').length > 0, 'sefach', 'נא להעלות צילום ספח');
         var cas = askYoungKids() ? radioVal('childAfterSefach') : '';
         if (askYoungKids()) need(cas, 'childAfterSefach');
         if (cas === 'כן') {
@@ -1407,6 +1436,7 @@
         if (askUnmarriedKids()) p5 = p5.concat(['weddingBudgetSon', 'weddingAgeSons', 'weddingBudgetDaughter', 'weddingAgeDaughters', 'hishtalmutForSimchas']);
         if (askYoungKids()) p5.push('barMitzvahBudget');
         p5.forEach(function (k) { need(radioVal(k), k); });
+        if (isSingle()) need(checkVals('futureGoals').length > 0, 'futureGoals', 'נא לסמן לפחות אפשרות אחת');
       }
 
       if (n === 6) {
@@ -1519,7 +1549,9 @@
           weddingBudgetSon: ifU('weddingBudgetSon'), weddingAgeSons: ifU('weddingAgeSons'),
           weddingBudgetDaughter: ifU('weddingBudgetDaughter'), weddingAgeDaughters: ifU('weddingAgeDaughters'),
           barMitzvahBudget: young ? radioVal('barMitzvahBudget') : '', hishtalmutForSimchas: ifU('hishtalmutForSimchas'),
-          monthlyInvest: radioVal('monthlyInvest')
+          monthlyInvest: radioVal('monthlyInvest'),
+          futureGoals: isSingle() ? checkVals('futureGoals') : [],
+          futureGoalsText: isSingle() ? val('futureGoalsText') : ''
         };
         a.prefs = { kosher: radioVal('kosher'), risk: radioVal('risk'), goal: val('goal'), notes: val('notes'), declaration: checked('declaration'), cutoffDate: cutoffDate() };
       }
@@ -1560,7 +1592,7 @@
       var married = isMarried();
       add('tzHer', 'tzHer', 'ת"ז - ' + herFull());
       if (married) add('tzSpouse', 'tzSpouse', 'ת"ז בעל - ' + spouseFull());
-      add('sefach', 'sefach', 'ספח');
+      if (!isSingle()) add('sefach', 'sefach', 'ספח');
       if (askYoungKids() && radioVal('childAfterSefach') === 'כן' && !checked('birthCertNoFile')) add('birthCert', 'birthCert', 'תעודת לידה');
       if (radioVal('mortgageHas') === 'כן' && radioVal('refinance') === 'כן, בהחלט' && !checked('mortgageReport_later')) add('mortgageReport', 'mortgageReport', 'דוח יתרות משכנתא');
       persons().forEach(function (p) {

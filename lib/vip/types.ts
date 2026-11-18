@@ -104,6 +104,9 @@ export interface Simchas {
   barMitzvahBudget: string;
   hishtalmutForSimchas: string;
   monthlyInvest: string;
+  /** Single client only (since 18.11.2026): what she wants to save for, and her own words. Missing in older submissions. */
+  futureGoals?: string[];
+  futureGoalsText?: string;
 }
 
 export interface Prefs {

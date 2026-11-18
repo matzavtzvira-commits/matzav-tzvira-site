@@ -1,7 +1,7 @@
 // The questionnaire as labeled sections, shared by the HTML emails and the plain
 // text that goes to the dashboard client file. Values are raw text here.
 import type { Answers, Item, Work } from "./types";
-import { askedUnmarriedKids, askedYoungKids, fullName, isSalaried } from "./normalize";
+import { askedUnmarriedKids, askedYoungKids, fullName, isSalaried, isSingle } from "./normalize";
 import { money } from "./html";
 import { payslipLabel } from "./pending";
 
@@ -117,7 +117,7 @@ export function part1Sections(a: Answers, missingFiles: string[] = []): ViewSect
   sections.push({ title: "משכנתא", rows: mortgageRows });
 
   const docRows: ViewRow[] = [];
-  if (a.documents.kidsStage) docRows.push(r("ילדים", a.documents.kidsStage));
+  if (a.documents.kidsStage && !isSingle(a.maritalStatus)) docRows.push(r("ילדים", a.documents.kidsStage));
   if (askedYoungKids(a)) {
     docRows.push(r("נולד ילד אחרי שהספח הונפק?", a.documents.childAfterSefach));
     const nc = a.documents.newChild;
@@ -186,7 +186,14 @@ export function finalSections(a: Answers): ViewSection[] {
     const s = a.simchas;
     const rows: ViewRow[] = [];
     // Say why questions are missing, so nobody plans weddings that aren't coming.
-    if (!young) rows.push(r("ילדים", a.documents.kidsStage));
+    const single = isSingle(a.maritalStatus);
+    if (!young && !single) rows.push(r("ילדים", a.documents.kidsStage));
+    if (single) {
+      rows.push(
+        r("על מה רוצה לחסוך", (s.futureGoals || []).join(", ")),
+        r("במילים שלה (על מה, כמה, עד מתי)", s.futureGoalsText || ""),
+      );
+    }
     if (unmarried) {
       rows.push(
         r("תקציב משוער לחתונה של בן", s.weddingBudgetSon),

@@ -96,6 +96,11 @@ export function isMarried(maritalStatus: string): boolean {
   return maritalStatus === "נשואה";
 }
 
+/** A single client is not asked about children or a ספח (the form sends kidsStage = "no children" for her). */
+export function isSingle(maritalStatus: string): boolean {
+  return maritalStatus === "רווקה";
+}
+
 /** Were the young-kids questions asked (new child after the ספח, bar mitzvah, kids' bank savings)? */
 export function askedYoungKids(a: Answers): boolean {
   const s = a.documents.kidsStage;
@@ -192,6 +197,8 @@ export function normalizeAnswers(raw: unknown): Answers {
       barMitzvahBudget: str(s.barMitzvahBudget, 60),
       hishtalmutForSimchas: str(s.hishtalmutForSimchas, 60),
       monthlyInvest: str(s.monthlyInvest, 60),
+      futureGoals: strArr(s.futureGoals, 10, 60),
+      futureGoalsText: str(s.futureGoalsText),
     };
   }
   if (o.prefs) {

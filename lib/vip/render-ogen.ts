@@ -2,7 +2,7 @@
 // notification to the business with the forward instructions + call reminder.
 import type { Answers, Work } from "./types";
 import { esc, telLink } from "./html";
-import { fullName, isSalaried } from "./normalize";
+import { fullName, isSalaried, isSingle } from "./normalize";
 import { addressLine, missingChecker } from "./answers-view";
 import { capLabel, payslipLabel } from "./pending";
 import { OGEN_CC, OGEN_TO } from "./config";
@@ -34,7 +34,7 @@ export function ogenFiles(a: Answers, missingFiles: string[], attachedNames: str
   const list: Array<Omit<OgenFile, "state">> = [];
   list.push({ label: capLabel(`ת"ז - ${herFull}`), group: "id", first: a.her.firstName, employer: "" });
   if (a.spouse) list.push({ label: capLabel(`ת"ז בעל - ${spFull}`), group: "id", first: a.spouse.firstName, employer: "" });
-  list.push({ label: "ספח", group: "sefach", first: "", employer: "" });
+  if (!isSingle(a.maritalStatus)) list.push({ label: "ספח", group: "sefach", first: "", employer: "" });
   if (a.documents.childAfterSefach === "כן" && a.documents.newChild && a.documents.newChild.mode === "file") {
     list.push({ label: "תעודת לידה", group: "birth", first: "", employer: "" });
   }
