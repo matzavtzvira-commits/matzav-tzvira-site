@@ -33,13 +33,10 @@ export default function BlogIndexPage() {
       <main style={{ paddingTop: 80 }}>
         <section style={{ background: "radial-gradient(ellipse at 50% 30%, #1535B5 0%, #060D3C 65%)", padding: "96px 1.5rem 64px", textAlign: "center" }}>
           <div style={{ maxWidth: 760, margin: "0 auto" }}>
-            <p style={{ color: "#21F0B0", fontWeight: 700, fontSize: "0.9rem", letterSpacing: 1, margin: "0 0 14px" }}>פעמיים בשבוע, ישר מהתיבה</p>
             <h1 style={{ fontSize: "clamp(1.9rem, 4vw, 2.8rem)", fontWeight: 800, color: "white", lineHeight: 1.3, margin: "0 0 16px" }}>
               מאמרים
             </h1>
             <p style={{ fontSize: "1.05rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.9, margin: 0 }}>
-              בשני: מושג אחד על הכסף שלך. בחמישי: חלון קטן למה שקורה בעולם.
-              <br />
               הכל בשפה שלנו, בלי פחד ובלי מילים מפוצצות.
             </p>
           </div>
